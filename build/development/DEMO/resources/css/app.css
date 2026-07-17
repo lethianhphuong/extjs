@@ -1,0 +1,2401 @@
+/* ============================================
+   THEME VARIABLES (Light / Dark)
+   KHÔNG hardcode màu — dùng var(--theme-*)
+   ============================================ */
+:root {
+    --theme-bg-page: #f4f6fa;
+    --theme-bg-card: #ffffff;
+    --theme-bg-card-hover: #f9fafb;
+    --theme-bg-input: #ffffff;
+    --theme-text-primary: #1e293b;
+    --theme-text-secondary: #64748b;
+    --theme-text-muted: #94a3b8;
+    --theme-border: #e2e8f0;
+    --theme-border-light: #f1f5f9;
+    --theme-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --theme-shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.dark-mode {
+    --theme-bg-page: #0f172a;
+    --theme-bg-card: #1e293b;
+    --theme-bg-card-hover: #334155;
+    --theme-bg-input: #0f172a;
+    --theme-text-primary: #e2e8f0;
+    --theme-text-secondary: #94a3b8;
+    --theme-text-muted: #64748b;
+    --theme-border: #334155;
+    --theme-border-light: #1e293b;
+    --theme-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --theme-shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================
+   DASHBOARD UTILITY CLASSES
+   Dùng cho tất cả page — KHÔNG hardcode màu
+   ============================================ */
+.dash-page {
+    background: var(--theme-bg-page);
+    color: var(--theme-text-primary);
+}
+
+.dash-card {
+    background: var(--theme-bg-card);
+    border: 1px solid var(--theme-border);
+    border-radius: 8px;
+    box-shadow: var(--theme-shadow);
+}
+
+.dash-card-body {
+    background: var(--theme-bg-card);
+    border-radius: 8px;
+    box-shadow: var(--theme-shadow);
+}
+
+.dash-card-header {
+    background: var(--theme-bg-card);
+    border-bottom: none !important;
+}
+
+.dash-panel-header {
+    background: var(--theme-bg-card) !important;
+    border-bottom: 1px solid var(--theme-border) !important;
+}
+
+.dash-toolbar {
+    background: var(--theme-bg-card) !important;
+    border-top: 1px solid var(--theme-border-light) !important;
+}
+
+.dash-btn-outline {
+    background: var(--theme-bg-card);
+    color: var(--theme-text-primary);
+    border-color: var(--theme-border);
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.dash-text-primary { color: var(--theme-text-primary); }
+.dash-text-secondary { color: var(--theme-text-secondary); }
+.dash-text-muted { color: var(--theme-text-muted); }
+
+/* Dark mode overrides — force with !important to beat ExtJS defaults */
+.dark-mode .dash-card,
+.dark-mode .dash-card-body,
+.dark-mode .dash-card-header,
+.dark-mode .dash-panel-header,
+.dark-mode .dash-toolbar,
+.dark-mode .dash-btn-outline {
+    background-color: var(--theme-bg-card) !important;
+}
+
+.dark-mode .dash-card {
+    border-color: var(--theme-border) !important;
+}
+
+.dark-mode .dash-page {
+    background-color: var(--theme-bg-page) !important;
+}
+
+.dark-mode .dash-text-primary { color: var(--theme-text-primary) !important; }
+.dark-mode .dash-text-secondary { color: var(--theme-text-secondary) !important; }
+.dark-mode .dash-text-muted { color: var(--theme-text-muted) !important; }
+
+/* Override ExtJS panel body default for dashboard cards */
+.dark-mode .dash-card-body.x-panel-body,
+.dark-mode .dash-card-body.x-panel-body-default,
+.dark-mode .x-panel-body.dash-card-body,
+.dark-mode .x-panel-body-default.dash-card-body,
+.dark-mode .dash-card .x-panel-body,
+.dark-mode .dash-card .x-panel-body-default {
+    background: var(--theme-bg-card) !important;
+    background-color: var(--theme-bg-card) !important;
+    color: var(--theme-text-primary) !important;
+}
+
+/* ============================================
+   APP LAYOUT STYLES
+   ============================================ */
+
+/* --- Viewport --- */
+.sencha-dash-viewport {
+    background: #f5f5f5 !important;
+}
+
+/* ============================================
+   SIDEBAR — override theme crisp
+   ============================================ */
+#app-main > .x-region-west,
+#app-main > .x-region-west > .x-panel,
+#app-main > .x-region-west .x-panel-body,
+#app-main > .x-region-west .x-panel-body-default {
+    background: #ffffff !important;
+    border-right: 1px solid #e5e7eb !important;
+}
+
+.app-sidebar,
+.app-sidebar.x-panel,
+.app-sidebar.x-panel-default {
+    background: #ffffff !important;
+}
+
+.app-sidebar .x-panel-body,
+.app-sidebar .x-panel-body-default {
+    background: #ffffff !important;
+    padding: 0 !important;
+    overflow: auto !important;
+}
+
+/* Logo area */
+.app-sidebar .app-logo {
+    border-bottom: 1px solid #f0f0f0 !important;
+    min-height: 60px !important;
+    background: #ffffff !important;
+}
+
+/* ============================================
+   TREE LIST — full override
+   ============================================ */
+.app-sidebar .x-treelist,
+.app-sidebar .x-treelist.x-treelist {
+    background: #ffffff !important;
+}
+
+.app-sidebar .x-treelist-nav,
+.app-sidebar .x-treelist-nav.x-treelist-nav {
+    background: #ffffff !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+/* --- Item row --- */
+.app-sidebar .x-treelist .x-treelist-item-row {
+    padding: 0 12px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    border-radius: 8px !important;
+    margin: 2px 8px !important;
+    background: transparent !important;
+    border: none !important;
+    color: #475569 !important;
+    transition: background 0.15s ease !important;
+}
+
+/* --- Item text --- */
+.app-sidebar .x-treelist .x-treelist-item-text {
+    color: #475569 !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    opacity: 1 !important;
+}
+
+/* --- Item icon --- */
+.app-sidebar .x-treelist .x-treelist-item-icon {
+    color: #94a3b8 !important;
+    font-size: 15px !important;
+    opacity: 1 !important;
+}
+
+/* --- Hover --- */
+.app-sidebar .x-treelist .x-treelist-item-row:hover,
+.app-sidebar .x-treelist .x-treelist-item-row:hover + .x-treelist-item-row {
+    background: #f1f5f9 !important;
+}
+
+.app-sidebar .x-treelist .x-treelist-item-row:hover .x-treelist-item-text {
+    color: #1e293b !important;
+}
+
+.app-sidebar .x-treelist .x-treelist-item-row:hover .x-treelist-item-icon {
+    color: #64748b !important;
+}
+
+/* --- Selected --- */
+.app-sidebar .x-treelist .x-treelist-item-row.x-treelist-item-row-selected {
+    background: #22c55e !important;
+}
+
+.app-sidebar .x-treelist .x-treelist-item-row.x-treelist-item-row-selected .x-treelist-item-text {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+.app-sidebar .x-treelist .x-treelist-item-row.x-treelist-item-row-selected .x-treelist-item-icon {
+    color: #ffffff !important;
+}
+
+/* --- Group header (OVERVIEW, MANAGEMENT) --- */
+.app-sidebar .x-treelist .x-treelist-item-group > .x-treelist-item-row {
+    background: transparent !important;
+    height: 36px !important;
+    line-height: 36px !important;
+    padding: 0 20px !important;
+    margin: 12px 8px 4px !important;
+    border-radius: 0 !important;
+}
+
+.app-sidebar .x-treelist .x-treelist-item-group > .x-treelist-item-row .x-treelist-item-text {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #94a3b8 !important;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+}
+
+/* --- Group icon hidden --- */
+.app-sidebar .x-treelist .x-treelist-item-group > .x-treelist-item-row .x-treelist-item-icon {
+    display: none !important;
+}
+
+/* --- Expander arrow --- */
+.app-sidebar .x-treelist .x-treelist-item-expander {
+    color: #cbd5e1 !important;
+    font-size: 10px !important;
+}
+
+/* --- Indent --- */
+.app-sidebar .x-treelist .x-treelist-item-indent-el {
+    width: 16px !important;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+#app-main > .x-region-north,
+#app-main > .x-region-north > .x-panel {
+    background: #ffffff !important;
+    border-bottom: 1px solid #e5e7eb !important;
+}
+
+.app-header,
+.app-header.x-panel,
+.app-header.x-panel-default {
+    background: #ffffff !important;
+    border-bottom: 1px solid #e5e7eb !important;
+}
+
+.app-header .x-panel-body,
+.app-header .x-panel-body-default {
+    background: #ffffff !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.app-header .x-toolbar,
+.app-header .x-toolbar-default {
+    background: transparent !important;
+    border: none !important;
+}
+
+.app-header .x-btn,
+.app-header .x-btn-default {
+    border-radius: 8px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.app-header .x-btn:hover,
+.app-header .x-btn-over {
+    background: #f1f5f9 !important;
+}
+
+.app-header .x-btn-icon-el {
+    color: #64748b !important;
+    font-size: 16px !important;
+}
+
+/* Search field */
+.header-search-field .x-form-text,
+.header-search-field .x-form-text-default {
+    background: #f1f5f9 !important;
+    border: 1px solid transparent !important;
+    border-radius: 8px !important;
+    padding: 8px 14px !important;
+    font-size: 13px !important;
+    color: #94a3b8 !important;
+}
+
+.header-search-field .x-form-text:hover {
+    border-color: #e2e8f0 !important;
+}
+
+.header-search-field .x-form-text:focus {
+    border-color: #22c55e !important;
+    background: #ffffff !important;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1) !important;
+}
+
+/* ============================================
+   CENTER CONTENT
+   ============================================ */
+#app-main > .x-region-center,
+#app-main > .x-region-center > .x-panel,
+#app-main > .x-region-center .x-panel-body,
+#app-main > .x-region-center .x-panel-body-default {
+    background: #f5f5f5 !important;
+}
+
+#centerRegion {
+    background: #f5f5f5 !important;
+}
+
+/* ============================================
+   SPLITTER — hide it
+   ============================================ */
+.x-splitter,
+.x-splitter-default {
+    width: 0 !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+/* ============================================
+   KPI CARDS
+   ============================================ */
+.kpi-card {
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent !important;
+}
+
+.kpi-card:hover {
+    border-color: #22c55e !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+.app-sidebar ::-webkit-scrollbar {
+    width: 4px !important;
+}
+
+.app-sidebar ::-webkit-scrollbar-thumb {
+    background: #e2e8f0 !important;
+    border-radius: 4px !important;
+}
+
+.app-sidebar ::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+/* ============================================
+   GLOBAL UTILITY
+   ============================================ */
+.x-card > * {
+    transition: opacity 0.15s ease;
+}
+
+.x-grid-panel .x-header {
+    border-radius: 12px 12px 0 0;
+}
+
+.x-btn-soft-green {
+    background: #ecfdf5 !important;
+    color: #22c55e !important;
+    border: 1px solid #bbf7d0 !important;
+}
+
+.x-btn-soft-green:hover {
+    background: #dcfce7 !important;
+}
+
+.x-btn-soft-blue {
+    background: #eff6ff !important;
+    color: #3b82f6 !important;
+    border: 1px solid #bfdbfe !important;
+}
+
+.x-btn-soft-blue:hover {
+    background: #dbeafe !important;
+}
+
+.page-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 20px;
+}
+
+/* ============================================
+   SETTINGS PANEL
+   ============================================ */
+.app-settings-panel {
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12) !important;
+    border: none !important;
+    border-radius: 16px 0 0 16px !important;
+    background: #ffffff !important;
+    transition: background 0.3s, color 0.3s;
+}
+
+.app-settings-panel .x-panel-body,
+.app-settings-panel .x-panel-body-default {
+    padding: 0 !important;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Header */
+.settings-header {
+    border-bottom: 1px solid #f1f5f9 !important;
+    transition: border-color 0.3s;
+}
+
+.settings-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    transition: color 0.3s;
+}
+
+/* Section divider */
+.settings-section {
+    border-bottom: 1px solid #f1f5f9 !important;
+    transition: border-color 0.3s;
+}
+
+.settings-section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 20px;
+    transition: color 0.3s;
+}
+
+/* Badge (Nav, Presets) */
+.settings-badge {
+    display: inline-block;
+    background: #111827;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 4px;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Label */
+.settings-label {
+    font-size: 13px;
+    color: #9ca3af;
+    font-weight: 500;
+    margin-bottom: 12px;
+    margin-top: 18px;
+    transition: color 0.3s;
+}
+
+/* ============================================
+   DARK MODE
+   ============================================ */
+.dark-mode .sencha-dash-viewport,
+.dark-mode {
+    background: #0f172a !important;
+    color: #e2e8f0;
+}
+
+.dark-mode #app-main > .x-region-west,
+.dark-mode #app-main > .x-region-west > .x-panel,
+.dark-mode #app-main > .x-region-west .x-panel-body,
+.dark-mode #app-main > .x-region-west .x-panel-body-default,
+.dark-mode .app-sidebar,
+.dark-mode .app-sidebar.x-panel,
+.dark-mode .app-sidebar.x-panel-default,
+.dark-mode .app-sidebar .x-panel-body,
+.dark-mode .app-sidebar .x-panel-body-default {
+    background: #1e293b !important;
+    border-right-color: #334155 !important;
+}
+
+.dark-mode .app-sidebar .x-treelist,
+.dark-mode .app-sidebar .x-treelist.x-treelist {
+    background: #1e293b !important;
+}
+
+.dark-mode .app-sidebar .x-treelist-nav,
+.dark-mode .app-sidebar .x-treelist-nav.x-treelist-nav {
+    background: #1e293b !important;
+}
+
+.dark-mode .app-sidebar .x-treelist .x-treelist-item-row {
+    color: #94a3b8 !important;
+    background: transparent !important;
+}
+
+.dark-mode .app-sidebar .x-treelist .x-treelist-item-text {
+    color: #94a3b8 !important;
+}
+
+.dark-mode .app-sidebar .x-treelist .x-treelist-item-icon {
+    color: #64748b !important;
+}
+
+.dark-mode .app-sidebar .x-treelist .x-treelist-item-row:hover {
+    background: #334155 !important;
+}
+
+.dark-mode .app-sidebar .x-treelist .x-treelist-item-row:hover .x-treelist-item-text {
+    color: #e2e8f0 !important;
+}
+
+.dark-mode .app-sidebar .x-treelist .x-treelist-item-group > .x-treelist-item-row .x-treelist-item-text {
+    color: #64748b !important;
+}
+
+/* Header dark */
+.dark-mode #app-main > .x-region-north,
+.dark-mode #app-main > .x-region-north > .x-panel,
+.dark-mode .app-header,
+.dark-mode .app-header.x-panel,
+.dark-mode .app-header.x-panel-default {
+    background: #1e293b !important;
+    border-bottom-color: #334155 !important;
+}
+
+.dark-mode .app-header .x-panel-body,
+.dark-mode .app-header .x-panel-body-default {
+    background: #1e293b !important;
+}
+
+.dark-mode .header-search-field .x-form-text,
+.dark-mode .header-search-field .x-form-text-default {
+    background: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+.dark-mode .header-search-field .x-form-text:focus {
+    background: #1e293b !important;
+}
+
+.dark-mode .app-header .x-btn-icon-el {
+    color: #94a3b8 !important;
+}
+
+/* Center dark */
+.dark-mode #app-main > .x-region-center,
+.dark-mode #app-main > .x-region-center > .x-panel,
+.dark-mode #app-main > .x-region-center .x-panel-body,
+.dark-mode #app-main > .x-region-center .x-panel-body-default,
+.dark-mode #centerRegion {
+    background: #0f172a !important;
+}
+
+/* Panel dark */
+.dark-mode .x-panel,
+.dark-mode .x-panel-default {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+.dark-mode .x-panel-header,
+.dark-mode .x-panel-header-default {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+.dark-mode .x-panel-header-text,
+.dark-mode .x-panel-header-text-default {
+    color: #e2e8f0 !important;
+}
+
+.dark-mode .x-panel-body,
+.dark-mode .x-panel-body-default {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+}
+
+/* Grid dark */
+.dark-mode .x-grid-panel .x-header {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+.dark-mode .x-grid-header-text {
+    color: #94a3b8 !important;
+}
+
+.dark-mode .x-grid-cell,
+.dark-mode .x-grid-cell-default {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+.dark-mode .x-grid-row-alt .x-grid-cell {
+    background: #0f172a !important;
+}
+
+/* Toast dark */
+.dark-mode .x-toast {
+    background: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+/* ============================================
+   DARK MODE — FORM FIELDS
+   ============================================ */
+.dark-mode .x-form-text,
+.dark-mode .x-form-text-default,
+.dark-mode .x-form-trigger-wrap,
+.dark-mode .x-form-trigger-wrap-default {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    color: #e2e8f0 !important;
+}
+
+.dark-mode .x-form-text:hover,
+.dark-mode .x-form-trigger-wrap:hover {
+    border-color: #64748b !important;
+}
+
+.dark-mode .x-form-text:focus,
+.dark-mode .x-form-trigger-wrap-focus {
+    border-color: #22c55e !important;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.15) !important;
+}
+
+.dark-mode .x-form-trigger {
+    background: #1e293b !important;
+    border-left-color: #475569 !important;
+}
+
+.dark-mode .x-form-trigger:hover {
+    background: #334155 !important;
+}
+
+.dark-mode .x-form-trigger-arrow {
+    border-top-color: #94a3b8 !important;
+}
+
+.dark-mode .x-field-label-top,
+.dark-mode .x-form-label,
+.dark-mode .x-form-cmp-label {
+    color: #94a3b8 !important;
+}
+
+.dark-mode .x-form-empty {
+    color: #64748b !important;
+}
+
+.dark-mode .x-form-date-field .x-form-text {
+    color: #e2e8f0 !important;
+}
+
+.dark-mode .x-btn {
+    color: #e2e8f0 !important;
+}
+
+.dark-mode .x-btn-default .x-btn-inner {
+    color: #e2e8f0 !important;
+}
+
+/* ============================================
+   DARK MODE — KPI CARDS & STAT CARDS
+   ============================================ */
+.dark-mode .kpi-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+/* Catch ALL elements with white inline background */
+.dark-mode [style*="background: #ffffff"],
+.dark-mode [style*="background:#ffffff"],
+.dark-mode [style*="background: white"],
+.dark-mode [style*="background:white"],
+.dark-mode [style*="background-color: #ffffff"],
+.dark-mode [style*="background-color:#ffffff"],
+.dark-mode [style*="background-color: white"],
+.dark-mode [style*="background-color:white"] {
+    background: #1e293b !important;
+    background-color: #1e293b !important;
+}
+
+/* Also catch #fff shorthand */
+.dark-mode [style*="background: #fff"],
+.dark-mode [style*="background:#fff"],
+.dark-mode [style*="background-color: #fff"],
+.dark-mode [style*="background-color:#fff"] {
+    background: #1e293b !important;
+    background-color: #1e293b !important;
+}
+
+/* Catch light gray inline backgrounds */
+.dark-mode [style*="background: #f1f5f9"],
+.dark-mode [style*="background:#f1f5f9"],
+.dark-mode [style*="background-color: #f1f5f9"],
+.dark-mode [style*="background-color:#f1f5f9"] {
+    background: #334155 !important;
+    background-color: #334155 !important;
+}
+
+.dark-mode [style*="background: #f8f9fa"],
+.dark-mode [style*="background:#f8f9fa"],
+.dark-mode [style*="background-color: #f8f9fa"],
+.dark-mode [style*="background-color:#f8f9fa"] {
+    background: #1e293b !important;
+    background-color: #1e293b !important;
+}
+
+.dark-mode [style*="background: #f4f6fa"],
+.dark-mode [style*="background:#f4f6fa"] {
+    background: #0f172a !important;
+    background-color: #0f172a !important;
+}
+
+/* Text colors override */
+.dark-mode [style*="color: #1e293b"],
+.dark-mode [style*="color:#1e293b"],
+.dark-mode [style*="color: #1a1a2e"],
+.dark-mode [style*="color:#1a1a2e"] {
+    color: #e2e8f0 !important;
+}
+
+.dark-mode [style*="color: #0f172a"],
+.dark-mode [style*="color:#0f172a"] {
+    color: #f1f5f9 !important;
+}
+
+.dark-mode [style*="color: #1f2937"],
+.dark-mode [style*="color:#1f2937"] {
+    color: #e2e8f0 !important;
+}
+
+.dark-mode [style*="color: #334155"],
+.dark-mode [style*="color:#334155"] {
+    color: #cbd5e1 !important;
+}
+
+.dark-mode [style*="color: #64748b"],
+.dark-mode [style*="color:#64748b"] {
+    color: #94a3b8 !important;
+}
+
+.dark-mode [style*="color: #475569"],
+.dark-mode [style*="color:#475569"] {
+    color: #94a3b8 !important;
+}
+
+.dark-mode [style*="color: #888"],
+.dark-mode [style*="color:#888"] {
+    color: #94a3b8 !important;
+}
+
+.dark-mode [style*="color: #999"],
+.dark-mode [style*="color:#999"] {
+    color: #94a3b8 !important;
+}
+
+/* Box shadow override for white-background cards */
+.dark-mode [style*="box-shadow"][style*="background: #ffffff"],
+.dark-mode [style*="boxShadow"][style*="background: #ffffff"] {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ============================================
+   DARK MODE — DASHBOARD HEADER PANEL
+   ============================================ */
+.dark-mode .dashboard-header-panel {
+    background: #1e293b !important;
+}
+
+.dark-mode .dashboard-header-panel .x-panel-body {
+    background: #1e293b !important;
+}
+
+.dark-mode .x-segmented-button .x-btn {
+    background: #334155 !important;
+    border-color: #475569 !important;
+    color: #94a3b8 !important;
+}
+
+.dark-mode .x-segmented-button .x-btn-pressed {
+    background: #22c55e !important;
+    border-color: #22c55e !important;
+    color: #ffffff !important;
+}
+
+.dark-mode .x-segmented-button {
+    border-color: #475569 !important;
+}
+
+/* ============================================
+   DARK MODE — CHART PANELS
+   ============================================ */
+.dark-mode .x-panel .x-panel-body {
+    background: #1e293b !important;
+}
+
+.dark-mode .x-panel-header {
+    background: #1e293b !important;
+}
+
+.dark-mode .x-panel-header-text {
+    color: #e2e8f0 !important;
+}
+
+.dark-mode .x-chart,
+.dark-mode .x-sprite {
+    background: transparent !important;
+}
+
+/* ============================================
+   DARK MODE — CONTAINER BACKGROUNDS
+   ============================================ */
+.dark-mode .x-container {
+    color: #e2e8f0 !important;
+}
+
+.dark-mode .x-box-inner {
+    background: transparent !important;
+}
+
+.dark-mode div[style*="background-color: #f8f9fa"],
+.dark-mode div[style*="background-color:#f8f9fa"] {
+    background-color: #1e293b !important;
+}
+
+.dark-mode div[style*="background-color: #f1f5f9"],
+.dark-mode div[style*="background-color:#f1f5f9"] {
+    background-color: #334155 !important;
+}
+
+.dark-mode div[style*="background: #f8f9fa"],
+.dark-mode div[style*="background:#f8f9fa"] {
+    background: #1e293b !important;
+}
+
+.dark-mode div[style*="background: #f1f5f9"],
+.dark-mode div[style*="background:#f1f5f9"] {
+    background: #334155 !important;
+}
+
+/* ============================================
+   DARK MODE — GRID TABLE
+   ============================================ */
+.dark-mode .x-grid-body {
+    background: #1e293b !important;
+}
+
+.dark-mode .x-grid-row {
+    border-bottom-color: #334155 !important;
+}
+
+.dark-mode .x-grid-row:hover .x-grid-cell {
+    background: #334155 !important;
+}
+
+.dark-mode .x-column-header {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+.dark-mode .x-column-header-text-inner {
+    color: #94a3b8 !important;
+}
+
+.dark-mode .x-grid-footer {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+.dark-mode .x-grid-footer-text {
+    color: #94a3b8 !important;
+}
+
+/* Action column icons */
+.dark-mode .x-action-col-icon {
+    color: #94a3b8 !important;
+}
+
+.dark-mode .x-action-col-icon:hover {
+    color: #22c55e !important;
+}
+
+/* ============================================
+   DARK MODE — LABEL TEXT IN CARDS
+   ============================================ */
+.dark-mode span[style*="color: #64748b"] {
+    color: #94a3b8 !important;
+}
+
+.dark-mode span[style*="color: #888"],
+.dark-mode div[style*="color: #888"] {
+    color: #94a3b8 !important;
+}
+
+.dark-mode span[style*="font-weight: 700"][style*="color: #1f2937"] {
+    color: #e2e8f0 !important;
+}
+
+.dark-mode div[style*="color: #1a1a2e"] {
+    color: #e2e8f0 !important;
+}
+
+.dark-mode span[style*="color: #334155"] {
+    color: #e2e8f0 !important;
+}
+
+/* ============================================
+   DARK MODE — DATE PICKER
+   ============================================ */
+.dark-mode .x-datepicker {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+}
+
+.dark-mode .x-datepicker-header {
+    background: #334155 !important;
+}
+
+.dark-mode .x-datepicker-day {
+    color: #e2e8f0 !important;
+}
+
+.dark-mode .x-datepicker-month {
+    color: #e2e8f0 !important;
+}
+
+.dark-mode .x-datepicker .x-month {
+    color: #e2e8f0 !important;
+}
+
+.dark-mode .x-datepicker-inner {
+    color: #e2e8f0 !important;
+}
+
+/* ============================================
+   DARK MODE — COMBOBOX LIST
+   ============================================ */
+.dark-mode .boundlist {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+}
+
+.dark-mode .boundlist .x-list-item {
+    color: #e2e8f0 !important;
+}
+
+.dark-mode .boundlist .x-list-item:hover {
+    background: #334155 !important;
+}
+
+.dark-mode .boundlist .x-list-item-selected {
+    background: #22c55e !important;
+    color: #ffffff !important;
+}
+
+/* ============================================
+   DARK MODE — SEARCH OVERLAY
+   ============================================ */
+.dark-mode .x-mask {
+    background: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* ============================================
+   DARK MODE — SETTINGS PANEL
+   Applied via body.dark-mode and body.app-settings-body.dark-mode
+   ============================================ */
+
+/* Panel shell */
+.dark-mode .app-settings-panel,
+.app-settings-panel.dark-mode {
+    background: #1e293b !important;
+}
+
+.dark-mode .app-settings-panel .x-panel-body,
+.dark-mode .app-settings-panel .x-panel-body-default,
+.app-settings-panel.dark-mode .x-panel-body,
+.app-settings-panel.dark-mode .x-panel-body-default,
+.app-settings-body.dark-mode {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+}
+
+/* Header */
+.dark-mode .settings-header,
+.app-settings-body.dark-mode .settings-header {
+    border-bottom-color: #334155 !important;
+}
+
+.dark-mode .settings-title,
+.app-settings-body.dark-mode .settings-title {
+    color: #f1f5f9 !important;
+}
+
+/* Sections */
+.dark-mode .settings-section,
+.app-settings-body.dark-mode .settings-section {
+    border-bottom-color: #334155 !important;
+}
+
+.dark-mode .settings-section-title,
+.app-settings-body.dark-mode .settings-section-title {
+    color: #f1f5f9 !important;
+}
+
+/* Badges */
+.dark-mode .settings-badge,
+.app-settings-body.dark-mode .settings-badge {
+    background: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+/* Labels */
+.dark-mode .settings-label,
+.app-settings-body.dark-mode .settings-label {
+    color: #94a3b8 !important;
+}
+
+/* Header icon buttons */
+.dark-mode .settings-icon-btn-inner,
+.app-settings-body.dark-mode .settings-icon-btn-inner {
+    color: #94a3b8 !important;
+}
+
+.dark-mode .settings-icon-btn-inner:hover,
+.app-settings-body.dark-mode .settings-icon-btn-inner:hover {
+    background: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+/* Switch card icons */
+.dark-mode .settings-card-icon,
+.app-settings-body.dark-mode .settings-card-icon {
+    color: #64748b !important;
+}
+
+/* Switch card labels */
+.dark-mode .settings-card-label,
+.app-settings-body.dark-mode .settings-card-label {
+    color: #94a3b8 !important;
+}
+
+/* Toggle switch cards */
+.dark-mode .settings-switch-card,
+.app-settings-body.dark-mode .settings-switch-card {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+}
+
+.dark-mode .settings-switch-card:hover,
+.app-settings-body.dark-mode .settings-switch-card:hover {
+    border-color: #475569 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Toggle switch track */
+.dark-mode .settings-switch-track,
+.app-settings-body.dark-mode .settings-switch-track {
+    background: #475569 !important;
+}
+
+.dark-mode .settings-switch.on .settings-switch-track,
+.app-settings-body.dark-mode .settings-switch.on .settings-switch-track {
+    background: #22c55e !important;
+}
+
+/* Info icon */
+.dark-mode .settings-info-icon,
+.app-settings-body.dark-mode .settings-info-icon {
+    color: #475569 !important;
+}
+
+/* Layout thumbnails */
+.dark-mode .layout-thumb-box,
+.app-settings-body.dark-mode .layout-thumb-box {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+}
+
+.dark-mode .layout-thumb:hover .layout-thumb-box,
+.app-settings-body.dark-mode .layout-thumb:hover .layout-thumb-box {
+    border-color: #64748b !important;
+}
+
+.dark-mode .layout-thumb-active .layout-thumb-box,
+.app-settings-body.dark-mode .layout-thumb-active .layout-thumb-box {
+    border-color: #22c55e !important;
+}
+
+/* Layout thumbnail inner shapes */
+.dark-mode .lt-side,
+.app-settings-body.dark-mode .lt-side {
+    background: #22c55e !important;
+}
+
+.dark-mode .lt-main,
+.app-settings-body.dark-mode .lt-main {
+    background: #334155 !important;
+}
+
+.dark-mode .lt-body,
+.app-settings-body.dark-mode .lt-body {
+    background: #334155 !important;
+}
+
+.dark-mode .lt-narrow,
+.app-settings-body.dark-mode .lt-narrow {
+    background: #64748b !important;
+}
+
+/* Color buttons */
+.dark-mode .settings-color-btn,
+.app-settings-body.dark-mode .settings-color-btn {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+.dark-mode .settings-color-btn:hover,
+.app-settings-body.dark-mode .settings-color-btn:hover {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+}
+
+.dark-mode .settings-color-btn-active,
+.app-settings-body.dark-mode .settings-color-btn-active {
+    background: #052e16 !important;
+    border-color: #166534 !important;
+    color: #4ade80 !important;
+}
+
+/* Preset dots active border */
+.dark-mode .settings-preset-active > div,
+.app-settings-body.dark-mode .settings-preset-active > div {
+    border-color: #f1f5f9 !important;
+}
+
+/* Horizontal nav bar */
+.dark-mode .settings-horizontal-bar,
+.app-settings-body.dark-mode .settings-horizontal-bar {
+    background: #1e293b !important;
+    border-bottom: 1px solid #334155 !important;
+}
+
+/* Scrollbar styling for settings panel in dark mode */
+.dark-mode .app-settings-panel .x-scroll-bar,
+.app-settings-body.dark-mode ~ .x-scroll-bar {
+    background: #334155 !important;
+}
+
+/* ============================================
+   HIGH CONTRAST
+   ============================================ */
+.high-contrast .app-sidebar .x-treelist .x-treelist-item-text {
+    font-weight: 700 !important;
+}
+
+.high-contrast .app-sidebar .x-treelist .x-treelist-item-row {
+    border-left: 3px solid transparent !important;
+}
+
+.high-contrast .app-sidebar .x-treelist .x-treelist-item-row.x-treelist-item-row-selected {
+    border-left-color: #000 !important;
+}
+
+/* ============================================
+   COMPACT MODE
+   ============================================ */
+.compact-mode .app-sidebar {
+    width: 60px !important;
+}
+
+.compact-mode .app-sidebar .x-treelist-item-text {
+    display: none !important;
+}
+
+.compact-mode .app-sidebar .x-treelist .x-treelist-item-row {
+    height: 34px !important;
+    line-height: 34px !important;
+    padding: 0 !important;
+    margin: 2px 4px !important;
+    justify-content: center !important;
+}
+
+.compact-mode .app-sidebar .x-treelist .x-treelist-item-icon {
+    font-size: 16px !important;
+}
+
+.compact-mode .app-sidebar .x-treelist .x-treelist-item-group > .x-treelist-item-row {
+    display: none !important;
+}
+
+/* ============================================
+   RTL MODE
+   ============================================ */
+.rtl-mode {
+    direction: rtl;
+}
+
+.rtl-mode .app-sidebar {
+    direction: rtl;
+}
+
+.rtl-mode .app-header {
+    direction: rtl;
+}
+
+.rtl-mode .x-treelist-item-indent-el {
+    width: 0 !important;
+}
+
+/* ============================================
+   ACCENT PRESETS
+   ============================================ */
+/* Green (default) */
+.preset-green .app-sidebar .x-treelist .x-treelist-item-row.x-treelist-item-row-selected {
+    background: #22c55e !important;
+}
+
+/* Blue */
+.preset-blue .app-sidebar .x-treelist .x-treelist-item-row.x-treelist-item-row-selected {
+    background: #3b82f6 !important;
+}
+
+/* Purple */
+.preset-purple .app-sidebar .x-treelist .x-treelist-item-row.x-treelist-item-row-selected {
+    background: #8b5cf6 !important;
+}
+
+/* Red */
+.preset-red .app-sidebar .x-treelist .x-treelist-item-row.x-treelist-item-row-selected {
+    background: #ef4444 !important;
+}
+
+/* ============================================
+   SETTINGS PANEL — CLEAN OVERRIDES
+   ============================================ */
+.app-settings-panel {
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12) !important;
+    border: none !important;
+    border-radius: 16px 0 0 16px !important;
+}
+
+.app-settings-panel .x-panel-body,
+.app-settings-panel .x-panel-body-default {
+    padding: 0 !important;
+}
+
+/* ============================================
+   SETTINGS — ICON BUTTONS (header)
+   ============================================ */
+.settings-icon-btn-inner {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.settings-icon-btn-inner:hover {
+    background: #f3f4f6;
+    color: #111827;
+}
+
+/* ============================================
+   SETTINGS — CARD ICONS & LABELS
+   ============================================ */
+.settings-card-icon {
+    font-size: 15px;
+    color: #94a3b8;
+    transition: color 0.3s;
+}
+
+.settings-card-label {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 500;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.3s;
+}
+
+.settings-info-icon {
+    font-size: 11px;
+    color: #d1d5db;
+    cursor: help;
+    transition: color 0.15s;
+}
+
+.settings-info-icon:hover {
+    color: #6b7280;
+}
+
+/* ============================================
+   SETTINGS — SWITCH CARD
+   ============================================ */
+.settings-switch-card {
+    background: #f9fafb;
+    border: 1px solid #f0f0f0;
+    border-radius: 14px;
+    cursor: default;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.3s;
+}
+
+.settings-switch-card:hover {
+    border-color: #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* ============================================
+   SETTINGS — TOGGLE SWITCH
+   ============================================ */
+.settings-switch {
+    cursor: pointer;
+}
+
+.settings-switch-track {
+    width: 42px;
+    height: 24px;
+    background: #d1d5db;
+    border-radius: 12px;
+    position: relative;
+    transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.settings-switch.on .settings-switch-track {
+    background: #22c55e;
+}
+
+.settings-switch-thumb {
+    width: 18px;
+    height: 18px;
+    background: #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.settings-switch.on .settings-switch-thumb {
+    transform: translateX(18px);
+}
+
+/* ============================================
+   SETTINGS — LAYOUT THUMBNAILS
+   ============================================ */
+.layout-thumb {
+    cursor: pointer;
+    margin-right: 10px;
+    transition: transform 0.15s;
+}
+
+.layout-thumb:hover {
+    transform: scale(1.05);
+}
+
+.layout-thumb-box {
+    width: 80px;
+    height: 56px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    position: relative;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.3s;
+}
+
+.layout-thumb:hover .layout-thumb-box {
+    border-color: #9ca3af;
+}
+
+.layout-thumb-active .layout-thumb-box {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+}
+
+/* Inner layout shapes */
+.lt-side {
+    width: 12px;
+    height: 100%;
+    background: #22c55e;
+    border-radius: 3px 0 0 3px;
+    flex-shrink: 0;
+}
+
+.lt-main {
+    flex: 1;
+    height: 100%;
+    background: #e5e7eb;
+    border-radius: 0 3px 3px 0;
+    transition: background 0.3s;
+}
+
+.lt-top {
+    width: 100%;
+    height: 8px;
+    background: #d1d5db;
+    border-radius: 3px 3px 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: background 0.3s;
+}
+
+.lt-narrow {
+    width: 8px;
+    height: 100%;
+    background: #9ca3af;
+    border-radius: 3px 0 0 3px;
+    flex-shrink: 0;
+}
+
+.lt-body {
+    flex: 1;
+    height: 100%;
+    background: #f3f4f6;
+    transition: background 0.3s;
+}
+
+/* ============================================
+   SETTINGS — COLOR BUTTONS
+   ============================================ */
+.settings-color-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    margin-right: 10px;
+    transition: all 0.2s;
+    background: #f9fafb;
+    border: 1px solid #f0f0f0;
+    color: #9ca3af;
+}
+
+.settings-color-btn i {
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.settings-color-btn:hover {
+    background: #f3f4f6;
+    border-color: #e5e7eb;
+}
+
+.settings-color-btn-active {
+    background: #ecfdf5;
+    border-color: #bbf7d0;
+    color: #16a34a;
+}
+
+.settings-color-btn-active i {
+    color: #22c55e;
+}
+
+/* ============================================
+   SETTINGS — PRESET DOTS
+   ============================================ */
+.settings-preset-dot {
+    cursor: pointer;
+    margin-right: 12px;
+}
+
+.settings-preset-dot > div {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    border: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.settings-preset-dot:hover > div {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.settings-preset-active > div {
+    border-color: #111827 !important;
+    transform: scale(1.05);
+}
+
+/* ============================================
+   SETTINGS — HORIZONTAL NAV BAR
+   ============================================ */
+.settings-horizontal-bar {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.settings-horizontal-bar .x-toolbar-default {
+    background: #ffffff;
+    border: none;
+}
+
+.horizontal-nav-items {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.horizontal-nav-item {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.horizontal-nav-item:hover {
+    background: #f3f4f6;
+    color: #111827;
+}
+
+.horizontal-nav-item.active {
+    background: #ecfdf5;
+    color: #22c55e;
+    font-weight: 600;
+}
+
+.dark-mode .horizontal-nav-item {
+    color: #94a3b8;
+}
+
+.dark-mode .horizontal-nav-item:hover {
+    background: #334155;
+    color: #e2e8f0;
+}
+
+.dark-mode .horizontal-nav-item.active {
+    background: #052e16;
+    color: #4ade80;
+}
+
+/* ============================================
+   USER LIST PAGE — scoped to card
+   ============================================ */
+
+/* Title */
+.user-list-title {
+    margin: 0 !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.3px !important;
+    color: #1a1a2e !important;
+}
+
+.dark-mode .user-list-title {
+    color: #f1f5f9 !important;
+}
+
+/* ── Breadcrumb outside card ── */
+.user-list-breadcrumb {
+    color: #64748b;
+}
+
+.dark-mode .user-list-breadcrumb {
+    color: #94a3b8;
+}
+
+.dark-mode .user-list-breadcrumb span {
+    color: #94a3b8 !important;
+}
+
+.dark-mode .user-list-breadcrumb span:last-child {
+    color: #e2e8f0 !important;
+}
+
+/* Card container */
+.user-list-card.x-panel,
+.user-list-card.x-panel-default {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    border-radius: 12px !important;
+}
+
+.user-list-card .x-panel-body,
+.user-list-card .x-panel-body-default {
+    background: #1e293b !important;
+}
+
+/* ── Status Tabs ── */
+.user-list-tabs {
+    background: #1e293b !important;
+}
+
+.user-list-card .user-tab-btn.x-btn,
+.user-list-card .user-tab-btn.x-btn-default {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 2px solid transparent !important;
+    border-radius: 0 !important;
+    color: #94a3b8 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    padding: 14px 18px !important;
+    transition: color 0.15s ease, border-color 0.15s ease !important;
+    box-shadow: none !important;
+}
+
+.user-list-card .user-tab-btn.x-btn .x-btn-inner {
+    color: #94a3b8 !important;
+    font-size: 14px !important;
+}
+
+.user-list-card .user-tab-btn.x-btn:hover {
+    color: #e2e8f0 !important;
+}
+
+.user-list-card .user-tab-btn.x-btn:hover .x-btn-inner {
+    color: #e2e8f0 !important;
+}
+
+.user-list-card .user-tab-btn.user-tab-active,
+.user-list-card .user-tab-btn.user-tab-active.x-btn,
+.user-list-card .user-tab-btn.x-btn-pressed,
+.user-list-card .user-tab-btn.x-btn-pressed.x-btn {
+    border-bottom-color: #22c55e !important;
+    color: #f1f5f9 !important;
+    background: transparent !important;
+}
+
+.user-list-card .user-tab-btn.user-tab-active .x-btn-inner,
+.user-list-card .user-tab-btn.x-btn-pressed .x-btn-inner {
+    color: #f1f5f9 !important;
+    font-weight: 600 !important;
+}
+
+/* Tab badge counts (HTML-based) */
+.user-tab-count {
+    display: inline-block;
+    background: #334155;
+    color: #cbd5e1;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 7px;
+    margin-left: 6px;
+    line-height: 16px;
+    vertical-align: middle;
+}
+
+.user-tab-active .user-tab-count {
+    background: #334155;
+    color: #ffffff;
+}
+
+.user-tab-count-green {
+    background: #166534 !important;
+    color: #4ade80 !important;
+}
+
+.user-tab-count-yellow {
+    background: #92400e !important;
+    color: #fbbf24 !important;
+}
+
+.user-tab-count-red {
+    background: #991b1b !important;
+    color: #f87171 !important;
+}
+
+.user-tab-count-gray {
+    background: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+/* ── Search & Filter Fields ── */
+.user-list-card .user-search-field .x-form-text,
+.user-list-card .user-search-field .x-form-text-default {
+    background: #0f172a !important;
+    border: 1px solid #334155 !important;
+    border-radius: 8px !important;
+    color: #e2e8f0 !important;
+    padding: 8px 14px !important;
+    font-size: 13px !important;
+}
+
+.user-list-card .user-search-field .x-form-text:hover {
+    border-color: #475569 !important;
+}
+
+.user-list-card .user-search-field .x-form-text:focus {
+    border-color: #22c55e !important;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.12) !important;
+}
+
+/* Search trigger icon */
+.user-list-card .user-search-field .x-form-trigger {
+    background: #0f172a !important;
+    border-left: 1px solid #334155 !important;
+    color: #64748b !important;
+    width: 32px !important;
+}
+
+.user-list-card .user-search-field .x-form-trigger:hover {
+    background: #1a2332 !important;
+}
+
+.user-list-card .user-search-field .x-form-trigger .x-form-trigger-el {
+    color: #64748b !important;
+}
+
+.user-list-card .user-role-combo .x-form-text,
+.user-list-card .user-role-combo .x-form-text-default {
+    background: #0f172a !important;
+    border: 1px solid #334155 !important;
+    border-radius: 8px !important;
+    color: #94a3b8 !important;
+    padding: 8px 14px !important;
+    font-size: 13px !important;
+}
+
+.user-list-card .user-role-combo .x-form-text:hover {
+    border-color: #475569 !important;
+}
+
+.user-list-card .user-role-combo .x-form-trigger {
+    background: #0f172a !important;
+    border-left: 1px solid #334155 !important;
+}
+
+.user-list-card .user-role-combo .x-form-trigger-arrow {
+    border-top-color: #64748b !important;
+}
+
+/* More button */
+.user-list-card .user-more-btn.x-btn,
+.user-list-card .user-more-btn.x-btn-default {
+    background: transparent !important;
+    border: 1px solid #334155 !important;
+    border-radius: 8px !important;
+    color: #64748b !important;
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+.user-list-card .user-more-btn.x-btn:hover {
+    background: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+/* Add user button */
+.userList-add-btn.x-btn,
+.userList-add-btn.x-btn-default {
+    background: #052e16 !important;
+    color: #4ade80 !important;
+    border: 1px solid #166534 !important;
+}
+
+.userList-add-btn.x-btn:hover {
+    background: #14532d !important;
+}
+
+.userList-add-btn.x-btn .x-btn-inner {
+    color: #4ade80 !important;
+}
+
+.userList-add-btn.x-btn .x-btn-icon-el {
+    color: #4ade80 !important;
+}
+
+/* ── Grid Table (high specificity to override globals + .gridcustom) ── */
+.user-list-card .user-list-grid.x-grid-panel,
+.user-list-card .user-list-grid.x-grid-panel.x-panel {
+    background: #1e293b !important;
+    border: none !important;
+}
+
+.user-list-card .user-list-grid .x-grid-body {
+    background: #1e293b !important;
+}
+
+.user-list-card .user-list-grid .x-grid-header,
+.user-list-card .user-list-grid .x-grid-header-default {
+    background: #1e293b !important;
+    border-bottom: 1px solid #334155 !important;
+}
+
+/* Override .gridcustom green column headers from theme */
+.user-list-card .gridcustom .x-column-header,
+.user-list-card .gridcustom .x-column-header-inner,
+.user-list-card .user-list-grid .x-column-header,
+.user-list-card .user-list-grid .x-column-header-default,
+.user-list-card .user-list-grid .x-column-header-inner {
+    background-color: #1e293b !important;
+    background-image: none !important;
+    border-color: #334155 !important;
+    padding: 12px 16px !important;
+    color: #64748b !important;
+}
+
+.user-list-card .gridcustom .x-column-header .x-column-header-inner,
+.user-list-card .gridcustom .x-column-header .x-column-header-inner .x-column-header-text,
+.user-list-card .user-list-grid .x-column-header-text-inner {
+    background-color: transparent !important;
+    color: #64748b !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+}
+
+/* Override hover on column headers */
+.user-list-card .gridcustom .x-column-header-over,
+.user-list-card .user-list-grid .x-column-header-over {
+    background-color: #262f3d !important;
+}
+
+.user-list-card .gridcustom .x-column-header-over .x-column-header-inner,
+.user-list-card .user-list-grid .x-column-header-over .x-column-header-inner {
+    background-color: transparent !important;
+    color: #94a3b8 !important;
+}
+
+.user-list-card .user-list-grid .x-grid-row {
+    border-bottom: 1px solid #334155 !important;
+    background: #1e293b !important;
+    transition: background 0.12s ease !important;
+}
+
+.user-list-card .user-list-grid .x-grid-row:hover .x-grid-cell {
+    background: #262f3d !important;
+}
+
+.user-list-card .user-list-grid .x-grid-cell,
+.user-list-card .user-list-grid .x-grid-cell-default {
+    background: transparent !important;
+    border-color: transparent !important;
+    padding: 10px 16px !important;
+}
+
+/* Checkbox column */
+.user-list-card .user-check-col .x-grid-checkheader {
+    width: 18px !important;
+    height: 18px !important;
+    border-radius: 4px !important;
+    border: 1px solid #475569 !important;
+    background: transparent !important;
+}
+
+/* Action column icons */
+.user-list-card .user-list-grid .x-action-col-icon {
+    color: #475569 !important;
+    font-size: 14px !important;
+    transition: color 0.15s ease !important;
+}
+
+.user-list-card .user-list-grid .x-action-col-icon:hover {
+    color: #94a3b8 !important;
+}
+
+/* ═══════════════════════════════════════════
+   ICONS PAGE — Modern icon browser
+   ═══════════════════════════════════════════ */
+
+/* ── Search field ── */
+.icons-search-field {
+    position: relative !important;
+}
+
+.icons-search-field .x-form-text,
+.icons-search-field .x-form-text-default {
+    background: var(--theme-bg-input) !important;
+    border: 1px solid var(--theme-border) !important;
+    border-radius: 8px !important;
+    padding: 8px 40px 8px 36px !important;
+    font-size: 14px !important;
+    color: var(--theme-text-primary) !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.icons-search-field .x-form-text:hover {
+    border-color: var(--theme-text-muted) !important;
+}
+
+.icons-search-field .x-form-text:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12) !important;
+}
+
+.icons-search-field::before {
+    content: '\f002';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--theme-text-muted);
+    font-size: 14px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.icons-search-field .x-form-trigger {
+    background: transparent !important;
+    border-left: none !important;
+    width: 32px !important;
+    color: var(--theme-text-muted) !important;
+}
+
+.icons-search-field .x-form-trigger .x-form-trigger-el {
+    color: var(--theme-text-muted) !important;
+    font-size: 13px !important;
+}
+
+.icons-search-field .x-form-trigger:hover {
+    background: transparent !important;
+}
+
+/* ── Filter chips ── */
+.icon-chip {
+    background: var(--theme-bg-card) !important;
+    color: var(--theme-text-secondary) !important;
+    border: 1px solid var(--theme-border) !important;
+    border-radius: 20px !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    padding: 5px 14px !important;
+    transition: all 0.2s ease !important;
+    box-shadow: none !important;
+}
+
+.icon-chip .x-btn-inner {
+    color: var(--theme-text-secondary) !important;
+    font-size: 12px !important;
+}
+
+.icon-chip:hover {
+    background: var(--theme-bg-card-hover) !important;
+    border-color: var(--theme-text-muted) !important;
+    color: var(--theme-text-primary) !important;
+}
+
+.icon-chip:hover .x-btn-inner {
+    color: var(--theme-text-primary) !important;
+}
+
+.icon-chip-active,
+.icon-chip-active.icon-chip {
+    background: #eff6ff !important;
+    border-color: #3b82f6 !important;
+    color: #2563eb !important;
+}
+
+.icon-chip-active .x-btn-inner,
+.icon-chip-active.icon-chip .x-btn-inner {
+    color: #2563eb !important;
+}
+
+.icon-chip-active .x-btn-icon-el,
+.icon-chip-active.icon-chip .x-btn-icon-el {
+    color: #3b82f6 !important;
+}
+
+.dark-mode .icon-chip-active,
+.dark-mode .icon-chip-active.icon-chip {
+    background: rgba(59, 130, 246, 0.15) !important;
+    border-color: #60a5fa !important;
+    color: #93c5fd !important;
+}
+
+.dark-mode .icon-chip-active .x-btn-inner,
+.dark-mode .icon-chip-active.icon-chip .x-btn-inner {
+    color: #93c5fd !important;
+}
+
+.dark-mode .icon-chip-active .x-btn-icon-el,
+.dark-mode .icon-chip-active.icon-chip .x-btn-icon-el {
+    color: #60a5fa !important;
+}
+
+/* ── Gallery container ── */
+.icons-gallery {
+    padding: 0 !important;
+}
+
+.icons-gallery .icons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
+    padding: 4px;
+}
+
+/* ── Icon card ── */
+.icons-gallery .icon-card {
+    background: var(--theme-bg-card);
+    border: 1px solid var(--theme-border-light);
+    border-radius: 12px;
+    padding: 16px 6px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+.icons-gallery .icon-card:hover {
+    border-color: #3b82f6;
+    background: var(--theme-bg-card-hover);
+    box-shadow: 0 8px 24px -4px rgba(59, 130, 246, 0.2);
+    transform: translateY(-4px);
+}
+
+/* Copy success animation */
+.icons-gallery .icon-card-copied,
+.icons-gallery .icon-card.icon-card-copied {
+    border-color: #22c55e !important;
+    background: #f0fdf4 !important;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2), 0 8px 24px -4px rgba(34, 197, 94, 0.25) !important;
+    transform: translateY(-4px) scale(1.02) !important;
+}
+
+.dark-mode .icons-gallery .icon-card-copied,
+.dark-mode .icons-gallery .icon-card.icon-card-copied {
+    background: rgba(34, 197, 94, 0.1) !important;
+    border-color: #4ade80 !important;
+}
+
+.icons-gallery .icon-card-copied .icon-preview {
+    color: #22c55e !important;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%) !important;
+    transform: scale(1.15) !important;
+}
+
+.dark-mode .icons-gallery .icon-card-copied .icon-preview {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.2) 100%) !important;
+}
+
+.icons-gallery .icon-card-copied .icon-name {
+    color: #16a34a !important;
+}
+
+.icons-gallery .icon-card-copied .icon-copy-hint {
+    opacity: 1 !important;
+    color: #22c55e !important;
+}
+
+.icons-gallery .icon-card-copied .icon-copy-hint i {
+    color: #22c55e !important;
+}
+
+/* Icon preview */
+.icons-gallery .icon-preview {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, var(--theme-bg-page) 0%, var(--theme-border-light) 100%);
+    border-radius: 12px;
+    font-size: 22px;
+    color: var(--theme-text-primary);
+    margin-bottom: 8px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.icons-gallery .icon-card:hover .icon-preview {
+    color: #3b82f6;
+    background: linear-gradient(145deg, #eff6ff 0%, #dbeafe 100%);
+    transform: scale(1.12);
+}
+
+.dark-mode .icons-gallery .icon-card:hover .icon-preview {
+    background: linear-gradient(145deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.2) 100%);
+}
+
+/* Icon name */
+.icons-gallery .icon-name {
+    font-size: 10.5px;
+    color: var(--theme-text-primary);
+    font-weight: 600;
+    line-height: 1.3;
+    max-height: 28px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-word;
+    transition: color 0.2s ease;
+}
+
+/* Copy hint (shown on hover) */
+.icons-gallery .icon-copy-hint {
+    font-size: 9px;
+    color: var(--theme-text-muted);
+    margin-top: 4px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.icons-gallery .icon-copy-hint i {
+    font-size: 9px;
+    color: var(--theme-text-muted);
+}
+
+.icons-gallery .icon-card:hover .icon-copy-hint {
+    opacity: 1;
+}
+
+/* Group badge */
+.icons-gallery .icon-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 7px;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    z-index: 1;
+    font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+}
+
+.icons-gallery .icon-badge.badge-solid {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.icons-gallery .icon-badge.badge-regular {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+.icons-gallery .icon-badge.badge-brands {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.dark-mode .icons-gallery .icon-badge.badge-solid {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+}
+
+.dark-mode .icons-gallery .icon-badge.badge-regular {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+}
+
+.dark-mode .icons-gallery .icon-badge.badge-brands {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+}
+
+/* Count badge */
+.icons-count-badge {
+    display: inline-block;
+    background: var(--theme-bg-card);
+    border: 1px solid var(--theme-border);
+    color: var(--theme-text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+/* Empty state */
+.icons-gallery .icons-empty {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--theme-text-muted);
+    font-size: 14px;
+    width: 100%;
+}
+
+.icons-empty-icon {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--theme-bg-card);
+    border: 1px solid var(--theme-border-light);
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    font-size: 28px;
+    color: var(--theme-text-muted);
+}
+
+.icons-empty-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--theme-text-secondary);
+    margin-bottom: 6px;
+}
+
+.icons-empty-hint {
+    font-size: 13px;
+    color: var(--theme-text-muted);
+}
+
+/* Gallery scrollbar */
+.icons-gallery .x-scroll-bar vertical,
+.icons-gallery::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+.icons-gallery .x-scroll-bar-thumb,
+.icons-gallery::-webkit-scrollbar-thumb {
+    border-radius: 3px !important;
+    background: var(--theme-border) !important;
+}
+
+/* ============================================
+   TIMELINE (LichSuToTrinh popup)
+   ============================================ */
+
+/* ── Container ── */
+.lt-timeline {
+    position: relative;
+    padding: 8px 0 8px 36px;
+}
+
+/* ── Vertical line ── */
+.lt-timeline::before {
+    content: '';
+    position: absolute;
+    left: 13px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: #d1d5db;
+    border-radius: 1px;
+    z-index: 0;
+}
+
+/* ── Each item ── */
+.lt-item {
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.lt-item:last-child {
+    padding-bottom: 0;
+}
+
+/* ── Dot ── */
+.lt-dot {
+    position: absolute;
+    left: -30px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.lt-dot-ok {
+    background: #16a34a;
+}
+
+.lt-dot-warn {
+    background: #ef4444;
+}
+
+/* ── Card ── */
+.lt-card {
+    background: var(--theme-bg-card, #fff);
+    border: 1px solid var(--theme-border-light, #f1f5f9);
+    border-radius: 8px;
+    padding: 12px 16px;
+    transition: background 0.15s;
+}
+
+/* ── Header: title + time ── */
+.lt-hdr {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+}
+
+.lt-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--theme-text-primary, #1e293b);
+    line-height: 1.4;
+}
+
+.lt-time {
+    font-size: 12px;
+    color: var(--theme-text-muted, #94a3b8);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ── Person ── */
+.lt-person {
+    font-size: 13px;
+    color: var(--theme-text-secondary, #64748b);
+    margin-top: 2px;
+}
+
+.lt-role {
+    color: var(--theme-text-muted, #94a3b8);
+}
+
+/* ── Status badge ── */
+.lt-badge {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+.lt-badge-ok {
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+.lt-badge-warn {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.lt-badge-old {
+    opacity: 0.7;
+}
+
+/* ── Description ── */
+.lt-desc {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--theme-text-secondary, #475569);
+    line-height: 1.65;
+}
+
+/* ── Hover ── */
+.lt-item-over .lt-card {
+    background: var(--theme-bg-card-hover, #f9fafb);
+}
+
+/* ── Hover ── */
+.lt-timeline-item-over .lt-timeline-content {
+    background: var(--theme-bg-card-hover, #f9fafb);
+}

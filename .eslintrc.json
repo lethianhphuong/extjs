@@ -1,0 +1,51 @@
+{
+	"env": {
+		"browser": true,
+		"es6": true
+	},
+	"parserOptions": {
+		"ecmaVersion": 2020,
+		"sourceType": "script"
+	},
+	"rules": {
+		"no-unused-vars": "warn",
+		"no-undef": "error",
+		"no-var": "error",
+		"quotes": [
+			"warn",
+			"single"
+		],
+		"comma-dangle": [
+			"warn",
+			"never"
+		],
+		"semi": [
+			"warn",
+			"always"
+		]
+	},
+	"globals": {
+		"Ext": "readonly",
+		"axios": "readonly",
+		"flatpickr": "readonly",
+		"L": "readonly",
+		"maplibregl": "readonly",
+		"DEMO": "readonly",
+		"vgca_sign_approved": "readonly",
+		"vgca_sign_income": "readonly",
+		"vgca_comment": "readonly",
+		"vgca_sign_appendix": "readonly",
+		"vgca_sign_copy": "readonly",
+		"config": "readonly",
+		"common": "readonly",
+		"commonBieuMau": "readonly",
+		"commonDoiTuong": "readonly",
+		"commonHoSo": "readonly",
+		"commonCbb": "readonly",
+		"notiCommon": "readonly",
+		"constant": "readonly",
+		"constantHoSo": "readonly",
+		"trangThai": "readonly",
+		"GenDong": "readonly"
+	}
+}
