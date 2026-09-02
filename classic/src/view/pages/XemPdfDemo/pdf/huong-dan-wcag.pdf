@@ -1,0 +1,167 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> /Annots [6 0 R 7 0 R] >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Length 1489 >>
+stream
+BT
+/F1 18 Tf
+0 0 0 rg
+50 780 Td
+(Huong dan WCAG 2.1 cho PDF) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 720 Td
+(Nhom 1: Cac yeu cau co ban) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 700 Td
+(  1.1.1 Noi dung khong phu thuoc (Non-text Content)) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 680 Td
+(  1.3.1 Cau truc va thong tin (Info and Relationships)) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 660 Td
+(  1.4.1 Su dung mau sac (Use of Color)) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 640 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 620 Td
+(Nhom 2: Cac yeu cau mo rong) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 600 Td
+(  2.1.1 Ban phim (Keyboard)) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 580 Td
+(  2.4.1 Bo qua cac phan lap (Bypass Blocks)) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 560 Td
+(  2.4.2 Tieu de trang (Page Titled)) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 540 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 520 Td
+(Nhom 3: Cac yeu cau toi thieu) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 500 Td
+(  3.1.1 Ngon ngu cua trang (Language of Page)) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 480 Td
+(  3.2.1 Khi focus (On Focus)) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 460 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 440 Td
+(Xem chi tiet tai:) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0.8 rg
+50 5 Ts
+50 420 Td
+(  https://www.w3.org/TR/WCAG21/) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0.8 rg
+50 5 Ts
+50 400 Td
+(  https://www.w3.org/WAI/WCAG21/Techniques/pdf/) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 380 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 360 Td
+(Tai lieu nay huong dan cach tao file PDF) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 340 Td
+(phu hop voi tieu chuan WCAG 2.1 muc Level AA.) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Annot /Subtype /Link /Rect [48 417 550 434] /Border [0 0 1] /C [0 0 0.8] /A << /URI (https://www.w3.org/TR/WCAG21/) /S /URI >> >>
+endobj
+7 0 obj
+<< /Type /Annot /Subtype /Link /Rect [48 397 550 414] /Border [0 0 1] /C [0 0 0.8] /A << /URI (https://www.w3.org/WAI/WCAG21/Techniques/pdf/) /S /URI >> >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000333 00000 n 
+0000000263 00000 n 
+0000001874 00000 n 
+0000002029 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+2200
+%%EOF

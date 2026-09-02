@@ -14,10 +14,11 @@ Ext.define('DEMO.view.pages.ToTrinh.ToTrinh_ViewModel', {
 
     stores: {
         toTrinhStore: {
-            fields: ['stt', 'soVanBan', 'tenVanBan', 'maVuAn', 'loaiVanBan', 'vanBanTongThuc', 'canBoTao', 'ngayTao', 'lanhDaoXuLy', 'noiDungChinhSua', 'trangThai', 'trangThaiKey'],
+            fields: ['stt', 'danhDau', 'soVanBan', 'tenVanBan', 'maVuAn', 'loaiVanBan', 'vanBanTongThuc', 'canBoTao', 'ngayTao', 'lanhDaoXuLy', 'noiDungChinhSua', 'trangThai', 'trangThaiKey'],
             data: [
                 {
                     stt: 1,
+                    danhDau: true,
                     soVanBan: 'DX-2025-0041',
                     tenVanBan: 'Đề xuất gia hạn thời hạn điều tra vụ án hình sự liên quan đến vi phạm quy định về phòng ngừa, ứng phó, khắc phục sự cố môi trường',
                     maVuAn: 'VA-2025-0018',
@@ -32,6 +33,7 @@ Ext.define('DEMO.view.pages.ToTrinh.ToTrinh_ViewModel', {
                 },
                 {
                     stt: 2,
+                    danhDau: false,
                     soVanBan: 'DX-2025-0039',
                     tenVanBan: 'Đề xuất áp dụng biện pháp...',
                     maVuAn: 'VA-2025-0015',
@@ -46,6 +48,7 @@ Ext.define('DEMO.view.pages.ToTrinh.ToTrinh_ViewModel', {
                 },
                 {
                     stt: 3,
+                    danhDau: true,
                     soVanBan: 'DX-2025-0037',
                     tenVanBan: 'Đề xuất trung cầu giám định...',
                     maVuAn: 'VA-2025-0012',
@@ -60,6 +63,7 @@ Ext.define('DEMO.view.pages.ToTrinh.ToTrinh_ViewModel', {
                 },
                 {
                     stt: 4,
+                    danhDau: false,
                     soVanBan: 'DX-2025-0034',
                     tenVanBan: 'Đề xuất ý kiến VKS và k...',
                     maVuAn: 'VV-2025-0088',
@@ -74,6 +78,7 @@ Ext.define('DEMO.view.pages.ToTrinh.ToTrinh_ViewModel', {
                 },
                 {
                     stt: 5,
+                    danhDau: true,
                     soVanBan: 'DX-2025-0031',
                     tenVanBan: 'Đề xuất ủy thác điều tra địa...',
                     maVuAn: 'VA-2025-0009',

@@ -1,0 +1,247 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R 8 0 R 11 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Contents 5 0 R /Resources << /Font << /F1 3 0 R >> >> /Annots [6 0 R 7 0 R] >>
+endobj
+5 0 obj
+<< /Length 699 >>
+stream
+BT
+/F1 18 Tf
+0 0 0 rg
+50 780 Td
+(Huong dan WCAG 2.1 - Trang 1) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 720 Td
+(Nhom 1: Cac yeu cau co ban) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 700 Td
+(  1.1.1 Noi dung khong phu thuoc) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 680 Td
+(  1.3.1 Cau truc va thong tin) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 660 Td
+(  1.4.1 Su dung mau sac) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 640 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 620 Td
+(Xem chi tiet tai:) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0.8 rg
+50 600 Td
+(  https://www.w3.org/TR/WCAG21/) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 580 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 560 Td
+(Mo popup xem file khac:) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0.8 rg
+50 540 Td
+(  resources/pdf/hop-dong-dich-vu.pdf) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Contents 9 0 R /Resources << /Font << /F1 3 0 R >> >> /Annots [10 0 R] >>
+endobj
+9 0 obj
+<< /Length 517 >>
+stream
+BT
+/F1 18 Tf
+0 0 0 rg
+50 780 Td
+(Huong dan WCAG 2.1 - Trang 2) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 720 Td
+(Nhom 2: Cac yeu cau mo rong) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 700 Td
+(  2.1.1 Ban phim (Keyboard)) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 680 Td
+(  2.4.1 Bo qua cac phan lap) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 660 Td
+(  2.4.2 Tieu de trang) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 640 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 620 Td
+(Mo popup xem bao cao:) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0.8 rg
+50 600 Td
+(  resources/pdf/bao-cao-tai-chinh.pdf) Tj
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Contents 12 0 R /Resources << /Font << /F1 3 0 R >> >> /Annots [13 0 R] >>
+endobj
+12 0 obj
+<< /Length 680 >>
+stream
+BT
+/F1 18 Tf
+0 0 0 rg
+50 780 Td
+(Huong dan WCAG 2.1 - Trang 3) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 720 Td
+(Nhom 3: Cac yeu cau toi thieu) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 700 Td
+(  3.1.1 Ngon ngu cua trang) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 680 Td
+(  3.2.1 Khi focus) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 660 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 640 Td
+(Ket luan:) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 620 Td
+(  Tai lieu huong dan tao file PDF) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 600 Td
+(  phu hop WCAG 2.1 Level AA.) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 580 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 560 Td
+(Mo popup xem hop dong:) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0.8 rg
+50 540 Td
+(  resources/pdf/hop-dong-dich-vu.pdf) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Annot /Subtype /Link /Rect [48 597 550 614] /Border [0 0 1] /C [0 0 0.8] /A << /URI (https://www.w3.org/TR/WCAG21/) /S /URI >> >>
+endobj
+7 0 obj
+<< /Type /Annot /Subtype /Link /Rect [48 537 550 554] /Border [0 0 1] /C [0 0 0.8] /A << /URI (resources/pdf/hop-dong-dich-vu.pdf) /S /URI >> >>
+endobj
+10 0 obj
+<< /Type /Annot /Subtype /Link /Rect [48 597 550 614] /Border [0 0 1] /C [0 0 0.8] /A << /URI (resources/pdf/bao-cao-tai-chinh.pdf) /S /URI >> >>
+endobj
+13 0 obj
+<< /Type /Annot /Subtype /Link /Rect [48 537 550 554] /Border [0 0 1] /C [0 0 0.8] /A << /URI (resources/pdf/hop-dong-dich-vu.pdf) /S /URI >> >>
+endobj
+xref
+0 14
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000128 00000 n 
+0000000198 00000 n 
+0000000346 00000 n 
+0000002684 00000 n 
+0000002839 00000 n 
+0000001096 00000 n 
+0000001239 00000 n 
+0000002999 00000 n 
+0000001807 00000 n 
+0000001952 00000 n 
+0000003161 00000 n 
+trailer
+<< /Size 14 /Root 1 0 R >>
+startxref
+3322
+%%EOF

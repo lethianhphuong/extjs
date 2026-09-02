@@ -33,7 +33,9 @@ Ext.define('DEMO.view.main.MainModel', {
                 'blog': 'Blog',
                 'to-trinh': 'Tờ Trình',
                 'icons': 'Icons',
-                'test-noti': 'Test NotiCommon'
+                'xem-pdf-demo': 'Xem PDF Demo',
+                'test-noti': 'Test NotiCommon',
+                'upload-file-demo': 'Upload File Demo'
             };
             return map[get('currentView')] || 'Dashboard';
         }
@@ -115,7 +117,9 @@ Ext.define('DEMO.view.main.MainModel', {
                         expanded: true,
                         selectable: false,
                         children: [
-                            { text: 'Test NotiCommon', iconCls: 'x-fa fa-bell-o', route: 'test-noti', component: 'TestNoti_View', leaf: true }
+                            { text: 'Xem PDF Demo', iconCls: 'x-fa fa-file-pdf-o', route: 'xem-pdf-demo', component: 'XemPdfDemo_View', leaf: true },
+                            { text: 'Test NotiCommon', iconCls: 'x-fa fa-bell-o', route: 'test-noti', component: 'TestNoti_View', leaf: true },
+                            { text: 'Upload File Demo', iconCls: 'x-fa fa-cloud-upload', route: 'upload-file-demo', component: 'UploadFileDemo_View', leaf: true }
                         ]
                     }
                 ]

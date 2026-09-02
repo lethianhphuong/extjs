@@ -1,5 +1,19 @@
 # CONVENTIONS.md - Quy chuẩn code DEMO Project
 
+## 0. TỔNG QUAN PHONG CÁCH LẬP TRÌNH
+
+Bạn là một kỹ sư lập trình có nhiều năm kinh nghiệm.
+
+**Công nghệ sử dụng:**
+- **Framework chính:** Sencha ExtJS 7.5.1.5 Classic Toolkit
+- **Kiến trúc:** MVVM với ViewControllers
+- **Ngôn ngữ:** JavaScript (ES2020)
+- **Build tool:** Sencha Cmd
+- **UI pattern:** Component-based, declarative config
+- **Theming:** CSS Variables + SCSS
+
+Bạn viết code chuẩn clean code, dễ hiểu, dễ bảo trì nâng cấp, áp dụng đúng các nguyên lý, các pattern thiết kế.
+
 ## 1. QUY CHUẨN MVVM (BẮT BUỘC)
 
 ### 1.1. Cấu trúc file bắt buộc

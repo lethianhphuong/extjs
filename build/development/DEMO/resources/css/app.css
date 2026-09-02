@@ -2399,3 +2399,722 @@
 .lt-timeline-item-over .lt-timeline-content {
     background: var(--theme-bg-card-hover, #f9fafb);
 }
+
+/* ============================================
+   DASHBOARD V2 — Welcome Hero Card
+   ============================================ */
+.dash-hero-card,
+.dash-hero-card.x-panel,
+.dash-hero-card.x-panel-default {
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1a2744 100%) !important;
+    color: #ffffff;
+    box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.2);
+    height: 100% !important;
+    border: 1px solid #334155 !important;
+}
+
+.dash-hero-card .x-panel-body,
+.dash-hero-card .x-panel-body-default {
+    background: transparent !important;
+    background-color: transparent !important;
+    padding: 32px !important;
+    position: relative !important;
+}
+
+.dash-hero-card .dash-hero-greeting {
+    font-size: 14px;
+    color: #94a3b8;
+    font-weight: 500;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+}
+
+.dash-hero-card .dash-hero-name {
+    font-size: 26px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 12px;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.dash-hero-card .dash-hero-desc {
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.6;
+    max-width: 380px;
+    margin-bottom: 24px;
+    white-space: normal;
+}
+
+.dash-hero-cta {
+    display: inline-block;
+    background: #22c55e;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+    width: fit-content;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+}
+
+.dash-hero-cta:hover {
+    background: #16a34a;
+    transform: translateY(-1px);
+}
+
+.dash-hero-illustration {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    height: 200px;
+    opacity: 0.85;
+    z-index: 1;
+}
+
+/* Decorative bubbles */
+.dash-hero-card::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(34, 197, 94, 0.08);
+    pointer-events: none;
+}
+
+.dash-hero-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    right: 100px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.06);
+    pointer-events: none;
+}
+
+.dark-mode .dash-hero-card {
+    box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================
+   DASHBOARD V2 — Featured App Card
+   ============================================ */
+.dash-featured-card,
+.dash-featured-card.x-panel,
+.dash-featured-card.x-panel-default {
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    color: #ffffff;
+    box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.2);
+    height: 100% !important;
+    border: 1px solid #334155 !important;
+}
+
+.dash-featured-card .x-panel-body,
+.dash-featured-card .x-panel-body-default {
+    background: transparent !important;
+    background-color: transparent !important;
+    padding: 24px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.dash-featured-gradient-old {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4c1d95 100%);
+}
+
+.dash-featured-gradient-2 {
+    background: linear-gradient(135deg, #0c4a6e 0%, #075985 40%, #0369a1 100%);
+}
+
+.dash-featured-gradient-3 {
+    background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 40%, #b91c1c 100%);
+}
+
+.dash-featured-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: #4ade80;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.dash-featured-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.3;
+    margin-bottom: 6px;
+}
+
+.dash-featured-desc {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
+}
+
+.dash-featured-nav {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 6px;
+}
+
+.dash-featured-nav-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 14px;
+}
+
+.dash-featured-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.dash-featured-dots {
+    position: absolute;
+    top: 20px;
+    left: 24px;
+    display: flex;
+    gap: 6px;
+}
+
+.dash-featured-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: background 0.2s;
+}
+
+.dash-featured-dot-active {
+    background: #22c55e;
+}
+
+/* ============================================
+   DASHBOARD V2 — KPI Cards
+   ============================================ */
+.dash-kpi-card {
+    background: var(--theme-bg-card) !important;
+    border: 1px solid var(--theme-border) !important;
+    border-radius: 12px !important;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--theme-shadow) !important;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    overflow: hidden;
+}
+
+.dash-kpi-card:hover {
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.dark-mode .dash-kpi-card {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .dash-kpi-card:hover {
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+}
+
+.dash-kpi-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--theme-text-secondary);
+    margin-bottom: 8px;
+}
+
+.dash-kpi-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dash-kpi-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--theme-text-primary);
+    line-height: 1;
+}
+
+.dash-kpi-sparkline {
+    width: 120px;
+    height: 40px;
+}
+
+.dash-kpi-sparkline-bar {
+    display: inline-block;
+    width: 8px;
+    border-radius: 2px;
+    margin-right: 3px;
+    vertical-align: bottom;
+    transition: height 0.3s ease;
+}
+
+.dash-kpi-trend {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.dash-kpi-trend-up {
+    color: #10b981;
+}
+
+.dash-kpi-trend-down {
+    color: #ef4444;
+}
+
+.dash-kpi-trend-period {
+    color: var(--theme-text-muted);
+    font-weight: 400;
+}
+
+/* ============================================
+   DASHBOARD V2 — Chart Panels
+   ============================================ */
+.dash-chart-panel {
+    background: var(--theme-bg-card) !important;
+    border: 1px solid var(--theme-border) !important;
+    border-radius: 12px !important;
+    padding: 24px;
+    box-shadow: var(--theme-shadow) !important;
+}
+
+.dark-mode .dash-chart-panel {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+.dash-chart-header {
+    margin-bottom: 16px;
+}
+
+.dash-chart-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--theme-text-primary);
+    margin-bottom: 2px;
+}
+
+.dash-chart-subtitle {
+    font-size: 12px;
+    color: var(--theme-text-secondary);
+}
+
+.dash-chart-year-combo {
+    float: right;
+    margin-top: -28px;
+}
+
+/* Donut center text */
+.dash-donut-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+}
+
+.dash-donut-center-value {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--theme-text-primary);
+}
+
+.dash-donut-center-label {
+    font-size: 11px;
+    color: var(--theme-text-secondary);
+}
+
+/* Legend for donut */
+.dash-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+    justify-content: center;
+}
+
+.dash-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--theme-text-secondary);
+}
+
+.dash-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+/* ============================================
+   DASHBOARD V2 — Responsive
+   ============================================ */
+@media (max-width: 1200px) {
+    .dash-hero-illustration {
+        display: none;
+    }
+}
+
+@media (max-width: 900px) {
+    .dash-hero-card {
+        min-height: 240px;
+        padding: 24px;
+    }
+
+    .dash-featured-card {
+        min-height: 240px;
+    }
+}
+
+/* ============================================
+   PDF.JS — Text & Annotation Layers
+   Dùng cho PdfViewerWindow render PDF
+   ============================================ */
+
+.textLayer {
+    position: absolute;
+    text-align: initial;
+    inset: 0;
+    overflow: hidden;
+    opacity: 0.25;
+    line-height: 1.0;
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    text-size-adjust: none;
+    force-color-adjust: none;
+    transform-origin: 0 0;
+    z-index: 3;
+}
+
+.textLayer span,
+.textLayer br {
+    color: transparent;
+    position: absolute;
+    white-space: pre;
+    transform-origin: 0% 0%;
+    z-index: 3;
+}
+
+.textLayer span::selection {
+    background: rgba(0, 0, 255, 0.25);
+}
+
+.textLayer .highlight {
+    margin: -1px;
+    padding: 1px;
+    background-color: rgba(180, 0, 170, 0.2);
+    border-radius: 4px;
+}
+
+.textLayer .highlight.selected {
+    background-color: rgba(0, 100, 0, 0.2);
+}
+
+.annotationLayer {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+}
+
+.annotationLayer .linkAnnotation,
+.annotationLayer .buttonWidgetAnnotation {
+    position: absolute;
+    cursor: pointer;
+}
+
+.annotationLayer .linkAnnotation > a,
+.annotationLayer .buttonWidgetAnnotation > a {
+    position: absolute;
+    font-size: 1px;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    color: transparent;
+    text-decoration: none;
+}
+
+.annotationLayer .linkAnnotation > a:hover,
+.annotationLayer .buttonWidgetAnnotation > a:hover {
+    background: rgba(255, 200, 0, 0.2);
+}
+
+.annotationLayer .linkAnnotation > a:focus {
+    outline: 2px solid rgba(0, 0, 255, 0.4);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   PDF VIEWER — Dark Theme (pdfv2)
+   ============================================ */
+
+/* ── Window ──────────────────────────────────── */
+.pdfv2 {
+    border-radius: 0 !important;
+    overflow: hidden !important;
+    border: none !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* ── Header (dark, merged with toolbar) ─────── */
+.pdfv2 .x-window-header-default {
+    background: #111827 !important;
+    border-bottom: none !important;
+    padding: 0 !important;
+    min-height: 40px !important;
+}
+
+.pdfv2 .x-window-header-default .x-window-header-text-container {
+    text-align: left !important;
+}
+
+.pdfv2 .x-window-header-text {
+    color: #e5e7eb !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    padding: 0 16px !important;
+    line-height: 40px !important;
+    text-align: left !important;
+}
+
+.pdfv2 .x-window-header-tools .x-btn .x-btn-icon-el {
+    color: #6b7280 !important;
+}
+
+.pdfv2 .x-window-header-tools .x-btn:hover .x-btn-icon-el {
+    color: #e5e7eb !important;
+}
+
+/* ── Toolbar (seamless below header) ─────────── */
+.pdfv2 .x-toolbar-default {
+    background: #1f2937 !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    padding: 6px 16px !important;
+    min-height: 42px !important;
+}
+
+/* Toolbar buttons — flat, minimal */
+.pdfv2 .x-toolbar-default .x-btn.pdfv2-tbar-btn {
+    border: none !important;
+    border-radius: 4px !important;
+    background: transparent !important;
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0 !important;
+    min-width: 32px !important;
+}
+
+.pdfv2 .x-toolbar-default .x-btn.pdfv2-tbar-btn:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.pdfv2 .x-toolbar-default .x-btn.pdfv2-tbar-btn:active {
+    background: rgba(255, 255, 255, 0.12) !important;
+}
+
+.pdfv2 .x-toolbar-default .x-btn.pdfv2-tbar-btn .x-btn-icon-el {
+    color: #9ca3af !important;
+    font-size: 14px !important;
+}
+
+.pdfv2 .x-toolbar-default .x-btn.pdfv2-tbar-btn:hover .x-btn-icon-el {
+    color: #e5e7eb !important;
+}
+
+/* Toolbar spacer — pushes zoom to center */
+.pdfv2-tbar-spacer {
+    width: 40px !important;
+}
+
+/* Page info — right-aligned text */
+.pdfv2-tbar-page {
+    color: #f9fafb !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    padding: 0 4px !important;
+    white-space: nowrap !important;
+    font-variant-numeric: tabular-nums !important;
+}
+
+/* ── Sidebar ─────────────────────────────────── */
+.pdfv2 .pdfv2-sidebar {
+    background: #1f2937 !important;
+    border-right: 1px solid #374151 !important;
+}
+
+.pdfv2 .pdfv2-sidebar .x-panel-body {
+    background: #1f2937 !important;
+    padding: 12px 10px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    text-align: center !important;
+}
+
+/* ── Content area ────────────────────────────── */
+.pdfv2 .pdfv2-content {
+    background: #6b7280 !important;
+}
+
+/* ── Scroll container ────────────────────────── */
+.pdfv2-scroll {
+    overflow: auto;
+    height: 100%;
+    text-align: center;
+    padding: 20px 0;
+    background: #6b7280;
+}
+
+/* ── Loading / Error ─────────────────────────── */
+.pdfv2-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: #d1d5db;
+    font-size: 14px;
+}
+
+.pdfv2-error {
+    text-align: center;
+    padding: 60px 20px;
+    color: #f87171;
+    font-size: 14px;
+}
+
+.pdfv2-error i {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+/* ── Thumbnails ──────────────────────────────── */
+.pdfv2-thumb {
+    display: inline-block;
+    text-align: center;
+    margin: 0 auto 16px;
+    padding: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: border-color 0.15s ease, background 0.15s ease;
+    background: rgba(255, 255, 255, 0.03);
+    width: 120px;
+    box-sizing: border-box;
+}
+
+.pdfv2-thumb:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.pdfv2-thumb-active {
+    border-color: #10b981 !important;
+    background: rgba(16, 185, 129, 0.1) !important;
+}
+
+.pdfv2-thumb canvas {
+    width: 100%;
+    display: block;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pdfv2-thumb-label {
+    font-size: 13px;
+    color: #f9fafb;
+    margin-top: 8px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+/* ── Page wrapper ────────────────────────────── */
+.pdfv2-page {
+    position: relative;
+    margin: 0 auto 20px;
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+/* ── Upload Drop Zone ────────────────────────── */
+.upload-drop-zone {
+    border: 2px dashed var(--theme-border, #cbd5e1);
+    border-radius: 12px;
+    background: var(--theme-bg-input, #f8fafc);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-drop-zone:hover,
+.upload-drop-zone.upload-drop-hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.upload-drop-content {
+    text-align: center;
+    padding: 20px;
+}
+
+.upload-drop-icon {
+    font-size: 40px;
+    color: #3b82f6;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.upload-drop-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--theme-text-primary, #1e293b);
+    margin-bottom: 6px;
+}
+
+.upload-drop-hint {
+    font-size: 12px;
+    color: var(--theme-text-muted, #94a3b8);
+}

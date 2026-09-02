@@ -1,0 +1,187 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> /Annots [6 0 R 7 0 R 8 0 R] >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Length 1509 >>
+stream
+BT
+/F1 18 Tf
+0 0 0 rg
+50 780 Td
+(Mau Hop Dong Dich Vu) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 720 Td
+(HOP DONG DICH VU SO: HD-2026/001) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 700 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 680 Td
+(Cac ben thuc hien:) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 660 Td
+(  Ben A: Cong ty ABC (MST: 0123456789)) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 640 Td
+(  Ben B: Nguyen Van A (CMND: 012345678901)) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 620 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 600 Td
+(Dieu 1: Doi tuong hop dong) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 580 Td
+(  Ben A thuc hien dich vu phan mem theo yeu cau.) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 560 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 540 Td
+(Dieu 2: Gia tri hop dong) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 520 Td
+(  Tong gia tri: 500.000.000 VND) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 500 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 480 Td
+(Dieu 3: Thoi han thuc hien) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 460 Td
+(  Tu ngay 01/07/2026 den ngay 31/12/2026) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 440 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 420 Td
+(Xem dieu khoan chi tiet:) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0.8 rg
+50 400 Td
+(  https://www.w3.org/TR/WCAG21/) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0.8 rg
+50 380 Td
+(  https://www.w3.org/WAI/WCAG21/Techniques/pdf/) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 360 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 340 Td
+(Mo popup xem bao cao tai chinh:) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0.8 rg
+50 320 Td
+(  [Mo popup] Bao cao Q2/2026) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 300 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 280 Td
+(Ky ten hai ben) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Annot /Subtype /Link /Rect [48 397 550 414] /Border [0 0 1] /C [0 0 0.8] /A << /URI (https://www.w3.org/TR/WCAG21/) /S /URI >> >>
+endobj
+7 0 obj
+<< /Type /Annot /Subtype /Link /Rect [48 377 550 394] /Border [0 0 1] /C [0 0 0.8] /A << /URI (https://www.w3.org/WAI/WCAG21/Techniques/pdf/) /S /URI >> >>
+endobj
+8 0 obj
+<< /Type /Annot /Subtype /Link /Rect [48 317 550 334] /Border [0 0 1] /C [0 0 0.8] /A << /URI (resources/pdf/bao-cao-tai-chinh.pdf) /S /URI >> >>
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000339 00000 n 
+0000000269 00000 n 
+0000001900 00000 n 
+0000002055 00000 n 
+0000002226 00000 n 
+trailer
+<< /Size 9 /Root 1 0 R >>
+startxref
+2387
+%%EOF

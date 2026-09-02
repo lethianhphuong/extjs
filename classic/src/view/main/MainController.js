@@ -23,7 +23,12 @@ Ext.define('DEMO.view.main.MainController', {
         'DEMO.view.pages.OrderList.OrderList_View',
         'DEMO.view.pages.InvoiceList.InvoiceList_View',
         'DEMO.view.pages.ToTrinh.ToTrinh_View',
-        'DEMO.view.pages.Icons.Icons_View'
+        'DEMO.view.pages.Icons.Icons_View',
+        'DEMO.view.pages.XemPdfDemo.XemPdfDemo_View',
+        'DEMO.view.pages.UploadFileDemo.UploadFileDemo_View',
+        'DEMO.view.pages.UploadFileDemo.UploadFileDemo_ViewController',
+        'DEMO.view.pages.UploadFileDemo.UploadFileDemo_ViewModel',
+        'DEMO.app.Common'
     ],
 
     // ---- Init: listen hash change + load view from URL on F5 ----

@@ -124,6 +124,20 @@ Ext.define('DEMO.view.pages.ToTrinh.ToTrinh_View', {
     }],
 
     columns: [
+        {
+            text: '',
+            dataIndex: 'danhDau',
+            width: 40,
+            align: 'center',
+            sortable: false,
+            menuDisabled: true,
+            renderer: function (value) {
+                if (value) {
+                    return '<span class="x-fa fa-check-circle" style="color:#16a34a;font-size:16px;"></span>';
+                }
+                return '<span class="x-fa fa-circle-o" style="color:#cbd5e1;font-size:16px;"></span>';
+            }
+        },
         { text: 'STT', dataIndex: 'stt', width: 50, align: 'center' },
         {
             text: 'SỐ VĂN BẢN',

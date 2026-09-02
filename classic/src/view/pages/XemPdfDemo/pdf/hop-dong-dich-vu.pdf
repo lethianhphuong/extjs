@@ -1,0 +1,167 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> /Annots [6 0 R 7 0 R] >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Length 1341 >>
+stream
+BT
+/F1 18 Tf
+0 0 0 rg
+50 780 Td
+(Mau Hop Dong Dich Vu) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 720 Td
+(HOP DONG DICH VU SO: HD-2026/001) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 700 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 680 Td
+(Cac ben thuc hien:) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 660 Td
+(  Ben A: Cong ty ABC (MST: 0123456789)) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 640 Td
+(  Ben B: Nguyen Van A (CMND: 012345678901)) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 620 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 600 Td
+(Dieu 1: Doi tuong hop dong) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 580 Td
+(  Ben A thuc hien dich vu phan mem theo yeu cau.) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 560 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 540 Td
+(Dieu 2: Gia tri hop dong) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 520 Td
+(  Tong gia tri: 500.000.000 VND) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 500 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 480 Td
+(Dieu 3: Thoi han thuc hien) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 460 Td
+(  Tu ngay 01/07/2026 den ngay 31/12/2026) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 440 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 420 Td
+(Xem dieu khoan chi tiet:) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0.8 rg
+50 5 Ts
+50 400 Td
+(  https://www.w3.org/TR/WCAG21/#payment) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0.8 rg
+50 5 Ts
+50 380 Td
+(  https://www.w3.org/TR/WCAG21/#privacy) Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 360 Td
+() Tj
+ET
+BT
+/F1 11 Tf
+0 0 0 rg
+50 340 Td
+(Ky ten hai ben) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Annot /Subtype /Link /Rect [48 397 550 414] /Border [0 0 1] /C [0 0 0.8] /A << /URI (https://www.w3.org/TR/WCAG21/#payment) /S /URI >> >>
+endobj
+7 0 obj
+<< /Type /Annot /Subtype /Link /Rect [48 377 550 394] /Border [0 0 1] /C [0 0 0.8] /A << /URI (https://www.w3.org/TR/WCAG21/#privacy) /S /URI >> >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000333 00000 n 
+0000000263 00000 n 
+0000001726 00000 n 
+0000001889 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+2052
+%%EOF

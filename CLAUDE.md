@@ -12,6 +12,65 @@ Sencha ExtJS 7.5.1.5 Classic Toolkit application — Vietnamese-language dashboa
 - **Linting:** ESLint (`.eslintrc.json`) — ECMAScript 2020, `sourceType: "script"`
 - **No npm/bundler** — third-party libs loaded via `<script>` tags in `index.html`
 
+## QUY TRÌNH BẮT BUỘC KHI VIẾT CODE (Plan → Code → Test/Review)
+
+**Mọi task — dù lớn hay nhỏ — PHẢI tuân thủ đúng 3 bước sau:**
+
+### Bước 1: LÊN PLAN TRƯỚC KHI VIẾT CODE (BẮT BUỘC)
+
+Trước khi viết bất kỳ dòng code nào, PHẢI thực hiện:
+
+1. **Phân tích yêu cầu** — Đọc kỹ yêu cầu, xác định scope, đọc thêm file liên quan trong project (overrides, ViewModel hiện tại, ViewController hiện tại...)
+2. **Xây dựng plan cụ thể** — Liệt kê rõ ràng:
+   - File nào cần tạo mới / sửa đổi (đường dẫn cụ thể)
+   - Mỗi file cần thay đổi gì, thêm gì, xóa gì
+   - Thứ tự thực hiện (file nào làm trước, file nào phụ thuộc)
+   - Kiểm tra dependencies: file mới cần `requires` trong View cha không? Cần đăng ký trong MainModel.js không?
+3. **Xác nhận plan** — Trình bày plan cho user xem trước khi bắt tay vào code
+
+**KHÔNG được phép:**
+- Nhảy thẳng vào viết code mà chưa có plan
+- Tự ý thay đổi scope ngoài plan đã thống nhất
+- Bỏ qua bước kiểm tra file overrides/conventions trước khi code
+
+### Bước 2: VIẾT CODE THEO PLAN
+
+- Viết code đúng theo plan đã thống nhất
+- Tuân thủ nghiêm ngặt tất cả quy chuẩn trong CLAUDE.md và CONVENTIONS.md
+
+### Bước 3: KIỂM TRA SAU KHI VIẾT CODE (BẮT BUỘC)
+
+Sau khi viết xong code, **PHẢI thực hiện ít nhất 1 trong các cách sau** để đảm bảo code hoạt động đúng:
+
+#### Cách 1: Lint kiểm tra lỗi cú pháp
+```bash
+npx eslint classic/src/view/pages/{Feature}/{Feature}*.js
+```
+- Kiểm tra tất cả file vừa tạo/sửa
+- KHÔNG được bỏ qua lỗi linting
+
+#### Cách 2: Review code thủ công (self-review)
+Đọc lại từng file vừa viết, kiểm tra:
+- **Syntax** — Có lỗi cú pháp JS nào không? (thiếu `}`, `)`, dấu phẩy thừa...)
+- **Naming** — xtype có trùng tên file không? Namespace đúng pattern chưa?
+- **Binding** — Store binding đúng ViewModel chưa? Reference có trùng không?
+- **Logic** — Controller method có xử lý đúng flow không? Có thiếu case nào không?
+- **Redundancy** — Có code thừa, init rỗng, property trùng override không?
+- **Optimization** — Có thể tối ưu gì? Trùng lặp logic? Dead code? Có thể simplify không?
+- **Security** — Có hardcode sensitive data? XSS via HTML templates?
+
+#### Cách 3: So sánh với pattern có sẵn
+- Đọc 1 file mẫu cùng loại trong project (ví dụ: đọc `OrderList/` trước khi viết `ProductList/`)
+- Đảm bảo code mới tuân theo đúng pattern của project
+
+**Kết quả review PHẢI được trình bày cho user** — liệt kê:
+- Các file đã tạo/sửa
+- Kết quả kiểm tra (pass/fail)
+- Các vấn đề tìm thấy (nếu có) và cách fix
+- Gợi ý tối ưu (nếu có)
+
+---
+
 ## Key Commands
 
 ```bash

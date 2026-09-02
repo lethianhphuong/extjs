@@ -1,129 +1,156 @@
-Ext.define('DEMO.view.dashboard.Dashboard_ViewModel', {
+Ext.define('MyApp.view.dashboard.DashboardModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.dashboard',
 
     data: {
+        // 'vuan' (Cases) or 'vuviec' (Affairs)
+        currentView: 'vuviec', // Default to Vụ việc based on the image's active state
+
+        // Static info for filters or current user
         currentUser: {
-            name: 'Jaydon Frankie',
-            title: 'Admin'
-        },
-        featuredAppIndex: 0,
-        selectedYear: 2023
+            name: 'Đại tá Nguyễn Văn A',
+            title: 'Thứ trưởng Bộ Công an'
+        }
     },
 
     formulas: {
-        currentFeaturedApp: function (get) {
-            var idx = get('featuredAppIndex');
-            var store = get('featuredAppsStore');
-            if (!store || store.getCount() === 0) return null;
-            return store.getAt(idx);
+        // Tự động xác định danh sách fields dựa trên dữ liệu thực tế từ Store
+        vuAnStatusFields: {
+            bind: {
+                bindTo: '{vuAnStatusPeriodStore}',
+                deep: true
+            },
+            get: function (store) {
+                if (!store || store.getCount() === 0) return [];
+
+                // Lấy bản ghi đầu tiên để phân tích các trường dữ liệu
+                var firstRec = store.getAt(0);
+                var data = firstRec.data;
+                var fields = [];
+
+                // Tự động nhận diện các trường có giá trị là số (loại trừ các trường hệ thống)
+                Object.keys(data).forEach(function (key) {
+                    if (key !== 'id' && key !== 'unit' && typeof data[key] === 'number') {
+                        fields.push(key);
+                    }
+                });
+
+                return fields;
+            }
         },
 
-        kpiChart1Data: function (get) {
-            return get('kpiStore').getAt(0);
+        // Tự động tạo Title cho các trường dữ liệu động
+        vuAnStatusTitles: function (get) {
+            var fields = get('vuAnStatusFields');
+            var mapping = {
+                'trongHan': 'Trong hạn',
+                'sapHetHan': 'Sắp hết hạn',
+                'quaHan': 'Quá hạn',
+                'daKetLuan': 'Đã kết luận',
+                'tamDinhChi': 'Tạm đình chỉ'
+            };
+
+            return fields.map(function (f) {
+                // Nếu có trong map thì lấy, không thì chuyển camelCase thành khoảng trắng
+                return mapping[f] || f.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) { return str.toUpperCase(); });
+            });
         },
-        kpiChart2Data: function (get) {
-            return get('kpiStore').getAt(1);
+
+        isVuAn: function (get) {
+            return get('currentView') === 'vuan';
         },
-        kpiChart3Data: function (get) {
-            return get('kpiStore').getAt(2);
+        isVuViec: function (get) {
+            return get('currentView') === 'vuviec';
+        },
+        // Returns the correct card index: 0 for Vụ Án, 1 for Vụ Việc
+        activeCardIndex: function (get) {
+            return get('currentView') === 'vuan' ? 0 : 1;
+        },
+
+        // Dynamic series config for the Status Period Chart
+        vuAnStatusSeries: function (get) {
+            var fields = get('vuAnStatusFields'),
+                titles = get('vuAnStatusTitles');
+
+            return [{
+                type: 'bar3d',
+                xField: 'unit',
+                yField: fields,
+                title: titles,
+                stacked: true, // Quay lại dùng stacked để không phí vị trí cho các giá trị null/0
+                colors: ['#84cc16', '#ef4444', '#3b82f6', '#f59e0b', '#6366f1'],
+                style: {
+                    maxBarWidth: 45,
+                    borderWidth: 1,
+                    stroke: '#fff'
+                },
+                renderer: function (sprite, config, data, index) {
+                    var field = sprite.getField ? sprite.getField() : null,
+                        record = data.store && data.store.getAt(index);
+
+                    if (record && field) {
+                        var val = record.get(field);
+                        if (val > 0) {
+                            // Trick hiển thị cho dữ liệu khập khiễng mà không làm sai lệch hover:
+                            // Chúng ta chỉ can thiệp vào chiều cao hiển thị tối thiểu để "thấy màu"
+                            var minH = 6;
+                            if (Math.abs(config.height) < minH) {
+                                // Trả về config mới với chiều cao tối thiểu, giúp mẩu 2 vẫn có màu sắc rõ ràng
+                                return {
+                                    height: config.height < 0 ? -minH : minH,
+                                    stroke: '#fff',
+                                    lineWidth: 1
+                                };
+                            }
+                        }
+                    }
+                },
+                label: {
+                    field: fields,
+                    display: 'insideEnd',
+                    textAlign: 'center',
+                    fontSize: 9,
+                    fontWeight: 'bold',
+                    fillStyle: '#ffffff',
+                    renderer: function (v) {
+                        // Chỉ hiện số nếu giá trị đủ lớn để không làm rối biểu đồ
+                        return v > 5 ? v : '';
+                    }
+                },
+                tooltip: {
+                    trackMouse: true,
+                    renderer: function (tooltip, record, item) {
+                        var fields = item.series.getYField(),
+                            titles = item.series.getTitle(),
+                            unit = record.get('unit'),
+                            currentField = item.field,
+                            total = 0;
+
+                        // Tính tổng để tính tỉ lệ %
+                        fields.forEach(function (f) { total += (record.get(f) || 0); });
+
+                        var html = '<div style="font-weight: bold; border-bottom: 1px solid #ddd; margin-bottom: 5px; padding-bottom: 2px;">' + unit + ' (Tổng: ' + total + ')</div>';
+
+                        fields.forEach(function (f, idx) {
+                            var val = record.get(f) || 0;
+                            var pct = total > 0 ? ((val / total) * 100).toFixed(1) : 0;
+                            var title = titles[idx] || f;
+                            var isCurrent = (f === currentField);
+
+                            html += '<div style="' + (isCurrent ? 'font-weight: bold; color: #000;' : 'color: #666;') + '">' +
+                                (isCurrent ? '● ' : '○ ') + title + ': ' + val + ' (' + pct + '%)' +
+                                '</div>';
+                        });
+
+                        tooltip.setHtml(html);
+                    }
+                }
+            }];
         }
     },
 
     stores: {
-        featuredAppsStore: {
-            fields: ['title', 'description', 'tag', 'gradientCls'],
-            data: [
-                {
-                    title: 'The Rise of Remote Work: Benefits and Challenges',
-                    description: 'The aroma of freshly brewed coffee filled the air as teams adapt to new ways of collaborating across distances.',
-                    tag: 'FEATURED APP',
-                    gradientCls: 'dash-featured-gradient-1'
-                },
-                {
-                    title: 'AI-Powered Analytics Dashboard',
-                    description: 'Explore how machine learning transforms business intelligence with real-time data insights.',
-                    tag: 'NEW RELEASE',
-                    gradientCls: 'dash-featured-gradient-2'
-                },
-                {
-                    title: 'Cloud Infrastructure Monitoring',
-                    description: 'Keep your systems running smoothly with intelligent alerting and performance tracking.',
-                    tag: 'TRENDING',
-                    gradientCls: 'dash-featured-gradient-3'
-                }
-            ]
-        },
-
-        kpiStore: {
-            fields: ['title', 'value', 'trend', 'trendDir', 'sparkData', 'color'],
-            data: [
-                {
-                    title: 'Total active users',
-                    value: 18765,
-                    trend: '+2.6%',
-                    trendDir: 'up',
-                    sparkData: [12, 19, 14, 22, 16, 24, 20, 28, 25, 32],
-                    color: '#10b981'
-                },
-                {
-                    title: 'Total installed',
-                    value: 4876,
-                    trend: '+0.2%',
-                    trendDir: 'up',
-                    sparkData: [8, 12, 10, 15, 13, 18, 14, 20, 17, 22],
-                    color: '#3b82f6'
-                },
-                {
-                    title: 'Total downloads',
-                    value: 678,
-                    trend: '-0.1%',
-                    trendDir: 'down',
-                    sparkData: [20, 18, 22, 16, 19, 14, 17, 12, 15, 10],
-                    color: '#ef4444'
-                }
-            ]
-        },
-
-        downloadOsStore: {
-            fields: ['name', 'value', 'color'],
-            data: [
-                { name: 'Windows', value: 4520, color: '#3b82f6' },
-                { name: 'macOS', value: 2340, color: '#8b5cf6' },
-                { name: 'Linux', value: 1280, color: '#10b981' },
-                { name: 'Android', value: 980, color: '#f59e0b' }
-            ]
-        },
-
-        areaInstalledStore: {
-            fields: ['region', 'value'],
-            data: [
-                { region: 'Jan', value: 120 },
-                { region: 'Feb', value: 180 },
-                { region: 'Mar', value: 150 },
-                { region: 'Apr', value: 220 },
-                { region: 'May', value: 190 },
-                { region: 'Jun', value: 280 },
-                { region: 'Jul', value: 240 },
-                { region: 'Aug', value: 310 },
-                { region: 'Sep', value: 270 },
-                { region: 'Oct', value: 350 },
-                { region: 'Nov', value: 300 },
-                { region: 'Dec', value: 380 }
-            ]
-        },
-
-        yearStore: {
-            fields: ['year'],
-            data: [
-                { year: 2023 },
-                { year: 2024 },
-                { year: 2025 },
-                { year: 2026 }
-            ]
-        },
-
-        // === GIỮ LẠI STORES CŨ CHO GRIDS ===
+        // --- METRICS STORES ---
         vuAnMetricsStore: {
             fields: ['title', 'value', 'trendValue', 'trendDir', 'iconCls', 'color', 'bgColor'],
             data: [
@@ -149,6 +176,7 @@ Ext.define('DEMO.view.dashboard.Dashboard_ViewModel', {
             ]
         },
 
+        // --- VỤ ÁN STORES ---
         vuAnGridStore: {
             fields: ['stt', 'maVuAn', 'tenVuAn', 'donVi', 'dieuTraVien', 'giaiDoan', 'trangThai', 'hanDieuTra', 'soNgayConLai', 'canhBao'],
             data: [
@@ -237,6 +265,7 @@ Ext.define('DEMO.view.dashboard.Dashboard_ViewModel', {
             ]
         },
 
+        // --- VỤ VIỆC STORES ---
         vuViecGridStore: {
             fields: ['stt', 'maVuViec', 'nguonTin', 'donVi', 'dieuTraVien', 'trangThai', 'hanXacMinh', 'soNgayConLai', 'ketQuaDuKien'],
             data: [
