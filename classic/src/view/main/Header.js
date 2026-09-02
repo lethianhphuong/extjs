@@ -18,11 +18,6 @@ Ext.define('DEMO.view.main.Header', {
 
     initComponent: function () {
         this.callParent(arguments);
-        // Create settings panel (floating)
-        this.settingsPanel = Ext.create({
-            xtype: 'app-settings',
-            renderTo: Ext.getBody()
-        });
     },
 
     items: [{

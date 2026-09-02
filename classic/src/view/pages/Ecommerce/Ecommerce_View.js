@@ -1,8 +1,8 @@
 Ext.define('DEMO.view.pages.Ecommerce.Ecommerce_View', {
     extend: 'Ext.container.Container',
     xtype: 'Ecommerce_View',
-    controller: 'controller.ecommerce',
-    viewModel: 'viewmodel.ecommerce',
+    controller: 'ecommerce',
+    viewModel: 'ecommerce',
     scrollable: 'y',
     padding: 20,
 

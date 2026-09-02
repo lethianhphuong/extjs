@@ -26,6 +26,65 @@ Ext.define('DEMO.view.main.MainController', {
         'DEMO.view.pages.Icons.Icons_View'
     ],
 
+    // ---- Init: listen hash change + load view from URL on F5 ----
+
+    init: function (view) {
+        var me = this;
+        me.callParent(arguments);
+
+        // Listen hash change
+        window.addEventListener('hashchange', Ext.bind(me.onHashChange, me));
+
+        // On F5: read URL hash and load corresponding view
+        var token = me.getTokenFromHash();
+        if (token) {
+            me.onHashChange(token);
+        }
+    },
+
+    // ---- Hash helpers ----
+
+    getTokenFromHash: function () {
+        var hash = window.location.hash;
+        if (hash && hash.length > 1) {
+            return hash.substring(1); // remove '#'
+        }
+        return null;
+    },
+
+    onHashChange: function (token) {
+        var me = this;
+
+        // hashchange event passes Event object, extract token
+        if (token && token.newURL) {
+            var parts = token.newURL.split('#');
+            token = parts[1] || null;
+        }
+
+        if (!token) return;
+
+        var node = me.findNodeByRoute(token);
+        if (node) {
+            me.navigateTo(node);
+        }
+    },
+
+    findNodeByRoute: function (route) {
+        var store = this.getViewModel().getStore('navigationTree'),
+            result = null;
+
+        if (!store) return null;
+
+        store.each(function (node) {
+            if (node.get('route') === route && node.get('component')) {
+                result = node;
+                return false; // stop iteration
+            }
+        });
+
+        return result;
+    },
+
     // ---- Navigation ----
 
     onNavigationTreeSelectionChange: function (tree, record) {
@@ -72,6 +131,29 @@ Ext.define('DEMO.view.main.MainController', {
         }
 
         me.getViewModel().set('currentView', id);
+
+        // Sync URL hash (without triggering hashchange again)
+        var currentHash = window.location.hash.substring(1);
+        if (currentHash !== id) {
+            history.replaceState(null, '', '#' + id);
+        }
+
+        // Sync tree selection
+        var tree = me.getView().down('treelist');
+        if (tree && tree.getSelection() !== record) {
+            tree.setSelection(record);
+        }
+
+        // Expand parent nodes in tree
+        me.expandNodeParents(record);
+    },
+
+    expandNodeParents: function (node) {
+        var parent = node.parentNode;
+        while (parent && !parent.isRoot()) {
+            parent.expand();
+            parent = parent.parentNode;
+        }
     },
 
     findFirstLeafChild: function (node) {
@@ -110,9 +192,16 @@ Ext.define('DEMO.view.main.MainController', {
 
     onOpenSettings: function () {
         var header = this.getView().down('app-header');
-        if (header && header.settingsPanel) {
-            header.settingsPanel.show();
-            header.settingsPanel.alignTo(Ext.getBody(), 'tr-tr', [-10, 0]);
+        if (!header) return;
+
+        if (!header.settingsPanel) {
+            header.settingsPanel = Ext.create({
+                xtype: 'app-settings',
+                renderTo: Ext.getBody()
+            });
         }
+
+        header.settingsPanel.show();
+        header.settingsPanel.alignTo(Ext.getBody(), 'tr-tr', [-10, 0]);
     }
 });

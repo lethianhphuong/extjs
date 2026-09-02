@@ -1,8 +1,8 @@
 Ext.define('DEMO.view.pages.FilePage.FilePage_View', {
     extend: 'Ext.container.Container',
     xtype: 'FilePage_View',
-    controller: 'controller.filepage',
-    viewModel: 'viewmodel.filepage',
+    controller: 'filepage',
+    viewModel: 'filepage',
     scrollable: 'y',
     padding: 20,
 

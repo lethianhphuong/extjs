@@ -1,8 +1,8 @@
 Ext.define('DEMO.view.pages.Analytics.Analytics_View', {
     extend: 'Ext.container.Container',
     xtype: 'Analytics_View',
-    controller: 'controller.analytics',
-    viewModel: 'viewmodel.analytics',
+    controller: 'analytics',
+    viewModel: 'analytics',
     scrollable: 'y',
     padding: 20,
 

@@ -1,8 +1,8 @@
 Ext.define('DEMO.view.pages.Banking.Banking_View', {
     extend: 'Ext.container.Container',
     xtype: 'Banking_View',
-    controller: 'controller.banking',
-    viewModel: 'viewmodel.banking',
+    controller: 'banking',
+    viewModel: 'banking',
     scrollable: 'y',
     padding: 20,
 

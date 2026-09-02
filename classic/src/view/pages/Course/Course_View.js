@@ -1,8 +1,8 @@
 Ext.define('DEMO.view.pages.Course.Course_View', {
     extend: 'Ext.container.Container',
     xtype: 'Course_View',
-    controller: 'controller.course',
-    viewModel: 'viewmodel.course',
+    controller: 'course',
+    viewModel: 'course',
     scrollable: 'y',
     padding: 20,
 
