@@ -32,6 +32,7 @@ Ext.define('DEMO.view.main.MainModel', {
                 'invoice-list': 'Invoice List',
                 'blog': 'Blog',
                 'to-trinh': 'Tờ Trình',
+                'truc-ban-tin-bao': 'Trực ban Tin báo',
                 'icons': 'Icons',
                 'xem-pdf-demo': 'Xem PDF Demo',
                 'test-noti': 'Test NotiCommon',
@@ -54,6 +55,7 @@ Ext.define('DEMO.view.main.MainModel', {
                         selectable: false,
                         children: [
                             { text: 'Dashboard', iconCls: 'x-fa fa-home', route: 'app', component: 'Dashboard_View', leaf: true },
+                            { text: 'Trực ban Tin báo', iconCls: 'x-fa fa-shield', route: 'truc-ban-tin-bao', component: 'TrucBanTinBao_View', leaf: true },
                             { text: 'Ecommerce', iconCls: 'x-fa fa-shopping-cart', route: 'ecommerce', component: 'Ecommerce_View', leaf: true },
                             { text: 'Analytics', iconCls: 'x-fa fa-bar-chart', route: 'analytics', component: 'Analytics_View', leaf: true },
                             { text: 'Banking', iconCls: 'x-fa fa-university', route: 'banking', component: 'Banking_View', leaf: true },

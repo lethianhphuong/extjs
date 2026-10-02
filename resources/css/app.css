@@ -3118,3 +3118,166 @@
     font-size: 12px;
     color: var(--theme-text-muted, #94a3b8);
 }
+
+/* ============================================
+   TRỰC BAN TIN BÁO TOÀN QUỐC STYLES
+   ============================================ */
+.tb-kpi-card {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    border-radius: 10px;
+}
+.tb-kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--theme-shadow, 0 6px 20px rgba(0, 0, 0, 0.08));
+}
+.tb-cbar {
+    transition: height 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.tb-cbar:hover {
+    filter: brightness(1.1);
+}
+.tb-col:hover {
+    background: var(--theme-bg-card-hover, rgba(0, 0, 0, 0.03));
+    border-radius: 6px;
+}
+
+/* Ticker Styles */
+.tb-tk-view {
+    position: relative !important;
+    overflow: hidden !important;
+    height: 22px !important;
+    width: 100% !important;
+}
+.tb-tk-item {
+    position: absolute !important;
+    inset: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    font-size: 12.5px !important;
+    color: var(--theme-text-secondary, #46536b) !important;
+    white-space: nowrap !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(8px) !important;
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease !important;
+    pointer-events: none !important;
+}
+.tb-tk-item.on {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+}
+.tb-tk-item .tb-tid {
+    font-family: 'Barlow Condensed', sans-serif;
+    color: var(--accent, #1c5cab);
+    font-weight: 700;
+}
+.tb-tk-item .tb-tt {
+    margin-left: auto;
+    color: var(--theme-text-muted, #77869c);
+    font-family: 'Barlow Condensed', sans-serif;
+}
+
+/* Crime Chart Styles */
+.crime-row {
+    display: grid !important;
+    grid-template-columns: minmax(220px, 1fr) minmax(0, 1.4fr) !important;
+    gap: 16px !important;
+    width: 100% !important;
+    padding: 9px 8px !important;
+    border-bottom: 1px solid var(--theme-border, #e2e8f0) !important;
+    background: transparent !important;
+    color: var(--theme-text-primary, #1e293b) !important;
+    text-align: left !important;
+    cursor: pointer !important;
+    border-radius: 6px !important;
+    transition: background-color 0.15s ease !important;
+}
+.crime-row:hover {
+    background-color: var(--theme-bg-card-hover, rgba(0, 0, 0, 0.03)) !important;
+}
+.crime-name {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    align-self: center !important;
+    line-height: 1.4 !important;
+}
+.crime-bars {
+    display: grid !important;
+    gap: 5px !important;
+}
+.crime-series {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 85px !important;
+    gap: 8px !important;
+    align-items: center !important;
+}
+.crime-track {
+    background: var(--theme-border-light, #f1f5f9) !important;
+    height: 10px !important;
+    border-radius: 3px !important;
+    overflow: hidden !important;
+}
+.crime-fill {
+    display: block !important;
+    height: 100% !important;
+    border-radius: 3px !important;
+}
+.crime-value {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+    font-family: 'Barlow Condensed', sans-serif !important;
+}
+
+/* Rank table hover */
+.tb-rank-table tbody tr:hover {
+    background: var(--theme-bg-card-hover, rgba(0, 0, 0, 0.02));
+}
+
+/* ============================================
+   RANGE PILL BUTTONS (Image 2 style)
+   ============================================ */
+.tb-range-pills {
+    display: flex !important;
+    gap: 7px !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+}
+.tb-pill {
+    font-family: inherit !important;
+    font-size: 12.5px !important;
+    font-weight: 500 !important;
+    color: var(--theme-text-secondary, #334155) !important;
+    background: #ffffff !important;
+    border: 1px solid var(--theme-border, #e2e8f0) !important;
+    padding: 6px 14px !important;
+    border-radius: 999px !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    user-select: none !important;
+    transition: all 0.15s ease !important;
+    outline: none !important;
+    line-height: 1.4 !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+    white-space: nowrap !important;
+}
+.dark-mode .tb-pill {
+    background: var(--theme-bg-card, #1e293b) !important;
+    color: var(--theme-text-secondary, #94a3b8) !important;
+    border-color: var(--theme-border, #334155) !important;
+}
+.tb-pill:hover {
+    border-color: var(--theme-border-strong, #cbd5e1) !important;
+    color: var(--theme-text-primary, #0f172a) !important;
+}
+.tb-pill.active {
+    background: var(--accent, #1c5cab) !important;
+    border-color: var(--accent, #1c5cab) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 6px rgba(28, 92, 171, 0.25) !important;
+}
+
