@@ -2,6 +2,10 @@ Ext.define('DEMO.Application', {
     extend: 'Ext.app.Application',
     name: 'DEMO',
     defaultToken: 'app',
+    requires: [
+        'Ext.window.Toast',
+        'DEMO.app.NotiCommon'
+    ],
     launch: function () {
         let me = this;
         document.title = 'app demo';

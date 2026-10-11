@@ -3,6 +3,7 @@ Ext.define('DEMO.view.main.MainController', {
     alias: 'controller.main',
 
     requires: [
+        'DEMO.view.pages.ConNguoiLienQuan.DanhSach.ConNguoiLienQuan_View',
         'DEMO.view.main.Settings',
         'DEMO.view.dashboard.Dashboard_View',
         'DEMO.view.pages.Ecommerce.Ecommerce_View',
@@ -24,6 +25,7 @@ Ext.define('DEMO.view.main.MainController', {
         'DEMO.view.pages.InvoiceList.InvoiceList_View',
         'DEMO.view.pages.ToTrinh.ToTrinh_View',
         'DEMO.view.pages.TrucBanTinBao.TrucBanTinBao_View',
+        'DEMO.view.pages.ConNguoiDemo2.ConNguoiDemo2_View',
         'DEMO.view.pages.Icons.Icons_View',
         'DEMO.view.pages.XemPdfDemo.XemPdfDemo_View',
         'DEMO.view.pages.UploadFileDemo.UploadFileDemo_View',

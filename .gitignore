@@ -1,0 +1,20 @@
+# ============================================
+# Sencha ExtJS .gitignore
+# ============================================
+
+# Sencha Cmd temporary build artifacts
+build/temp/
+.sass-cache/
+
+# Archive files
+*.zip
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Editor & IDE configs
+.idea/
+.vscode/
+*.swp
+*.tmp

@@ -12,7 +12,8 @@ Ext.define('DEMO.view.main.MainModel', {
 
     formulas: {
         currentViewText: function (get) {
-            var map = {
+            let map = {
+                'con-nguoi-lien-quan': 'Con người liên quan',
                 'app': 'App',
                 'ecommerce': 'Ecommerce',
                 'analytics': 'Analytics',
@@ -33,6 +34,7 @@ Ext.define('DEMO.view.main.MainModel', {
                 'blog': 'Blog',
                 'to-trinh': 'Tờ Trình',
                 'truc-ban-tin-bao': 'Trực ban Tin báo',
+                'con-nguoi-demo-2': 'Con người demo 2',
                 'icons': 'Icons',
                 'xem-pdf-demo': 'Xem PDF Demo',
                 'test-noti': 'Test NotiCommon',
@@ -101,7 +103,8 @@ Ext.define('DEMO.view.main.MainModel', {
                                     { text: 'Invoice List', iconCls: 'x-fa fa-angle-right', route: 'invoice-list', component: 'InvoiceList_View', leaf: true }
                                 ]
                             },
-                            { text: 'Blog', iconCls: 'x-fa fa-pencil-square', route: 'blog', component: 'BlogPage_View', leaf: true }
+                            { text: 'Blog', iconCls: 'x-fa fa-pencil-square', route: 'blog', component: 'BlogPage_View', leaf: true },
+                            { text: 'Con người demo 2', iconCls: 'x-fa fa-user-circle-o', route: 'con-nguoi-demo-2', component: 'ConNguoiDemo2_View', leaf: true }
                         ]
                     },
                     {
@@ -120,6 +123,7 @@ Ext.define('DEMO.view.main.MainModel', {
                         selectable: false,
                         children: [
                             { text: 'Xem PDF Demo', iconCls: 'x-fa fa-file-pdf-o', route: 'xem-pdf-demo', component: 'XemPdfDemo_View', leaf: true },
+                            { text: 'Con người liên quan', iconCls: 'x-fa fa-users', route: 'con-nguoi-lien-quan', component: 'ConNguoiLienQuan_View', leaf: true },
                             { text: 'Test NotiCommon', iconCls: 'x-fa fa-bell-o', route: 'test-noti', component: 'TestNoti_View', leaf: true },
                             { text: 'Upload File Demo', iconCls: 'x-fa fa-cloud-upload', route: 'upload-file-demo', component: 'UploadFileDemo_View', leaf: true }
                         ]

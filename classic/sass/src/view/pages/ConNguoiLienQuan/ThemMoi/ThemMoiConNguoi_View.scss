@@ -1,0 +1,49 @@
+/* Sencha Cmd compiles this feature stylesheet into DEMO-all.css. */
+.cnlq-editor {
+    --cnlq-head: #14594a;
+    --cnlq-green: #0d8a5f;
+    --cnlq-red: #d33a2f;
+    --cnlq-label: var(--theme-text-secondary, #5d6b68);
+    border: 1px solid var(--theme-border, #c6cfcd);
+}
+.cnlq-editor .x-window-header { background: var(--cnlq-head); padding: 9px 14px; }
+.cnlq-editor .x-window-header .x-title-text { color: #fff; font-size: 15px; font-weight: 600; }
+.cnlq-editor .x-panel-body,
+.cnlq-editor .x-window-body { background: var(--theme-bg-card, #fff); color: var(--theme-text-primary, #1d2523); }
+.cnlq-editor .cnlq-section-title { font-size: 14px; font-weight: 600; padding: 4px 5px 10px; }
+.cnlq-editor .cnlq-lookup-hint { text-align: center; font-weight: 600; font-size: 12.5px; padding: 0 5px 10px; }
+.cnlq-editor .cnlq-row { padding-bottom: 10px; }
+.cnlq-editor .field-csstyle { position: relative; height: auto; min-height: 60px; display: block; }
+.cnlq-editor .field-csstyle > label {
+    display: block; height: auto !important; min-height: 22px; width: 100% !important;
+    padding: 0 0 3px; color: var(--cnlq-label); font-size: 12px;
+}
+.cnlq-editor .field-csstyle > label > span { padding-top: 0 !important; }
+.cnlq-editor .field-csstyle > label > span > span {
+    position: relative !important; padding: 0 !important; background: transparent !important;
+    font-size: 12px; line-height: 18px; white-space: normal;
+}
+.cnlq-editor .field-csstyle > .x-form-item-body { display: block; width: 100%; }
+.cnlq-editor .field-csstyle .x-form-trigger-wrap { border-radius: 2px; border-color: var(--theme-border, #c6cfcd); }
+.cnlq-editor .field-csstyle input { height: 28px !important; min-height: 28px; padding: 4px 7px !important; }
+.cnlq-editor .field-csstyle textarea { min-height: 62px; padding: 5px 7px !important; }
+.cnlq-editor .field-csstyle .x-form-text { font-size: 13px; background: var(--theme-bg-input, #fff); color: var(--theme-text-primary, #1d2523); }
+.cnlq-editor .x-item-disabled .x-form-text { background: var(--theme-bg-card-hover, #eef1f1); }
+.cnlq-editor .cnlq-photo-box { border: 1px dashed var(--theme-border, #c6cfcd); background: var(--theme-bg-card-hover, #f6f8f8); }
+.cnlq-editor .cnlq-photo-placeholder { font-size: 24px; color: var(--cnlq-label); padding-bottom: 12px; }
+.cnlq-editor .cnlq-photo { object-fit: contain; padding: 4px; }
+.cnlq-editor .cnlq-photo-box .x-btn { border: 0; background: transparent; }
+.cnlq-editor .cnlq-photo-box .x-btn-inner { color: var(--cnlq-label); }
+.cnlq-editor .cnlq-lookup-button { padding: 22px 5px 0; }
+.cnlq-editor .cnlq-add-reason { margin-top: 22px; }
+.cnlq-editor .cnlq-primary { background: var(--cnlq-green); border-color: var(--cnlq-green); }
+.cnlq-editor .cnlq-danger-button { background: var(--cnlq-red); border-color: var(--cnlq-red); }
+.cnlq-editor .cnlq-primary .x-btn-inner,
+.cnlq-editor .cnlq-danger-button .x-btn-inner { color: #fff; font-size: 13px; }
+.cnlq-editor .cnlq-footer { padding: 12px; border-top: 1px solid var(--theme-border, #c6cfcd); background: var(--theme-bg-card-hover, #f6f8f8); }
+.cnlq-editor .cnlq-footer .x-btn { min-width: 80px; }
+.cnlq-editor .x-column-header { background: var(--theme-bg-card-hover, #dff0e6); color: var(--theme-text-primary, #1d2523); }
+@media (max-width: 620px) {
+    .cnlq-editor .cnlq-row { padding-bottom: 4px; }
+    .cnlq-editor .cnlq-lookup-button { padding-top: 0; padding-bottom: 8px; }
+}

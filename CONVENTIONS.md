@@ -5,6 +5,7 @@
 Bạn là một kỹ sư lập trình có nhiều năm kinh nghiệm.
 
 **Công nghệ sử dụng:**
+
 - **Framework chính:** Sencha ExtJS 7.5.1.5 Classic Toolkit
 - **Kiến trúc:** MVVM với ViewControllers
 - **Ngôn ngữ:** JavaScript (ES2020)
@@ -29,6 +30,7 @@ classic/src/view/pages/{Feature}/
 ```
 
 **Ví dụ:**
+
 ```
 classic/src/view/pages/OrderList/
 ├── OrderList_View.js
@@ -43,19 +45,65 @@ classic/src/view/pages/UserList/
 └── UserList_ViewGrid.js           # Grid tách riêng
 ```
 
+**Mẫu chuẩn cấu trúc folder: `classic/src/view/pages/ConNguoiLienQuan/`**
+
+Khi tạo feature mới hoặc refactor cấu trúc folder, áp dụng cách đóng gói của `ConNguoiLienQuan` dưới đây. Folder gốc nhóm các màn hình theo chức năng; mỗi màn hình/popup có MVVM độc lập đặt bộ ba View–ViewController–ViewModel cùng một folder. Các ví dụ OrderList/UserList ở trên chỉ minh họa một component đơn.
+
+Component dùng qua nhiều màn hình đặt ngoài `pages/{Feature}` và có MVVM riêng, ví dụ `classic/src/view/components/ComBoDiaChi/`. Màn hình gọi truyền binding, danh mục và xử lý sự kiện nghiệp vụ; component không phụ thuộc đường dẫn dữ liệu hay controller của một feature.
+
+```text
+classic/src/view/components/ComBoDiaChi/
+├── ComBoDiaChi_View.js
+├── ComBoDiaChi_ViewController.js
+└── ComBoDiaChi_ViewModel.js
+
+classic/src/view/pages/ConNguoiLienQuan/
+├── DanhSach/
+│   ├── ConNguoiLienQuan_View.js
+│   ├── ConNguoiLienQuan_ViewController.js
+│   ├── ConNguoiLienQuan_ViewModel.js
+│   └── ConNguoiLienQuan_ViewFilter.js
+└── ThemMoi/
+    ├── ThemMoiConNguoi_View.js
+    ├── ThemMoiConNguoi_ViewController.js
+    ├── ThemMoiConNguoi_ViewModel.js
+    ├── ThemMoiConNguoi_ViewForm.js
+    ├── ThemMoiConNguoi_ViewDinhDanh.js
+    ├── ThemMoiConNguoi_ViewThongTinBoSung.js
+    ├── ThemMoiConNguoi_ViewDiaChi.js
+    ├── ThemMoiConNguoi_ViewNghiepVu.js
+    ├── ThemMoiConNguoi_ViewQuanHe.js
+    ├── ThemMoiConNguoi_ViewTronChet.js
+    ├── ThemMoiConNguoi_ViewTron.js
+    ├── ThemMoiConNguoi_ViewChet.js
+    └── MoiQuanHe/
+        ├── MoiQuanHe_View.js
+        ├── MoiQuanHe_ViewController.js
+        ├── MoiQuanHe_ViewModel.js
+        └── MoiQuanHe_ViewForm.js
+```
+
+- Mỗi component có Controller/ViewModel độc lập nằm trong một folder riêng; không chia ba folder view/controller/model.
+- Popup thuộc màn hình nào thì đặt folder bên trong màn hình đó, như `ThemMoi/MoiQuanHe/`. Không đặt các bộ MVVM độc lập ngang hàng ở gốc feature.
+- Khối trình bày dùng chung MVVM nằm cùng folder component sở hữu, không tạo bộ ba rỗng cho từng khối hoặc field.
+- Không sao chép máy móc tên folder hoặc tạo các khối không cần thiết; đặt tên theo chức năng thực tế. Form khai báo trực tiếp và tách theo khối theo mục 3.1.
+- Chỉ tạo `Shared/` khi có thành phần dùng chung thực sự; mẫu hiện tại không cần folder này. Không dùng Shared để chứa schema/factory sinh field tĩnh. Store và state thuộc ViewModel.
+- Khi di chuyển component, cập nhật namespace, requires, nơi sử dụng và SCSS; không sửa tay manifest/bootstrap sinh tự động.
+
 ### 1.1.0. Quy tắc đặt tên file/thư mục tiếng Việt không dấu
 
 **Được phép** dùng tên tiếng Việt không dấu cho file và thư mục.
 
 **Bảng chuyển đổi:**
 
-| Ký tự có dấu | Không dấu | Ký tự có dấu | Không dấu |
-|-------------|-----------|-------------|-----------|
-| ă, â | a | ơ, ô, o | o |
-| ê | e | ư | u |
-| đ | d | á, à, ả, ã, ạ | a |
+| Ký tự có dấu | Không dấu | Ký tự có dấu  | Không dấu |
+| ------------ | --------- | ------------- | --------- |
+| ă, â         | a         | ơ, ô, o       | o         |
+| ê            | e         | ư             | u         |
+| đ            | d         | á, à, ả, ã, ạ | a         |
 
 **Quy tắc viết:**
+
 - Bỏ hết dấu tiếng Việt
 - **PascalCase**: chữ hoa đầu mỗi từ, không có underscore giữa các từ chính
 - Giữ nguyên hậu tố `_View`, `_ViewController`, `_ViewModel`, `_ViewGrid`...
@@ -63,35 +111,36 @@ classic/src/view/pages/UserList/
 
 **Ví dụ cụ thể:**
 
-| Tiếng Việt gốc | Thư mục | File View | Alias |
-|----------------|---------|-----------|-------|
-| Tài liệu đính kèm | `TaiLieuDinhKem/` | `TaiLieuDinhKem_View.js` | `controller.tailieudinhkem` |
-| Danh sách hồ sơ | `DanhSachHoSo/` | `DanhSachHoSo_View.js` | `controller.danhsachhoso` |
+| Tiếng Việt gốc     | Thư mục            | File View                 | Alias                        |
+| ------------------ | ------------------ | ------------------------- | ---------------------------- |
+| Tài liệu đính kèm  | `TaiLieuDinhKem/`  | `TaiLieuDinhKem_View.js`  | `controller.tailieudinhkem`  |
+| Danh sách hồ sơ    | `DanhSachHoSo/`    | `DanhSachHoSo_View.js`    | `controller.danhsachhoso`    |
 | Quản lý người dùng | `QuanLyNguoiDung/` | `QuanLyNguoiDung_View.js` | `controller.quanlynguoidung` |
-| Phiên tòa | `PhienToa/` | `PhienToa_View.js` | `controller.phientoa` |
-| Kiến nghị khởi tố | `KienNghiKhoiTo/` | `KienNghiKhoiTo_View.js` | `controller.kiennghikhoito` |
+| Phiên tòa          | `PhienToa/`        | `PhienToa_View.js`        | `controller.phientoa`        |
+| Kiến nghị khởi tố  | `KienNghiKhoiTo/`  | `KienNghiKhoiTo_View.js`  | `controller.kiennghikhoito`  |
 | Phân công điều tra | `PhanCongDieuTra/` | `PhanCongDieuTra_View.js` | `controller.phancongdieutra` |
 
 **Namespace example:**
+
 ```javascript
 // File: TaiLieuDinhKem/TaiLieuDinhKem_View.js
-Ext.define('DEMO.view.pages.TaiLieuDinhKem.TaiLieuDinhKem_View', {
-    extend: 'Ext.container.Container',
-    xtype: 'TaiLieuDinhKem_View',
-    controller: 'tailieudinhkem',
-    viewModel: 'tailieudinhkem'
+Ext.define("DEMO.view.pages.TaiLieuDinhKem.TaiLieuDinhKem_View", {
+  extend: "Ext.container.Container",
+  xtype: "TaiLieuDinhKem_View",
+  controller: "tailieudinhkem",
+  viewModel: "tailieudinhkem",
 });
 
 // File: TaiLieuDinhKem/TaiLieuDinhKem_ViewController.js
-Ext.define('DEMO.view.pages.TaiLieuDinhKem.TaiLieuDinhKem_ViewController', {
-    extend: 'Ext.app.ViewController',
-    alias: 'controller.tailieudinhkem'
+Ext.define("DEMO.view.pages.TaiLieuDinhKem.TaiLieuDinhKem_ViewController", {
+  extend: "Ext.app.ViewController",
+  alias: "controller.tailieudinhkem",
 });
 
 // File: TaiLieuDinhKem/TaiLieuDinhKem_ViewModel.js
-Ext.define('DEMO.view.pages.TaiLieuDinhKem.TaiLieuDinhKem_ViewModel', {
-    extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.tailieudinhkem'
+Ext.define("DEMO.view.pages.TaiLieuDinhKem.TaiLieuDinhKem_ViewModel", {
+  extend: "Ext.app.ViewModel",
+  alias: "viewmodel.tailieudinhkem",
 });
 ```
 
@@ -99,10 +148,10 @@ Ext.define('DEMO.view.pages.TaiLieuDinhKem.TaiLieuDinhKem_ViewModel', {
 
 **NGUYÊN TẮC CỐT LÕI: KHÔNG viết thẳng grid/form phức tạp vào `_View.js`**
 
-**Component con LUÔN nằm trong folder cha** — không tạo folder con riêng:
+**View trình bày dùng chung MVVM nằm trong folder component sở hữu. Component có MVVM độc lập phải có folder riêng**, ví dụ:
 
 ```
-classic/src/view/pages/OrderList/                  ← folder cha chứa TẤT CẢ
+classic/src/view/pages/OrderList/                  ← folder của một component
 ├── OrderList_View.js                              # View chính
 ├── OrderList_ViewController.js                    # Controller
 ├── OrderList_ViewModel.js                         # ViewModel
@@ -115,46 +164,48 @@ Khi component có nhiều columns/fields hoặc logic phức tạp, **BẮT BU�
 
 **Bảng quy định tách:**
 
-| Component | Tên file tách | Điều kiện bắt buộc tách |
-|-----------|--------------|------------------------|
-| Grid | `{Feature}_ViewGrid.js` | Grid > 100 dòng code HOẶC nhiều custom renderer phức tạp (> 3 renderer) |
-| Form | `{Feature}_ViewForm.js` | Form có > 5 fields HOẶC có conditional logic |
-| Filter bar | `{Feature}_ViewFilter.js` | Filter có > 5 components HOẶC có logic filter phức tạp |
-| Tab panel | `{Feature}_ViewTab.js` | Tab có nội dung phức tạp (grid/form bên trong) |
-| Chart container | `{Feature}_ViewChart.js` | Chart có cấu hình phức tạp hoặc nhiều chart |
+| Component       | Tên file tách             | Điều kiện bắt buộc tách                                                 |
+| --------------- | ------------------------- | ----------------------------------------------------------------------- |
+| Grid            | `{Feature}_ViewGrid.js`   | Grid > 100 dòng code HOẶC nhiều custom renderer phức tạp (> 3 renderer) |
+| Form | `{Feature}_ViewForm.js` | Form dài/khó đọc: tách theo khối nghiệp vụ; field vẫn khai báo trực tiếp trong items |
+| Filter bar      | `{Feature}_ViewFilter.js` | Filter có > 5 components HOẶC có logic filter phức tạp                  |
+| Tab panel       | `{Feature}_ViewTab.js`    | Tab có nội dung phức tạp (grid/form bên trong)                          |
+| Chart container | `{Feature}_ViewChart.js`  | Chart có cấu hình phức tạp hoặc nhiều chart                             |
 
 > **Lưu ý:** `actioncolumn` với few icon (view/edit/delete) là bình thường, KHÔNG bắt buộc tách file chỉ vì có actioncolumn. Chỉ tách khi grid overall quá phức tạp (> 100 dòng, nhiều renderer logic phức tạp).
 
 ```javascript
 // SAI - Viết thẳng 100+ dòng grid vào _View.js
-Ext.define('DEMO.view.pages.OrderList.OrderList_View', {
-    extend: 'Ext.container.Container',
-    items: [{
-        xtype: 'gridpanel',
-        // ... 80 dòng columns, renderer, actioncolumn ...
-    }]
+Ext.define("DEMO.view.pages.OrderList.OrderList_View", {
+  extend: "Ext.container.Container",
+  items: [
+    {
+      xtype: "gridpanel",
+      // ... 80 dòng columns, renderer, actioncolumn ...
+    },
+  ],
 });
 
 // ĐÚNG - Tách grid ra file riêng (xtype TRÙNG TÊN file)
 // File: OrderList_View.js
-Ext.define('DEMO.view.pages.OrderList.OrderList_View', {
-    extend: 'Ext.container.Container',
-    requires: [
-        'DEMO.view.pages.OrderList.OrderList_ViewGrid'
-    ],
-    items: [{
-        xtype: 'OrderList_ViewGrid'  // xtype = tên file (PascalCase, có underscore)
-    }]
+Ext.define("DEMO.view.pages.OrderList.OrderList_View", {
+  extend: "Ext.container.Container",
+  requires: ["DEMO.view.pages.OrderList.OrderList_ViewGrid"],
+  items: [
+    {
+      xtype: "OrderList_ViewGrid", // xtype = tên file (PascalCase, có underscore)
+    },
+  ],
 });
 
 // File: OrderList_ViewGrid.js
-Ext.define('DEMO.view.pages.OrderList.OrderList_ViewGrid', {
-    extend: 'Ext.grid.Panel',
-    xtype: 'OrderList_ViewGrid',  // xtype = tên file, KHÔNG viết thường/không dùng gạch ngang
-    bind: { store: '{orderGridStore}' },
-    columns: [
-        // ... columns ở đây ...
-    ]
+Ext.define("DEMO.view.pages.OrderList.OrderList_ViewGrid", {
+  extend: "Ext.grid.Panel",
+  xtype: "OrderList_ViewGrid", // xtype = tên file, KHÔNG viết thường/không dùng gạch ngang
+  bind: { store: "{orderGridStore}" },
+  columns: [
+    // ... columns ở đây ...
+  ],
 });
 ```
 
@@ -163,12 +214,14 @@ Ext.define('DEMO.view.pages.OrderList.OrderList_ViewGrid', {
 **Khi màn hình CHỈ có grid + filter bar + pagination** (không có tab, chart, multi-panel), có thể viết `{Feature}_View.js` trực tiếp là `Ext.grid.Panel` với docked items, **KHÔNG cần tách ViewGrid riêng**.
 
 **Điều kiện áp dụng:**
+
 - Màn hình chỉ có 1 grid duy nhất
 - Filter bar đơn giản (< 5 components)
 - Chỉ có pagination ở dưới
 - KHÔNG có tab, chart, multi-panel, sidebar
 
 **Cấu trúc file:**
+
 ```
 classic/src/view/pages/{Feature}/
 ├── {Feature}_View.js              # View = Ext.grid.Panel (filter docked top, paging docked bottom)
@@ -180,124 +233,138 @@ classic/src/view/pages/{Feature}/
 
 ```javascript
 // File: ToTrinh_View.js — View CHÍNH là Ext.grid.Panel
-Ext.define('DEMO.view.pages.ToTrinh.ToTrinh_View', {
-    extend: 'Ext.grid.Panel',
-    xtype: 'ToTrinh_View',
+Ext.define("DEMO.view.pages.ToTrinh.ToTrinh_View", {
+  extend: "Ext.grid.Panel",
+  xtype: "ToTrinh_View",
 
-    controller: 'totrinh',
-    viewModel: 'totrinh',
+  controller: "totrinh",
+  viewModel: "totrinh",
 
-    bind: { store: '{totrinhStore}' },
+  bind: { store: "{totrinhStore}" },
 
-    // ── Filter bar (docked top) ──
-    dockedItems: [{
-        dock: 'top',
-        xtype: 'toolbar',
-        items: [
-            {
-                xtype: 'combobox',
-                fieldLabel: 'Loại văn bản',
-                emptyText: 'Tất cả',
-                width: 180,
-                editable: false,
-                store: { /* ... */ },
-                valueField: 'value',
-                displayField: 'text'
-            },
-            {
-                xtype: 'textfield',
-                emptyText: 'Tìm kiếm...',
-                flex: 1
-            },
-            {
-                xtype: 'button',
-                text: 'Tìm kiếm',
-                iconCls: 'x-fa fa-search',
-                handler: 'onTimKiem'
-            }
-        ]
-    }],
-
-    // ── Paging (docked bottom) ──
-    bbar: {
-        xtype: 'pagingtoolbar',
-        displayInfo: true,
-        emptyMsg: 'Không có dữ liệu'
-    },
-
-    // ── Columns ──
-    columns: [
-        { text: 'STT', dataIndex: 'stt', width: 60, align: 'center' },
-        { text: 'Số văn bản', dataIndex: 'soVanBan', width: 150 },
-        { text: 'Tên văn bản', dataIndex: 'tenVanBan', flex: 1 },
-        { text: 'Loại', dataIndex: 'loaiVanBan', width: 120 },
-        { text: 'Trạng thái', dataIndex: 'trangThai', width: 140 },
-        { text: 'Ngày tạo', dataIndex: 'ngayTao', width: 120, renderer: Ext.util.Format.dateRenderer('d/m/Y') },
+  // ── Filter bar (docked top) ──
+  dockedItems: [
+    {
+      dock: "top",
+      xtype: "toolbar",
+      items: [
         {
-            xtype: 'actioncolumn',
-            text: 'Thao tác',
-            width: 100,
-            items: [
-                { iconCls: 'x-fa fa-eye', tooltip: 'Xem', handler: 'onRowView' },
-                { iconCls: 'x-fa fa-edit', tooltip: 'Sửa', handler: 'onRowEdit' }
-            ]
-        }
-    ]
+          xtype: "combobox",
+          fieldLabel: "Loại văn bản",
+          emptyText: "Tất cả",
+          width: 180,
+          editable: false,
+          store: {
+            /* ... */
+          },
+          valueField: "value",
+          displayField: "text",
+        },
+        {
+          xtype: "textfield",
+          emptyText: "Tìm kiếm...",
+          flex: 1,
+        },
+        {
+          xtype: "button",
+          text: "Tìm kiếm",
+          iconCls: "x-fa fa-search",
+          handler: "onTimKiem",
+        },
+      ],
+    },
+  ],
+
+  // ── Paging (docked bottom) ──
+  bbar: {
+    xtype: "pagingtoolbar",
+    displayInfo: true,
+    emptyMsg: "Không có dữ liệu",
+  },
+
+  // ── Columns ──
+  columns: [
+    { text: "STT", dataIndex: "stt", width: 60, align: "center" },
+    { text: "Số văn bản", dataIndex: "soVanBan", width: 150 },
+    { text: "Tên văn bản", dataIndex: "tenVanBan", flex: 1 },
+    { text: "Loại", dataIndex: "loaiVanBan", width: 120 },
+    { text: "Trạng thái", dataIndex: "trangThai", width: 140 },
+    {
+      text: "Ngày tạo",
+      dataIndex: "ngayTao",
+      width: 120,
+      renderer: Ext.util.Format.dateRenderer("d/m/Y"),
+    },
+    {
+      xtype: "actioncolumn",
+      text: "Thao tác",
+      width: 100,
+      items: [
+        { iconCls: "x-fa fa-eye", tooltip: "Xem", handler: "onRowView" },
+        { iconCls: "x-fa fa-edit", tooltip: "Sửa", handler: "onRowEdit" },
+      ],
+    },
+  ],
 });
 ```
 
 **So sánh 2 cách:**
 
-| | Cách cũ (Container + ViewGrid) | Cách mới (View = Grid) |
-|--|--------------------------------|----------------------|
-| Khi nào dùng | Grid phức tạp, nhiều panels, multi-component | Chỉ có 1 grid + filter + paging |
-| Số file | 4+ (View, ViewGrid, Controller, ViewModel) | 3 (View, Controller, ViewModel) |
-| Filter bar | Item trong Container | `dockedItems: [{ dock: 'top' }]` |
-| Paging | Trong ViewGrid | `bbar: { xtype: 'pagingtoolbar' }` |
-| Code nhiều hơn | Cần requires + gọi xtype con | Ít code hơn, tất cả trong 1 file |
+|                | Cách cũ (Container + ViewGrid)               | Cách mới (View = Grid)             |
+| -------------- | -------------------------------------------- | ---------------------------------- |
+| Khi nào dùng   | Grid phức tạp, nhiều panels, multi-component | Chỉ có 1 grid + filter + paging    |
+| Số file        | 4+ (View, ViewGrid, Controller, ViewModel)   | 3 (View, Controller, ViewModel)    |
+| Filter bar     | Item trong Container                         | `dockedItems: [{ dock: 'top' }]`   |
+| Paging         | Trong ViewGrid                               | `bbar: { xtype: 'pagingtoolbar' }` |
+| Code nhiều hơn | Cần requires + gọi xtype con                 | Ít code hơn, tất cả trong 1 file   |
 
 ### 1.2. Namespace và Alias
+
+Namespace khớp toàn bộ đường dẫn, ví dụ `DEMO.view.pages.ConNguoiLienQuan.ThemMoi.MoiQuanHe.MoiQuanHe_View`; xtype vẫn trùng tên file, duy nhất toàn ứng dụng.
 
 Mỗi file phải có đúng namespace và alias:
 
 **View (`{Feature}_View.js`):**
+
 ```javascript
-Ext.define('DEMO.view.pages.{Feature}.{Feature}_View', {
-    extend: 'Ext.container.Container',
-    xtype: '{Feature}_View',          // xtype = tên file (KHÔNG viết thường/không gạch ngang)
-    controller: '{feature-lowercase}',
-    viewModel: '{feature-lowercase}',
-    // ...
+Ext.define("DEMO.view.pages.{Feature}.{Feature}_View", {
+  extend: "Ext.container.Container",
+  xtype: "{Feature}_View", // xtype = tên file (KHÔNG viết thường/không gạch ngang)
+  controller: "{feature-lowercase}",
+  viewModel: "{feature-lowercase}",
+  // ...
 });
 ```
 
 **Controller (`{Feature}_ViewController.js`):**
+
 ```javascript
-Ext.define('DEMO.view.pages.{Feature}.{Feature}_ViewController', {
-    extend: 'Ext.app.ViewController',
-    alias: 'controller.{feature-lowercase}',
-    // ...
+Ext.define("DEMO.view.pages.{Feature}.{Feature}_ViewController", {
+  extend: "Ext.app.ViewController",
+  alias: "controller.{feature-lowercase}",
+  // ...
 });
 ```
 
 **Model (`{Feature}_ViewModel.js`):**
+
 ```javascript
-Ext.define('DEMO.view.pages.{Feature}.{Feature}_ViewModel', {
-    extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.{feature-lowercase}',
-    // ...
+Ext.define("DEMO.view.pages.{Feature}.{Feature}_ViewModel", {
+  extend: "Ext.app.ViewModel",
+  alias: "viewmodel.{feature-lowercase}",
+  // ...
 });
 ```
 
-> **Lưu ý:**	xtype dùng PascalCase trùng tên file. Alias (controller/viewmodel) vẫn giữ lowercase-kebab cho tiện.
+> **Lưu ý:** xtype dùng PascalCase trùng tên file. Alias (controller/viewmodel) vẫn giữ lowercase-kebab cho tiện.
 
 ### 1.3. Phân trách nhiệm
 
-| Thành phần | Được phép | Không được phép |
-|------------|-----------|----------------|
-| **View** | Layout, items, UI config, bind data từ ViewModel | Gọi API, xử lý business logic, thao tác DOM phức tạp |
-| **Controller** | Xử lý sự kiện, gọi API, logic business, validation | Định nghĩa UI layout, items phức tạp |
-| **Model** | Stores, formulas, data binding, computed values | Gọi API trực tiếp, thao tác UI |
+| Thành phần     | Được phép                                          | Không được phép                                      |
+| -------------- | -------------------------------------------------- | ---------------------------------------------------- |
+| **View**       | Layout, items, UI config, bind data từ ViewModel   | Gọi API, xử lý business logic, thao tác DOM phức tạp |
+| **Controller** | Xử lý sự kiện, gọi API, logic business, validation | Định nghĩa UI layout, items phức tạp                 |
+| **Model**      | Stores, formulas, data binding, computed values    | Gọi API trực tiếp, thao tác UI                       |
 
 ---
 
@@ -335,16 +402,16 @@ function () {
 Luôn dùng `me = this` bên trong các method của ExtJS để tránh mất ngữ cảnh:
 
 ```javascript
-Ext.define('DEMO.view.pages.OrderListController', {
-    extend: 'Ext.app.ViewController',
-    alias: 'controller.orderlist',
+Ext.define("DEMO.view.pages.OrderListController", {
+  extend: "Ext.app.ViewController",
+  alias: "controller.orderlist",
 
-    onSearch: function () {
-        var me = this;
-        var vm = me.getViewModel();
-        var store = vm.getStore('orderStore');
-        // ...
-    }
+  onSearch: function () {
+    var me = this;
+    var vm = me.getViewModel();
+    var store = vm.getStore("orderStore");
+    // ...
+  },
 });
 ```
 
@@ -379,58 +446,62 @@ onSearch: function () {
 
 Khi component có nhiều columns/fields hoặc logic phức tạp, **BẮT BUỘC** phải tách ra file riêng.
 
-**Bảng quy định tách:**
-
-| Component | Tên file tách | Điều kiện bắt buộc tách |
-|-----------|--------------|------------------------|
-| Grid | `{Feature}_ViewGrid.js` | Grid > 100 dòng code HOẶC nhiều custom renderer phức tạp (> 3 renderer) |
-| Form | `{Feature}_ViewForm.js` | Form có > 5 fields HOẶC có conditional logic |
-| Filter bar | `{Feature}_ViewFilter.js` | Filter có > 5 components HOẶC có logic filter phức tạp |
-| Tab panel | `{Feature}_ViewTab.js` | Tab có nội dung phức tạp (grid/form bên trong) |
-| Chart container | `{Feature}_ViewChart.js` | Chart có cấu hình phức tạp hoặc nhiều chart |
-
-> **Lưu ý:** `actioncolumn` với few icon (view/edit/delete) là bình thường, KHÔNG bắt buộc tách file chỉ vì có actioncolumn. Chỉ tách khi grid overall quá phức tạp.
+Áp dụng tiêu chí tách tại mục 1.1.1. Form dài tách theo khối nghiệp vụ, không sinh field qua helper để rút ngắn View.
 
 **Quy tắc đặt tên component tách ra:**
+
 - File: `{Feature}_View{LoaiComponent}.js` (VD: `OrderList_ViewGrid.js`)
 - **xtype: `{Feature}_View{LoaiComponent}`** (VD: `OrderList_ViewGrid`) — xtype PHẢI trùng tên file, viết PascalCase
-- Namespace: `DEMO.view.pages.{Feature}.{Feature}_View{LoaiComponent}`
-- Component con LUÔN nằm trong folder cha: `classic/src/view/pages/{Feature}/{Feature}_View{Loai}.js`
+- Namespace: `DEMO.view.pages.{Feature}.{ComponentPath}.{TênFile}`; folder và namespace phải tương ứng
+- View trình bày dùng chung MVVM nằm trong folder sở hữu: `classic/src/view/pages/{Feature}/{Feature}_View{Loai}.js`
 
 **Ví dụ tách Grid:**
 
 ```javascript
 // File: OrderList_ViewGrid.js — component con nằm trong folder cha: OrderList/
-Ext.define('DEMO.view.pages.OrderList.OrderList_ViewGrid', {
-    extend: 'Ext.grid.Panel',
-    xtype: 'OrderList_ViewGrid',  // xtype = tên file PascalCase
+Ext.define("DEMO.view.pages.OrderList.OrderList_ViewGrid", {
+  extend: "Ext.grid.Panel",
+  xtype: "OrderList_ViewGrid", // xtype = tên file PascalCase
 
-    bind: { store: '{orderGridStore}' },
+  bind: { store: "{orderGridStore}" },
 
-    columns: [
-        { text: 'Mã đơn', dataIndex: 'orderId', width: 120 },
-        { text: 'Khách hàng', dataIndex: 'customerName', flex: 1 },
-        { text: 'Trạng thái', dataIndex: 'status', width: 120,
-            renderer: function (value) {
-                var color = value === 'Completed' ? '#10b981' : '#f97316';
-                return '<span style="color:' + color + ';font-weight:600;">' + value + '</span>';
-            }
-        },
-        { text: 'Tổng tiền', dataIndex: 'totalAmount', width: 140, align: 'right',
-            renderer: function (value) {
-                return Ext.util.Format.number(value, '0,000') + ' VNĐ';
-            }
-        },
-        {
-            xtype: 'actioncolumn',
-            text: 'Thao tác',
-            width: 100,
-            items: [
-                { iconCls: 'x-fa fa-eye', tooltip: 'Xem', handler: 'onRowView' },
-                { iconCls: 'x-fa fa-edit', tooltip: 'Sửa', handler: 'onRowEdit' }
-            ]
-        }
-    ]
+  columns: [
+    { text: "Mã đơn", dataIndex: "orderId", width: 120 },
+    { text: "Khách hàng", dataIndex: "customerName", flex: 1 },
+    {
+      text: "Trạng thái",
+      dataIndex: "status",
+      width: 120,
+      renderer: function (value) {
+        var color = value === "Completed" ? "#10b981" : "#f97316";
+        return (
+          '<span style="color:' +
+          color +
+          ';font-weight:600;">' +
+          value +
+          "</span>"
+        );
+      },
+    },
+    {
+      text: "Tổng tiền",
+      dataIndex: "totalAmount",
+      width: 140,
+      align: "right",
+      renderer: function (value) {
+        return Ext.util.Format.number(value, "0,000") + " VNĐ";
+      },
+    },
+    {
+      xtype: "actioncolumn",
+      text: "Thao tác",
+      width: 100,
+      items: [
+        { iconCls: "x-fa fa-eye", tooltip: "Xem", handler: "onRowView" },
+        { iconCls: "x-fa fa-edit", tooltip: "Sửa", handler: "onRowEdit" },
+      ],
+    },
+  ],
 });
 ```
 
@@ -438,24 +509,22 @@ Ext.define('DEMO.view.pages.OrderList.OrderList_ViewGrid', {
 
 ```javascript
 // File: OrderList_View.js
-Ext.define('DEMO.view.pages.OrderList.OrderList_View', {
-    extend: 'Ext.container.Container',
-    xtype: 'OrderList_View',        // xtype = tên file
-    controller: 'orderlist',
-    viewModel: 'orderlist',
+Ext.define("DEMO.view.pages.OrderList.OrderList_View", {
+  extend: "Ext.container.Container",
+  xtype: "OrderList_View", // xtype = tên file
+  controller: "orderlist",
+  viewModel: "orderlist",
 
-    requires: [
-        'DEMO.view.pages.OrderList.OrderList_ViewGrid'
-    ],
+  requires: ["DEMO.view.pages.OrderList.OrderList_ViewGrid"],
 
-    layout: { type: 'vbox', align: 'stretch' },
-    items: [
-        // Header, Filter...
-        {
-            xtype: 'OrderList_ViewGrid',  // Gọi component con — xtype = tên file
-            flex: 1
-        }
-    ]
+  layout: { type: "vbox", align: "stretch" },
+  items: [
+    // Header, Filter...
+    {
+      xtype: "OrderList_ViewGrid", // Gọi component con — xtype = tên file
+      flex: 1,
+    },
+  ],
 });
 ```
 
@@ -497,29 +566,52 @@ Ext.define('DEMO.view.pages.OrderList.OrderList_View', {
 
 ### 3.1. Cấu trúc View template
 
+**Form khai báo trực tiếp (mẫu: ConNguoiDemo2):**
+
+- Viết layout, items, defaults, columns và dockedItems trực tiếp trong config View/Form. Mỗi field thể hiện xtype, name/reference, label, bind, validation và listener tại nơi sử dụng.
+- Form dài thì tách theo khối nghiệp vụ thành component có xtype; bên trong vẫn khai báo items trực tiếp. Không tách máy móc chỉ vì số field, không tạo component cho từng field.
+- Không dùng schema, field factory, helper hoặc vòng lặp để dựng các field tĩnh; không chuyển cách dựng này sang Controller/init/afterrender.
+- Hạn chế override initComponent. Không override chỉ để gán me.items, Ext.apply(me, config), hoặc callParent. Chỉ dùng khi có cấu hình phụ thuộc instance lúc khởi tạo mà config/binding không đáp ứng, kèm lý do cụ thể.
+- Store/data/formulas ở ViewModel; xử lý sự kiện ở Controller. Dùng handler/listener dạng tên method và giữ padding5 theo mục 3.4.
+
+```javascript
+items: [{
+    xtype: 'container',
+    cls: 'padding5',
+    layout: 'hbox',
+    items: [{
+        xtype: 'textfield',
+        name: 'hoTen',
+        reference: 'hoTen',
+        fieldLabel: 'Họ và tên',
+        allowBlank: false,
+        flex: 1,
+        bind: { value: '{person.hoTen}' }
+    }]
+}]
+```
+
 **Cách 1: Màn hình phức tạp — Container wrapper + ViewGrid tách riêng**
 
 ```javascript
 // File: OrderList_View.js
-Ext.define('DEMO.view.pages.OrderList.OrderList_View', {
-    extend: 'Ext.container.Container',
-    xtype: 'OrderList_View',       // xtype = tên file PascalCase
+Ext.define("DEMO.view.pages.OrderList.OrderList_View", {
+  extend: "Ext.container.Container",
+  xtype: "OrderList_View", // xtype = tên file PascalCase
 
-    controller: 'orderlist',
-    viewModel: 'orderlist',
+  controller: "orderlist",
+  viewModel: "orderlist",
 
-    requires: [
-        'DEMO.view.pages.OrderList.OrderList_ViewGrid'
-    ],
+  requires: ["DEMO.view.pages.OrderList.OrderList_ViewGrid"],
 
-    scrollable: 'y',
-    padding: 20,
-    layout: { type: 'vbox', align: 'stretch' },
+  scrollable: "y",
+  padding: 20,
+  layout: { type: "vbox", align: "stretch" },
 
-    items: [
-        // 1. Filter bar (container)
-        // 2. { xtype: 'OrderList_ViewGrid', flex: 1 }
-    ]
+  items: [
+    // 1. Filter bar (container)
+    // 2. { xtype: 'OrderList_ViewGrid', flex: 1 }
+  ],
 });
 ```
 
@@ -527,38 +619,40 @@ Ext.define('DEMO.view.pages.OrderList.OrderList_View', {
 
 ```javascript
 // File: ToTrinh_View.js — CHỈ dùng khi: 1 grid + filter + paging, KHÔNG có tab/chart/multi-panel
-Ext.define('DEMO.view.pages.ToTrinh.ToTrinh_View', {
-    extend: 'Ext.grid.Panel',
-    xtype: 'ToTrinh_View',
+Ext.define("DEMO.view.pages.ToTrinh.ToTrinh_View", {
+  extend: "Ext.grid.Panel",
+  xtype: "ToTrinh_View",
 
-    controller: 'totrinh',
-    viewModel: 'totrinh',
+  controller: "totrinh",
+  viewModel: "totrinh",
 
-    bind: { store: '{totrinhStore}' },
+  bind: { store: "{totrinhStore}" },
 
-    // Filter bar → docked top
-    dockedItems: [{
-        dock: 'top',
-        xtype: 'toolbar',
-        items: [
-            { xtype: 'combobox', emptyText: 'Loại...', width: 160 },
-            { xtype: 'textfield', emptyText: 'Tìm kiếm...', flex: 1 },
-            { xtype: 'button', text: 'Tìm kiếm', handler: 'onTimKiem' }
-        ]
-    }],
-
-    // Paging → docked bottom
-    bbar: {
-        xtype: 'pagingtoolbar',
-        displayInfo: true,
-        emptyMsg: 'Không có dữ liệu'
+  // Filter bar → docked top
+  dockedItems: [
+    {
+      dock: "top",
+      xtype: "toolbar",
+      items: [
+        { xtype: "combobox", emptyText: "Loại...", width: 160 },
+        { xtype: "textfield", emptyText: "Tìm kiếm...", flex: 1 },
+        { xtype: "button", text: "Tìm kiếm", handler: "onTimKiem" },
+      ],
     },
+  ],
 
-    columns: [
-        { text: 'STT', dataIndex: 'stt', width: 60 },
-        { text: 'Tên', dataIndex: 'ten', flex: 1 },
-        // ...
-    ]
+  // Paging → docked bottom
+  bbar: {
+    xtype: "pagingtoolbar",
+    displayInfo: true,
+    emptyMsg: "Không có dữ liệu",
+  },
+
+  columns: [
+    { text: "STT", dataIndex: "stt", width: 60 },
+    { text: "Tên", dataIndex: "ten", flex: 1 },
+    // ...
+  ],
 });
 ```
 
@@ -571,13 +665,14 @@ Ext.define('DEMO.view.pages.ToTrinh.ToTrinh_View', {
 ```javascript
 // SAI —脆弱, dễ break khi đổi fieldLabel
 view.down('combobox[fieldLabel="Loại văn bản"]').getValue();
-view.down('#myItemId').getValue();
+view.down("#myItemId").getValue();
 
 // ĐÚNG — reference rõ ràng, không phụ thuộc label/text
-me.lookupReference('cboLoaiVanBan').getValue();
+me.lookupReference("cboLoaiVanBan").getValue();
 ```
 
 **Cách dùng:**
+
 - Trong View: khai báo `reference: 'cboLoaiVanBan'`
 - Trong Controller: `me.lookupReference('cboLoaiVanBan')`
 - Reset value: dùng ViewModel bind + `vm.set('tenData', giaTri)` thay vì `setValue()` trực tiếp
@@ -626,6 +721,7 @@ data: {
 **Bind trong View:** `{timKiemNangCao.loaiVanBan}` thay vì `{loaiVanBan}`
 
 **Reset trong Controller:** `vm.set('timKiemNangCao', { ...defaults })` để reset tất cả cùng lúc
+
 - Có ý nghĩa, mô tả chức năng: KHÔNG dùng `#field1`, `#button2`
 
 ### 3.3. Quy tắc binding
@@ -646,6 +742,80 @@ data: {
 }
 ```
 
+### 3.4. Quy chuẩn Form Layout: Đặt `padding5` một lần ở form cha
+
+**QUY TẮC CỐT LÕI:**
+
+1. Đặt `cls: 'padding5'` **một lần trên component ngoài cùng chứa toàn bộ form**. Các container dòng (`hbox`, `column`) và component con bên trong không khai báo lại `padding5`.
+2. Nếu popup/form khác là một cây component độc lập và không nằm dưới form cha có `padding5`, đặt class này ở form ngoài cùng của cây đó.
+3. **CẤM** đặt `defaults: { margin: '0 12 10 0' }` hoặc gán inline margin trên field để tạo khoảng cách cột.
+4. Khi form gồm các component con có dòng `layout: 'column'`, form và các component trung gian phải cấp chiều rộng cho dòng (ví dụ `layout: { type: 'vbox', align: 'stretch' }`). Nếu dòng tự co theo nội dung, ExtJS không tính được `columnWidth`; field sẽ giữ chiều rộng mặc định và tạo khoảng trắng lớn. Kiểm tra ở cả form chính, khối cá nhân, địa chỉ và popup con. Giữ field khai báo trực tiếp trong dòng; không tạo wrapper cho từng field chỉ để sửa chiều rộng.
+
+**Đánh dấu field bắt buộc:** `Main.scss` đã có selector `.field-csstyle.required` để hiển thị dấu `*` ở label. Field bắt buộc dùng `allowBlank: false` để kiểm tra dữ liệu và `cls: 'field-csstyle required'` để hiển thị dấu sao. Khai báo đủ hai class vì `cls` của field sẽ thay `field-csstyle` mặc định từ override. Không tự tạo CSS cho dấu sao, không dùng `afterLabelTextTpl` để chèn dấu sao bằng HTML. Field không bắt buộc dùng class mặc định từ override và không cần `cls` riêng.
+
+```javascript
+{
+    xtype: 'textfield',
+    fieldLabel: 'Họ và tên',
+    allowBlank: false,
+    cls: 'field-csstyle required'
+}
+```
+
+**Nguyên lý SCSS trong project:**
+
+- Trong `classic/sass/src/view/main/Main.scss` (dòng 3108):
+  ```scss
+  .padding5 {
+    .field-csstyle {
+      padding: 0px 5px !important;
+      > label > span {
+        > span {
+          left: 12px;
+        }
+      }
+    }
+  }
+  ```
+- Tất cả các field trong project (`TextField`, `ComboBox`, `DateField`, `NumberField`, `TextArea`,...) đã được tự động thêm class `field-csstyle` qua `classic/overrides/`.
+- Selector `.padding5 .field-csstyle` áp dụng cho mọi field hậu duệ, kể cả field nằm trong nhiều component hoặc container dòng lồng nhau. Một class ở form cha đã đủ để mỗi field có padding 5px hai bên và tạo khoảng cách 10px giữa hai cột.
+- Nếu dùng `margin: "0 12 10 0"`, field ngoài cùng bên phải sẽ bị đẩy thụt vào 10px gây lệch mép phải so với các dòng khác hoặc tràn container.
+
+**Ví dụ đúng:**
+
+```javascript
+// ĐÚNG - Chỉ form ngoài cùng có padding5; các dòng con dùng layout riêng
+Ext.define("DEMO.view.pages.MyFeature.MyFeature_ViewForm", {
+  extend: "Ext.form.Panel",
+  xtype: "MyFeature_ViewForm",
+  cls: 'padding5',
+  layout: { type: "vbox", align: "stretch" },
+  items: [
+    {
+      xtype: "container",
+      layout: 'hbox',
+      items: [
+        { xtype: 'textfield', fieldLabel: 'Họ và tên', flex: 1 },
+        { xtype: 'combobox', fieldLabel: 'Giới tính', flex: 1 },
+      ],
+    },
+  ],
+});
+```
+
+**Ví dụ sai:**
+
+```javascript
+// SAI - Lặp padding5 trên dòng con hoặc hardcode margin cho field
+{
+    xtype: 'container',
+    cls: 'padding5', // SAI: form cha đã có padding5
+    layout: 'hbox',
+    defaults: { margin: '0 12 10 0' }, // SAI: Gây lệch lề phải và xung đột với .field-csstyle
+    items: [...]
+}
+```
+
 ---
 
 ## 4. QUY CHUẨN CONTROLLER
@@ -653,42 +823,36 @@ data: {
 ### 4.1. Cấu trúc Controller template
 
 ```javascript
-Ext.define('DEMO.view.pages.OrderList.OrderList_ViewController', {
-    extend: 'Ext.app.ViewController',
-    alias: 'controller.orderlist',
+Ext.define("DEMO.view.pages.OrderList.OrderList_ViewController", {
+  extend: "Ext.app.ViewController",
+  alias: "controller.orderlist",
 
-    // ── Khai báo ──────────────────────────────────────────
-    requires: [],
+  // ── Khai báo ──────────────────────────────────────────
+  requires: [],
 
-    // ── Lifecycle ─────────────────────────────────────────
-    init: function () {
-        var me = this;
-        me.callParent(arguments);
-        // Initialization logic
-    },
 
-    // ── Event Handlers ────────────────────────────────────
-    onSearch: function () {
-        var me = this;
-        // ...
-    },
+  // ── Event Handlers ────────────────────────────────────
+  onSearch: function () {
+    var me = this;
+    // ...
+  },
 
-    onAddNew: function () {
-        var me = this;
-        // ...
-    },
+  onAddNew: function () {
+    var me = this;
+    // ...
+  },
 
-    onRowEdit: function (grid, rowIndex, colIndex) {
-        var me = this,
-            rec = grid.getStore().getAt(rowIndex);
-        // ...
-    },
+  onRowEdit: function (grid, rowIndex, colIndex) {
+    var me = this,
+      rec = grid.getStore().getAt(rowIndex);
+    // ...
+  },
 
-    // ── Private Methods ──────────────────────────────────
-    loadData: function () {
-        var me = this;
-        // ...
-    }
+  // ── Private Methods ──────────────────────────────────
+  loadData: function () {
+    var me = this;
+    // ...
+  },
 });
 ```
 
@@ -717,6 +881,68 @@ destroy: function () {
 }
 ```
 
+### 4.4. Quy chuẩn hiển thị thông báo: Dùng `notiCommon` (DEMO.app.NotiCommon)
+
+**BẮT BUỘC:** Toàn bộ thông báo trong project sử dụng singleton `notiCommon` (tại `app/view/common/NotiCommon.js`), **KHÔNG dùng `Ext.toast`** trực tiếp (tránh lỗi `Ext.toast is not a function` khi chưa require `Ext.window.Toast`).
+
+**Các kiểu thông báo chuẩn:**
+
+1. **Thông báo trạng thái (success / warning / error / info):**
+
+```javascript
+// Thành công
+notiCommon.show({
+  message: "Lưu dữ liệu thành công!",
+  type: "success",
+});
+
+// Cảnh báo
+notiCommon.show({
+  message: "Vui lòng nhập đầy đủ các trường bắt buộc.",
+  type: "warning",
+});
+
+// Lỗi
+notiCommon.show({
+  message: "Có lỗi xảy ra khi xử lý dữ liệu.",
+  type: "error",
+});
+
+// Thông tin
+notiCommon.show({
+  message: "Đã sao chép thông tin vào bộ nhớ tạm.",
+  type: "info",
+});
+```
+
+2. **Hộp thoại xác nhận (Confirm dialog):**
+
+```javascript
+notiCommon.show({
+  title: "Xóa bản ghi",
+  message: "Bạn có chắc chắn muốn xóa?",
+  type: "confirm",
+  confirmText: "Xóa",
+  cancelText: "Hủy",
+  onConfirm: function () {
+    // Xử lý khi người dùng bấm xác nhận
+  },
+  onCancel: function () {
+    // Xử lý khi bấm hủy (nếu cần)
+  },
+});
+```
+
+3. **Thông báo tự đóng (Auto close / Toast style):**
+
+```javascript
+notiCommon.showCustom({
+  message: "Đã cập nhật trạng thái!",
+  type: "success",
+  autoClose: 2000, // Tự đóng sau 2 giây
+});
+```
+
 ---
 
 ## 5. QUY CHUẨN MODEL (VIEWMODEL)
@@ -724,39 +950,39 @@ destroy: function () {
 ### 5.1. Cấu trúc Model template
 
 ```javascript
-Ext.define('DEMO.view.pages.OrderList.OrderList_ViewModel', {
-    extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.orderlist',
+Ext.define("DEMO.view.pages.OrderList.OrderList_ViewModel", {
+  extend: "Ext.app.ViewModel",
+  alias: "viewmodel.orderlist",
 
-    data: {
-        // Dữ liệu binding đơn giản
-        title: 'Danh sách đơn hàng',
-        totalOrders: 0
+  data: {
+    // Dữ liệu binding đơn giản
+    title: "Danh sách đơn hàng",
+    totalOrders: 0,
+  },
+
+  formulas: {
+    // Computed values
+    totalAmount: {
+      bind: "{orderStore}",
+      get: function (store) {
+        if (!store) return 0;
+        var total = 0;
+        store.each(function (rec) {
+          total += rec.get("amount");
+        });
+        return total;
+      },
     },
+  },
 
-    formulas: {
-        // Computed values
-        totalAmount: {
-            bind: '{orderStore}',
-            get: function (store) {
-                if (!store) return 0;
-                var total = 0;
-                store.each(function (rec) {
-                    total += rec.get('amount');
-                });
-                return total;
-            }
-        }
+  stores: {
+    orderStore: {
+      fields: ["id", "name", "status", "amount", "createdDate"],
+      data: [
+        // Dữ liệu mẫu hoặc cấu hình proxy để load từ API
+      ],
     },
-
-    stores: {
-        orderStore: {
-            fields: ['id', 'name', 'status', 'amount', 'createdDate'],
-            data: [
-                // Dữ liệu mẫu hoặc cấu hình proxy để load từ API
-            ]
-        }
-    }
+  },
 });
 ```
 
@@ -855,6 +1081,8 @@ requires: [
 
 ### 8.1. File SCSS mapping
 
+SCSS phản ánh đường dẫn namespace đầy đủ. Ví dụ component lồng folder: `classic/sass/src/view/pages/ConNguoiLienQuan/ThemMoi/ThemMoiConNguoi_View.scss`.
+
 Theo convention của Sencha Cmd, file SCSS phải đặt đúng vị trí:
 
 ```
@@ -862,6 +1090,7 @@ classic/sass/src/view/{Feature}/{Feature}_View.scss
 ```
 
 Ví dụ:
+
 ```
 classic/sass/src/view/pages/OrderList/OrderList_View.scss
 ```
@@ -904,6 +1133,7 @@ text: 'Tìm kiếm'
 ### 9.2. Đặt tên biến, function, file bằng tiếng Việt không dấu
 
 **Được phép** dùng tên tiếng Việt không dấu cho:
+
 - Tên file, thư mục (đã quy định ở mục 1.1.0)
 - Tên biến local trong function
 - Tên function/method
@@ -911,6 +1141,7 @@ text: 'Tìm kiếm'
 - Tên xtype: **PascalCase trùng tên file** (VD: `OrderList_ViewGrid`, `TaiLieuDinhKem_View`)
 
 **Quy tắc:**
+
 - Bỏ dấu tiếng Việt (ă→a, â→a, ê→e, ô→o, ơ→o, ư→u, đ→d)
 - **camelCase** cho biến/function: chữ thường đầu, hoa chữ cái đầu mỗi từ mới
 - **PascalCase** cho class name, file name: hoa chữ đầu mỗi từ
@@ -918,14 +1149,14 @@ text: 'Tìm kiếm'
 **Ví dụ:**
 
 | Tiếng Việt có dấu | Tên biến/function không dấu |
-|-------------------|----------------------------|
-| danh sách hồ sơ | `danhSachHoSo` |
-| tài liệu đính kèm | `taiLieuDinhKem` |
-| tìm kiếm | `timKiem` |
-|加载 dữ liệu | `taiDuLieu` |
-| số lượng hồ sơ | `soLuongHoSo` |
-| ngày hết hạn | `ngayHetHan` |
-| trạng thái xử lý | `trangThaiXuLy` |
+| ----------------- | --------------------------- |
+| danh sách hồ sơ   | `danhSachHoSo`              |
+| tài liệu đính kèm | `taiLieuDinhKem`            |
+| tìm kiếm          | `timKiem`                   |
+| 加载 dữ liệu      | `taiDuLieu`                 |
+| số lượng hồ sơ    | `soLuongHoSo`               |
+| ngày hết hạn      | `ngayHetHan`                |
+| trạng thái xử lý  | `trangThaiXuLy`             |
 
 ```javascript
 // Ví dụ trong Controller
@@ -987,6 +1218,7 @@ text: 'Tài liệu đính kèm'
 
 ### 9.4. Comments
 
+- Với file dài hoặc có nhiều nhóm nghiệp vụ, dùng cặp `//#region NOTE: Tên nhóm` và `//#endregion` quanh từng nhóm để tìm và thu gọn trong editor. Đặt ở ranh giới thật của các khối `items`, store hoặc method; tên nhóm ngắn, mô tả nội dung. Không tạo region cho từng field hoặc một method ngắn.
 - Comment tiếng Việt cho business logic
 - Comment tiếng Anh cho technical note quốc tế
 - Luôn có JSDoc cho public methods
@@ -1016,12 +1248,13 @@ onTimKiem: function () {
 - KHÔNG dùng ES modules (`import` / `export`)
 - KHÔNG đặt logic business trong View
 - KHÔNG đặt UI layout trong Controller
-- KHÔNG tạo view mới mà thiếu Controller hoặc Model
+- KHÔNG tạo màn hình/popup độc lập thiếu Controller hoặc Model; khối trình bày dùng chung MVVM của chủ sở hữu
 - KHÔNG dùng double quotes thay cho single quotes
 - KHÔNG dùng trailing comma
-- KHÔNG viết thẳng grid/form phức tạp (> 50 dòng) vào `_View.js` → BẮT BUỘC tách ra file `{Feature}_ViewGrid.js`, `{Feature}_ViewForm.js`
+- Form dài tách theo khối nghiệp vụ theo mục 1.1.1; khai báo field trực tiếp theo mục 3.1.
 - KHÔNG viết code mà không kiểm tra ảnh hưởng đến các component khác
 - **KHÔNG viết `xtype: 'component'` thừa** — `xtype: 'component'` là mặc định, chỉ dùng khi render raw HTML
+- **Không dùng initComponent để dựng UI tĩnh; xem mục 3.1.**
 - **KHÔNG viết `init` override rỗng** — nếu init chỉ `callParent` thì bỏ luôn, không khai báo
 
 ### 10.2. LUÔN làm những việc sau
@@ -1044,14 +1277,15 @@ onTimKiem: function () {
 - [ ] Tạo `{Feature}_View.js` với namespace đúng, **xtype = tên file** (`{Feature}_View`), có `controller` và `viewModel` alias
 - [ ] Tạo `{Feature}_ViewController.js` với `alias: 'controller.{feature}'`
 - [ ] Tạo `{Feature}_ViewModel.js` với `alias: 'viewmodel.{feature}'`
-- [ ] Nếu dùng cách Container: Kiểm tra có component phức tạp (> 50 dòng) cần tách file không?
-- [ ] Nếu có Grid phức tạp → tạo `{Feature}_ViewGrid.js` trong **cùng folder cha**, **xtype = tên file**
-- [ ] Nếu có Form phức tạp → tạo `{Feature}_ViewForm.js` trong **cùng folder cha**, **xtype = tên file**
-- [ ] Component con KHÔNG có Controller/Model riêng — dùng chung của parent
+- [ ] Kiểm tra tách component theo mục 1.1.1; form dài tách theo khối nghiệp vụ.
+- [ ] Field khai báo trực tiếp; không factory/schema sinh UI tĩnh, không initComponent không cần thiết.
+- [ ] Nếu có Grid phức tạp → tạo `{Feature}_ViewGrid.js` trong **folder component sở hữu**, **xtype = tên file**
+- [ ] Nếu có Form phức tạp → tạo `{Feature}_ViewForm.js` trong **folder component sở hữu**, **xtype = tên file**
+- [ ] View trình bày dùng chung Controller/Model của parent; component độc lập có đủ bộ ba trong folder riêng
 - [ ] Đảm bảo component tách ra đã được `requires` trong `_View.js`
 - [ ] Đăng ký route trong MainController.js (dùng xtype = tên file)
 - [ ] Đăng ký menu item trong tree store (MainModel.js) (dùng xtype = tên file)
-- [ ] Tạo file SCSS: `classic/sass/src/view/pages/{Feature}/{Feature}_View.scss`
+- [ ] Tạo file SCSS: `classic/sass/src/view/pages/{Feature}/{ComponentPath}/{TênFile}.scss` (ComponentPath theo namespace)
 - [ ] Kiểm tra ESLint không có lỗi
 - [ ] Kiểm tra UI hiển thị đúng tiếng Việt
 - [ ] Kiểm tra binding store, controller handler không bị trùng/lỗi
@@ -1069,4 +1303,4 @@ OrderList_ViewForm.js              OrderList_ViewForm   DEMO.view.pages.OrderLis
 TaiLieuDinhKem_View.js             TaiLieuDinhKem_View  DEMO.view.pages.TaiLieuDinhKem.TaiLieuDinhKem_View
 ```
 
-**Nguyên tắc:**	xtype luôn **PascalCase trùng tên file**, KHÔNG viết thường, KHÔNG dùng gạch ngang.
+**Nguyên tắc:** xtype luôn **PascalCase trùng tên file**, KHÔNG viết thường, KHÔNG dùng gạch ngang.

@@ -128,6 +128,8 @@ sencha app build classic   # Classic toolkit only
 
 ### BẮT BUỘC: Quy chuẩn MVVM 3 file cho mọi màn hình
 
+Feature nhiều màn hình/popup nhóm mỗi bộ MVVM trong folder riêng. Khối trình bày dùng chung MVVM nằm cùng folder chủ sở hữu. Xem cây ví dụ tại CONVENTIONS.md mục 1.1; namespace và SCSS theo đầy đủ đường dẫn.
+
 **Mỗi màn hình/view module PHẢI có đủ 3 file:**
 
 | File | Vai trò | Mô tả |
@@ -136,7 +138,7 @@ sencha app build classic   # Classic toolkit only
 | `{Feature}_ViewController.js` | ViewController | Xử lý sự kiện, logic business, gọi API |
 | `{Feature}_ViewModel.js` | ViewModel | Data binding, formulas, stores |
 
-**Cấu trúc thư mục bắt buộc — component con nằm TRONG folder cha:**
+**Ví dụ cấu trúc một component — view trình bày nằm trong folder sở hữu:**
 ```
 classic/src/view/pages/{Feature}/
 ├── {Feature}_View.js              # View chính — xtype: '{Feature}_View'
@@ -149,7 +151,7 @@ classic/src/view/pages/{Feature}/
 
 **Ví dụ cụ thể:**
 ```
-classic/src/view/pages/OrderList/               ← folder cha chứa TẤT CẢ
+classic/src/view/pages/OrderList/               ← folder của một component
 ├── OrderList_View.js              # View chính — xtype: 'OrderList_View'
 ├── OrderList_ViewController.js    # Controller
 ├── OrderList_ViewModel.js         # Model
@@ -176,7 +178,7 @@ classic/src/view/pages/TaiLieuDinhKem/
 - KHÔNG được đặt logic business (gọi API, xử lý data) vào View
 - KHÔNG được đặt UI layout vào Controller
 - Nếu màn hình đơn giản (chỉ hiển thị), vẫn PHẢI tạo Controller và Model (dù rỗng)
-- Namespace phải đúng theo pattern: `DEMO.view.pages.{FolderName}.{FeatureName}`
+- Namespace khớp toàn bộ đường dẫn: `DEMO.view.pages.{Feature}.{ComponentPath}.{TênFile}` (ComponentPath có thể lồng nhau)
 - Alias phải đúng theo pattern: `controller.{feature-lowercase}`, `viewmodel.{feature-lowercase}`
 
 ### Quy tắc đặt tên file/thư mục tiếng Việt không dấu
@@ -193,7 +195,7 @@ classic/src/view/pages/TaiLieuDinhKem/
 **Quy tắc:**
 - Bỏ dấu tiếng Việt (ă → a, â → a, ê → e, ô → o, ơ → o, ư → u, đ → d)
 - PascalCase: chữ hoa đầu mỗi từ, không có underscore giữa các từ (trừ hậu tố `_View`, `_ViewController`, `_ViewModel`)
-- Namespace vẫn giữ nguyên pattern: `DEMO.view.pages.{TenThuMuc}.{TenFile}`
+- Namespace phản ánh toàn bộ đường dẫn: `DEMO.view.pages.{Feature}.{ComponentPath}.{TenFile}`
 - Alias giữ nguyên: `controller.{ten-thap-thang}`, `viewmodel.{ten-thap-thang}`
 
 ### Chọn cách viết View — Đơn giản vs Phức tạp
@@ -269,24 +271,24 @@ Ext.define('DEMO.view.pages.UserList.UserList_ViewGrid', {
 
 ### Tách component con ra file riêng (BẮT BUỘC khi phức tạp)
 
-**KHÔNG được viết thẳng grid/form phức tạp vào `_View.js` khi dùng cách Container wrapper.** Các component lớn phải được tách ra file riêng **trong cùng folder cha**:
+**KHÔNG được viết thẳng grid/form phức tạp vào `_View.js` khi dùng cách Container wrapper.** Các component lớn phải được tách ra file riêng **trong folder của component sở hữu**:
 
 | Component | File tách ra | xtype (= tên file) | Khi nào tách |
 |-----------|-------------|---------------------|--------------|
 | Grid | `{Feature}_ViewGrid.js` | `{Feature}_ViewGrid` | Grid > 100 dòng code hoặc nhiều renderer phức tạp (> 3) |
-| Form | `{Feature}_ViewForm.js` | `{Feature}_ViewForm` | Form có > 5 fields |
+| Form | `{Feature}_ViewForm.js` | `{Feature}_ViewForm` | Form dài/khó đọc: tách theo khối nghiệp vụ |
 | Filter bar | `{Feature}_ViewFilter.js` | `{Feature}_ViewFilter` | Filter có > 5 components |
 | Tab panel | `{Feature}_ViewTab.js` | `{Feature}_ViewTab` | Tab có nội dung phức tạp |
 
 > **Lưu ý:** `actioncolumn` đơn giản (view/edit/delete) KHÔNG bắt buộc tách file. Chỉ tách khi grid overall quá phức tạp.
 
 **Quy tắc tách:**
-- Component tách ra **nằm trong folder cha** (không tạo folder con riêng)
+- View trình bày tách ra nằm trong folder sở hữu; nếu có Controller/ViewModel độc lập thì đóng gói vào folder riêng
 - **xtype PHẢI trùng tên file** (PascalCase): `OrderList_ViewGrid` chứ KHÔNG phải `orderlist-viewgrid`
 - KHÔNG viết `xtype: 'component'` thừa — chỉ cần xtype trùng tên file
 - Component tách ra bind store từ ViewModel của parent View
-- Component tách ra **KHÔNG có** Controller/Model riêng, vẫn dùng chung của parent
-- Namespace: `DEMO.view.pages.{Feature}.{Feature}_{LoaiComponent}`
+- Khối trình bày tách ra dùng chung Controller/ViewModel của parent; component có MVVM độc lập phải có folder riêng
+- Namespace: `DEMO.view.pages.{Feature}.{ComponentPath}.{TênFile}`; bỏ ComponentPath chỉ với feature một component
 - Component tách ra **PHẢI** được requires trong `_View.js`
 
 **Trước khi viết code, PHẢI kiểm tra:**
@@ -304,6 +306,8 @@ Ext.define('DEMO.view.pages.UserList.UserList_ViewGrid', {
 
 ### Quy tắc tối ưu code (BẮT BUỘC)
 
+Form khai báo items/field trực tiếp như ConNguoiDemo2; dài thì tách theo khối. Không schema/factory/vòng lặp sinh field tĩnh. Không override initComponent chỉ để gán items hoặc Ext.apply; ngoại lệ phải có lý do khởi tạo theo instance. Xem CONVENTIONS.md mục 3.1.
+
 **Trước khi viết code, PHẢI kiểm tra:**
 1. **Có cách tối hơn không?** — Check xem logic đã efficient chưa, có thể simplify không
 2. **Có bị trùng lặp không?** — Check xem code có đang duplicate logic ở nhiều chỗ không
@@ -314,6 +318,21 @@ Ext.define('DEMO.view.pages.UserList.UserList_ViewGrid', {
 - Navigation: tree store chứa `component` field → MainController đọc trực tiếp từ record, KHÔNG cần `getViewXtype()` map riêng
 - Khi thêm page mới: chỉ cần thêm leaf node trong MainModel.js tree store (có `route` + `component`) + add class vào `requires` — KHÔNG sửa MainController logic
 - Component con (Grid, Form, Chart...) tách ra file riêng dùng xtype PascalCase trùng tên file → clean, easy to find
+
+### Quy tắc Form Layout: `cls: "padding5"` (BẮT BUỘC)
+
+- **BẮT BUỘC:** Gắn `cls: 'padding5'` một lần trên component ngoài cùng chứa form. Các container dòng và component con bên trong không khai báo lại; popup/form độc lập có form gốc của riêng nó.
+- **CẤM:** Không được dùng `defaults: { margin: "0 12 10 0" }` hoặc inline margin trên fields.
+- **Lý do:** `.padding5 .field-csstyle` trong `Main.scss` áp dụng cho field hậu duệ ở mọi cấp; đặt lại trên từng dòng là thừa. Chi tiết và ví dụ tại CONVENTIONS.md mục 3.4.
+
+### Quy tắc Thông báo: Dùng `notiCommon` (BẮT BUỘC)
+
+- **BẮT BUỘC:** Mọi thông báo / xác nhận dùng singleton `notiCommon` (tại `app/view/common/NotiCommon.js`).
+- **CẤM:** Không tự ý gọi `Ext.toast` (sẽ gây lỗi `Ext.toast is not a function` khi chưa load `Ext.window.Toast`).
+- **Cú pháp:**
+  - `notiCommon.show({ message: '...', type: 'success' | 'warning' | 'error' | 'info' })`
+  - `notiCommon.show({ title: '...', message: '...', type: 'confirm', onConfirm: fn, onCancel: fn })`
+  - `notiCommon.showCustom({ message: '...', type: '...', autoClose: 2000 })`
 
 ## Important Notes
 
@@ -394,6 +413,8 @@ Dự án có `classic/overrides/` set了很多全局默认值. Khi viết View/C
 
 ### Window (Ext.window.Window)
 
+Controller mở popup bằng `const win = Ext.create('Ext.window.Window', { items: [{ xtype: 'Ten_View' }] }); win.show();`. Nội dung khai báo trực tiếp trong View/Form có MVVM riêng; dữ liệu trao đổi qua binding/config và sự kiện.
+
 Override set: `closable: true`, `closeAction: 'destroy'`, `modal: true`, `resizable: false`, `bodyStyle: 'background-color:transparent'`, `layout: { type: 'fit', padding: 5 }`
 
 ```javascript
@@ -419,6 +440,8 @@ Ext.create('Ext.window.Window', {
 ### Form Fields (TextField, NumberField, ComboBox, DateField, TextArea)
 
 Override set: `labelAlign: 'top'`, `labelSeparator: ''`, `cls: 'field-csstyle'`, `readOnlyCls: 'readOnlyCls'`, `inputAttrTpl: ['spellcheck=false']`
+
+Field bắt buộc: `allowBlank: false` và `cls: 'field-csstyle required'` để dùng dấu sao từ `Main.scss`; ghi cả `field-csstyle` vì `cls` thay class mặc định của override. Không dùng `afterLabelTextTpl` hoặc CSS riêng để vẽ dấu sao. Xem CONVENTIONS.md mục 3.4.
 
 DateField override additionally set: `format: 'd/m/Y'`
 
@@ -504,8 +527,9 @@ buttons: [{
 - `me = this` pattern inside ExtJS methods
 - **xtype PHẢI trùng tên file** (PascalCase): `OrderList_ViewGrid` chứ KHÔNG phải `orderlist-viewgrid`
 - **KHÔNG viết `xtype: 'component'` thừa** — chỉ dùng khi render raw HTML
+- **Form khai báo trực tiếp; hạn chế initComponent**, xem CONVENTIONS.md mục 3.1.
 - **KHÔNG viết `init` override rỗng** — nếu init chỉ `callParent` thì bỏ luôn
-- Component con **LUÔN nằm trong folder cha**, không tạo folder con riêng
+- View trình bày dùng chung MVVM nằm trong folder sở hữu; component có MVVM độc lập có folder riêng
 - **Màn hình đơn giản** (1 grid + filter + paging): View = `Ext.grid.Panel` trực tiếp, docked filter top, paging bottom — không cần file ViewGrid riêng
 - **Dùng `reference` + `lookupReference()`** thay vì `down('fieldLabel=...')` hoặc `down('#itemId')`
 - **Group filter fields vào `timKiemNangCao` object** trong ViewModel — KHÔNG đặt riêng lẻ ở root
