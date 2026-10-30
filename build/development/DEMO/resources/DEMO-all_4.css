@@ -1,3 +1,854 @@
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2683 */
+.tree-button div.x-treelist-row.gray {
+    background: #7b7a7a !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2686 */
+.tree-button div.x-treelist-row.gray div {
+    color: white;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2691 */
+.tree-button div.x-treelist-row.active {
+    background: #606060 !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2694 */
+.tree-button div.x-treelist-row.active div {
+    color: white;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2699 */
+.tree-button div.x-treelist-row.refuse.active {
+    background: #606060 !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2702 */
+.tree-button div.x-treelist-row.refuse.active div {
+    color: white;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2707 */
+.tree-button div.x-treelist-row.gray.active {
+    background: #606060 !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2710 */
+.tree-button div.x-treelist-row.gray.active div {
+    color: white;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2715 */
+.tree-button div.x-treelist-row.isSave.active {
+    background: #d59115 !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2718 */
+.tree-button div.x-treelist-row.isSave.active div {
+    color: white;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2723 */
+.tree-button div.x-treelist-row:hover {
+    background: #a5a5a5 !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2726 */
+.tree-button div.x-treelist-row:hover div {
+    color: #333;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2732 */
+.tree-button div.x-treelist-row-over {
+    background: #a5a5a5 !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2735 */
+.tree-button div.x-treelist-row-over >div {
+    color: #333;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2742 */
+.truy-na-quoc-te {
+    border-radius: 5px;
+    background-color: #fff;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2746 */
+.truy-na-quoc-te .x-window-header {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    background-color: #a9081c !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2764 */
+.trang-chu >div>div {
+    background-color: white;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2768 */
+.trang-chu .bar-chart,
+.trang-chu .pie-chart {
+    border-radius: 16px;
+    box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.4);
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2782 */
+.mail-style .menu-item-common {
+    padding-right: 20px;
+    position: absolute;
+    font-family: sans-serif;
+    right: 0;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2789 */
+.mail-style .navigation-email {
+    -webkit-box-shadow: 0, 1px, 2px, 0, rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0, 1px, 2px, 0, rgba(0, 0, 0, 0.2);
+    -ms-box-shadow: 0, 1px, 2px, 0, rgba(0, 0, 0, 0.2);
+    box-shadow: 0, 1px, 2px, 0, rgba(0, 0, 0, 0.2);
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2792 */
+.mail-style .navigation-email.x-menu-default {
+    border-width: 0;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2797 */
+.mail-style .navigation-email .x-menu-header {
+    line-height: 20px;
+    background-color: #fff;
+    padding: 20px 15px;
+    border-bottom: 1px solid #ccc !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2803 */
+.mail-style .navigation-email .x-menu-header .x-title-icon-wrap {
+    width: 40px;
+    padding-right: 28px;
+    text-align: left;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2809 */
+.mail-style .navigation-email .x-menu-header .x-title-text {
+    font-size: 16px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2814 */
+.mail-style .navigation-email .x-menu-item-icon-default {
+    padding-top: 10px;
+    padding-left: 12px;
+    font-size: 16px;
+    line-height: 24px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2821 */
+.mail-style .navigation-email .x-menu-item {
+    line-height: 50px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2824 */
+.mail-style .navigation-email .x-menu-item .x-menu-item-text-default.x-menu-item-indent-no-separator {
+    margin-left: 56px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2829 */
+.mail-style .navigation-email .x-menu-item.online-user .x-menu-item-text-default.x-menu-item-indent-no-separator {
+    margin-left: 18px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2834 */
+.mail-style .navigation-email .x-menu-item.online-user.x-menu-item-active .x-menu-item-link:after {
+    color: white;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2842 */
+.mail-style .email-main-wrap .x-menu-item-default.x-menu-item-active {
+    background-color: #88bf4c;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2845 */
+.mail-style .email-main-wrap .x-menu-item-default.x-menu-item-active .fa,
+.mail-style .email-main-wrap .x-menu-item-default.x-menu-item-active .x-menu-item-link:after,
+.mail-style .email-main-wrap .x-menu-item-default.x-menu-item-active .x-menu-item.offline-user .x-menu-item-link:after {
+    color: #fff;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2856 */
+.mail-style .email-sender-img {
+    -webkit-border-radius: 64px;
+    -moz-border-radius: 64px;
+    -ms-border-radius: 64px;
+    border-radius: 64px;
+    border: 1px solid #eee;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2861 */
+.mail-style .single-mail-email-subject {
+    line-height: 1.7em;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2864 */
+.mail-style .single-mail-email-subject .user-name {
+    font-size: 16px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2868 */
+.mail-style .single-mail-email-subject .user-info {
+    font-size: 22px;
+    max-width: 95%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2877 */
+.mail-style .notiTitle {
+    font-size: 20px !important;
+    padding: 3px 10px;
+    color: red !important;
+    font-weight: bold !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2884 */
+.mail-style .notiContent {
+    font-size: 14px !important;
+    line-height: 1.6em;
+    padding: 3px 10px;
+    border-bottom: 1px solid black !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2891 */
+.mail-style .mailTitle {
+    font-size: 20px;
+    padding-top: 10px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2896 */
+.mail-style .mailFrom {
+    font-size: 16px;
+    font-weight: bold;
+    float: left;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2902 */
+.mail-style .sentDate {
+    font-size: 16px;
+    float: right;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2907 */
+.mail-style .mailTo {
+    font-size: 14px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2911 */
+.mail-style .attachmentList {
+    padding: 5px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2915 */
+.mail-style .attachmentList .linkdownload {
+    color: blue;
+    text-decoration: none;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2919 */
+.mail-style .attachmentList .linkdownload:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2925 */
+.mail-style .mail-body {
+    font-size: 14px;
+    line-height: 1.6em;
+    padding: 10px 0px 14px 10px;
+    border-bottom: 1px solid #eee;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2932 */
+.mail-style .feedback-body {
+    font-size: 14px;
+    line-height: 1.6em;
+    padding: 10px 0px 14px 20px;
+    border-bottom: 1px solid #eee;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2939 */
+.mail-style .single-mail-top-toolbar {
+    background-color: #fff;
+    border-bottom: 1px solid #eee !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2943 */
+.mail-style .single-mail-top-toolbar .x-btn-inner-default-toolbar-small {
+    color: #000;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2947 */
+.mail-style .single-mail-top-toolbar a:first-child {
+    left: 2px !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2952 */
+.mail-style .single-mail-attachment {
+    border: 1px solid #eee;
+    border-left-width: 0;
+    border-right-width: 0;
+    margin-right: 15px;
+    width: 100px;
+    height: 100px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2963 */
+.mail-style .single-mail-action-button .email-compose-save-button,
+.mail-style .single-mail-action-button .email-compose-save-button .x-frame-mc {
+    background-color: #9da6a3;
+    border-color: #9da6a3 !important;
+}
+/* D:/FE/extjs/classic/sass/etc/all.scss:5 */
+.mail-style .single-mail-action-button .email-compose-save-button .x-btn-inner-default-toolbar-small,
+.mail-style .single-mail-action-button .email-compose-save-button .x-frame-mc .x-btn-inner-default-toolbar-small {
+    color: #fff;
+}
+/* D:/FE/extjs/classic/sass/etc/all.scss:9 */
+.mail-style .single-mail-action-button .email-compose-save-button:hover,
+.mail-style .single-mail-action-button .email-compose-save-button .x-frame-mc:hover {
+    background-color: transparent;
+}
+/* D:/FE/extjs/classic/sass/etc/all.scss:11 */
+.mail-style .single-mail-action-button .email-compose-save-button:hover .x-btn-inner-default-toolbar-small,
+.mail-style .single-mail-action-button .email-compose-save-button:hover .x-btn-inner-default-small,
+.mail-style .single-mail-action-button .email-compose-save-button .x-frame-mc:hover .x-btn-inner-default-toolbar-small,
+.mail-style .single-mail-action-button .email-compose-save-button .x-frame-mc:hover .x-btn-inner-default-small {
+    color: #9da6a3;
+}
+/* D:/FE/extjs/classic/sass/etc/all.scss:16 */
+.mail-style .single-mail-action-button .email-compose-save-button:hover .x-btn-icon-el-default-small,
+.mail-style .single-mail-action-button .email-compose-save-button:hover .x-btn-icon-el-default-toolbar-small,
+.mail-style .single-mail-action-button .email-compose-save-button .x-frame-mc:hover .x-btn-icon-el-default-small,
+.mail-style .single-mail-action-button .email-compose-save-button .x-frame-mc:hover .x-btn-icon-el-default-toolbar-small {
+    color: #9da6a3;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2968 */
+.mail-style .single-mail-action-button .email-compose-send-button,
+.mail-style .single-mail-action-button .email-compose-send-button .x-frame-mc {
+    background-color: #56b750;
+    border-color: #56b750 !important;
+}
+/* D:/FE/extjs/classic/sass/etc/all.scss:5 */
+.mail-style .single-mail-action-button .email-compose-send-button .x-btn-inner-default-toolbar-small,
+.mail-style .single-mail-action-button .email-compose-send-button .x-frame-mc .x-btn-inner-default-toolbar-small {
+    color: #fff;
+}
+/* D:/FE/extjs/classic/sass/etc/all.scss:9 */
+.mail-style .single-mail-action-button .email-compose-send-button:hover,
+.mail-style .single-mail-action-button .email-compose-send-button .x-frame-mc:hover {
+    background-color: transparent;
+}
+/* D:/FE/extjs/classic/sass/etc/all.scss:11 */
+.mail-style .single-mail-action-button .email-compose-send-button:hover .x-btn-inner-default-toolbar-small,
+.mail-style .single-mail-action-button .email-compose-send-button:hover .x-btn-inner-default-small,
+.mail-style .single-mail-action-button .email-compose-send-button .x-frame-mc:hover .x-btn-inner-default-toolbar-small,
+.mail-style .single-mail-action-button .email-compose-send-button .x-frame-mc:hover .x-btn-inner-default-small {
+    color: #56b750;
+}
+/* D:/FE/extjs/classic/sass/etc/all.scss:16 */
+.mail-style .single-mail-action-button .email-compose-send-button:hover .x-btn-icon-el-default-small,
+.mail-style .single-mail-action-button .email-compose-send-button:hover .x-btn-icon-el-default-toolbar-small,
+.mail-style .single-mail-action-button .email-compose-send-button .x-frame-mc:hover .x-btn-icon-el-default-small,
+.mail-style .single-mail-action-button .email-compose-send-button .x-frame-mc:hover .x-btn-icon-el-default-toolbar-small {
+    color: #56b750;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2974 */
+.mail-style .attachment-container {
+    margin-top: 16px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2978 */
+.mail-style .gridcustom {
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.12), 2px 2px 5px 0px rgba(0, 0, 0, 0.08);
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2986 */
+.report-box {
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    cursor: pointer;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2992 */
+.report-box:hover {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2996 */
+.report-box .x-panel-body {
+    background: transparent;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2999 */
+.report-box .x-panel-body .x-box-target {
+    position: relative;
+    height: 100%;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3005 */
+.report-box .bg_img_reportbox {
+    position: absolute;
+    width: 100%;
+    height: 100% !important;
+    top: 0 !important;
+    left: 0;
+    background: #e03e00;
+    overflow: hidden;
+    transition: all 0.4s;
+    cursor: pointer;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3016 */
+.report-box .bg_img_reportbox:hover {
+    background: #ff4901;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3020 */
+.report-box .bg_img_reportbox::after {
+    content: '';
+    display: block;
+    background: rgba(255, 255, 255, 0.15);
+    width: 350px;
+    height: 300px;
+    left: 32px;
+    position: absolute;
+    border-radius: 50%;
+    transform: translate(90px, -250px);
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3032 */
+.report-box .bg_img_reportbox::before {
+    content: '';
+    display: block;
+    background: rgba(255, 255, 255, 0.15);
+    width: 350px;
+    height: 300px;
+    left: 100px;
+    position: absolute;
+    border-radius: 50%;
+    transform: translate(10px, -170px);
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3045 */
+.report-box:nth-child(2) .bg_img_reportbox {
+    background: #007fe0;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3048 */
+.report-box:nth-child(2) .bg_img_reportbox:hover {
+    background: #0090ff;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3053 */
+.report-box:nth-child(3) .bg_img_reportbox {
+    background: #1e5a57;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3056 */
+.report-box:nth-child(3) .bg_img_reportbox:hover {
+    background: #27726f;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3061 */
+.report-box:nth-child(4) .bg_img_reportbox {
+    background: #007fe0;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3064 */
+.report-box:nth-child(4) .bg_img_reportbox:hover {
+    background: #0090ff;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3069 */
+.report-box:nth-child(5) .bg_img_reportbox {
+    background: #4001d3;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3072 */
+.report-box:nth-child(5) .bg_img_reportbox:hover {
+    background: #4c00fd;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3079 */
+.report-box .title label {
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3087 */
+.report-box .item-detail label {
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3093 */
+.report-box .item-detail label:nth-child(n+3) {
+    padding: 0px 0px 0px 10px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3099 */
+.report-box .text-right {
+    text-align: right !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3104 */
+.chart-wrap div.x-border-layout-ct {
+    background: white;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3109 */
+.padding5 .field-csstyle {
+    padding: 0px 5px !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3113 */
+.padding5 .field-csstyle >label>span >span {
+    left: 12px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3120 */
+.margin5 {
+    margin: 0 5px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3124 */
+.margin10 {
+    margin: 0 10px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3128 */
+.margin_t5 {
+    margin-top: 5px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3132 */
+.margin_l10 {
+    margin-left: 5px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3136 */
+.cell-with-icon {
+    display: flex;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3143 */
+.cell-text {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3150 */
+.cell-icon {
+    padding-left: 6px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3156 */
+.color-them-radio .x-form-cb-checked .x-form-cb-label-default {
+    color: #028365;
+    font-weight: bold;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3161 */
+.doi-tuong-class-B5-mg5 {
+    padding: 5px 0 5px 10px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3165 */
+.doi-tuong-class-B5-w100 {
+    width: 100%;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3169 */
+.version-wrap {
+    font-family: sans-serif;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3172 */
+.version-wrap .title-top {
+    font-size: 22px;
+    color: #3c3c3c;
+    margin: 15px 0 15px;
+    text-indent: 8px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3179 */
+.version-wrap .title-bottom {
+    font-size: 15px;
+    color: #de263d;
+    line-height: 22px;
+    padding: 0 30px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3185 */
+.version-wrap .title-bottom span {
+    font-size: 16px;
+    color: #da0822;
+    font-weight: bold;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3192 */
+.version-wrap .version-item {
+    padding: 3px 0 5px 20px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3195 */
+.version-wrap .version-item .version-title {
+    font-size: 16px;
+    color: #11811d;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3200 */
+.version-wrap .version-item .version-date {
+    font-size: 15px;
+    color: #7f7f7f;
+    margin-top: 5px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3206 */
+.version-wrap .version-item .version-list-content {
+    padding-left: 15px;
+    margin: 5px 0 0px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3210 */
+.version-wrap .version-item .version-list-content li {
+    color: #333;
+    margin: 3px;
+    list-style-type: none;
+    font-size: 14px;
+    position: relative;
+    padding-left: 15px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3218 */
+.version-wrap .version-item .version-list-content li::after {
+    display: block;
+    content: '';
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #027964;
+    top: 4px;
+    left: 0;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3235 */
+.text-bold {
+    font-weight: bold;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3239 */
+.list-base {
+    margin: 0;
+    padding: 0;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3243 */
+.list-base .item {
+    font-weight: normal;
+    display: block;
+    font-size: 14px;
+    padding: 2px 0;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3251 */
+.label-bold label {
+    font-weight: bold;
+    color: black;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3256 */
+.openLink {
+    cursor: pointer;
+    color: #8a2be2;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3261 */
+.openLinkRed {
+    cursor: pointer;
+    color: red;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3266 */
+.openLinkTextField input {
+    cursor: pointer !important;
+    color: #8a2be2;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3271 */
+.title-block-in-bieu-mau {
+    color: var(--base-color) !important;
+    font-size: 15px !important;
+    margin: 5px 0 0;
+    display: inline-block;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3278 */
+.shortContent {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3285 */
+.x-fieldset.custom {
+    border-radius: 4px;
+    padding: 0 5px 10px;
+    box-shadow: 1px 1px 3px 0px #ccc;
+    min-height: 24px;
+    border-color: var(--active-bg-color);
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3292 */
+.x-fieldset.custom .x-fieldset-header {
+    align-items: center;
+    display: flex;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3296 */
+.x-fieldset.custom .x-fieldset-header .x-tool {
+    background: var(--text-color-grid);
+    border-radius: 2px;
+    margin: 0;
+    margin-right: 6px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3302 */
+.x-fieldset.custom .x-fieldset-header .x-tool ::after {
+    display: block;
+    color: white;
+    content: '-';
+    font-size: 16px;
+    margin-top: -1px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3310 */
+.x-fieldset.custom .x-fieldset-header .x-tool .x-tool-toggle {
+    background: none;
+    opacity: 1;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3316 */
+.x-fieldset.custom .x-fieldset-header .x-fieldset-header-text {
+    color: var(--text-color-grid) !important;
+    user-select: none;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3323 */
+.x-fieldset.custom.x-fieldset-collapsed {
+    border-left: none;
+    border-right: none;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    border-color: #ccc;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3331 */
+.x-fieldset.custom.x-fieldset-collapsed .x-fieldset-header .x-tool ::after {
+    content: '+';
+    margin-top: 0;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3336 */
+.btnToLink {
+    color: #00a1ff;
+    background: none !important;
+    text-decoration: underline;
+    cursor: pointer;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3343 */
+.btnToLink:hover {
+    color: #0389d5;
+    background: none !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3348 */
+.radiogroup-custom tr {
+    border-radius: 8px;
+    display: block;
+    height: 16px;
+    margin-top: 5px;
+    overflow: hidden;
+    box-shadow: 2px 1px 3px #8b8a8a;
+    background: #f1f1f1;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3358 */
+.radiogroup-phanPQX .x-table-plain {
+    width: unset !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3362 */
+.radiogroup-custom input {
+    cursor: pointer;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3366 */
+.radiogroup-custom tr .x-form-radio-default {
+    background: none;
+    width: 14px;
+    height: 14px;
+    margin-top: 0px;
+    border: 1px solid #959595;
+    border-radius: 50%;
+    transform: translateY(1px);
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3376 */
+.radiogroup-custom tr .x-form-cb-checked .x-form-radio-default {
+    z-index: 1;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3380 */
+.radiogroup-custom tr td:last-child .x-form-radio-default,
+.radiogroup-custom tr td:first-child .x-form-radio-default {
+    border: none;
+    transform: translateY(0px);
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3386 */
+.radiogroup-custom tr .x-form-cb-checked .x-form-radio-default:after {
+    background: #93a9a8;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    z-index: -1;
+    border-radius: 50%;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3399 */
+.radiogroup-custom tr td:last-child .x-form-cb-checked .x-form-radio-default:after {
+    background: #4f9d99;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3403 */
+.radiogroup-custom tr td:first-child .x-form-cb-checked .x-form-radio-default:after {
+    background: #cb041d;
+    left: 1px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3408 */
+.radio-multil-columns table td>div {
+    padding: 4px;
+    background: var(--base-color);
+    width: calc(100% - 4px);
+    margin: 2px;
+    border-radius: 4px;
+    overflow: hidden;
+    text-align: center;
+    height: 100%;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3419 */
+.radio-multil-columns table td>div:hover {
+    background: var(--active-bg-color);
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3423 */
+.radio-multil-columns table td>div.x-form-cb-checked {
+    background: #a9081c;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3427 */
+.radio-multil-columns table td>div label {
+    width: 100%;
+    color: white;
+    cursor: pointer;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3433 */
+table.table-base,
+table.table-base th,
+table.table-base td {
+    border: 1px solid #8d8d8d;
+    border-collapse: collapse;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3440 */
+table.table-base th,
+table.table-base td {
+    padding: 5px 5px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3445 */
+table.table-base td {
+    font-weight: 300;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3449 */
+.title-vb {
+    color: var(--base-color);
+    font-weight: 600;
+    font-size: 14px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3454 */
+.title-vb.color_red {
+    color: #c30000;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3459 */
+.not-bold {
+    font-weight: 100;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3463 */
+.text-note>div>div>div>input {
+    font-weight: bold;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3468 */
+.cls_label_color .x-form-cb-label-default {
+    color: var(--base-color);
+    font-weight: 600;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3474 */
+.cls_label_color.color_red .x-form-cb-label-default {
+    color: red;
+    font-weight: 600;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3481 */
+.quatrinh-wrap {
+    display: flex;
+    font-weight: bold;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3486 */
+.quatrinh-wrap label {
+    padding: 5px;
+    flex: 1;
+    text-align: center;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3492 */
+.quatrinh-wrap label.default {
+    background: #d4d4d4;
+    color: #5d5b5b;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3497 */
+.quatrinh-wrap label.bg {
+    color: white;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3501 */
+.quatrinh-wrap.bg label.bg:nth-child(1) {
+    background: #df5563;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3505 */
+.quatrinh-wrap.bg label.bg:nth-child(2) {
+    background: #239693;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3509 */
+.quatrinh-wrap.bg label.bg:nth-child(3) {
+    background: #966423;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3514 */
+.bg-transparent input,
+.bg-transparent textarea,
+.bg-transparent .x-form-text-field-body-default,
+.bg-transparent.x-item-disabled .x-form-text-field-body-default,
+.x-form-item-default.x-item-disabled input {
+    background: transparent !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3522 */
+.bg-transparent input .x-form-text-default .x-tagfield-item,
+.bg-transparent textarea .x-form-text-default .x-tagfield-item,
+.bg-transparent .x-form-text-field-body-default .x-form-text-default .x-tagfield-item,
+.bg-transparent.x-item-disabled .x-form-text-field-body-default .x-form-text-default .x-tagfield-item,
+.x-form-item-default.x-item-disabled input .x-form-text-default .x-tagfield-item {
+    padding: 2px 5px !important;
+}
 /* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3526 */
 .bg-transparent input .x-form-text-default .x-tagfield-item-close,
 .bg-transparent textarea .x-form-text-default .x-tagfield-item-close,

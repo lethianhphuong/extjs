@@ -3,6 +3,7 @@ Ext.define('DEMO.view.main.MainController', {
     alias: 'controller.main',
 
     requires: [
+        'DEMO.view.pages.TrangChuNew.TrangChuNew_View',
         'DEMO.view.pages.ConNguoiLienQuan.DanhSach.ConNguoiLienQuan_View',
         'DEMO.view.main.Settings',
         'DEMO.view.dashboard.Dashboard_View',

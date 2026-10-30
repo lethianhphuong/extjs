@@ -1,0 +1,14 @@
+.trang-chu-new {
+    .x-tab-bar-default,
+    .x-tab-default-top {
+        background: var(--theme-bg-card);
+    }
+
+    .x-tab-inner-default {
+        color: var(--theme-text-secondary);
+    }
+
+    .x-tab-active .x-tab-inner-default {
+        color: var(--theme-text-primary);
+    }
+}
