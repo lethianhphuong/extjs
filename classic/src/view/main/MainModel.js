@@ -14,6 +14,7 @@ Ext.define('DEMO.view.main.MainModel', {
         currentViewText: function (get) {
             let map = {
                 'con-nguoi-lien-quan': 'Con người liên quan',
+                'yeu-cau-tra-cuu': 'Yêu cầu tra cứu',
                 'app': 'App',
                 'ecommerce': 'Ecommerce',
                 'analytics': 'Analytics',
@@ -38,7 +39,8 @@ Ext.define('DEMO.view.main.MainModel', {
                 'icons': 'Icons',
                 'xem-pdf-demo': 'Xem PDF Demo',
                 'test-noti': 'Test NotiCommon',
-                'upload-file-demo': 'Upload File Demo'
+                'upload-file-demo': 'Upload File Demo',
+                'de-xuat-ctvbm': 'Đề xuất CTVBM'
             };
             return map[get('currentView')] || 'Dashboard';
         }
@@ -104,7 +106,9 @@ Ext.define('DEMO.view.main.MainModel', {
                                 ]
                             },
                             { text: 'Blog', iconCls: 'x-fa fa-pencil-square', route: 'blog', component: 'BlogPage_View', leaf: true },
-                            { text: 'Con người demo 2', iconCls: 'x-fa fa-user-circle-o', route: 'con-nguoi-demo-2', component: 'ConNguoiDemo2_View', leaf: true }
+                            { text: 'Con người demo 2', iconCls: 'x-fa fa-user-circle-o', route: 'con-nguoi-demo-2', component: 'ConNguoiDemo2_View', leaf: true },
+                            { text: 'Yêu cầu tra cứu', iconCls: 'x-fa fa-search-plus', route: 'yeu-cau-tra-cuu', component: 'YeuCauTraCuu_View', leaf: true },
+                            { text: 'Đề xuất CTVBM', iconCls: 'x-fa fa-user-secret', route: 'de-xuat-ctvbm', component: 'DeXuatCTVBM_View', leaf: true }
                         ]
                     },
                     {

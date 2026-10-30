@@ -31,7 +31,9 @@ Ext.define('DEMO.view.main.MainController', {
         'DEMO.view.pages.UploadFileDemo.UploadFileDemo_View',
         'DEMO.view.pages.UploadFileDemo.UploadFileDemo_ViewController',
         'DEMO.view.pages.UploadFileDemo.UploadFileDemo_ViewModel',
-        'DEMO.app.Common'
+        'DEMO.app.Common',
+        'DEMO.view.pages.YeuCauTraCuu.DanhSach.YeuCauTraCuu_View',
+        'DEMO.view.pages.DeXuatCTVBM.DeXuatCTVBM_View'
     ],
 
     // ---- Init: listen hash change + load view from URL on F5 ----

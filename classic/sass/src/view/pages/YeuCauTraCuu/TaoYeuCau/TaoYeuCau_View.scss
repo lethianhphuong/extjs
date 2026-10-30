@@ -1,0 +1,664 @@
+// =========================================================================
+// DEMO.view.pages.YeuCauTraCuu.TaoYeuCau - Custom Stylesheet (SCSS)
+// Location: classic/src/view/pages/YeuCauTraCuu/TaoYeuCau/TaoYeuCau.scss
+// =========================================================================
+
+// -------------------------------------------------------------------------
+// 1. SCSS VARIABLES
+// -------------------------------------------------------------------------
+$pyc-primary: #0F5C8C;
+$pyc-primary-hover: #0B4A71;
+$pyc-success: #14532D;
+$pyc-success-hover: #0F3E22;
+$pyc-success-bg: #E7F4EC;
+$pyc-danger: #D32F2F;
+
+$pyc-text-main: #1B2430;
+$pyc-text-muted: #566172;
+$pyc-text-light: #6B7585;
+
+$pyc-border: #D5DAE1;
+$pyc-border-subtle: #AEB7C4;
+$pyc-border-focus: #0F5C8C;
+
+$pyc-bg-subtle: #F6F8FA;
+$pyc-bg-hover: #F0F3F7;
+$pyc-bg-selected: #EAF3F9;
+$pyc-bg-disabled: #E3E7ED;
+
+$pyc-radius-sm: 4px;
+$pyc-radius-md: 8px;
+$pyc-radius-lg: 10px;
+$pyc-radius-window: 16px;
+
+$pyc-shadow-window: 0 24px 64px rgba(15, 23, 42, 0.35);
+$pyc-font-family: "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+// -------------------------------------------------------------------------
+// 2. ROOT MODAL WINDOW SCOPING
+// -------------------------------------------------------------------------
+.pyc-modal-window {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: $pyc-shadow-window !important;
+    border-radius: $pyc-radius-window !important;
+    overflow: hidden !important;
+
+    * {
+        box-sizing: border-box !important;
+    }
+
+    .x-window-body {
+        background: #ffffff !important;
+        border-radius: $pyc-radius-window !important;
+        overflow: hidden !important;
+        border: 0 !important;
+        padding: 0 !important;
+        font-family: $pyc-font-family !important;
+    }
+
+    // ---------------------------------------------------------------------
+    // 2.1 HEADER
+    // ---------------------------------------------------------------------
+    .pyc-dialog-header {
+        height: 68px !important;
+        padding: 0 16px 0 28px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        border-bottom: 1px solid $pyc-border !important;
+        flex: none !important;
+        background: #ffffff !important;
+
+        .pyc-dialog-title {
+            margin: 0 !important;
+            font-size: 18px !important;
+            font-weight: 700 !important;
+            line-height: 1.3 !important;
+            color: $pyc-text-main !important;
+        }
+
+        .pyc-dialog-subtitle {
+            font-size: 13px !important;
+            color: $pyc-text-muted !important;
+        }
+
+        .icon-btn,
+        .pyc-icon-btn {
+            width: 44px !important;
+            height: 44px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border: 0 !important;
+            background: none !important;
+            border-radius: $pyc-radius-md !important;
+            cursor: pointer !important;
+            color: $pyc-text-muted !important;
+            transition: all 0.15s ease !important;
+
+            &:hover {
+                background: $pyc-bg-hover !important;
+                color: $pyc-text-main !important;
+            }
+        }
+    }
+
+    // ---------------------------------------------------------------------
+    // 2.2 STEPPER BAR (TIẾN TRÌNH 3 BƯỚC)
+    // ---------------------------------------------------------------------
+    .pyc-stepper-wrap {
+        height: 80px !important;
+        padding: 0 28px !important;
+        display: flex !important;
+        align-items: center !important;
+        flex: none !important;
+        background: $pyc-bg-subtle !important;
+        border-bottom: 1px solid $pyc-border !important;
+
+        .pyc-stepper-inner {
+            width: 100% !important;
+            display: flex !important;
+            align-items: center !important;
+        }
+
+        .pyc-step-item {
+            display: flex !important;
+            align-items: center !important;
+            flex: 1 1 0 !important;
+
+            &--last {
+                flex: none !important;
+            }
+        }
+
+        .dot,
+        & .dot {
+            width: 32px !important;
+            height: 32px !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 14px !important;
+            font-weight: 700 !important;
+            flex: none !important;
+            transition: all 0.2s ease !important;
+
+            &-on,
+            &-done {
+                background: $pyc-primary !important;
+                color: #ffffff !important;
+            }
+
+            &-off {
+                background: #ffffff !important;
+                color: $pyc-text-muted !important;
+                border: 2px solid $pyc-border-subtle !important;
+            }
+        }
+
+        .slb,
+        & .slb {
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            color: $pyc-text-muted !important;
+            white-space: nowrap !important;
+            margin-left: 10px !important;
+
+            &-on {
+                color: $pyc-primary !important;
+                font-weight: 700 !important;
+            }
+
+            &-done {
+                color: $pyc-text-main !important;
+                font-weight: 600 !important;
+            }
+        }
+
+        .ln,
+        & .ln {
+            flex: 1 !important;
+            height: 2px !important;
+            background: $pyc-border !important;
+            margin: 0 14px !important;
+            border-radius: 2px !important;
+
+            &-done {
+                background: $pyc-primary !important;
+            }
+        }
+    }
+
+    // ---------------------------------------------------------------------
+    // 2.3 BODY CONTAINER
+    // ---------------------------------------------------------------------
+    .pyc-dialog-body {
+        padding: 24px 28px !important;
+        background: #ffffff !important;
+        overflow-y: auto !important;
+    }
+
+    // ---------------------------------------------------------------------
+    // 2.4 SEARCH INPUT
+    // ---------------------------------------------------------------------
+    .pyc-search-fld {
+        .x-form-text-wrap {
+            height: 44px !important;
+            border: 1px solid $pyc-border-subtle !important;
+            border-radius: $pyc-radius-md !important;
+            background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23566172' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='20 20l-3.5-3.5'/%3E%3C/svg%3E") no-repeat 14px center !important;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+        }
+
+        input {
+            padding-left: 42px !important;
+            height: 42px !important;
+            font-size: 14px !important;
+            color: $pyc-text-main !important;
+            border: 0 !important;
+            background: transparent !important;
+        }
+
+        &.x-form-focus .x-form-text-wrap {
+            border-color: $pyc-border-focus !important;
+            box-shadow: 0 0 0 2px rgba(15, 92, 140, 0.25) !important;
+        }
+    }
+
+    // ---------------------------------------------------------------------
+    // 2.5 BANNER & EMPTY STATE
+    // ---------------------------------------------------------------------
+    .pyc-alert-banner {
+        padding: 10px 14px !important;
+        border-radius: $pyc-radius-md !important;
+        background: $pyc-success-bg !important;
+        color: $pyc-success !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .pyc-empty-box {
+        border: 1px dashed $pyc-border-subtle !important;
+        border-radius: 12px !important;
+        padding: 36px 24px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 12px !important;
+        text-align: center !important;
+
+        &__title {
+            font-size: 15px !important;
+            font-weight: 600 !important;
+            color: $pyc-text-main !important;
+        }
+
+        &__desc {
+            font-size: 13px !important;
+            color: $pyc-text-muted !important;
+            max-width: 380px !important;
+        }
+    }
+
+    .pyc-count-text {
+        font-size: 13px !important;
+        color: $pyc-text-muted !important;
+    }
+
+    // ---------------------------------------------------------------------
+    // 2.6 DATAVIEW & THẺ NGƯỜI DÙNG (PROW)
+    // ---------------------------------------------------------------------
+    .pyc-people-dataview {
+        border: none !important;
+        background: transparent !important;
+
+        .pyc-prow-list {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 8px !important;
+        }
+    }
+
+    .prow {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 14px !important;
+        padding: 10px 14px !important;
+        border: 1px solid $pyc-border !important;
+        border-radius: $pyc-radius-lg !important;
+        background: #ffffff !important;
+        cursor: pointer !important;
+        text-align: left !important;
+        color: $pyc-text-main !important;
+        min-height: 64px !important;
+        margin-bottom: 8px !important;
+        transition: all 0.15s ease !important;
+
+        &:hover {
+            background: $pyc-bg-subtle !important;
+            border-color: $pyc-border-subtle !important;
+        }
+
+        &.x-item-selected,
+        &-on {
+            border-color: $pyc-primary !important;
+            background: $pyc-bg-selected !important;
+            box-shadow: inset 0 0 0 1px $pyc-primary !important;
+
+            .pyc-check-badge {
+                display: flex !important;
+            }
+        }
+
+        &.prow--preview {
+            background: $pyc-bg-subtle !important;
+            cursor: default !important;
+            margin-bottom: 0 !important;
+
+            &:hover {
+                border-color: $pyc-border !important;
+            }
+        }
+
+        .pyc-avatar {
+            width: 40px !important;
+            height: 40px !important;
+            border-radius: 50% !important;
+            background: #D9E6F0 !important;
+            color: $pyc-primary-hover !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 14px !important;
+            font-weight: 700 !important;
+            flex: none !important;
+        }
+
+        .pyc-person-info {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 2px !important;
+            min-width: 0 !important;
+        }
+
+        .pyc-person-label {
+            font-size: 12px !important;
+            color: $pyc-text-muted !important;
+            font-weight: 600 !important;
+        }
+
+        .pyc-person-name {
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            color: $pyc-text-main !important;
+        }
+
+        .pyc-person-meta {
+            font-size: 13px !important;
+            color: $pyc-text-muted !important;
+        }
+
+        .pyc-person-code {
+            font-size: 12px !important;
+            color: $pyc-text-muted !important;
+            font-weight: 600 !important;
+            flex: none !important;
+        }
+
+        .pyc-check-badge {
+            display: none !important;
+            width: 24px !important;
+            height: 24px !important;
+            border-radius: 50% !important;
+            background: $pyc-primary !important;
+            color: #ffffff !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex: none !important;
+        }
+    }
+
+    // ---------------------------------------------------------------------
+    // 2.7 LINK
+    // ---------------------------------------------------------------------
+    .link,
+    .pyc-link {
+        background: none !important;
+        border: 0 !important;
+        padding: 0 !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        color: $pyc-primary !important;
+        cursor: pointer !important;
+        text-decoration: underline !important;
+        font-family: inherit !important;
+
+        &:hover {
+            color: $pyc-primary-hover !important;
+        }
+    }
+
+    // ---------------------------------------------------------------------
+    // 2.8 SEGMENTED BUTTONS
+    // ---------------------------------------------------------------------
+    .seg {
+        .x-btn {
+            height: 38px !important;
+            border: 1px solid $pyc-border-subtle !important;
+            background: #ffffff !important;
+
+            .x-btn-inner {
+                font-size: 13px !important;
+                font-weight: 500 !important;
+                color: $pyc-text-main !important;
+                font-family: inherit !important;
+            }
+
+            &:hover {
+                background: $pyc-bg-hover !important;
+            }
+
+            &-pressed {
+                background: $pyc-bg-selected !important;
+                border-color: $pyc-primary !important;
+                box-shadow: inset 0 0 0 1px $pyc-primary !important;
+                z-index: 2 !important;
+
+                .x-btn-inner {
+                    color: $pyc-primary-hover !important;
+                    font-weight: 700 !important;
+                }
+
+                &:hover {
+                    background: $pyc-bg-selected !important;
+                }
+            }
+        }
+    }
+
+    // ---------------------------------------------------------------------
+    // 2.9 BIỂU MẪU XUẤT RA & QR CODE (STEP 3)
+    // ---------------------------------------------------------------------
+    .pyc-preview-wrap {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 14px !important;
+    }
+
+    .pyc-ticket-sheet {
+        border: 1px solid $pyc-border-subtle !important;
+        border-radius: $pyc-radius-sm !important;
+        padding: 20px 24px !important;
+        background: #ffffff !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+
+        &__header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: flex-start !important;
+            gap: 16px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 2px solid $pyc-text-main !important;
+        }
+
+        &__tag {
+            font-size: 12px !important;
+            font-weight: 600 !important;
+            letter-spacing: 0.08em !important;
+            color: $pyc-text-muted !important;
+        }
+
+        &__title {
+            font-size: 18px !important;
+            font-weight: 700 !important;
+            color: $pyc-text-main !important;
+        }
+
+        &__code-label {
+            font-size: 12px !important;
+            color: $pyc-text-muted !important;
+        }
+
+        &__code-val {
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            color: $pyc-primary !important;
+        }
+
+        &__body {
+            display: flex !important;
+            gap: 24px !important;
+            align-items: flex-start !important;
+        }
+
+        &__grid {
+            flex: 1 !important;
+            min-width: 0 !important;
+            display: grid !important;
+            grid-template-columns: 112px minmax(0, 1fr) !important;
+            gap: 7px 12px !important;
+            font-size: 13px !important;
+            line-height: 1.4 !important;
+
+            &-label {
+                color: $pyc-text-muted !important;
+            }
+
+            &-value {
+                color: $pyc-text-main !important;
+
+                &--bold {
+                    font-weight: 700 !important;
+                }
+
+                &--semibold {
+                    font-weight: 600 !important;
+                }
+
+                &--wrap {
+                    white-space: pre-wrap !important;
+                }
+            }
+        }
+
+        &__qr-group {
+            display: flex !important;
+            gap: 16px !important;
+            flex: none !important;
+        }
+
+        &__qr-item {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+
+        &__qr-frame {
+            padding: 6px !important;
+            border: 1px solid $pyc-border-subtle !important;
+            background: #ffffff !important;
+            border-radius: $pyc-radius-sm !important;
+        }
+
+        &__qr-caption {
+            font-size: 12px !important;
+            font-weight: 700 !important;
+            color: $pyc-text-main !important;
+        }
+
+        &__qr-code-txt {
+            font-size: 11px !important;
+            color: $pyc-text-muted !important;
+        }
+    }
+
+    // ---------------------------------------------------------------------
+    // 2.10 FORM FIELDS & CHỈ DẪN
+    // ---------------------------------------------------------------------
+    .pyc-form-section-title {
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        margin-bottom: 16px !important;
+        color: $pyc-text-main !important;
+    }
+
+    .pyc-form-hint {
+        font-size: 12px !important;
+        color: $pyc-text-muted !important;
+        margin-top: 6px !important;
+    }
+
+    // ---------------------------------------------------------------------
+    // 2.11 FOOTER TOOLBAR & BUTTONS
+    // ---------------------------------------------------------------------
+    .pyc-dialog-footer {
+        height: 76px !important;
+        padding: 0 28px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        border-top: 1px solid $pyc-border !important;
+        flex: none !important;
+        background: #ffffff !important;
+
+        .pyc-footer-hint {
+            font-size: 13px !important;
+            color: $pyc-text-muted !important;
+        }
+    }
+
+    .btn {
+        height: 44px !important;
+        padding: 0 20px !important;
+        border-radius: $pyc-radius-md !important;
+        border: 1px solid $pyc-border-subtle !important;
+        background-color: #ffffff !important;
+        cursor: pointer !important;
+        transition: all 0.15s ease !important;
+
+        .x-btn-inner {
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            color: $pyc-text-main !important;
+            font-family: inherit !important;
+        }
+
+        &:hover {
+            background-color: $pyc-bg-hover !important;
+        }
+
+        &-primary {
+            background-color: $pyc-primary !important;
+            border-color: $pyc-primary !important;
+
+            .x-btn-inner {
+                color: #ffffff !important;
+            }
+
+            &:hover {
+                background-color: $pyc-primary-hover !important;
+                border-color: $pyc-primary-hover !important;
+            }
+        }
+
+        &-success {
+            background-color: $pyc-success !important;
+            border-color: $pyc-success !important;
+
+            .x-btn-inner {
+                color: #ffffff !important;
+            }
+
+            &:hover {
+                background-color: $pyc-success-hover !important;
+                border-color: $pyc-success-hover !important;
+            }
+        }
+
+        &.x-btn-disabled,
+        &-primary.x-btn-disabled,
+        &-success.x-btn-disabled {
+            background-color: $pyc-bg-disabled !important;
+            border-color: $pyc-bg-disabled !important;
+            opacity: 1 !important;
+            cursor: not-allowed !important;
+            pointer-events: none !important;
+
+            .x-btn-inner {
+                color: $pyc-text-light !important;
+            }
+        }
+    }
+}

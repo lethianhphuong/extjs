@@ -1,16 +1,23 @@
-@mixin btn-border($background-color){
+@mixin btn-border($background-color) {
   background-color: $background-color;
   border-color: $background-color !important;
-  .x-btn-inner-default-toolbar-small{
+
+  .x-btn-inner-default-toolbar-small {
     color: $lightest-color;
   }
-  &:hover{
-    .x-btn-inner-default-toolbar-small,.x-btn-inner-default-small{
+
+  &:hover {
+
+    .x-btn-inner-default-toolbar-small,
+    .x-btn-inner-default-small {
       color: $background-color;
     }
-    .x-btn-icon-el-default-small,.x-btn-icon-el-default-toolbar-small{
+
+    .x-btn-icon-el-default-small,
+    .x-btn-icon-el-default-toolbar-small {
       color: $background-color;
     }
+
     background-color: transparent;
   }
 }
@@ -22,7 +29,7 @@
   border-radius: $radius;
 }
 
-@mixin box-shadow($h-shadow,$v-shadow,$blur,$spread,$shadow-color) {
+@mixin box-shadow($h-shadow, $v-shadow, $blur, $spread, $shadow-color) {
   $value: $h-shadow, $v-shadow, $blur, $spread, $shadow-color;
   -webkit-box-shadow: $value;
   -moz-box-shadow: $value;
@@ -31,15 +38,15 @@
 }
 
 *:focus {
-  outline:0 !important;
+  outline: 0 !important;
 }
 
 .x-menu-header {
   z-index: 0 !important;
 }
 
-.x-css-shadow{
-  box-shadow:none !important;
+.x-css-shadow {
+  box-shadow: none !important;
 }
 
 .x-fa {
@@ -55,3 +62,4 @@
   font-weight: bold;
 }
 
+@import "../src/view/pages/YeuCauTraCuu/TaoYeuCau/TaoYeuCau_View";

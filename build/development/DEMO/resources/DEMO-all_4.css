@@ -1,0 +1,265 @@
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3526 */
+.bg-transparent input .x-form-text-default .x-tagfield-item-close,
+.bg-transparent textarea .x-form-text-default .x-tagfield-item-close,
+.bg-transparent .x-form-text-field-body-default .x-form-text-default .x-tagfield-item-close,
+.bg-transparent.x-item-disabled .x-form-text-field-body-default .x-form-text-default .x-tagfield-item-close,
+.x-form-item-default.x-item-disabled input .x-form-text-default .x-tagfield-item-close {
+    display: none !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3535 */
+.leaflet-div-icon {
+    background: transparent;
+    border: none;
+    width: auto !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3541 */
+.quandao {
+    background: rgba(255, 255, 255, 0.3) !important;
+    text-align: center !important;
+    padding: 5px 0 !important;
+    border-radius: 10px !important;
+    color: #fff !important;
+    width: 160px !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3550 */
+.leaflet-control-attribution {
+    display: none;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3554 */
+.leaflet-tooltip-own {
+    background-color: #fff !important;
+    color: #000;
+    border: none !important;
+    padding: 5px 12px !important;
+    backdrop-filter: blur(5px);
+    font-weight: 600 !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3563 */
+.leafet-tooltip-light {
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    color: #fff;
+    border: none !important;
+    padding: 5px 12px !important;
+    backdrop-filter: blur(5px);
+    font-weight: 600 !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3572 */
+.icon-name-polygon {
+    width: auto !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3576 */
+.popup-routing-container .leaflet-popup-content {
+    padding: 6px !important;
+    margin: 0 !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3581 */
+.popup-routing-container .leaflet-popup-content-wrapper {
+    border-radius: 5px !important;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid #fff;
+    color: #fff !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3589 */
+.leaflet-fixed-textfield {
+    position: absolute;
+    top: 10px;
+    left: 100px;
+    z-index: 1000;
+    transition: left 0.2s ease 0s;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3597 */
+.mapTest {
+    position: relative;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3601 */
+.zindex1k {
+    position: absolute;
+    z-index: 1000;
+    transition: left 0.2s ease 0s;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3607 */
+.x-panel .x-panel,
+.x-panel-bodyWrap,
+.x-panel-body,
+.x-box-inner {
+    overflow: unset;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3615 */
+.thongtinxuphat-grid-panel .row-finished {
+    background-color: #a6f5a6;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3619 */
+.thongtinxuphat-grid-panel .row-unfinished {
+    background-color: #f7bcbc;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3624 */
+.icon-button {
+    width: fit-content !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3628 */
+.loading-center {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3633 */
+.loading-center .boder-animation {
+    background: #018d70;
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 50%;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3642 */
+.loading-center .ba-1 {
+    animation: rounder-1 1s ease-out infinite alternate;
+    opacity: 0.7;
+    z-index: 3;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3648 */
+.loading-center .ba-2 {
+    animation: rounder-2 1s ease-out infinite alternate;
+    opacity: 0.5;
+    z-index: 2;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3654 */
+.loading-center .ba-3 {
+    animation: rounder_3 1s ease-out infinite alternate;
+    opacity: 0.3;
+    z-index: 1;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3660 */
+.loading-center .loading-image {
+    height: 4em;
+    width: 4em;
+    z-index: 4;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3666 */
+.loading-center .loading-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    background-color: #018d70;
+    transform: translate(-50%, -50%) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+    width: 80px;
+    height: 80px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3682 */
+.so-luong-dtcb-container {
+    background-color: var(--submit-color);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 3px 5px 5px #999 !important;
+    color: white;
+    text-align: center;
+    height: 140px;
+    margin: 0 5px 0 5px;
+    cursor: pointer;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3693 */
+.so-luong-dtcb-container .title-field {
+    white-space: break-spaces;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 20px;
+    height: 40px;
+    font-weight: 700;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3707 */
+.so-luong-dtcb-container .value-field {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3713 */
+.so-luong-dtcb-container .hoso-field {
+    font-size: 16px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3718 */
+.x-tree-expander::before {
+    content: "\f054";
+    font-family: "Font Awesome 5 Free", sans-serif;
+    font-weight: 900;
+    color: #2c3e50;
+    font-size: 14px;
+    transition: transform 0.2s ease;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3727 */
+.x-grid-tree-node-expanded .x-tree-expander::before {
+    content: "\f078";
+    transform: rotate(0deg);
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3732 */
+.x-tree-arrows .x-tree-expander {
+    background-image: none !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3736 */
+.cell-line {
+    border-bottom: 1px solid #d0d0d0;
+    padding: 2px 0px 6px 0px;
+    line-height: 18px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3742 */
+.cell-line:last-child {
+    border-bottom: none;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3747 */
+.divViewFileImage div.x-autocontainer-outerCt {
+    width: auto !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3754 */
+#map {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    pointer-events: auto;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3761 */
+.maplibregl-canvas-container,
+.maplibregl-canvas {
+    pointer-events: auto !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3766 */
+.maplibregl-map {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    pointer-events: auto !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3774 */
+.x-mask-msg {
+    pointer-events: none !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3779 */
+.solieumoitruong-icon .air-icon {
+    width: 55px;
+    height: 55px;
+    margin-right: 10px;
+    background: url('../resources/images/air.png');
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3785 */
+.solieumoitruong-icon .land-icon {
+    width: 55px;
+    height: 55px;
+    margin-right: 10px;
+    background: url('../resources/images/land.png');
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:3792 */
+.solieumoitruong-icon .water-icon {
+    width: 55px;
+    height: 55px;
+    margin-right: 10px;
+    background: url('../resources/images/water.png');
+}
