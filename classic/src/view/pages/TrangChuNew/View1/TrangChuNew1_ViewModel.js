@@ -1,87 +1,283 @@
 Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.trangchunew1',
-
-    // Số liệu minh họa giữ theo HTML tham chiếu, không đại diện dữ liệu backend.
     data: {
-        dienBien: {
-            moMoi: '50,170 90,150 130,120 170,145 210,122 250,120 290,110 330,122 370,80 410,105 450,125 485,135',
-            ketThuc: '50,185 90,180 130,165 170,155 210,145 250,145 290,145 330,142 370,118 410,130 450,145 485,150',
-            thang: [
-                { ten: 'T1', x: 50 },
-                { ten: 'T2', x: 90 },
-                { ten: 'T3', x: 130 },
-                { ten: 'T4', x: 170 },
-                { ten: 'T5', x: 210 },
-                { ten: 'T6', x: 250 },
-                { ten: 'T7', x: 290 },
-                { ten: 'T8', x: 330 },
-                { ten: 'T9', x: 370 },
-                { ten: 'T10', x: 410 },
-                { ten: 'T11', x: 450 },
-                { ten: 'T12', x: 485 }
+        timKiemNangCao: {
+            thoiGian: 'Năm 2026',
+            tuNgay: null,
+            denNgay: null,
+            donVi: 'Toàn quốc',
+            cucTinh: null,
+            loaiHoSo: 'Tất cả',
+            heLucLuong: 'Tất cả',
+            tinhTrang: 'Tất cả'
+        },
+        // Số liệu KPI minh họa theo thiết kế, chưa kết nối API.
+        chiSo: [
+            { ma: 'tongHoSo', ten: 'Tổng số hồ sơ', giaTri: 12568, thayDoi: 342, icon: 'folder', mauIcon: 'blue' },
+            { ma: 'dtcb', ten: 'ĐTCB', giaTri: 9142, thayDoi: 185, icon: 'search', mauIcon: 'green' },
+            { ma: 'suuTra', ten: 'Sưu tra', giaTri: 4123, thayDoi: 64, icon: 'clipboard', mauIcon: 'amber' },
+            { ma: 'hiemNghi', ten: 'Hiềm nghi', giaTri: 2861, thayDoi: -38, icon: 'warning', mauIcon: 'red' },
+            { ma: 'chuyenAn', ten: 'Chuyên án', giaTri: 1647, thayDoi: 12, icon: 'briefcase', mauIcon: 'purple' },
+            { ma: 'ctvbm', ten: 'CTVBM', giaTri: 511, thayDoi: 19, icon: 'users', mauIcon: 'cyan' },
+            { ma: 'htbm', ten: 'HTBM', giaTri: 3420, thayDoi: -15, icon: 'envelope', mauIcon: 'indigo' },
+            { ma: 'vaiAo', ten: 'Vai ảo NV', giaTri: 3426, thayDoi: 52, icon: 'identity', mauIcon: 'muted' }
+        ],
+        chuyenHoa: [
+            { tenDtcb: 'ĐTCB → Sưu tra', tenSuuTra: 'Sưu tra → ĐTCB', tyLe: 72.7, mau: 'blue' },
+            { tenDtcb: 'ĐTCB → Hiềm nghi', tenSuuTra: 'Sưu tra → Hiềm nghi', tyLe: 20.1, mau: 'amber' },
+            { tenDtcb: 'ĐTCB → Chuyên án', tenSuuTra: 'Sưu tra → Chuyên án', tyLe: 5.2, mau: 'purple' },
+            { tenDtcb: 'Chờ đánh giá', tenSuuTra: 'Chờ đánh giá', tyLe: 2, mau: 'muted' }
+        ],
+        lucLuong: [
+            { ten: 'Trật tự xã hội', soLuong: 3482, mau: 'blue' },
+            { ten: 'Ma túy', soLuong: 2156, mau: 'amber' },
+            { ten: 'Kinh tế', soLuong: 1042, mau: 'cyan' },
+            { ten: 'Môi trường', soLuong: 928, mau: 'green' },
+            { ten: 'Khác', soLuong: 683, mau: 'muted' }
+        ],
+        namThongKeDonVi: 2026,
+        gioiHanDonVi: 10,
+        thongKeDonVi: [
+            { ten: 'CA TP Hà Nội', soLuong: 1242, mau: 'blue' },
+            { ten: 'CA TP HCM', soLuong: 1087, mau: 'amber' },
+            { ten: 'CA tỉnh Thanh Hóa', soLuong: 685, mau: 'orange' },
+            { ten: 'CA tỉnh Nghệ An', soLuong: 592, mau: 'red' },
+            { ten: 'CA tỉnh Đồng Nai', soLuong: 518, mau: 'purple' },
+            { ten: 'CA tỉnh Bình Dương', soLuong: 452, mau: 'green' },
+            { ten: 'CA tỉnh Quảng Ninh', soLuong: 401, mau: 'cyan' },
+            { ten: 'CA TP Hải Phòng', soLuong: 378, mau: 'indigo' },
+            { ten: 'CA tỉnh Đắk Lắk', soLuong: 312, mau: 'purple' },
+            { ten: 'CA TP Cần Thơ', soLuong: 282, mau: 'muted' }
+        ],
+        hienMoMoi: true,
+        hienKetThuc: true,
+        dienBienThang: [
+            {
+                ky: 'T1',
+                moMoi: 250,
+                ketThuc: 175
+            },
+            {
+                ky: 'T2',
+                moMoi: 350,
+                ketThuc: 200
+            },
+            {
+                ky: 'T3',
+                moMoi: 500,
+                ketThuc: 275
+            },
+            {
+                ky: 'T4',
+                moMoi: 375,
+                ketThuc: 325
+            },
+            {
+                ky: 'T5',
+                moMoi: 490,
+                ketThuc: 375
+            },
+            {
+                ky: 'T6',
+                moMoi: 500,
+                ketThuc: 375
+            },
+            {
+                ky: 'T7',
+                moMoi: 550,
+                ketThuc: 375
+            },
+            {
+                ky: 'T8',
+                moMoi: 490,
+                ketThuc: 390
+            },
+            {
+                ky: 'T9',
+                moMoi: 700,
+                ketThuc: 510
+            },
+            {
+                ky: 'T10',
+                moMoi: 575,
+                ketThuc: 450
+            },
+            {
+                ky: 'T11',
+                moMoi: 475,
+                ketThuc: 375
+            },
+            {
+                ky: 'T12',
+                moMoi: 425,
+                ketThuc: 350
+            }
+        ]
+    },
+    //#region NOTE: Dữ liệu hiển thị từ số liệu minh họa
+    formulas: {
+        chiSoHienThi: function (get) {
+            const me = this;
+
+            return get('chiSo').map(function (row) {
+                const previous = row.giaTri - row.thayDoi;
+                const rate = previous > 0 ? row.thayDoi * 100 / previous : null;
+                const sign = row.thayDoi > 0 ? '+' : '';
+                const percentSign = rate > 0 ? '+' : '';
+                const percentText = rate === null ? '—' : percentSign + me.formatPercent(rate, 1);
+
+                return Object.assign({}, row, {
+                    giaTriText: me.formatNumber(row.giaTri),
+                    thayDoiText: sign + me.formatNumber(row.thayDoi),
+                    phanTramText: percentText,
+                    xuHuong: row.thayDoi > 0 ? '↑' : row.thayDoi < 0 ? '↓' : '→',
+                    trangThai: row.thayDoi > 0 ? 'up' : row.thayDoi < 0 ? 'down' : 'neutral',
+                    laTong: row.ma === 'tongHoSo'
+                });
+            });
+        },
+        donViXepHang: function (get) {
+            return get('thongKeDonVi').slice().sort((a, b) => b.soLuong - a.soLuong);
+        },
+        tongHoSoLucLuong: function (get) {
+            return get('lucLuong').reduce((sum, row) => sum + row.soLuong, 0);
+        },
+        donViHienThi: function (get) {
+            const me = this;
+            const limit = get('gioiHanDonVi') === 5 ? 5 : 10;
+            const rows = get('donViXepHang').slice(0, limit);
+            const total = rows.reduce((sum, row) => sum + row.soLuong, 0);
+            const all = get('tongHoSoLucLuong');
+            const maximum = rows.length ? rows[0].soLuong : 0;
+
+            return {
+                nam: get('namThongKeDonVi'),
+                gioiHan: limit,
+                tongSoText: me.formatNumber(total),
+                tongQuocGiaText: me.formatNumber(all),
+                tyTrongText: me.formatPercent(all ? total * 100 / all : 0, 1),
+                items: rows.map((row, index) => Object.assign({}, row, {
+                    thuHang: index + 1,
+                    soLuongText: me.formatNumber(row.soLuong),
+                    tyLeText: me.formatPercent(total ? row.soLuong * 100 / total : 0),
+                    doDai: maximum ? row.soLuong * 100 / maximum : 0
+                }))
+            };
+        },
+        chuyenHoaHienThi: function (get) {
+            const me = this;
+            const rows = get('chuyenHoa');
+
+            return {
+                dtcbItems: me.formatConversionRows(rows, 'tenDtcb'),
+                suuTraItems: me.formatConversionRows(rows, 'tenSuuTra'),
+                tyLeChinhText: me.formatPercent(rows.length ? rows[0].tyLe : 0, 1)
+            };
+        },
+        lucLuongHienThi: function (get) {
+            const me = this;
+            const rows = get('lucLuong');
+            const total = get('tongHoSoLucLuong');
+
+            return {
+                items: rows.map(function (row) {
+                    const percent = total ? row.soLuong * 100 / total : 0;
+
+                    return Object.assign({}, row, {
+                        tyLe: percent,
+                        tyLeText: me.formatPercent(percent),
+                        soLuongText: me.formatNumber(row.soLuong)
+                    });
+                }),
+                tongSoText: me.formatNumber(total),
+                soHe: rows.length
+            };
+        }
+    },
+    //#endregion
+
+    /** Định dạng số lượng theo giao diện tiếng Việt. */
+    formatNumber: function (value) {
+        return value.toLocaleString('vi-VN');
+    },
+
+    /** Định dạng tỷ lệ; các card chuyển hóa dùng một chữ số thập phân. */
+    formatPercent: function (value, digits = 0) {
+        return value.toLocaleString('vi-VN', {
+            minimumFractionDigits: digits,
+            maximumFractionDigits: digits
+        }) + '%';
+    },
+
+    /** Chuẩn hóa tên chỉ tiêu để hai card dùng cùng một template. */
+    formatConversionRows: function (rows, nameField) {
+        const me = this;
+
+        return rows.map(row => ({
+            ten: row[nameField],
+            tyLe: row.tyLe,
+            mau: row.mau,
+            tyLeText: me.formatPercent(row.tyLe, 1)
+        }));
+    },
+
+    stores: {
+        donViChartStore: {
+            fields: [
+                { name: 'ten', type: 'string' },
+                { name: 'soLuong', type: 'int' },
+                { name: 'mau', type: 'string' },
+                { name: 'tyLeText', type: 'string' }
+            ],
+            data: '{donViHienThi.items}'
+        },
+        trangThaiChartStore: {
+            fields: [
+                {
+                    name: 'ten',
+                    type: 'string'
+                },
+                {
+                    name: 'soLuong',
+                    type: 'int'
+                }
+            ],
+            data: [
+                {
+                    ten: 'Đang quản lý',
+                    soLuong: 4123
+                },
+                {
+                    ten: 'Đã kết thúc',
+                    soLuong: 2861
+                },
+                {
+                    ten: 'Lập mới',
+                    soLuong: 1647
+                },
+                {
+                    ten: 'Chưa có số HS',
+                    soLuong: 511
+                }
             ]
         },
-        timKiemNangCao: { thoiGian: 'Năm 2026', tuNgay: null, denNgay: null, donVi: 'Toàn quốc', cucTinh: null, loaiHoSo: 'Tất cả', heLucLuong: 'Tất cả', tinhTrang: 'Tất cả' },
-        chiSo: [
-            { ten: 'Tổng số hồ sơ', giaTri: '12.568', xuHuong: '↑', mau: 'blue' },
-            { ten: 'ĐTCB', giaTri: '9.142', xuHuong: '↑', mau: 'blue' },
-            { ten: 'Sưu Tra', giaTri: '4.123', xuHuong: '↑', mau: 'blue' },
-            { ten: 'Hiềm nghi', giaTri: '2.861', xuHuong: '↑', mau: 'blue' },
-            { ten: 'Chuyên án', giaTri: '1.647', xuHuong: '↓', mau: 'red' },
-            { ten: 'CTVBM', giaTri: '511', xuHuong: '↑', mau: 'green' },
-            { ten: 'HTBM', giaTri: '3.42', xuHuong: '↑', mau: 'blue' },
-            { ten: 'Vai ảo NV', giaTri: '3.426', xuHuong: '↑', mau: 'blue' }
-        ],
-        trangThai: [
-            { ten: 'Đang quản lý', giaTri: '4.123', tyLe: 90, mau: 'blue' },
-            { ten: 'Đã kết thúc', giaTri: '2.861', tyLe: 65, mau: 'amber' },
-            { ten: 'Lập mới', giaTri: '1.647', tyLe: 40, mau: 'orange' },
-            { ten: 'Chưa có số HS', giaTri: '511', tyLe: 20, mau: 'red' }
-        ],
-        dtcb: [{ ten: 'ĐTCB → Sưu tra', giaTri: '72,7%' }, { ten: 'ĐTCB → Hiềm nghi', giaTri: '20,1%' }, { ten: 'ĐTCB → Chuyên án', giaTri: '5,2%' }, { ten: 'Chờ đánh giá', giaTri: '2,0%' }],
-        suuTra: [{ ten: 'Sưu tra → ĐTCB', giaTri: '72,7%' }, { ten: 'Sưu tra → Hiềm nghi', giaTri: '20,1%' }, { ten: 'Sưu tra → Chuyên án', giaTri: '5,2%' }, { ten: 'Chờ đánh giá', giaTri: '2,0%' }],
-        lucLuong: [
-            { ten: 'Ma túy', giaTri: '3.482' },
-            { ten: 'Kinh tế', giaTri: '2.156' },
-            { ten: 'Môi trường', giaTri: '1.042' },
-            { ten: 'Trật tự xã hội', giaTri: '928' },
-            { ten: 'Khác', giaTri: '883' }
-        ],
-        thongKeDonVi: [
-            { ten: 'CA TP. Hà Nội', giaTri: '1.242', m3: 186, m4: 52, tyLe: 100 },
-            { ten: 'CA TP. Hồ Chí Minh', giaTri: '1.087', m3: 163, m4: 41, tyLe: 88 },
-            { ten: 'CA tỉnh Thanh Hóa', giaTri: '685', m3: 98, m4: 28, tyLe: 55 },
-            { ten: 'CA tỉnh Nghệ An', giaTri: '592', m3: 76, m4: 21, tyLe: 48 },
-            { ten: 'CA tỉnh Đồng Nai', giaTri: '518', m3: 69, m4: 17, tyLe: 42 },
-            { ten: 'CA tỉnh Bình Dương', giaTri: '452', m3: 61, m4: 16, tyLe: 36 },
-            { ten: 'CA tỉnh Quảng Ninh', giaTri: '401', m3: 54, m4: 14, tyLe: 32 },
-            { ten: 'CA tỉnh Hải Phòng', giaTri: '378', m3: 46, m4: 12, tyLe: 30 }
-        ],
-        hoatDong: [
-            { ten: 'Thu thập, xác minh thông tin', giaTri: '1.243', quaHan: 86 },
-            { ten: 'Theo dõi, giám sát đối tượng', giaTri: '3.562', quaHan: 124 },
-            { ten: 'Triển khai biện pháp nghiệp vụ', giaTri: '1.025', quaHan: 52 },
-            { ten: 'Báo cáo, đánh giá định kỳ', giaTri: '678', quaHan: 17 },
-            { ten: 'Chưa hoàn thành công tác hồ sơ', giaTri: '421', quaHan: 9 }
-        ],
-        canhBao: [
-            { ten: 'Tăng nhanh số lượng lĩnh vực ma túy', moTa: 'Địa bàn vùng cao / Cần kiểm tra', mucDo: 'Lạng Sơn - Cao', mau: 'red' },
-            { ten: 'Nhiều hồ sơ cùng liên quan một địa bàn', moTa: 'Mạng lưới phức tạp / Trọng điểm', mucDo: 'Tây Ninh - 96 - Cao', mau: 'red' },
-            { ten: 'Hồ sơ Sưu tra lâu chưa cập nhật', moTa: 'Yêu cầu đôn đốc cán bộ thụ lý', mucDo: 'Cục CSHS - 74 - Trung bình', mau: 'amber' },
-            { ten: 'Báo cáo định kỳ quá hạn trên 15 ngày', moTa: 'Cần phê bình tiến độ', mucDo: 'Hà Nội - 112 - Trung bình', mau: 'amber' }
-        ],
-        kyBieuDo: 'Theo tháng'
-    },
-    stores: {
-        hoSoChiDaoStore: {
-            fields: ['ma', 'moTa'],
-            data: [
-                { ma: 'PN-TH-2026-001', moTa: 'Nhóm đối tượng mua bán ma túy | Hà Nội | Sưu tra | PTNV' },
-                { ma: 'PN-KT-2026-015', moTa: 'Đường dây buôn lậu qua biên giới | Tây Ninh | Sưu tra | Nhiều liên quan' },
-                { ma: 'PN-MT-2026-008', moTa: 'Khai thác khoáng sản trái phép | Lâm Đồng | Hiềm nghi | Quá hạn' },
-                { ma: 'PN-CNC-2026-021', moTa: 'Lừa đảo công nghệ cao | Cục C02 | Chuyên án | Mức cao' }
-            ]
+        dienBienChartStore: {
+            fields: [
+                {
+                    name: 'ky',
+                    type: 'string'
+                },
+                {
+                    name: 'moMoi',
+                    type: 'int'
+                },
+                {
+                    name: 'ketThuc',
+                    type: 'int'
+                }
+            ],
+            data: '{dienBienThang}'
         }
     }
 });

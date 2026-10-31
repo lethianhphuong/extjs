@@ -7,8 +7,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_View', {
         'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewFilter',
         'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewThongKe',
         'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewPhanTich',
-        'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewChart',
-        'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewCanhBao'
+        'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewChart'
     ],
     controller: 'trangchunew1',
     viewModel: 'trangchunew1',
@@ -19,12 +18,6 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_View', {
         { xtype: 'TrangChuNew1_ViewFilter' },
         { xtype: 'TrangChuNew1_ViewThongKe' },
         { xtype: 'TrangChuNew1_ViewPhanTich' },
-        { xtype: 'TrangChuNew1_ViewChart' },
-        { xtype: 'TrangChuNew1_ViewCanhBao' },
-        {
-            xtype: 'component',
-            cls: 'tcn-footer',
-            html: '© 2026 Hệ thống Thông tin Báo cáo Nghiệp vụ Chuyên dùng. Dữ liệu bảo mật cấp ngành.'
-        }
+        { xtype: 'TrangChuNew1_ViewChart' }
     ]
 });

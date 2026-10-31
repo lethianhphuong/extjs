@@ -1,3 +1,288 @@
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2363 */
+.bold,
+.bold div,
+.bold textarea,
+.bold input {
+    font-weight: bold;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2370 */
+.uppercase,
+.uppercase textarea,
+.uppercase input {
+    text-transform: uppercase !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2376 */
+.transY25 {
+    transform: translateY(-25px);
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2380 */
+.custom_form div:not(.x-icon-el.x-font-icon) .fz7 div {
+    font-size: 7pt !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2384 */
+.custom_form div:not(.x-icon-el.x-font-icon) .fz8 div {
+    font-size: 8pt !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2388 */
+.custom_form div:not(.x-icon-el.x-font-icon) .fz10 input,
+.custom_form div:not(.x-icon-el.x-font-icon) .fz10 textarea,
+.custom_form div:not(.x-icon-el.x-font-icon) .fz10 div {
+    font-size: 10pt !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2394 */
+.custom_form div:not(.x-icon-el.x-font-icon) .fz12 div {
+    font-size: 12pt !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2398 */
+.custom_form div:not(.x-icon-el.x-font-icon) .fz13 div {
+    font-size: 13pt !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2402 */
+.custom_form div:not(.x-icon-el.x-font-icon) .fz14 div {
+    font-size: 14pt !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2406 */
+.custom_form div:not(.x-icon-el.x-font-icon) .fz17 div {
+    font-size: 17pt !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2410 */
+.custom_form .no_hidden div {
+    overflow: inherit;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2414 */
+.custom_form .lh34 div {
+    line-height: 34px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2418 */
+.custom_form .lh20 div {
+    line-height: 20px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2422 */
+.custom_form .lh24 div {
+    line-height: 24px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2426 */
+.custom_form .color_none {
+    color: transparent !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2430 */
+.custom_form .borderRight {
+    border-right: 1px solid #ccc;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2435 */
+.custom_form.a4 {
+    padding: 5mm 10mm 5mm 10mm !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2438 */
+.custom_form.a4 .tab_line {
+    padding-left: 10mm !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2443 */
+.custom_form div,
+.custom_form span {
+    font-family: 'Times New Roman', Times, serif !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2448 */
+.custom_form .form-field-input {
+    font-family: 'Times New Roman', Times, serif !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2451 */
+.custom_form .form-field-input label {
+    padding: 0px !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2454 */
+.custom_form .form-field-input label .x-form-item-label-text {
+    color: #000 !important;
+    font-size: 14pt !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2459 */
+.custom_form .form-field-input label >span {
+    position: absolute;
+    bottom: 0px;
+    z-index: 1;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2466 */
+.custom_form .form-field-input input,
+.custom_form .form-field-input textarea {
+    padding: 0px !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2471 */
+.custom_form .form-field-input .x-form-trigger-wrap-default:after {
+    left: 0px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2477 */
+.custom_form .form-field-input.italic label span {
+    font-style: italic !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2485 */
+.custom_form .form-field-input.bold label span {
+    font-weight: bold !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2492 */
+.custom_form .label_right {
+    left: unset !important;
+    right: 0px !important;
+    top: 0px !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2500 */
+.custom_form .underline {
+    padding-bottom: 2px;
+    border-bottom: solid 1px #000;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2506 */
+.custom_form .textArea_custom.cs.banGiao ::placeholder {
+    font-size: 11pt !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2511 */
+.custom_form .textArea_custom.cs.banGiao label {
+    padding: 0px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2515 */
+.custom_form .textArea_custom.cs {
+    display: flex;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2518 */
+.custom_form .textArea_custom.cs label {
+    display: inline;
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    top: 2px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2525 */
+.custom_form .textArea_custom.cs label span {
+    display: inline;
+    color: #000 !important;
+    font-size: 14pt !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2532 */
+.custom_form .textArea_custom.cs label~div {
+    flex: 1;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2535 */
+.custom_form .textArea_custom.cs label~div textarea {
+    text-indent: 50px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2544 */
+.action-hidden {
+    display: none;
+    visibility: hidden;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2550 */
+.clsHiddenDisabled.x-action-col-icon.x-item-disabled {
+    display: none;
+    visibility: hidden;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2555 */
+.x-menu.x-layer.x-menu-default {
+    margin: 1px 5px 0px -5px !important;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 6px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2560 */
+.x-menu.x-layer.x-menu-default .x-menu-item-focus,
+.x-menu.x-layer.x-menu-default .x-menu-item-active {
+    background-color: var(--background-header-grid);
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2567 */
+.tree-list-form .x-treelist-item-text {
+    margin-left: 0;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2573 */
+.tree-button >ul>li.x-treelist-item {
+    background: white;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none !important;
+    margin: 5px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2580 */
+.tree-button >ul>li.x-treelist-item div.x-treelist-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: #d3d3d3;
+    border-radius: 5px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2587 */
+.tree-button >ul>li.x-treelist-item div.x-treelist-row >.x-treelist-item-wrap {
+    width: 100%;
+    color: #111;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2591 */
+.tree-button >ul>li.x-treelist-item div.x-treelist-row >.x-treelist-item-wrap .x-treelist-item-expander {
+    color: inherit;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2594 */
+.tree-button >ul>li.x-treelist-item div.x-treelist-row >.x-treelist-item-wrap .x-treelist-item-expander::after {
+    content: '\f101';
+    color: inherit;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2603 */
+.tree-button >ul>li.x-treelist-item ul.x-treelist-container .x-treelist-item-leaf {
+    margin: 5px 0px 0px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2608 */
+.tree-button >ul>li.x-treelist-item .x-treelist-item-text {
+    font-weight: 500;
+    font-size: 14px;
+    color: #111;
+    margin: 3px 5px;
+    white-space: pre-wrap;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2616 */
+.tree-button >ul>li.x-treelist-item .x-treelist-item-icon {
+    display: none;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2626 */
+.tree-button ul>li.x-treelist-item-expanded >div.x-treelist-row >.x-treelist-item-wrap .x-treelist-item-expander::after {
+    content: '\f103';
+    color: inherit;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2634 */
+.tree-button ul>li.x-treelist-item-expanded >ul>li.x-treelist-item {
+    margin: 5px 0px 0px;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2640 */
+.tree-button li.x-treelist-item-selected >div.x-treelist-row {
+    background: #606060 !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2643 */
+.tree-button li.x-treelist-item-selected >div.x-treelist-row div {
+    color: white;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2647 */
+.tree-button li.x-treelist-item-selected >div.x-treelist-row.refuse {
+    background: #606060 !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2650 */
+.tree-button li.x-treelist-item-selected >div.x-treelist-row.refuse div {
+    color: white;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2655 */
+.tree-button li.x-treelist-item-selected >div.x-treelist-row.isSave {
+    background: #d59115 !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2658 */
+.tree-button li.x-treelist-item-selected >div.x-treelist-row.isSave div {
+    color: white;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2666 */
+.tree-button div.x-treelist-row.isSave {
+    background: var(--submit-color) !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2669 */
+.tree-button div.x-treelist-row.isSave div {
+    color: white;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2675 */
+.tree-button div.x-treelist-row.refuse {
+    background: #972727 !important;
+}
+/* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2678 */
+.tree-button div.x-treelist-row.refuse div {
+    color: white;
+}
 /* D:/FE/extjs/classic/sass/src/view/main/Main.scss:2683 */
 .tree-button div.x-treelist-row.gray {
     background: #7b7a7a !important;
