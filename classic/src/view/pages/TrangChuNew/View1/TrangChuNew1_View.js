@@ -4,7 +4,6 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_View', {
     requires: [
         'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController',
         'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewModel',
-        'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewFilter',
         'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewThongKe',
         'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewPhanTich',
         'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewChart'
@@ -15,7 +14,6 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_View', {
     scrollable: 'y',
     layout: { type: 'vbox', align: 'stretch' },
     items: [
-        { xtype: 'TrangChuNew1_ViewFilter' },
         { xtype: 'TrangChuNew1_ViewThongKe' },
         { xtype: 'TrangChuNew1_ViewPhanTich' },
         { xtype: 'TrangChuNew1_ViewChart' }

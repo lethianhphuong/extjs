@@ -8,7 +8,15 @@
 - Đối chiếu [CLAUDE.md](CLAUDE.md) để hiểu workflow, theme, global helpers và overrides của project. Chỉ đọc các phần liên quan khi đã nắm ngữ cảnh.
 - Kiểm tra implementation và overrides thực tế trước khi áp dụng ví dụ trong tài liệu. Không refactor legacy ngoài phạm vi task.
 
-Một số ví dụ cũ trong conventions chưa khớp quy tắc hiện hành. Dùng `let`/`const`, single quotes, semicolon, không trailing comma, indentation 4 spaces và `const me = this`; không sao chép `var`, selector `down()` để tìm field hoặc `init` rỗng từ ví dụ. Dùng `reference`/`lookupReference()`. Tiêu chí tách component theo mục 1.1.1 và ngoại lệ màn hình đơn giản tại 1.1.2. Navigation hiện tại theo tree node `route` + `component` như CLAUDE.md và code, không tạo thêm route-to-xtype map từ ví dụ cũ ở mục 6. Nếu gặp mâu thuẫn khác ảnh hưởng hành vi, nêu rõ trong plan thay vì tự đổi kiến trúc.
+Một số ví dụ cũ trong conventions chưa khớp quy tắc hiện hành. Dùng `let`/`const`, single quotes, semicolon, không trailing comma, indentation 4 spaces và `const me = this`; không sao chép `var`, selector theo label/text hoặc `init` rỗng từ ví dụ. Truy cập component bằng `itemId` theo quy tắc bên dưới. Tiêu chí tách component theo mục 1.1.1 và ngoại lệ màn hình đơn giản tại 1.1.2. Navigation hiện tại theo tree node `route` + `component` như CLAUDE.md và code, không tạo thêm route-to-xtype map từ ví dụ cũ ở mục 6. Nếu gặp mâu thuẫn khác ảnh hưởng hành vi, nêu rõ trong plan thay vì tự đổi kiến trúc.
+
+## Quy tắc truy cập component — toàn project
+
+Ưu tiên `itemId` theo mẫu `ten_IdView` (tên chức năng camelCase + `_IdView`), ví dụ `donViChart_IdView`. Controller dùng `const me = this;` và `me.getView().down('#donViChart_IdView')`; tên dùng động cũng phải giữ hậu tố này. Dùng cách này thay cho `reference`/`lookupReference()` khi tạo mới hoặc sửa phần truy cập component trong phạm vi task.
+
+`itemId` phải mô tả chức năng và duy nhất trong cây View được tìm kiếm. Không dùng `id` toàn cục hoặc selector theo label/text. `down()` chỉ tìm hậu duệ, không gồm chính View; dùng `up()` khi thực sự cần tìm component cha. Giữ binding/ViewModel cho cập nhật state và reset field.
+
+Quy tắc này áp dụng cho toàn repository và ưu tiên hơn hướng dẫn reference cũ trong CONVENTIONS.md, CLAUDE.md và skill, kể cả đoạn chỉ giới hạn itemId cho TrangChuNew. Không tự chuyển đổi hàng loạt source hiện có hoặc refactor ngoài phạm vi task.
 
 ## Bản đồ project
 

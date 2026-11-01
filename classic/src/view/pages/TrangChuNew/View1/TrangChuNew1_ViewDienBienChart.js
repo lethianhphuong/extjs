@@ -14,7 +14,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDienBienChart', {
     items: [
         {
             xtype: 'container',
-            reference: 'dienBienHeader',
+            itemId: 'dienBienHeader_IdView',
             cls: 'tcn-trend-header',
             layout: 'auto',
             items: [
@@ -51,7 +51,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDienBienChart', {
         },
         {
             xtype: 'cartesian',
-            reference: 'dienBienChart',
+            itemId: 'dienBienChart_IdView',
             flex: 1,
             minHeight: 300,
             animation: false,

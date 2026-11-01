@@ -5,15 +5,17 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewTrangThaiChart', 
         'Ext.chart.CartesianChart',
         'Ext.chart.series.Bar',
         'Ext.chart.axis.Numeric',
-        'Ext.chart.axis.Category'
+        'Ext.chart.axis.Category',
+        'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig'
     ],
     cls: 'tcn-card dash-card',
+    height: 420,
     layout: { type: 'vbox', align: 'stretch' },
     items: [
-        { xtype: 'component', html: '<h2>Số hồ sơ theo trạng thái</h2>' },
+        { xtype: 'component', html: '<h2>Đối tượng QLNV</h2>' },
         {
             xtype: 'cartesian',
-            reference: 'trangThaiChart',
+            itemId: 'trangThaiChart_IdView',
             height: 280,
             animation: false,
             insetPadding: { top: 24, right: 12, bottom: 16, left: 12 },
@@ -34,31 +36,31 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewTrangThaiChart', 
                 {
                     type: 'category',
                     position: 'bottom',
-                    fields: ['ten'],
+                    fields: ['ma'],
                     style: { textPadding: 0 },
                     label: { fontSize: 12, rotationRads: 0 },
                     renderer: function (axis, value) {
-                        const labels = {
-                            'Đang quản lý': 'Đang\nquản lý',
-                            'Đã kết thúc': 'Đã\nkết thúc',
-                            'Lập mới': 'Lập\nmới',
-                            'Chưa có số HS': 'Chưa có\nsố HS'
-                        };
-
-                        return labels[value] || value;
+                        return DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('trangThai', value).nhanTruc;
                     }
                 }
             ],
             series: [{
                 type: 'bar',
-                xField: 'ten',
+                xField: 'ma',
                 yField: 'soLuong',
                 style: { maxBarWidth: 42, radius: 4 },
                 renderer: function (sprite, config, data, index) {
                     const me = this;
-                    const colors = me.getColors() || me.getChart().getColors();
+                    const colors = me.getChart().statusColors;
+                    const record = data.store.getAt(index);
 
-                    return { fillStyle: colors[index] };
+                    if (!colors || !record) {
+                        return {};
+                    }
+                    const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('trangThai', record.get('ma'));
+                    const color = colors[display.mau] || colors.muted;
+
+                    return { fillStyle: color, strokeStyle: color };
                 },
                 label: {
                     field: 'soLuong',
@@ -73,12 +75,14 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewTrangThaiChart', 
                 tooltip: {
                     trackMouse: true,
                     renderer: function (tooltip, record) {
-                        tooltip.setHtml(Ext.String.htmlEncode(record.get('ten')) + ': ' +
-                            Number(record.get('soLuong')).toLocaleString('vi-VN') + ' hồ sơ');
+                        const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('trangThai', record.get('ma'));
+
+                        tooltip.setHtml(Ext.String.htmlEncode(display.ten) + ': ' +
+                            Number(record.get('soLuong')).toLocaleString('vi-VN') + ' đối tượng');
                     }
                 }
             }]
         },
-        { xtype: 'component', cls: 'tcn-note', html: 'Phân bổ hồ sơ theo từng giai đoạn xử lý' }
+        { xtype: 'component', cls: 'tcn-note', html: 'Phân bổ đối tượng theo từng giai đoạn xử lý' }
     ]
 });

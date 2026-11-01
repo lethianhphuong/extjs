@@ -658,9 +658,22 @@ Ext.define("DEMO.view.pages.ToTrinh.ToTrinh_View", {
 
 > **Quy tắc chọn:** Chỉ có 1 grid + filter đơn giản → Cách 2. Có nhiều panels, tabs, charts → Cách 1.
 
-### 3.2. Quy tắc truy cập component — PHẢI dùng `reference`
+### 3.2. Quy tắc truy cập component
 
-**BẮT BUỘC:** Dùng `reference` + `lookupReference()` trong Controller, **KHÔNG được** dùng `down()` với selector string.
+**Ngoại lệ cho `classic/src/view/pages/TrangChuNew/`:** ưu tiên `itemId` theo mẫu `ten_IdView` (tên chức năng camelCase + `_IdView`) và truy cập từ ViewController qua `me.getView().down('#ten_IdView')`. Áp dụng cho cả tên khai báo và tên dùng động; không dùng `reference`/`lookupReference()` trong module này. Quy tắc bên dưới và các ví dụ reference ở mục khác áp dụng cho các module còn lại.
+
+```javascript
+// View thuộc TrangChuNew
+{ xtype: 'cartesian', itemId: 'donViChart_IdView' }
+
+// ViewController
+const me = this;
+const chart = me.getView().down('#donViChart_IdView');
+```
+
+`itemId` phải duy nhất trong cây View mà Controller tìm kiếm. Không thay bằng `id` toàn cục, không query theo label/text. `down()` tìm hậu duệ và không gồm chính View; chỉ dùng `up()` khi cần tìm component cha. Giữ binding/ViewModel cho cập nhật state và reset field. Không tự refactor các module khác theo ngoại lệ này.
+
+**Các module ngoài TrangChuNew:** Dùng `reference` + `lookupReference()` trong Controller, **KHÔNG được** dùng `down()` với selector string.
 
 ```javascript
 // SAI —脆弱, dễ break khi đổi fieldLabel

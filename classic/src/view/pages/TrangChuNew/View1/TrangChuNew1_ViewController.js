@@ -1,7 +1,10 @@
 Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.trangchunew1',
-    requires: ['DEMO.app.NotiCommon'],
+    requires: [
+        'DEMO.app.NotiCommon',
+        'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_MockData'
+    ],
 
     //#region NOTE: Khởi tạo và thao tác người dùng
 
@@ -12,7 +15,31 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
 
         viewModel.set('timKiemNangCao.tuNgay', new Date(2026, 0, 1));
         viewModel.set('timKiemNangCao.denNgay', new Date(2026, 11, 31));
-        me.unitRankingBinding = viewModel.bind('{donViXepHang}', me.onUnitRankingChange, me);
+        me.unitRankingBinding = viewModel.bind('{donViDangHienThi}', me.onUnitRankingChange, me);
+        me.loadData();
+    },
+
+    /** Nạp toàn bộ 7 phần; chỉ thay nguồn này khi kết nối API thật. */
+    loadData: function () {
+        const me = this;
+        const viewModel = me.getViewModel();
+        const data = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_MockData.getData();
+        const units = data.hoSoTheoDonVi || {};
+
+
+        viewModel.getStore('trangThaiChartStore').loadData(data.hoSoTheoTrangThai || []);
+        viewModel.getStore('dienBienChartStore').loadData(data.dienBienHoSo || []);
+        viewModel.getStore('donViStore').loadData(units.items || []);
+        viewModel.set({
+            chiSo: data.tongQuan || [],
+            hieuQuaDtcb: data.hieuQuaDtcb || [],
+            hieuQuaSuuTra: data.hieuQuaSuuTra || [],
+            lucLuong: data.hoSoTheoHeLucLuong || [],
+            namThongKeDonVi: units.nam || null
+        });
+        if (me.getView().rendered) {
+            me.updateChartColors();
+        }
     },
 
     /** Chọn số cột theo vùng KPI thực tế, độc lập với sidebar và viewport. */
@@ -31,29 +58,10 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
         component.updateLayout();
     },
 
-    /** Kiểm tra điều kiện tìm kiếm trên dashboard dữ liệu mẫu. */
-    onSearch: function () {
-        const me = this;
-        const form = me.lookupReference('boLoc').getForm();
-        const filter = me.getViewModel().get('timKiemNangCao');
-
-        if (!form.isValid()) {
-            return;
-        }
-        if (filter.tuNgay && filter.denNgay && filter.tuNgay > filter.denNgay) {
-            me.lookupReference('denNgay').markInvalid('Đến ngày phải bằng hoặc sau từ ngày');
-            return;
-        }
-        notiCommon.show({
-            type: 'info',
-            message: 'Điều kiện tìm kiếm hợp lệ. Dashboard đang hiển thị dữ liệu minh họa, chưa kết nối API.'
-        });
-    },
-
     /** Bật/tắt series và lưu trạng thái độc lập với kỳ thống kê. */
     onToggleTrendSeries: function (button, pressed) {
         const me = this;
-        const chart = me.lookupReference('dienBienChart');
+        const chart = me.getView().down('#dienBienChart_IdView');
 
         me.getViewModel().set(button.stateKey, pressed);
         if (chart && chart.rendered) {
@@ -73,8 +81,11 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
             me.updateTrendHeight();
         });
         me.trendResizeObserver.observe(component.getEl().dom);
-        me.trendResizeObserver.observe(me.lookupReference('donViCard').getEl().dom);
-        me.trendResizeObserver.observe(me.lookupReference('dienBienHeader').getEl().dom);
+        me.trendResizeObserver.observe(me.getView().down('#donViCard_IdView').getEl().dom);
+        me.getView().down('#donViCard_IdView').items.each(function (item) {
+            me.trendResizeObserver.observe(item.getEl().dom);
+        });
+        me.trendResizeObserver.observe(me.getView().down('#dienBienHeader_IdView').getEl().dom);
     },
 
     /** Giãn chart đến đáy card; khi hai card xếp dọc thì dùng chiều cao tối thiểu. */
@@ -84,33 +95,32 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
         if (me.destroying || me.destroyed) {
             return;
         }
-        const units = me.lookupReference('donViCard');
-        const trend = me.lookupReference('dienBienCard');
-        const header = me.lookupReference('dienBienHeader');
-        const chart = me.lookupReference('dienBienChart');
+        const units = me.getView().down('#donViCard_IdView');
+        const trend = me.getView().down('#dienBienCard_IdView');
+        const header = me.getView().down('#dienBienHeader_IdView');
+        const chart = me.getView().down('#dienBienChart_IdView');
 
         if (!units || !trend || !header || !chart || !trend.rendered) {
             return;
         }
         const styles = window.getComputedStyle(trend.getEl().dom);
-        const headerStyles = window.getComputedStyle(header.getEl().dom);
         const frameHeight = ['paddingTop', 'paddingBottom', 'borderTopWidth', 'borderBottomWidth']
             .reduce((sum, name) => sum + (parseFloat(styles[name]) || 0), 0);
-        const minimum = chart.minHeight + header.getHeight() + frameHeight +
-            (parseFloat(headerStyles.marginTop) || 0) + (parseFloat(headerStyles.marginBottom) || 0);
+        // VBox chuyển CSS margin thành khoảng cách layout; đo vị trí để giữ đủ chỗ cho chart.
+        const headerGap = chart.getEl().dom.offsetTop - header.getEl().dom.offsetTop - header.getHeight();
+        const minimum = Math.ceil(chart.minHeight + header.getHeight() + frameHeight + Math.max(0, headerGap));
         const sameRow = Math.abs(units.getEl().dom.offsetTop - trend.getEl().dom.offsetTop) < 2;
+        const unitMinimum = sameRow ? minimum : 0;
+
+        // Chỉ đặt chiều cao tối thiểu để card vẫn tự co theo nội dung khi đổi Top 10 về Top 5.
+        if (units.minHeight !== unitMinimum) {
+            units.setMinHeight(unitMinimum);
+        }
         const height = Math.ceil(Math.max(minimum, sameRow ? units.getHeight() : 0));
 
         if (trend.getHeight() !== height) {
             trend.setHeight(height);
         }
-    },
-
-    /** Chuyển về bảng đầy đủ và donut Top 10 bằng cùng một state. */
-    onShowAllUnits: function () {
-        const me = this;
-
-        me.getViewModel().set('gioiHanDonVi', 10);
     },
 
     /** Xếp donut lên trên khi card không còn đủ chỗ cho hai cột. */
@@ -147,7 +157,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
     /** Binding bảo đảm palette cập nhật cả khi dữ liệu xếp hạng đến sau render. */
     onUnitRankingChange: function () {
         const me = this;
-        const chart = me.lookupReference('donViChart');
+        const chart = me.getView().down('#donViChart_IdView');
 
         if (chart && chart.rendered) {
             me.updateChartColors(chart);
@@ -176,13 +186,13 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
         const me = this;
         const theme = me.getChartTheme();
         const updates = [
-            ['trangThaiChart', me.updateStatusChartColors],
-            ['dienBienChart', me.updateTrendChartColors],
-            ['donViChart', me.updateUnitChartColors]
+            ['trangThaiChart_IdView', me.updateStatusChartColors],
+            ['dienBienChart_IdView', me.updateTrendChartColors],
+            ['donViChart_IdView', me.updateUnitChartColors]
         ];
 
-        updates.forEach(function ([reference, update]) {
-            const chart = me.lookupReference(reference);
+        updates.forEach(function ([itemId, update]) {
+            const chart = me.getView().down('#' + itemId);
 
             if (chart && chart.rendered && (!targetChart || chart === targetChart)) {
                 chart.setBackground(theme.background);
@@ -200,15 +210,16 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
         });
     },
 
-    /** Màu cột lấy trực tiếp từ palette chart, không ghi vào dữ liệu hồ sơ. */
+    /** Cache màu FE độc lập với thời điểm Store được bind hoặc có dữ liệu. */
     updateStatusChartColors: function (chart, theme) {
         const me = this;
-        const colors = ['blue', 'amber', 'orange', 'red'].map(name => theme.colors[name]);
+        const series = chart.getSeries()[0];
 
-        chart.setColors(colors);
-        chart.getSeries()[0].setColors(colors);
+        chart.statusColors = theme.colors;
+        // Bar chỉ có một series; renderer chọn màu riêng cho từng record theo mã.
+        series.setColors([theme.colors.blue]);
         me.updateChartAxes(chart, theme);
-        chart.getSeries()[0].setLabel({ color: theme.text, fontSize: theme.valueFontSize, fontWeight: '600' });
+        series.setLabel({ color: theme.text, fontSize: theme.valueFontSize, fontWeight: '600' });
     },
 
     /** Giữ trạng thái bật/tắt đường khi thay đổi theme. */
@@ -238,8 +249,8 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
     /** Palette lấy theo thứ tự xếp hạng, giữ màu đơn vị khi đổi Top 5/10. */
     updateUnitChartColors: function (chart, theme) {
         const me = this;
-        const rows = me.getViewModel().get('donViXepHang') || [];
-        const colors = rows.slice(0, 10).map(row => theme.colors[row.mau]);
+        const rows = me.getViewModel().get('donViDangHienThi') || [];
+        const colors = rows.map(row => theme.colors[row.mau]);
 
         chart.setColors(colors);
         chart.getSeries()[0].setColors(colors);

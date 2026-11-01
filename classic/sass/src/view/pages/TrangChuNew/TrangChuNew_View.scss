@@ -8,7 +8,9 @@
         color: var(--theme-text-secondary);
     }
 
-    .x-tab-active .x-tab-inner-default {
-        color: var(--theme-text-primary);
+    .x-tab-active {
+        .x-tab-inner-default {
+            color: var(--theme-text-primary);
+        }
     }
 }

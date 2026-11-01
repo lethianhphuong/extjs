@@ -26,11 +26,13 @@
         padding: 8px;
         border-radius: 12px;
 
-        > .x-autocontainer-outerCt > .x-autocontainer-innerCt {
-            display: flex;
-            align-items: flex-end;
-            flex-wrap: wrap;
-            gap: 10px;
+        >.x-autocontainer-outerCt {
+            >.x-autocontainer-innerCt {
+                display: flex;
+                align-items: flex-end;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
         }
 
         .x-form-item {
@@ -56,11 +58,28 @@
         gap: 8px;
     }
 
-    .tcn-metrics-cols-8 .tcn-metric-grid { grid-template-columns: unquote('repeat(8, minmax(0, 1fr))'); }
-    .tcn-metrics-cols-4 .tcn-metric-grid { grid-template-columns: unquote('repeat(4, minmax(0, 1fr))'); }
-    .tcn-metrics-cols-2 .tcn-metric-grid { grid-template-columns: unquote('repeat(2, minmax(0, 1fr))'); }
+    .tcn-metrics-cols-8 {
+        .tcn-metric-grid {
+            grid-template-columns: unquote('repeat(8, minmax(0, 1fr))');
+        }
+    }
 
-    .tcn-metrics { padding: 0; }
+    .tcn-metrics-cols-4 {
+        .tcn-metric-grid {
+            grid-template-columns: unquote('repeat(4, minmax(0, 1fr))');
+        }
+    }
+
+    .tcn-metrics-cols-2 {
+        .tcn-metric-grid {
+            grid-template-columns: unquote('repeat(2, minmax(0, 1fr))');
+        }
+    }
+
+    .tcn-metrics {
+        padding: 0;
+    }
+
     .tcn-metric {
         display: flex;
         flex-direction: column;
@@ -80,8 +99,24 @@
             box-shadow: var(--theme-shadow-lg);
         }
     }
-    .tcn-metric-header { display: flex; justify-content: space-between; align-items: center; gap: 6px; width: 100%; min-height: 24px; }
-    .tcn-metric-title { min-width: 0; font-size: 13px; line-height: 1.4; color: var(--theme-text-primary); overflow-wrap: break-word; }
+
+    .tcn-metric-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+        min-height: 24px;
+    }
+
+    .tcn-metric-title {
+        min-width: 0;
+        font-size: 13px;
+        line-height: 1.4;
+        color: var(--theme-text-primary);
+        overflow-wrap: break-word;
+    }
+
     .tcn-metric-icon {
         flex: 0 0 24px;
         height: 24px;
@@ -92,8 +127,12 @@
         background: var(--theme-bg-card-hover);
         border: 1px solid var(--theme-border);
 
-        svg { width: 16px; height: 16px; }
+        svg {
+            width: 16px;
+            height: 16px;
+        }
     }
+
     .tcn-metric-number {
         color: var(--theme-text-primary);
         font-family: Consolas, 'Liberation Mono', monospace;
@@ -102,7 +141,13 @@
         line-height: 1.1;
         font-variant-numeric: tabular-nums;
     }
-    .tcn-metric-total .tcn-metric-number { color: var(--tcn-blue); }
+
+    .tcn-metric-total {
+        .tcn-metric-number {
+            color: var(--tcn-blue);
+        }
+    }
+
     .tcn-metric-trend {
         display: inline-block;
         padding: 2px 5px;
@@ -112,309 +157,635 @@
         line-height: 1.4;
         white-space: nowrap;
     }
-    .tcn-trend-up { color: var(--tcn-green); background: rgba(5, 150, 105, 0.07); border-color: rgba(5, 150, 105, 0.25); }
-    .tcn-trend-down { color: var(--tcn-red); background: rgba(225, 29, 72, 0.06); border-color: rgba(225, 29, 72, 0.22); }
-    .tcn-trend-neutral { color: var(--theme-text-secondary); background: var(--theme-bg-card-hover); border-color: var(--theme-border); }
-    $metric-icon-colors: (blue: #2563eb, green: #059669, amber: #d97706, red: #e11d48, purple: #9333ea, cyan: #06b6d4, indigo: #4f46e5, muted: #94a3b8);
-    @each $tone, $icon-color in $metric-icon-colors {
-        .tcn-metric.tcn-tone-#{$tone} .tcn-metric-icon {
+
+    .tcn-trend-up {
+        color: var(--tcn-green);
+        background: rgba(5, 150, 105, 0.07);
+        border-color: rgba(5, 150, 105, 0.25);
+    }
+
+    .tcn-trend-down {
+        color: var(--tcn-red);
+        background: rgba(225, 29, 72, 0.06);
+        border-color: rgba(225, 29, 72, 0.22);
+    }
+
+    .tcn-trend-neutral {
+        color: var(--theme-text-secondary);
+        background: var(--theme-bg-card-hover);
+        border-color: var(--theme-border);
+    }
+
+    $metric-icon-colors: (
+        blue: #2563eb,
+        green: #059669,
+        amber: #d97706,
+        red: #e11d48,
+        purple: #9333ea,
+        cyan: #06b6d4,
+        indigo: #4f46e5,
+        muted: #94a3b8
+    );
+
+@each $tone, $icon-color in $metric-icon-colors {
+    .tcn-metric.tcn-tone-#{$tone} {
+        .tcn-metric-icon {
             background: rgba($icon-color, 0.06);
             border-color: rgba($icon-color, 0.18);
         }
     }
-    @for $order from 1 through 8 {
-        .tcn-metric:nth-child(#{$order}) { animation-delay: ($order - 1) * 45ms; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-        .tcn-metric {
-            animation: none;
-            transition: none;
+}
 
-            &:hover { transform: none; }
+@for $order from 1 through 8 {
+    .tcn-metric:nth-child(#{$order}) {
+        animation-delay: ($order - 1) * 45ms;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tcn-metric {
+        animation: none;
+        transition: none;
+
+        &:hover {
+            transform: none;
         }
     }
+}
 
-    // Bố cục các khối phân tích và biểu đồ
-    .tcn-analysis > .x-autocontainer-outerCt > .x-autocontainer-innerCt,
-    .tcn-details > .x-autocontainer-outerCt > .x-autocontainer-innerCt {
-        display: grid;
-        gap: 16px;
-        align-items: stretch;
-    }
-
-    .tcn-analysis > .x-autocontainer-outerCt > .x-autocontainer-innerCt {
-        grid-template-columns: unquote('repeat(4, minmax(0, 1fr))');
-    }
-
-    .tcn-details > .x-autocontainer-outerCt > .x-autocontainer-innerCt {
-        grid-template-columns: unquote('minmax(0, 5fr) minmax(0, 7fr)');
-        align-items: start;
-    }
-    h2 {
-        font-size: 15px;
-        line-height: 1.6;
-        font-weight: 700;
-        margin: 0 0 14px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid var(--theme-border);
-
-        small {
-            display: inline-block;
-            color: var(--theme-text-secondary);
-            font-size: 12px;
-            font-weight: 500;
-            margin-left: 8px;
+// Bố cục các khối phân tích và biểu đồ
+.tcn-analysis,
+.tcn-details {
+    >.x-autocontainer-outerCt {
+        >.x-autocontainer-innerCt {
+            display: grid;
+            gap: 16px;
+            align-items: stretch;
         }
     }
+}
 
-    p { margin: 6px 0 0; color: var(--theme-text-secondary); }
-    strong { font-weight: 700; }
-
-    .tcn-note { font-size: 12px; color: var(--theme-text-secondary); text-align: center; padding: 12px 0; }
-
-    // Card chuyển hóa và hệ lực lượng
-    .tcn-info-card {
-        display: flex;
-        flex-direction: column;
-        padding: 12px;
-        border-radius: 8px;
-        font-size: 14px;
-        line-height: 1.5;
-        min-height: 270px;
+.tcn-analysis {
+    >.x-autocontainer-outerCt {
+        >.x-autocontainer-innerCt {
+            grid-template-columns: unquote('repeat(4, minmax(0, 1fr))');
+        }
     }
+}
 
-    .tcn-info-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 6px;
-        border-bottom: 1px solid var(--theme-border-light);
-        padding-bottom: 10px;
-        margin-bottom: 10px;
-
-        h2 { border: 0; padding: 0; margin: 0; font-size: 14px; }
+.tcn-details {
+    >.x-autocontainer-outerCt {
+        >.x-autocontainer-innerCt {
+            grid-template-columns: unquote('minmax(0, 5fr) minmax(0, 7fr)');
+            align-items: start;
+        }
     }
+}
 
-    .tcn-info-tag, .tcn-percent, .tcn-summary {
-        color: var(--tcn-tone);
-        background: var(--theme-bg-card-hover);
-        border: 1px solid var(--theme-border);
-        border-radius: 4px;
-        padding: 1px 5px;
-        font-size: 12px;
-        white-space: nowrap;
-    }
+h2 {
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 700;
+    margin: 0 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--theme-border);
 
-    .tcn-info-hint { font-size: 12px; color: var(--theme-text-muted); }
-    .tcn-info-content { flex: 1; }
-    .tcn-progress-row { margin-bottom: 15px; }
-    .tcn-force-row { margin-bottom: 10px; }
-    .tcn-progress-label {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 6px;
-        margin-bottom: 4px;
-
-        > span:first-child { min-width: 0; }
-    }
-    .tcn-dot, .tcn-square {
+    small {
         display: inline-block;
-        background: var(--tcn-tone);
-        width: 6px;
-        height: 6px;
-        margin-right: 5px;
-        vertical-align: middle;
-    }
-    .tcn-dot { border-radius: 50%; }
-    .tcn-square { border-radius: 1px; }
-    .tcn-progress-track { height: 5px; border-radius: 4px; background: var(--theme-border-light); overflow: hidden; }
-    .tcn-progress-fill { height: 100%; border-radius: inherit; background: var(--tcn-tone); }
-    .tcn-force-values { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
-    .tcn-force-values small { color: var(--theme-text-muted); font-size: 12px; }
-    .tcn-force-values strong { font-variant-numeric: tabular-nums; }
-    .tcn-info-footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 8px;
-        padding-top: 12px;
-        border-top: 1px solid var(--theme-border-light);
         color: var(--theme-text-secondary);
         font-size: 12px;
+        font-weight: 500;
+        margin-left: 8px;
     }
-    .tcn-summary { border-radius: 12px; }
-    .tcn-total { padding: 3px 7px; border-radius: 4px; background: var(--theme-bg-card-hover); color: var(--theme-text-primary); }
-    .tcn-total small { font-size: 12px; color: var(--theme-text-muted); font-weight: 400; margin-left: 4px; }
-    @each $tone in blue, amber, orange, red, purple, cyan, green, indigo, muted {
-        .tcn-tone-#{$tone} { --tcn-tone: var(--tcn-#{$tone}); }
-    }
+}
 
-    // Donut và bảng xếp hạng đơn vị
-    .tcn-unit-card { padding: 12px; font-size: 14px; line-height: 1.5; border-radius: 8px; }
-    .tcn-unit-header {
-        border-bottom: 1px solid var(--theme-border-light);
-        padding-bottom: 12px;
-        margin-bottom: 16px;
+p {
+    margin: 6px 0 0;
+    color: var(--theme-text-secondary);
+}
 
-        > .x-autocontainer-outerCt > .x-autocontainer-innerCt { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-        h2 { border: 0; margin: 0; padding: 0; font-size: 14px; }
-    }
-    .tcn-unit-title-tag { display: inline-block; margin-left: 5px; padding: 2px 5px; border: 1px solid var(--theme-border); border-radius: 4px; color: var(--tcn-blue); font-size: 11px; font-weight: 400; }
-    .tcn-unit-tabs { background: var(--theme-bg-card-hover); border: 1px solid var(--theme-border); border-radius: 5px; padding: 3px; }
-    .tcn-unit-tabs .x-btn-default-small { background: transparent !important; background-image: none !important; border: 0; }
-    .tcn-unit-tabs .x-btn-inner { color: var(--theme-text-secondary); font-size: 12px; }
-    .tcn-unit-tabs .x-btn-pressed { background: var(--theme-bg-card) !important; border-radius: 3px; }
-    .tcn-unit-tabs .x-btn-pressed .x-btn-inner { color: var(--tcn-blue); }
-    .tcn-unit-body {
-        margin: 4px 0 16px;
+strong {
+    font-weight: 700;
+}
 
-        > .x-autocontainer-outerCt > .x-autocontainer-innerCt { display: grid; grid-template-columns: unquote('180px minmax(0, 1fr)'); align-items: center; gap: 16px; }
-    }
-    .tcn-unit-list-view { min-width: 0; }
-    .tcn-unit-summary { margin: 0 auto; }
-    .tcn-donut-center {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 3px;
-        pointer-events: none;
+.tcn-note {
+    font-size: 12px;
+    color: var(--theme-text-secondary);
+    text-align: center;
+    padding: 12px 0;
+}
 
-        small { color: var(--theme-text-muted); font-size: 10px; }
-        strong { color: var(--tcn-blue); font-size: 19px; font-variant-numeric: tabular-nums; }
-        span { color: var(--tcn-green); font-size: 11px; padding: 1px 5px; border: 1px solid var(--theme-border); border-radius: 10px; }
+// Card chuyển hóa và hệ lực lượng
+.tcn-info-card {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    height: 420px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.tcn-info-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+    border-bottom: 1px solid var(--theme-border-light);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+
+    h2 {
+        border: 0;
+        padding: 0;
+        margin: 0;
+        font-size: 14px;
     }
-    .tcn-donut-caption {
-        text-align: center;
+}
+
+.tcn-percent,
+.tcn-summary {
+    color: var(--tcn-tone);
+    background: var(--theme-bg-card-hover);
+    border: 1px solid var(--theme-border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.tcn-info-hint {
+    font-size: 12px;
+    color: var(--theme-text-muted);
+}
+
+.tcn-info-content {
+    flex: 1 1 0;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: auto;
+    padding-right: 4px;
+}
+
+.tcn-progress-row {
+    margin-bottom: 15px;
+}
+
+.tcn-force-row {
+    margin-bottom: 10px;
+}
+
+.tcn-progress-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+
+    >span:first-child {
+        min-width: 0;
+    }
+}
+
+.tcn-dot,
+.tcn-square {
+    display: inline-block;
+    background: var(--tcn-tone);
+    width: 6px;
+    height: 6px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.tcn-dot {
+    border-radius: 50%;
+}
+
+.tcn-square {
+    border-radius: 1px;
+}
+
+.tcn-progress-track {
+    height: 5px;
+    border-radius: 4px;
+    background: var(--theme-border-light);
+    overflow: hidden;
+}
+
+.tcn-progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: var(--tcn-tone);
+}
+
+.tcn-force-values {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.tcn-force-values small {
+    color: var(--theme-text-muted);
+    font-size: 12px;
+}
+
+.tcn-force-values strong {
+    font-variant-numeric: tabular-nums;
+}
+
+.tcn-info-footer {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid var(--theme-border-light);
+    color: var(--theme-text-secondary);
+    font-size: 12px;
+}
+
+.tcn-summary {
+    border-radius: 12px;
+}
+
+.tcn-total {
+    padding: 3px 7px;
+    border-radius: 4px;
+    background: var(--theme-bg-card-hover);
+    color: var(--theme-text-primary);
+
+    small {
         font-size: 12px;
-        color: var(--theme-text-secondary);
-
-        strong { color: var(--theme-text-primary); }
-        small { display: block; margin-top: 4px; font-size: 10px; color: var(--theme-text-muted); }
-    }
-    .tcn-unit-footer {
-        border-top: 1px solid var(--theme-border-light);
-        padding-top: 10px;
-        font-size: 11px;
         color: var(--theme-text-muted);
-
-        > .x-autocontainer-outerCt > .x-autocontainer-innerCt { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+        font-weight: 400;
+        margin-left: 4px;
     }
-    .tcn-unit-footer .tcn-unit-show-all.x-btn-default-small { background: transparent !important; background-image: none !important; border: 0; padding: 2px 0; }
-    .tcn-unit-show-all .x-btn-inner { color: var(--tcn-blue); font-size: 11px; }
-    .tcn-unit-empty { padding: 20px 0; color: var(--theme-text-secondary); text-align: center; }
-    .tcn-unit-stacked .tcn-unit-body > .x-autocontainer-outerCt > .x-autocontainer-innerCt { grid-template-columns: unquote('minmax(0, 1fr)'); }
-    .tcn-unit-list { padding: 0; margin: 0 0 14px; list-style: none; }
-    .tcn-unit-rank { margin-bottom: 8px; padding: 5px; border: 1px solid var(--theme-border-light); border-radius: 7px; background: var(--theme-bg-card-hover); }
-    .tcn-unit-rank-label { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 3px; }
-    .tcn-unit-name { display: flex; align-items: center; gap: 5px; min-width: 0; }
-    .tcn-rank-number {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex: 0 0 15px;
-        height: 15px;
-        border-radius: 3px;
+}
+
+@each $tone in blue, amber, orange, red, purple, cyan, green, indigo, muted {
+    .tcn-tone-#{$tone} {
+        --tcn-tone: var(--tcn-#{$tone});
+    }
+}
+
+// Donut và bảng xếp hạng đơn vị
+.tcn-unit-card {
+    padding: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 8px;
+}
+
+.tcn-unit-header {
+    border-bottom: 1px solid var(--theme-border-light);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+
+    >.x-autocontainer-outerCt {
+        >.x-autocontainer-innerCt {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+    }
+
+    h2 {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+    }
+}
+
+.tcn-unit-title-tag {
+    display: inline-block;
+    margin-left: 5px;
+    padding: 2px 5px;
+    border: 1px solid var(--theme-border);
+    border-radius: 4px;
+    color: var(--tcn-blue);
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.tcn-unit-tabs {
+    background: var(--theme-bg-card-hover);
+    border: 1px solid var(--theme-border);
+    border-radius: 5px;
+    padding: 3px;
+
+    .x-btn-default-small {
+        background: transparent !important;
+        background-image: none !important;
+        border: 0;
+    }
+
+    .x-btn-inner {
+        color: var(--theme-text-secondary);
         font-size: 12px;
-        background: var(--tcn-tone);
-        color: #fff;
     }
-    .tcn-unit-count { display: flex; align-items: center; gap: 6px; white-space: nowrap; color: var(--tcn-tone); }
-    .tcn-unit-count small { font-size: 12px; color: var(--theme-text-muted); }
-    .tcn-unit-count strong { font-variant-numeric: tabular-nums; font-size: 14px; }
 
-    // Biểu đồ diễn biến và nút bật/tắt đường
-    .tcn-trend-header {
-        border-bottom: 1px solid var(--theme-border-light);
-        padding-bottom: 10px;
-        margin-bottom: 12px;
+    .x-btn-pressed {
+        background: var(--theme-bg-card) !important;
+        border-radius: 3px;
 
-        > .x-autocontainer-outerCt > .x-autocontainer-innerCt {
+        .x-btn-inner {
+            color: var(--tcn-blue);
+        }
+    }
+}
+
+.tcn-unit-body {
+    margin: 4px 0 16px;
+
+    >.x-autocontainer-outerCt {
+        >.x-autocontainer-innerCt {
+            display: grid;
+            grid-template-columns: unquote('180px minmax(0, 1fr)');
+            align-items: center;
+            gap: 16px;
+        }
+    }
+}
+
+.tcn-unit-list-view {
+    min-width: 0;
+}
+
+.tcn-unit-summary {
+    margin: 0 auto;
+}
+
+.tcn-donut-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    pointer-events: none;
+
+    small {
+        color: var(--theme-text-muted);
+        font-size: 10px;
+    }
+
+    strong {
+        color: var(--tcn-blue);
+        font-size: 19px;
+        font-variant-numeric: tabular-nums;
+    }
+
+    span {
+        color: var(--tcn-green);
+        font-size: 11px;
+        padding: 1px 5px;
+        border: 1px solid var(--theme-border);
+        border-radius: 10px;
+    }
+}
+
+.tcn-donut-caption {
+    text-align: center;
+    font-size: 12px;
+    color: var(--theme-text-secondary);
+
+    strong {
+        color: var(--theme-text-primary);
+    }
+
+    small {
+        display: block;
+        margin-top: 4px;
+        font-size: 10px;
+        color: var(--theme-text-muted);
+    }
+}
+
+.tcn-unit-empty {
+    padding: 20px 0;
+    color: var(--theme-text-secondary);
+    text-align: center;
+}
+
+.tcn-unit-stacked {
+    .tcn-unit-body {
+        >.x-autocontainer-outerCt {
+            >.x-autocontainer-innerCt {
+                grid-template-columns: unquote('minmax(0, 1fr)');
+            }
+        }
+    }
+}
+
+.tcn-unit-list {
+    padding: 0;
+    margin: 0 0 14px;
+    list-style: none;
+}
+
+.tcn-unit-rank {
+    margin-bottom: 8px;
+    padding: 5px;
+    border: 1px solid var(--theme-border-light);
+    border-radius: 7px;
+    background: var(--theme-bg-card-hover);
+}
+
+.tcn-unit-rank-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 3px;
+}
+
+.tcn-unit-name {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 0;
+}
+
+.tcn-rank-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 15px;
+    height: 15px;
+    border-radius: 3px;
+    font-size: 12px;
+    background: var(--tcn-tone);
+    color: #fff;
+}
+
+.tcn-unit-count {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    color: var(--tcn-tone);
+
+    small {
+        font-size: 12px;
+        color: var(--theme-text-muted);
+    }
+
+    strong {
+        font-variant-numeric: tabular-nums;
+        font-size: 14px;
+    }
+}
+
+// Biểu đồ diễn biến và nút bật/tắt đường
+.tcn-trend-header {
+    border-bottom: 1px solid var(--theme-border-light);
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+
+    >.x-autocontainer-outerCt {
+        >.x-autocontainer-innerCt {
             display: flex;
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
         }
     }
-    .tcn-trend-title {
-        flex: 1 1 240px;
+}
 
-        h2 { border: 0; margin: 0; padding: 0; }
+.tcn-trend-title {
+    flex: 1 1 240px;
+
+    h2 {
+        border: 0;
+        margin: 0;
+        padding: 0;
     }
-    .tcn-trend-controls {
-        margin-left: auto;
-        flex: 0 0 270px;
+}
 
-        > .x-autocontainer-outerCt > .x-autocontainer-innerCt {
+.tcn-trend-controls {
+    margin-left: auto;
+    flex: 0 0 270px;
+
+    >.x-autocontainer-outerCt {
+        >.x-autocontainer-innerCt {
             display: flex;
             align-items: center;
             flex-wrap: wrap;
             justify-content: flex-end;
             gap: 8px;
         }
-        .x-form-item { margin-bottom: 0; }
     }
-    .tcn-series-button {
-        background: transparent;
-        border: 0;
-        box-shadow: none;
-        padding: 4px 2px;
 
-        .x-btn-inner {
-            color: var(--tcn-series-color);
-            font-size: 14px;
-        }
-        .x-btn-inner::before {
-            content: '';
-            display: inline-block;
-            width: 12px;
-            height: 3px;
-            border-radius: 2px;
-            background: var(--tcn-series-color);
-            margin-right: 5px;
-            vertical-align: middle;
-        }
-        &:not(.x-btn-pressed) { opacity: 0.45; }
-        &:focus-visible { outline: 2px solid var(--theme-text-primary); }
+    .x-form-item {
+        margin-bottom: 0;
     }
-    .tcn-trend-controls .tcn-series-button.x-btn-default-small {
+}
+
+.tcn-series-button {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 4px 2px;
+
+    .x-btn-inner {
+        color: var(--tcn-series-color);
+        font-size: 14px;
+    }
+
+    .x-btn-inner::before {
+        content: '';
+        display: inline-block;
+        width: 12px;
+        height: 3px;
+        border-radius: 2px;
+        background: var(--tcn-series-color);
+        margin-right: 5px;
+        vertical-align: middle;
+    }
+
+    &:not(.x-btn-pressed) {
+        opacity: 0.45;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--theme-text-primary);
+    }
+}
+
+.tcn-trend-controls {
+    .tcn-series-button.x-btn-default-small {
         background: transparent !important;
         background-image: none !important;
         border-color: transparent;
         box-shadow: none;
     }
-    .tcn-series-new { --tcn-series-color: var(--tcn-blue); }
-    .tcn-series-end { --tcn-series-color: var(--tcn-green); }
+}
 
-    @media (max-width: 1439px) {
-        .tcn-analysis > .x-autocontainer-outerCt > .x-autocontainer-innerCt,
-        .tcn-details > .x-autocontainer-outerCt > .x-autocontainer-innerCt { grid-template-columns: unquote('repeat(2, minmax(0, 1fr))'); }
-    }
+.tcn-series-new {
+    --tcn-series-color: var(--tcn-blue);
+}
 
-    @media (max-width: 767px) {
-        .tcn-analysis > .x-autocontainer-outerCt > .x-autocontainer-innerCt,
-        .tcn-details > .x-autocontainer-outerCt > .x-autocontainer-innerCt {
-            grid-template-columns: unquote('minmax(0, 1fr)');
+.tcn-series-end {
+    --tcn-series-color: var(--tcn-green);
+}
+
+@media (max-width: 1439px) {
+
+    .tcn-analysis,
+    .tcn-details {
+        >.x-autocontainer-outerCt {
+            >.x-autocontainer-innerCt {
+                grid-template-columns: unquote('repeat(2, minmax(0, 1fr))');
+            }
         }
     }
 }
 
-.dark-mode .trang-chu-new1 {
-    --tcn-blue: #60a5fa;
-    --tcn-green: #34d399;
-    --tcn-red: #fb7185;
-    --tcn-amber: #fbbf24;
-    --tcn-orange: #fb923c;
-    --tcn-purple: #c084fc;
-    --tcn-indigo: #a5b4fc;
-    --tcn-cyan: #22d3ee;
-    --tcn-muted: #94a3b8;
+@media (max-width: 767px) {
+
+    .tcn-analysis,
+    .tcn-details {
+        >.x-autocontainer-outerCt {
+            >.x-autocontainer-innerCt {
+                grid-template-columns: unquote('minmax(0, 1fr)');
+            }
+        }
+    }
+}
+}
+
+.dark-mode {
+    .trang-chu-new1 {
+        --tcn-blue: #60a5fa;
+        --tcn-green: #34d399;
+        --tcn-red: #fb7185;
+        --tcn-amber: #fbbf24;
+        --tcn-orange: #fb923c;
+        --tcn-purple: #c084fc;
+        --tcn-indigo: #a5b4fc;
+        --tcn-cyan: #22d3ee;
+        --tcn-muted: #94a3b8;
+    }
 }
 
 @keyframes tcn-metric-enter {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

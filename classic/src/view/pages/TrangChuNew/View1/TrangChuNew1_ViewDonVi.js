@@ -18,11 +18,11 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonVi', {
                 {
                     xtype: 'component',
                     bind: { data: '{donViHienThi}' },
-                    tpl: '<h2>Hồ sơ theo đơn vị <span class="tcn-unit-title-tag">Top {gioiHan} Đơn vị</span></h2>'
+                    tpl: '<h2>Đối tượng theo đơn vị <span class="tcn-unit-title-tag">Top {gioiHan} Đơn vị</span></h2>'
                 },
                 {
                     xtype: 'segmentedbutton',
-                    reference: 'chonTopDonVi',
+                    itemId: 'chonTopDonVi_IdView',
                     cls: 'tcn-unit-tabs',
                     bind: { value: '{gioiHanDonVi}' },
                     items: [
@@ -71,7 +71,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonVi', {
                             bind: { data: '{donViHienThi}' },
                             tpl: [
                                 '<div>Chiếm <strong>{tyTrongText:htmlEncode}</strong> toàn quốc</div>',
-                                '<small>(Mẫu số: {tongQuocGiaText:htmlEncode} HS toàn lực lượng)</small>'
+                                '<small>(Mẫu số: {tongQuocGiaText:htmlEncode} ĐT toàn lực lượng)</small>'
                             ]
                         }
                     ]
@@ -85,7 +85,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonVi', {
                         '<li class="tcn-unit-rank tcn-tone-{mau:htmlEncode}">',
                         '<div class="tcn-unit-rank-label"><span class="tcn-unit-name">',
                         '<b class="tcn-rank-number">{thuHang}</b>{ten:htmlEncode}</span>',
-                        '<span class="tcn-unit-count"><strong>{soLuongText:htmlEncode}</strong><small>HS</small>',
+                        '<span class="tcn-unit-count"><strong>{soLuongText:htmlEncode}</strong><small>ĐT</small>',
                         '<span class="tcn-percent">{tyLeText:htmlEncode}</span></span></div>',
                         '<div class="tcn-progress-track" role="progressbar" aria-label="{ten:htmlEncode}" ',
                         'aria-valuemin="0" aria-valuemax="100" aria-valuenow="{doDai}">',
@@ -94,19 +94,6 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonVi', {
                         '<tpl if="!items.length"><p class="tcn-unit-empty">Không có dữ liệu</p></tpl>'
                     ]
                 }
-            ]
-        },
-        {
-            xtype: 'container',
-            cls: 'tcn-unit-footer',
-            layout: 'auto',
-            items: [
-                {
-                    xtype: 'component',
-                    bind: { data: '{donViHienThi}' },
-                    tpl: '<span>Số liệu tổng hợp phân kỳ Năm {nam}</span>'
-                },
-                { xtype: 'button', text: 'Xem bảng xếp hạng đầy đủ →', cls: 'tcn-unit-show-all', handler: 'onShowAllUnits' }
             ]
         }
     ]
