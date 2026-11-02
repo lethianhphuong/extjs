@@ -9,14 +9,14 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewTrangThaiChart', 
         'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig'
     ],
     cls: 'tcn-card dash-card',
-    height: 420,
+    height: 320,
     layout: { type: 'vbox', align: 'stretch' },
     items: [
         { xtype: 'component', html: '<h2>Đối tượng QLNV</h2>' },
         {
             xtype: 'cartesian',
             itemId: 'trangThaiChart_IdView',
-            height: 280,
+            height: 200,
             animation: false,
             insetPadding: { top: 24, right: 12, bottom: 16, left: 12 },
             // Chừa chỗ cho nhãn số phía trên cột cao nhất.
@@ -36,7 +36,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewTrangThaiChart', 
                 {
                     type: 'category',
                     position: 'bottom',
-                    fields: ['ma'],
+                    fields: ['name'],
                     style: { textPadding: 0 },
                     label: { fontSize: 12, rotationRads: 0 },
                     renderer: function (axis, value) {
@@ -46,7 +46,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewTrangThaiChart', 
             ],
             series: [{
                 type: 'bar',
-                xField: 'ma',
+                xField: 'name',
                 yField: 'soLuong',
                 style: { maxBarWidth: 42, radius: 4 },
                 renderer: function (sprite, config, data, index) {
@@ -57,7 +57,8 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewTrangThaiChart', 
                     if (!colors || !record) {
                         return {};
                     }
-                    const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('trangThai', record.get('ma'));
+                    const name = record.get('name');
+                    const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('trangThai', name);
                     const color = colors[display.mau] || colors.muted;
 
                     return { fillStyle: color, strokeStyle: color };
@@ -75,9 +76,10 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewTrangThaiChart', 
                 tooltip: {
                     trackMouse: true,
                     renderer: function (tooltip, record) {
-                        const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('trangThai', record.get('ma'));
+                        const name = record.get('name');
+                        const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('trangThai', name);
 
-                        tooltip.setHtml(Ext.String.htmlEncode(display.ten) + ': ' +
+                        tooltip.setHtml(Ext.String.htmlEncode(display.ten || name) + ': ' +
                             Number(record.get('soLuong')).toLocaleString('vi-VN') + ' đối tượng');
                     }
                 }

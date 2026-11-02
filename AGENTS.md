@@ -54,6 +54,7 @@ Quy tắc này áp dụng cho toàn repository và ưu tiên hơn hướng dẫn
 
 - Không sửa SDK `ext/`, thư viện vendor `lib/`, secret hoặc môi trường thật nếu task không yêu cầu.
 - Không sửa tay output `build/`, `bootstrap.js`, `bootstrap.css`, `classic.json`, `classic.jsonp`; kiểm tra diff sau lệnh Sencha có sinh file.
+- **Không tự ý build (dev hoặc prod)**: Tuyệt đối không tự động chạy các lệnh build (`sencha app build`, `sencha app build development`, `sencha app build production`, `sencha app build classic`...). Chỉ khi nào người dùng có yêu cầu/lệnh trực tiếp mới được chạy lệnh build. Không tự ý dùng lệnh build làm bước kiểm tra code vì sẽ sinh ra file rác trong `build/`, `classic.jsonp`.
 - Không chuyển sang React/MUI, ES modules hoặc thêm bundler. `package.json` hiện không có scripts lint/test/build; không giả định có `npm run build` hoặc tự cài dependency chỉ để kiểm tra.
-- Các lệnh Sencha được tài liệu hiện tại ghi nhận: `sencha app watch`, `sencha app build`, `sencha app build classic`. Kiểm tra công cụ/profile phù hợp trước khi chạy; không chạy server hoặc build khi task chỉ lập brief.
+- Các lệnh Sencha được tài liệu hiện tại ghi nhận: `sencha app watch`, `sencha app build`, `sencha app build classic`. Kiểm tra công cụ/profile phù hợp trước khi chạy; không chạy server hoặc build khi task chỉ lập brief hoặc khi chưa có lệnh build rõ ràng từ người dùng.
 - Truy vết URL, method, request/response, phân trang, định dạng ngày và lỗi khi thay đổi cách gọi API. Backend không nằm trong repository này; không khẳng định đã kiểm chứng backend nếu chưa có bằng chứng.

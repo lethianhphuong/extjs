@@ -47,7 +47,7 @@
 
     .tcn-metrics,
     .tcn-card {
-        padding: 16px;
+        padding: 10px;
         min-width: 0;
         color: var(--theme-text-primary);
     }
@@ -88,8 +88,8 @@
         min-width: 0;
         padding: 12px 10px;
         border-radius: 8px;
-        border: 1px solid var(--theme-border);
-        background: var(--theme-bg-card);
+        border: 1px solid var(--tcn-metric-border, var(--theme-border));
+        background: var(--tcn-metric-bg, var(--theme-bg-card));
         box-shadow: var(--theme-shadow);
         animation: tcn-metric-enter 0.4s ease backwards;
         transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -189,10 +189,18 @@
 
 @each $tone, $icon-color in $metric-icon-colors {
     .tcn-metric.tcn-tone-#{$tone} {
+        --tcn-metric-bg: #{mix(white, $icon-color, 95%)};
+        --tcn-metric-border: #{mix(white, $icon-color, 80%)};
+
         .tcn-metric-icon {
             background: rgba($icon-color, 0.06);
             border-color: rgba($icon-color, 0.18);
         }
+    }
+
+    .dark-mode & .tcn-metric.tcn-tone-#{$tone} {
+        --tcn-metric-bg: #{rgba($icon-color, 0.12)};
+        --tcn-metric-border: #{rgba($icon-color, 0.35)};
     }
 }
 
@@ -236,7 +244,7 @@
 .tcn-details {
     >.x-autocontainer-outerCt {
         >.x-autocontainer-innerCt {
-            grid-template-columns: unquote('minmax(0, 5fr) minmax(0, 7fr)');
+            grid-template-columns: unquote('repeat(2, minmax(0, 1fr))');
             align-items: start;
         }
     }
@@ -283,7 +291,7 @@ strong {
     border-radius: 8px;
     font-size: 14px;
     line-height: 1.5;
-    height: 420px;
+    height: 320px;
     min-height: 0;
     overflow: hidden;
 }
@@ -506,12 +514,20 @@ strong {
 }
 
 .tcn-unit-body {
-    margin: 4px 0 16px;
+    margin: 4px 0 0;
+    min-height: 0;
+    overflow: hidden;
 
     >.x-autocontainer-outerCt {
+        height: 100%;
+        display: block;
+
         >.x-autocontainer-innerCt {
             display: grid;
+            height: 100%;
+            min-height: 0;
             grid-template-columns: unquote('180px minmax(0, 1fr)');
+            grid-template-rows: unquote('minmax(0, 1fr)');
             align-items: center;
             gap: 16px;
         }
@@ -520,6 +536,11 @@ strong {
 
 .tcn-unit-list-view {
     min-width: 0;
+    min-height: 0;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px;
 }
 
 .tcn-unit-summary {
@@ -578,10 +599,30 @@ strong {
 }
 
 .tcn-unit-stacked {
+    .tcn-donut-center {
+        gap: 1px;
+        line-height: 1.1;
+
+        small {
+            font-size: 8px;
+        }
+
+        strong {
+            font-size: 16px;
+        }
+
+        span {
+            font-size: 9px;
+            padding: 1px 2px;
+        }
+    }
+
     .tcn-unit-body {
         >.x-autocontainer-outerCt {
             >.x-autocontainer-innerCt {
                 grid-template-columns: unquote('minmax(0, 1fr)');
+                grid-template-rows: unquote('145px minmax(0, 1fr)');
+                gap: 8px;
             }
         }
     }

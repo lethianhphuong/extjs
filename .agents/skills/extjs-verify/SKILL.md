@@ -30,7 +30,7 @@ description: Chọn và thực hiện kiểm tra phù hợp cho thay đổi DEMO
 - Có ESLint tương thích .eslintrc.json đã cài: chạy trên file thay đổi, đối chiếu globals thực tế, không quét SDK. Báo nếu thiếu công cụ hoặc config không tương thích.
 - Khi đổi ConNguoiLienQuan/ComBoDiaChi, đọc `scripts/check-con-nguoi.cjs`, rồi cân nhắc `node scripts/check-con-nguoi.cjs`. Script chỉ kiểm tra một số bất biến/hành vi của nhóm này, không đại diện toàn app.
 - Đọc test liên quan trong tests/ để biết runner, dữ liệu, môi trường trước khi chạy; không giả định folder có nghĩa runner đã sẵn sàng.
-- Cần kiểm tra class loading/build/SCSS và có Sencha Cmd: chọn lệnh/profile theo CLAUDE.md, app.json và CLI hiện có; ví dụ tài liệu ghi `sencha app build classic`. Build sinh output, kiểm tra diff sau chạy. Chỉ chạy watch/server khi cần thử UI trong phạm vi được giao.
+- Sencha Cmd và build: **Tuyệt đối KHÔNG tự động chạy các lệnh build** (`sencha app build`, `sencha app build classic`, build dev/prod...) trừ khi người dùng có lệnh yêu cầu rõ ràng. Lệnh build sẽ sinh ra hàng loạt file rác đè lên `build/` và `classic.jsonp`. Chỉ chạy watch/server khi thực sự cần thử nghiệm UI trong phạm vi được giao.
 
 ## Kiểm tra UI theo thay đổi
 

@@ -9,7 +9,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDienBienChart', {
         'Ext.draw.gradient.Linear'
     ],
     cls: 'tcn-card tcn-trend-card dash-card',
-    height: 380,
+    height: 360,
     layout: { type: 'vbox', align: 'stretch' },
     items: [
         {
@@ -53,7 +53,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDienBienChart', {
             xtype: 'cartesian',
             itemId: 'dienBienChart_IdView',
             flex: 1,
-            minHeight: 300,
+            minHeight: 200,
             animation: false,
             insetPadding: 16,
             bind: { store: '{dienBienChartStore}' },
@@ -69,7 +69,17 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDienBienChart', {
                         return Number(value).toLocaleString('vi-VN');
                     }
                 },
-                { type: 'category', position: 'bottom', fields: ['ky'] }
+                {
+                    type: 'category',
+                    position: 'bottom',
+                    fields: ['code'],
+                    // Mã kỳ phân biệt các nhãn tháng trùng nhau giữa nhiều năm.
+                    renderer: function (axis, value) {
+                        const record = axis.getChart().getStore().findRecord('code', value, 0, false, true, true);
+
+                        return record ? record.get('name') : value;
+                    }
+                }
             ],
             series: [
                 {
@@ -77,14 +87,16 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDienBienChart', {
                     fill: true,
                     style: { lineWidth: 2.5, fillOpacity: 0.18 },
                     title: 'Mở mới',
-                    xField: 'ky',
+                    xField: 'code',
                     yField: 'moMoi',
                     marker: { radius: 3 },
                     highlight: true,
                     tooltip: {
                         trackMouse: true,
                         renderer: function (tooltip, record) {
-                            tooltip.setHtml(Ext.String.htmlEncode(record.get('ky')) + ' — Mở mới: ' +
+                            const label = record.get('nameHover') || record.get('name');
+
+                            tooltip.setHtml(Ext.String.htmlEncode(label) + ' — Mở mới: ' +
                                 Number(record.get('moMoi')).toLocaleString('vi-VN'));
                         }
                     }
@@ -94,14 +106,16 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDienBienChart', {
                     fill: true,
                     style: { lineWidth: 2.5, fillOpacity: 0.18 },
                     title: 'Kết thúc',
-                    xField: 'ky',
+                    xField: 'code',
                     yField: 'ketThuc',
                     marker: { radius: 3 },
                     highlight: true,
                     tooltip: {
                         trackMouse: true,
                         renderer: function (tooltip, record) {
-                            tooltip.setHtml(Ext.String.htmlEncode(record.get('ky')) + ' — Kết thúc: ' +
+                            const label = record.get('nameHover') || record.get('name');
+
+                            tooltip.setHtml(Ext.String.htmlEncode(label) + ' — Kết thúc: ' +
                                 Number(record.get('ketThuc')).toLocaleString('vi-VN'));
                         }
                     }

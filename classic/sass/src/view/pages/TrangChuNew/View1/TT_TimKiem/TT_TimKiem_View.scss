@@ -1,0 +1,75 @@
+.trang-chu-new1 .tt-tim-kiem {
+    // Nhãn nổi của theme cần mốc định vị riêng khi field nằm trong flex.
+    .field-csstyle {
+        position: relative;
+        min-width: 0;
+
+        > label > span > span,
+        > label > span > span::after {
+            background-color: var(--theme-bg-card);
+        }
+
+        > label > span > span {
+            color: var(--theme-text-secondary);
+        }
+    }
+
+    .x-form-trigger-wrap {
+        background: var(--theme-bg-input);
+        border-color: var(--theme-border);
+    }
+
+    .x-tagfield-body .x-form-trigger-wrap {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    .x-tagfield-item {
+        color: var(--theme-text-primary);
+        background: var(--theme-bg-card-hover);
+        border-color: var(--theme-border);
+        white-space: nowrap;
+        max-width: none;
+    }
+
+    // Giữ một dòng; cuộn ngang chỉ trong vùng giá trị, không cuộn cả field.
+    .x-tagfield {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .x-tagfield-list {
+        white-space: nowrap;
+    }
+
+    .x-tagfield-item-text {
+        white-space: nowrap;
+    }
+}
+
+// Tooltip render ngoài form; màu lấy từ theme chung của trang.
+.tt-selected-values-tip {
+    background: var(--theme-bg-card);
+    border-color: var(--theme-border);
+
+    .x-tip-body,
+    .x-title-text {
+        color: var(--theme-text-primary);
+    }
+
+    .tt-selected-values-list {
+        margin: 0;
+        padding-left: 18px;
+        white-space: normal;
+        overflow-wrap: anywhere;
+
+        li + li {
+            margin-top: 4px;
+        }
+    }
+}

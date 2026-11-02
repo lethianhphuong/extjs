@@ -9,110 +9,132 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewModel', {
         'DEMO.view.pages.TrangChuNew.View1.Store.TrangChuNew1_DonViTopStore'
     ],
     data: {
-        timKiemNangCao: {
-            thoiGian: 'Năm 2026',
-            tuNgay: null,
-            denNgay: null,
-            donVi: 'Toàn quốc',
-            cucTinh: null,
-            loaiHoSo: 'Tất cả',
-            heLucLuong: 'Tất cả',
-            tinhTrang: 'Tất cả'
-        },
         chiSo: [],
         hieuQuaDtcb: [],
         hieuQuaSuuTra: [],
         lucLuong: [],
-        namThongKeDonVi: null,
         gioiHanDonVi: 10,
         hienMoMoi: true,
         hienKetThuc: true
     },
-    //#region NOTE: Dữ liệu hiển thị từ số liệu minh họa
+    //#region NOTE: Dữ liệu hiển thị từ response backend
     formulas: {
         chiSoHienThi: function (get) {
             const me = this;
+            const rawList = get('chiSo') || [];
 
-            return get('chiSo').map(function (row) {
-                const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('tongQuan', row.ma);
-                const change = row.thayDoi || 0;
-                const previous = row.soLuong - change;
+            return rawList.map(function (row) {
+                const code = row.code;
+                const val = typeof row.val === 'number' ? row.val : 0;
+                const typeLech = typeof row.typeLech === 'number' ? row.typeLech : 0;
+                const valLech = typeof row.valLech === 'number' ? row.valLech : 0;
+                const change = typeLech * valLech;
+                const previous = val - change;
                 const rate = previous > 0 ? change * 100 / previous : null;
-                const sign = change > 0 ? '+' : '';
+                const sign = change > 0 ? '+' : (change < 0 ? '-' : '');
                 const percentSign = rate > 0 ? '+' : '';
                 const percentText = rate === null ? '—' : percentSign + me.formatPercent(rate, 1);
+                const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('tongQuan', code);
 
                 return Object.assign({}, row, display, {
+                    code: code,
+                    val: val,
+                    typeLech: typeLech,
+                    valLech: valLech,
                     mauIcon: display.mau,
-                    giaTriText: me.formatNumber(row.soLuong),
-                    thayDoiText: sign + me.formatNumber(change),
+                    giaTriText: me.formatNumber(val),
+                    thayDoiText: sign + me.formatNumber(valLech),
                     phanTramText: percentText,
-                    xuHuong: change > 0 ? '↑' : change < 0 ? '↓' : '→',
-                    trangThai: change > 0 ? 'up' : change < 0 ? 'down' : 'neutral',
-                    laTong: row.ma === 'tongHoSo'
+                    xuHuong: typeLech > 0 ? '↑' : (typeLech < 0 ? '↓' : '→'),
+                    trangThai: typeLech > 0 ? 'up' : (typeLech < 0 ? 'down' : 'neutral'),
+                    laTong: code === 'TONG'
                 });
             }).sort((a, b) => a.thuTu - b.thuTu);
         },
         donViDangHienThi: {
             bind: { bindTo: '{donViTopStore}', deep: true },
             get: function (store) {
-                return store ? store.getRange().map(function (record) {
-                    return Object.assign({}, record.getData(),
-                        DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('donVi', record.get('ma')));
+                return store ? store.getRange().map(function (record, index) {
+                    const code = record.get('code');
+                    const name = record.get('name');
+                    const val = typeof record.get('val') === 'number' ? record.get('val') : 0;
+                    const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('donVi', code, index);
+
+                    return Object.assign({}, record.getData(), {
+                        code: code,
+                        ten: name || display.ten,
+                        val: val,
+                        mau: display.mau
+                    });
                 }) : [];
             }
         },
         tongHoSoLucLuong: function (get) {
-            return get('lucLuong').reduce((sum, row) => sum + row.soLuong, 0);
+            return (get('lucLuong') || []).reduce(function (sum, row) {
+                return sum + (typeof row.val === 'number' ? row.val : 0);
+            }, 0);
         },
         donViHienThi: function (get) {
             const me = this;
             const limit = get('gioiHanDonVi') === 5 ? 5 : 10;
-            const rows = get('donViDangHienThi');
-            const total = rows.reduce((sum, row) => sum + row.soLuong, 0);
-            const all = get('tongHoSoLucLuong');
-            const maximum = rows.length ? rows[0].soLuong : 0;
+            const rows = get('donViDangHienThi') || [];
+            const total = rows.reduce((sum, row) => sum + (row.val || 0), 0);
+            const all = get('tongHoSoLucLuong') || (get('lucLuong') || []).reduce(function (sum, row) {
+                return sum + (typeof row.val === 'number' ? row.val : 0);
+            }, 0);
+            const maximum = rows.length ? (rows[0].val || 0) : 0;
 
             return {
-                nam: get('namThongKeDonVi'),
                 gioiHan: limit,
                 tongSoText: me.formatNumber(total),
                 tongQuocGiaText: me.formatNumber(all),
                 tyTrongText: me.formatPercent(all ? total * 100 / all : 0, 1),
-                items: rows.map((row, index) => Object.assign({}, row, {
-                    thuHang: index + 1,
-                    soLuongText: me.formatNumber(row.soLuong),
-                    tyLeText: me.formatPercent(total ? row.soLuong * 100 / total : 0),
-                    doDai: maximum ? row.soLuong * 100 / maximum : 0
-                }))
+                items: rows.map(function (row, index) {
+                    const val = row.val || 0;
+
+                    return Object.assign({}, row, {
+                        thuHang: row.thuHang || (index + 1),
+                        soLuongText: me.formatNumber(val),
+                        tyLeText: me.formatPercent(total ? val * 100 / total : 0),
+                        doDai: maximum ? val * 100 / maximum : 0
+                    });
+                })
             };
         },
         hieuQuaDtcbHienThi: function (get) {
             const me = this;
 
-            return me.formatConversionData(get('hieuQuaDtcb'), 'hieuQuaDtcb', 'suuTra');
+            return me.formatConversionData(get('hieuQuaDtcb'), 'hieuQuaDtcb', 'HIEMNGHI');
         },
         hieuQuaSuuTraHienThi: function (get) {
             const me = this;
 
-            return me.formatConversionData(get('hieuQuaSuuTra'), 'hieuQuaSuuTra', 'dtcb');
+            return me.formatConversionData(get('hieuQuaSuuTra'), 'hieuQuaSuuTra', 'SL_KQ_B2');
         },
         lucLuongHienThi: function (get) {
             const me = this;
-            const rows = get('lucLuong');
-            const total = get('tongHoSoLucLuong');
+            const rows = get('lucLuong') || [];
+            const total = get('tongHoSoLucLuong') || rows.reduce(function (sum, row) {
+                return sum + (typeof row.val === 'number' ? row.val : 0);
+            }, 0);
 
             return {
-                items: rows.map(function (row) {
-                    const percent = total ? row.soLuong * 100 / total : 0;
-                    const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('heLucLuong', row.ma);
+                items: rows.map(function (row, index) {
+                    const code = row.code;
+                    const name = row.name;
+                    const val = typeof row.val === 'number' ? row.val : 0;
+                    const percent = total ? val * 100 / total : 0;
+                    const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('heLucLuong', code, index);
 
                     return Object.assign({}, row, display, {
+                        code: code,
+                        ten: name || display.ten,
+                        val: val,
                         tyLe: percent,
-                        tyLeText: me.formatPercent(percent),
-                        soLuongText: me.formatNumber(row.soLuong)
+                        tyLeText: me.formatPercent(percent, 1),
+                        soLuongText: me.formatNumber(val)
                     });
-                }).sort((a, b) => a.thuTu - b.thuTu),
+                }).sort((a, b) => b.val - a.val || a.thuTu - b.thuTu),
                 tongSoText: me.formatNumber(total),
                 soHe: rows.length
             };
@@ -122,12 +144,12 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewModel', {
 
     /** Định dạng số lượng theo giao diện tiếng Việt. */
     formatNumber: function (value) {
-        return value.toLocaleString('vi-VN');
+        return (value || 0).toLocaleString('vi-VN');
     },
 
     /** Định dạng tỷ lệ; các card chuyển hóa dùng một chữ số thập phân. */
     formatPercent: function (value, digits = 0) {
-        return value.toLocaleString('vi-VN', {
+        return (value || 0).toLocaleString('vi-VN', {
             minimumFractionDigits: digits,
             maximumFractionDigits: digits
         }) + '%';
@@ -136,20 +158,31 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewModel', {
     /** Định dạng tỷ lệ cho hai card dùng chung template chuyển hóa. */
     formatConversionData: function (rows, group, mainCode) {
         const me = this;
-        const total = rows.reduce((sum, row) => sum + row.soLuong, 0);
-        const main = rows.find(row => row.ma === mainCode);
+        const list = rows || [];
+        const total = list.reduce(function (sum, row) {
+            return sum + (typeof row.val === 'number' ? row.val : 0);
+        }, 0);
+        const main = list.find(row => row.code === mainCode);
+        const mainVal = main ? (typeof main.val === 'number' ? main.val : 0) : 0;
 
         return {
-            items: rows.map(function (row) {
-                const percent = total ? row.soLuong * 100 / total : 0;
-                const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get(group, row.ma);
+            items: list.map(function (row, index) {
+                const code = row.code;
+                const name = row.name;
+                const val = typeof row.val === 'number' ? row.val : 0;
+                const percent = total ? val * 100 / total : 0;
+                const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get(group, code, index);
 
                 return Object.assign({}, row, display, {
+                    code: code,
+                    ten: name || display.ten,
+                    val: val,
+                    soLuongText: me.formatNumber(val),
                     tyLe: percent,
                     tyLeText: me.formatPercent(percent, 1)
                 });
-            }).sort((a, b) => a.thuTu - b.thuTu),
-            tyLeChinhText: me.formatPercent(total && main ? main.soLuong * 100 / total : 0, 1)
+            }).sort((a, b) => b.val - a.val || a.thuTu - b.thuTu),
+            tyLeChinhText: me.formatPercent(total && main ? mainVal * 100 / total : 0, 1)
         };
     },
 

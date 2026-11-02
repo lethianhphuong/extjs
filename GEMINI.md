@@ -8,6 +8,8 @@ Quy tắc này ưu tiên hơn hướng dẫn reference cũ trong CONVENTIONS.md,
 
 Quy trình: khảo sát và trình bày plan trước khi thay đổi, triển khai sau khi plan được duyệt, kiểm tra và báo cáo kết quả. Tiếp tục plan đã duyệt mà không yêu cầu xác nhận lặp lại cho từng bước.
 
+Không tự ý build (dev hoặc prod): Tuyệt đối không tự động chạy các lệnh build (`sencha app build`, `sencha app build development`, `sencha app build production`, `sencha app build classic`...). Chỉ khi nào người dùng có yêu cầu/lệnh rõ ràng mới được chạy lệnh build. Không tự ý dùng lệnh build làm bước kiểm tra xác minh code để tránh phát sinh file rác vào `build/`, `classic.jsonp`.
+
 Sau khi code, bắt buộc thực thi kiểm tra để xác minh phần thay đổi chạy được theo mục “Bắt buộc kiểm tra chạy và sửa lỗi sau khi code” trong AGENTS.md. Với giao diện phải thử luồng runtime/UI liên quan. Nếu lỗi thuộc phạm vi task, sửa và kiểm tra lại đến khi đạt, không chỉ báo lỗi rồi dừng. Nếu môi trường hoặc lỗi ngoài phạm vi chặn việc xác minh, báo rõ bằng chứng đã kiểm tra và phần còn bị chặn; không khẳng định chạy được khi chưa thực thi.
 
 Các quy trình dùng chung nằm trong `.agents/skills/`; mở file tương ứng khi công cụ không tự phát hiện skill:

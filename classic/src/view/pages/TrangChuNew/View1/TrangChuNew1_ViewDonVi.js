@@ -7,6 +7,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonVi', {
         'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonViChart'
     ],
     cls: 'tcn-card tcn-unit-card dash-card',
+    height: 360,
     layout: { type: 'vbox', align: 'stretch' },
     listeners: { afterrender: 'onUnitCardResize', resize: 'onUnitCardResize' },
     items: [
@@ -35,6 +36,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonVi', {
         {
             xtype: 'container',
             cls: 'tcn-unit-body',
+            flex: 1,
             layout: 'auto',
             items: [
                 {
@@ -45,12 +47,14 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonVi', {
                     items: [
                         {
                             xtype: 'container',
+                            itemId: 'donViDonutWrap_IdView',
                             height: 180,
                             layout: 'absolute',
                             items: [
                                 { xtype: 'TrangChuNew1_ViewDonViChart', x: 0, y: 0, width: 180, height: 180 },
                                 {
                                     xtype: 'component',
+                                    itemId: 'donViDonutCenter_IdView',
                                     x: 0,
                                     y: 0,
                                     width: 180,
@@ -59,19 +63,9 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonVi', {
                                     bind: { data: '{donViHienThi}' },
                                     tpl: [
                                         '<small>TOP {gioiHan} TỔNG</small>',
-                                        '<strong>{tongSoText:htmlEncode}</strong>',
-                                        '<span>{tyTrongText:htmlEncode} TQ</span>'
+                                        '<strong>{tongSoText:htmlEncode}</strong>'
                                     ]
                                 }
-                            ]
-                        },
-                        {
-                            xtype: 'component',
-                            cls: 'tcn-donut-caption',
-                            bind: { data: '{donViHienThi}' },
-                            tpl: [
-                                '<div>Chiếm <strong>{tyTrongText:htmlEncode}</strong> toàn quốc</div>',
-                                '<small>(Mẫu số: {tongQuocGiaText:htmlEncode} ĐT toàn lực lượng)</small>'
                             ]
                         }
                     ]
@@ -83,7 +77,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonVi', {
                     tpl: [
                         '<ol class="tcn-unit-list"><tpl for="items">',
                         '<li class="tcn-unit-rank tcn-tone-{mau:htmlEncode}">',
-                        '<div class="tcn-unit-rank-label"><span class="tcn-unit-name">',
+                        '<div class="tcn-unit-rank-label"><span class="tcn-unit-name" title="{ten:htmlEncode}">',
                         '<b class="tcn-rank-number">{thuHang}</b>{ten:htmlEncode}</span>',
                         '<span class="tcn-unit-count"><strong>{soLuongText:htmlEncode}</strong><small>ĐT</small>',
                         '<span class="tcn-percent">{tyLeText:htmlEncode}</span></span></div>',

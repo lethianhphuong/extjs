@@ -12,7 +12,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonViChart', {
     listeners: { afterrender: 'onChartReady' },
     series: [{
         type: 'pie',
-        angleField: 'soLuong',
+        angleField: 'val',
         donut: 76,
         style: { lineWidth: 0 },
         highlight: { margin: 3 },
@@ -20,13 +20,17 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonViChart', {
             trackMouse: true,
             renderer: function (tooltip, record) {
                 const me = this;
-                const total = me.getStore().sum('soLuong');
-                const percent = total ? record.get('soLuong') * 100 / total : 0;
-                const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('donVi', record.get('ma'));
+                const store = me.getStore();
+                const total = store.sum('val') || 0;
+                const val = typeof record.get('val') === 'number' ? record.get('val') : 0;
+                const percent = total ? val * 100 / total : 0;
+                const code = record.get('code');
+                const name = record.get('name');
+                const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('donVi', code);
 
                 tooltip.setHtml(
-                    Ext.String.htmlEncode(display.ten) + ': ' +
-                    Number(record.get('soLuong')).toLocaleString('vi-VN') + ' ĐT (' +
+                    Ext.String.htmlEncode(name || display.ten) + ': ' +
+                    Number(val).toLocaleString('vi-VN') + ' ĐT (' +
                     Math.round(percent) + '%)'
                 );
             }

@@ -8,34 +8,29 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
 
     //#region NOTE: Khởi tạo và thao tác người dùng
 
-    /** Khởi tạo ngày mẫu và theo dõi thứ tự màu đơn vị theo ViewModel. */
+    /** Theo dõi thứ tự màu đơn vị và nạp số liệu dashboard. */
     init: function () {
         const me = this;
         const viewModel = me.getViewModel();
 
-        viewModel.set('timKiemNangCao.tuNgay', new Date(2026, 0, 1));
-        viewModel.set('timKiemNangCao.denNgay', new Date(2026, 11, 31));
         me.unitRankingBinding = viewModel.bind('{donViDangHienThi}', me.onUnitRankingChange, me);
         me.loadData();
     },
 
-    /** Nạp toàn bộ 7 phần; chỉ thay nguồn này khi kết nối API thật. */
+    /** Nạp toàn bộ 7 phần theo đúng response DATA_MOCK của backend */
     loadData: function () {
         const me = this;
         const viewModel = me.getViewModel();
         const data = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_MockData.getData();
-        const units = data.hoSoTheoDonVi || {};
 
-
-        viewModel.getStore('trangThaiChartStore').loadData(data.hoSoTheoTrangThai || []);
-        viewModel.getStore('dienBienChartStore').loadData(data.dienBienHoSo || []);
-        viewModel.getStore('donViStore').loadData(units.items || []);
+        viewModel.getStore('trangThaiChartStore').loadData(data.trangThaiChartStore || []);
+        viewModel.getStore('dienBienChartStore').loadData(data.namThongKeDonVi || []);
+        viewModel.getStore('donViStore').loadData(data.donViStore || []);
         viewModel.set({
-            chiSo: data.tongQuan || [],
+            chiSo: data.chiSo || [],
             hieuQuaDtcb: data.hieuQuaDtcb || [],
             hieuQuaSuuTra: data.hieuQuaSuuTra || [],
-            lucLuong: data.hoSoTheoHeLucLuong || [],
-            namThongKeDonVi: units.nam || null
+            lucLuong: data.lucLuong || []
         });
         if (me.getView().rendered) {
             me.updateChartColors();
@@ -70,59 +65,6 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
         }
     },
 
-    /** Theo dõi chiều cao tự nhiên của danh sách, kể cả khi binding đổi Top 5/10. */
-    onDetailsReady: function (component) {
-        const me = this;
-
-        if (me.trendResizeObserver) {
-            me.trendResizeObserver.disconnect();
-        }
-        me.trendResizeObserver = new ResizeObserver(function () {
-            me.updateTrendHeight();
-        });
-        me.trendResizeObserver.observe(component.getEl().dom);
-        me.trendResizeObserver.observe(me.getView().down('#donViCard_IdView').getEl().dom);
-        me.getView().down('#donViCard_IdView').items.each(function (item) {
-            me.trendResizeObserver.observe(item.getEl().dom);
-        });
-        me.trendResizeObserver.observe(me.getView().down('#dienBienHeader_IdView').getEl().dom);
-    },
-
-    /** Giãn chart đến đáy card; khi hai card xếp dọc thì dùng chiều cao tối thiểu. */
-    updateTrendHeight: function () {
-        const me = this;
-
-        if (me.destroying || me.destroyed) {
-            return;
-        }
-        const units = me.getView().down('#donViCard_IdView');
-        const trend = me.getView().down('#dienBienCard_IdView');
-        const header = me.getView().down('#dienBienHeader_IdView');
-        const chart = me.getView().down('#dienBienChart_IdView');
-
-        if (!units || !trend || !header || !chart || !trend.rendered) {
-            return;
-        }
-        const styles = window.getComputedStyle(trend.getEl().dom);
-        const frameHeight = ['paddingTop', 'paddingBottom', 'borderTopWidth', 'borderBottomWidth']
-            .reduce((sum, name) => sum + (parseFloat(styles[name]) || 0), 0);
-        // VBox chuyển CSS margin thành khoảng cách layout; đo vị trí để giữ đủ chỗ cho chart.
-        const headerGap = chart.getEl().dom.offsetTop - header.getEl().dom.offsetTop - header.getHeight();
-        const minimum = Math.ceil(chart.minHeight + header.getHeight() + frameHeight + Math.max(0, headerGap));
-        const sameRow = Math.abs(units.getEl().dom.offsetTop - trend.getEl().dom.offsetTop) < 2;
-        const unitMinimum = sameRow ? minimum : 0;
-
-        // Chỉ đặt chiều cao tối thiểu để card vẫn tự co theo nội dung khi đổi Top 10 về Top 5.
-        if (units.minHeight !== unitMinimum) {
-            units.setMinHeight(unitMinimum);
-        }
-        const height = Math.ceil(Math.max(minimum, sameRow ? units.getHeight() : 0));
-
-        if (trend.getHeight() !== height) {
-            trend.setHeight(height);
-        }
-    },
-
     /** Xếp donut lên trên khi card không còn đủ chỗ cho hai cột. */
     onUnitCardResize: function (component, width) {
         const twoColumnMinWidth = 480;
@@ -134,6 +76,14 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
         }
         component.unitStacked = stacked;
         component.toggleCls('tcn-unit-stacked', stacked);
+        const size = stacked ? 100 : 180;
+        const donut = component.down('#donViChart_IdView');
+        const wrapper = component.down('#donViDonutWrap_IdView');
+        const center = component.down('#donViDonutCenter_IdView');
+
+        wrapper.setSize(size, size);
+        donut.setSize(size, size);
+        center.setSize(size, size);
         component.updateLayout();
     },
 
@@ -250,7 +200,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
     updateUnitChartColors: function (chart, theme) {
         const me = this;
         const rows = me.getViewModel().get('donViDangHienThi') || [];
-        const colors = rows.map(row => theme.colors[row.mau]);
+        const colors = rows.map(row => theme.colors[row.mau] || theme.colors.muted);
 
         chart.setColors(colors);
         chart.getSeries()[0].setColors(colors);
@@ -265,10 +215,6 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
         if (me.unitRankingBinding) {
             me.unitRankingBinding.destroy();
             me.unitRankingBinding = null;
-        }
-        if (me.trendResizeObserver) {
-            me.trendResizeObserver.disconnect();
-            me.trendResizeObserver = null;
         }
         if (me.themeObserver) {
             me.themeObserver.disconnect();

@@ -2,11 +2,12 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.Store.TrangChuNew1_DonViStore', {
     extend: 'Ext.data.Store',
     alias: 'store.trangchunew1donvi',
     fields: [
-        { name: 'ma', type: 'string' },
-        { name: 'soLuong', type: 'int' },
+        { name: 'code', type: 'string' },
+        { name: 'name', type: 'string' },
+        { name: 'val', type: 'int' },
         { name: 'thuHang', type: 'int' }
     ],
-    sorters: [{ property: 'soLuong', direction: 'DESC' }],
+    sorters: [{ property: 'val', direction: 'DESC' }],
     listeners: {
         datachanged: function (store) {
             store.updateRankings();
