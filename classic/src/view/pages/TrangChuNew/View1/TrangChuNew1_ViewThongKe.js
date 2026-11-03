@@ -15,7 +15,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewThongKe', {
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">',
         '<tpl switch="icon">',
         '<tpl case="folder"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>',
-        '<tpl case="search"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',
+        '<tpl case="file-text"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6"/>',
         '<tpl case="clipboard"><rect x="5" y="5" width="14" height="16" rx="2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h6"/>',
         '<tpl case="warning"><path d="m10.3 4-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3l-8-14a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/>',
         '<tpl case="briefcase"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V4h8v3M3 12h18M10 12v3h4v-3"/>',

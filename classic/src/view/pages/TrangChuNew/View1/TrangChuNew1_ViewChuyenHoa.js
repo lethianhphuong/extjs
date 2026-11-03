@@ -7,12 +7,13 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewChuyenHoa', {
         '<div class="tcn-info-content"><tpl for="items">',
         '<div class="tcn-progress-row tcn-tone-{mau:htmlEncode}">',
         '<div class="tcn-progress-label"><span><i class="tcn-dot"></i>{ten:htmlEncode}</span>',
-        '<strong class="tcn-percent">{tyLeText:htmlEncode}</strong></div>',
+        '<span class="tcn-force-values"><small>{tyLeText:htmlEncode}</small>',
+        '<strong>{soLuongText:htmlEncode}</strong></span></div>',
         '<div class="tcn-progress-track" role="progressbar" aria-label="{ten:htmlEncode}" ',
         'aria-valuemin="0" aria-valuemax="100" aria-valuenow="{tyLe}">',
         '<div class="tcn-progress-fill" style="width:{tyLe}%"></div></div></div>',
-        '</tpl></div><footer class="tcn-info-footer"><span>Tỷ lệ chuyển hóa chính:</span>',
-        '<strong class="tcn-summary tcn-tone-{mau:htmlEncode}"><i class="tcn-dot"></i>',
-        '{tyLeChinhText:htmlEncode}</strong></footer>'
+        '</tpl></div>',
+        '<footer class="tcn-info-footer"><span>Tổng cộng:</span>',
+        '<strong class="tcn-total">{tongSoText:htmlEncode} <small>{nhanDonVi:htmlEncode}</small></strong></footer>'
     ]
 });

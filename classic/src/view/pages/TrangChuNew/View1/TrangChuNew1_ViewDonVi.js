@@ -19,7 +19,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonVi', {
                 {
                     xtype: 'component',
                     bind: { data: '{donViHienThi}' },
-                    tpl: '<h2>Đối tượng theo đơn vị <span class="tcn-unit-title-tag">Top {gioiHan} Đơn vị</span></h2>'
+                    tpl: '<h2>{nhanDoiTuong:htmlEncode} theo đơn vị <span class="tcn-unit-title-tag">Top {gioiHan} Đơn vị</span></h2>'
                 },
                 {
                     xtype: 'segmentedbutton',
@@ -41,29 +41,30 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonVi', {
             items: [
                 {
                     xtype: 'container',
-                    width: 180,
+                    width: 230,
                     cls: 'tcn-unit-summary',
                     layout: { type: 'vbox', align: 'stretch' },
                     items: [
                         {
                             xtype: 'container',
                             itemId: 'donViDonutWrap_IdView',
-                            height: 180,
+                            height: 230,
                             layout: 'absolute',
                             items: [
-                                { xtype: 'TrangChuNew1_ViewDonViChart', x: 0, y: 0, width: 180, height: 180 },
+                                { xtype: 'TrangChuNew1_ViewDonViChart', x: 0, y: 0, width: 230, height: 230 },
                                 {
                                     xtype: 'component',
                                     itemId: 'donViDonutCenter_IdView',
                                     x: 0,
                                     y: 0,
-                                    width: 180,
-                                    height: 180,
+                                    width: 230,
+                                    height: 230,
                                     cls: 'tcn-donut-center',
                                     bind: { data: '{donViHienThi}' },
                                     tpl: [
                                         '<small>TOP {gioiHan} TỔNG</small>',
-                                        '<strong>{tongSoText:htmlEncode}</strong>'
+                                        '<strong>{tongSoText:htmlEncode} <small>{nhanDonVi:htmlEncode}</small></strong>',
+                                        '<span>{tyLeTongText:htmlEncode}</span>'
                                     ]
                                 }
                             ]
@@ -73,13 +74,15 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonVi', {
                 {
                     xtype: 'component',
                     cls: 'tcn-unit-list-view',
+                    listeners: { afterrender: 'onUnitListReady' },
                     bind: { data: '{donViHienThi}' },
                     tpl: [
                         '<ol class="tcn-unit-list"><tpl for="items">',
-                        '<li class="tcn-unit-rank tcn-tone-{mau:htmlEncode}">',
-                        '<div class="tcn-unit-rank-label"><span class="tcn-unit-name" title="{ten:htmlEncode}">',
-                        '<b class="tcn-rank-number">{thuHang}</b>{ten:htmlEncode}</span>',
-                        '<span class="tcn-unit-count"><strong>{soLuongText:htmlEncode}</strong><small>ĐT</small>',
+                        '<li class="tcn-unit-rank tcn-tone-{mau:htmlEncode}" data-unit-name="{ten:htmlEncode}">',
+                        '<div class="tcn-unit-rank-label"><span class="tcn-unit-name">',
+                        '<b class="tcn-rank-number">{thuHang}</b>',
+                        '<span class="tcn-unit-symbol">{kyHieu:htmlEncode}</span></span>',
+                        '<span class="tcn-unit-count"><strong>{soLuongText:htmlEncode}</strong><small>{nhanDonVi:htmlEncode}</small>',
                         '<span class="tcn-percent">{tyLeText:htmlEncode}</span></span></div>',
                         '<div class="tcn-progress-track" role="progressbar" aria-label="{ten:htmlEncode}" ',
                         'aria-valuemin="0" aria-valuemax="100" aria-valuenow="{doDai}">',

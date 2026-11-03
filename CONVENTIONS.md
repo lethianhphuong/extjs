@@ -88,7 +88,7 @@ classic/src/view/pages/ConNguoiLienQuan/
 - Khối trình bày dùng chung MVVM nằm cùng folder component sở hữu, không tạo bộ ba rỗng cho từng khối hoặc field.
 - Không sao chép máy móc tên folder hoặc tạo các khối không cần thiết; đặt tên theo chức năng thực tế. Form khai báo trực tiếp và tách theo khối theo mục 3.1.
 - Chỉ tạo `Shared/` khi có thành phần dùng chung thực sự; mẫu hiện tại không cần folder này. Không dùng Shared để chứa schema/factory sinh field tĩnh. Store và state thuộc ViewModel.
-- Khi di chuyển component, cập nhật namespace, requires, nơi sử dụng và SCSS; không sửa tay manifest/bootstrap sinh tự động.
+- Khi di chuyển component, cập nhật namespace, `requires` hiện có nếu liên quan, nơi sử dụng và SCSS; không sửa tay manifest/bootstrap sinh tự động.
 
 ### 1.1.0. Quy tắc đặt tên file/thư mục tiếng Việt không dấu
 
@@ -107,18 +107,18 @@ classic/src/view/pages/ConNguoiLienQuan/
 - Bỏ hết dấu tiếng Việt
 - **PascalCase**: chữ hoa đầu mỗi từ, không có underscore giữa các từ chính
 - Giữ nguyên hậu tố `_View`, `_ViewController`, `_ViewModel`, `_ViewGrid`...
-- Alias dùng **thuận thang**: `controller.{ten-thap-thang}`, `viewmodel.{ten-thap-thang}`
+- Tên Controller/ViewModel và alias giữ nguyên tên file bỏ `.js`, kể cả chữ hoa/thường và dấu `_`; xem mục 1.2. Không viết thường hoặc rút gọn alias.
 
 **Ví dụ cụ thể:**
 
 | Tiếng Việt gốc     | Thư mục            | File View                 | Alias                        |
 | ------------------ | ------------------ | ------------------------- | ---------------------------- |
-| Tài liệu đính kèm  | `TaiLieuDinhKem/`  | `TaiLieuDinhKem_View.js`  | `controller.tailieudinhkem`  |
-| Danh sách hồ sơ    | `DanhSachHoSo/`    | `DanhSachHoSo_View.js`    | `controller.danhsachhoso`    |
-| Quản lý người dùng | `QuanLyNguoiDung/` | `QuanLyNguoiDung_View.js` | `controller.quanlynguoidung` |
-| Phiên tòa          | `PhienToa/`        | `PhienToa_View.js`        | `controller.phientoa`        |
-| Kiến nghị khởi tố  | `KienNghiKhoiTo/`  | `KienNghiKhoiTo_View.js`  | `controller.kiennghikhoito`  |
-| Phân công điều tra | `PhanCongDieuTra/` | `PhanCongDieuTra_View.js` | `controller.phancongdieutra` |
+| Tài liệu đính kèm  | `TaiLieuDinhKem/`  | `TaiLieuDinhKem_View.js`  | `controller.TaiLieuDinhKem_ViewController`  |
+| Danh sách hồ sơ    | `DanhSachHoSo/`    | `DanhSachHoSo_View.js`    | `controller.DanhSachHoSo_ViewController`    |
+| Quản lý người dùng | `QuanLyNguoiDung/` | `QuanLyNguoiDung_View.js` | `controller.QuanLyNguoiDung_ViewController` |
+| Phiên tòa          | `PhienToa/`        | `PhienToa_View.js`        | `controller.PhienToa_ViewController`        |
+| Kiến nghị khởi tố  | `KienNghiKhoiTo/`  | `KienNghiKhoiTo_View.js`  | `controller.KienNghiKhoiTo_ViewController`  |
+| Phân công điều tra | `PhanCongDieuTra/` | `PhanCongDieuTra_View.js` | `controller.PhanCongDieuTra_ViewController` |
 
 **Namespace example:**
 
@@ -127,20 +127,20 @@ classic/src/view/pages/ConNguoiLienQuan/
 Ext.define("DEMO.view.pages.TaiLieuDinhKem.TaiLieuDinhKem_View", {
   extend: "Ext.container.Container",
   xtype: "TaiLieuDinhKem_View",
-  controller: "tailieudinhkem",
-  viewModel: "tailieudinhkem",
+  controller: "TaiLieuDinhKem_ViewController",
+  viewModel: "TaiLieuDinhKem_ViewModel",
 });
 
 // File: TaiLieuDinhKem/TaiLieuDinhKem_ViewController.js
 Ext.define("DEMO.view.pages.TaiLieuDinhKem.TaiLieuDinhKem_ViewController", {
   extend: "Ext.app.ViewController",
-  alias: "controller.tailieudinhkem",
+  alias: "controller.TaiLieuDinhKem_ViewController",
 });
 
 // File: TaiLieuDinhKem/TaiLieuDinhKem_ViewModel.js
 Ext.define("DEMO.view.pages.TaiLieuDinhKem.TaiLieuDinhKem_ViewModel", {
   extend: "Ext.app.ViewModel",
-  alias: "viewmodel.tailieudinhkem",
+  alias: "viewmodel.TaiLieuDinhKem_ViewModel",
 });
 ```
 
@@ -190,7 +190,6 @@ Ext.define("DEMO.view.pages.OrderList.OrderList_View", {
 // File: OrderList_View.js
 Ext.define("DEMO.view.pages.OrderList.OrderList_View", {
   extend: "Ext.container.Container",
-  requires: ["DEMO.view.pages.OrderList.OrderList_ViewGrid"],
   items: [
     {
       xtype: "OrderList_ViewGrid", // xtype = tên file (PascalCase, có underscore)
@@ -237,8 +236,8 @@ Ext.define("DEMO.view.pages.ToTrinh.ToTrinh_View", {
   extend: "Ext.grid.Panel",
   xtype: "ToTrinh_View",
 
-  controller: "totrinh",
-  viewModel: "totrinh",
+  controller: "ToTrinh_ViewController",
+  viewModel: "ToTrinh_ViewModel",
 
   bind: { store: "{totrinhStore}" },
 
@@ -316,9 +315,43 @@ Ext.define("DEMO.view.pages.ToTrinh.ToTrinh_View", {
 | Số file        | 4+ (View, ViewGrid, Controller, ViewModel)   | 3 (View, Controller, ViewModel)    |
 | Filter bar     | Item trong Container                         | `dockedItems: [{ dock: 'top' }]`   |
 | Paging         | Trong ViewGrid                               | `bbar: { xtype: 'pagingtoolbar' }` |
-| Code nhiều hơn | Cần requires + gọi xtype con                 | Ít code hơn, tất cả trong 1 file   |
+| Code nhiều hơn | Gọi xtype component con                 | Ít code hơn, tất cả trong 1 file   |
 
 ### 1.2. Namespace và Alias
+
+Với View `{Feature}_View.js`, Controller phải là `{Feature}_ViewController.js` và ViewModel phải là `{Feature}_ViewModel.js`. Tên class cuối trong `Ext.define()` phải trùng tên file bỏ `.js`; namespace khớp đầy đủ đường dẫn thư mục.
+
+Alias phải giữ nguyên tên file bỏ `.js`, kể cả chữ hoa/thường và dấu `_`, thêm tiền tố tương ứng:
+
+- Controller: `alias: 'controller.{Feature}_ViewController'`.
+- ViewModel: `alias: 'viewmodel.{Feature}_ViewModel'`.
+- View sử dụng `controller: '{Feature}_ViewController'` và `viewModel: '{Feature}_ViewModel'`, không kèm tiền tố alias.
+- `xtype` của View trùng tên file bỏ `.js`: `{Feature}_View`.
+
+Ví dụ với `TrangChuNew1_View.js`:
+
+```javascript
+Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_View', {
+    extend: 'Ext.container.Container',
+    xtype: 'TrangChuNew1_View',
+    controller: 'TrangChuNew1_ViewController',
+    viewModel: 'TrangChuNew1_ViewModel'
+});
+
+Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.TrangChuNew1_ViewController'
+});
+
+Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewModel', {
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.TrangChuNew1_ViewModel'
+});
+```
+
+“Model” trong quy tắc này là `Ext.app.ViewModel`, không phải `Ext.data.Model`. Tên `{Feature}` phải đủ phân biệt để xtype/alias duy nhất toàn ứng dụng.
+
+Áp dụng khi tạo mới hoặc sửa tên/alias của bộ MVVM trong phạm vi task; khi đổi alias phải cập nhật đồng bộ các nơi sử dụng, gồm `controller`, `viewModel`/`viewModel.type`, `requires` hiện có và tên class nếu liên quan. Không tự chuyển đổi hàng loạt source hiện có. Quy tắc này ưu tiên hơn ví dụ alias viết thường hoặc rút gọn cũ trong CLAUDE.md và skill.
 
 Namespace khớp toàn bộ đường dẫn, ví dụ `DEMO.view.pages.ConNguoiLienQuan.ThemMoi.MoiQuanHe.MoiQuanHe_View`; xtype vẫn trùng tên file, duy nhất toàn ứng dụng.
 
@@ -330,8 +363,8 @@ Mỗi file phải có đúng namespace và alias:
 Ext.define("DEMO.view.pages.{Feature}.{Feature}_View", {
   extend: "Ext.container.Container",
   xtype: "{Feature}_View", // xtype = tên file (KHÔNG viết thường/không gạch ngang)
-  controller: "{feature-lowercase}",
-  viewModel: "{feature-lowercase}",
+  controller: "{Feature}_ViewController",
+  viewModel: "{Feature}_ViewModel",
   // ...
 });
 ```
@@ -341,7 +374,7 @@ Ext.define("DEMO.view.pages.{Feature}.{Feature}_View", {
 ```javascript
 Ext.define("DEMO.view.pages.{Feature}.{Feature}_ViewController", {
   extend: "Ext.app.ViewController",
-  alias: "controller.{feature-lowercase}",
+  alias: "controller.{Feature}_ViewController",
   // ...
 });
 ```
@@ -351,12 +384,12 @@ Ext.define("DEMO.view.pages.{Feature}.{Feature}_ViewController", {
 ```javascript
 Ext.define("DEMO.view.pages.{Feature}.{Feature}_ViewModel", {
   extend: "Ext.app.ViewModel",
-  alias: "viewmodel.{feature-lowercase}",
+  alias: "viewmodel.{Feature}_ViewModel",
   // ...
 });
 ```
 
-> **Lưu ý:** xtype dùng PascalCase trùng tên file. Alias (controller/viewmodel) vẫn giữ lowercase-kebab cho tiện.
+> **Lưu ý:** xtype và phần tên sau tiền tố alias đều trùng tên file tương ứng bỏ `.js`; giữ nguyên chữ hoa/thường và dấu `_`, không dùng alias viết thường/rút gọn.
 
 ### 1.3. Phân trách nhiệm
 
@@ -402,9 +435,9 @@ function () {
 Luôn dùng `me = this` bên trong các method của ExtJS để tránh mất ngữ cảnh:
 
 ```javascript
-Ext.define("DEMO.view.pages.OrderListController", {
+Ext.define("DEMO.view.pages.OrderList.OrderList_ViewController", {
   extend: "Ext.app.ViewController",
-  alias: "controller.orderlist",
+  alias: "controller.OrderList_ViewController",
 
   onSearch: function () {
     var me = this;
@@ -512,10 +545,9 @@ Ext.define("DEMO.view.pages.OrderList.OrderList_ViewGrid", {
 Ext.define("DEMO.view.pages.OrderList.OrderList_View", {
   extend: "Ext.container.Container",
   xtype: "OrderList_View", // xtype = tên file
-  controller: "orderlist",
-  viewModel: "orderlist",
+  controller: "OrderList_ViewController",
+  viewModel: "OrderList_ViewModel",
 
-  requires: ["DEMO.view.pages.OrderList.OrderList_ViewGrid"],
 
   layout: { type: "vbox", align: "stretch" },
   items: [
@@ -599,10 +631,9 @@ Ext.define("DEMO.view.pages.OrderList.OrderList_View", {
   extend: "Ext.container.Container",
   xtype: "OrderList_View", // xtype = tên file PascalCase
 
-  controller: "orderlist",
-  viewModel: "orderlist",
+  controller: "OrderList_ViewController",
+  viewModel: "OrderList_ViewModel",
 
-  requires: ["DEMO.view.pages.OrderList.OrderList_ViewGrid"],
 
   scrollable: "y",
   padding: 20,
@@ -623,8 +654,8 @@ Ext.define("DEMO.view.pages.ToTrinh.ToTrinh_View", {
   extend: "Ext.grid.Panel",
   xtype: "ToTrinh_View",
 
-  controller: "totrinh",
-  viewModel: "totrinh",
+  controller: "ToTrinh_ViewController",
+  viewModel: "ToTrinh_ViewModel",
 
   bind: { store: "{totrinhStore}" },
 
@@ -838,11 +869,7 @@ Ext.define("DEMO.view.pages.MyFeature.MyFeature_ViewForm", {
 ```javascript
 Ext.define("DEMO.view.pages.OrderList.OrderList_ViewController", {
   extend: "Ext.app.ViewController",
-  alias: "controller.orderlist",
-
-  // ── Khai báo ──────────────────────────────────────────
-  requires: [],
-
+  alias: "controller.OrderList_ViewController",
 
   // ── Event Handlers ────────────────────────────────────
   onSearch: function () {
@@ -965,7 +992,7 @@ notiCommon.showCustom({
 ```javascript
 Ext.define("DEMO.view.pages.OrderList.OrderList_ViewModel", {
   extend: "Ext.app.ViewModel",
-  alias: "viewmodel.orderlist",
+  alias: "viewmodel.OrderList_ViewModel",
 
   data: {
     // Dữ liệu binding đơn giản
@@ -1062,23 +1089,15 @@ onInvoiceList: function () {
 
 ### 7.1. Trong View
 
-```javascript
-requires: [
-    // Chỉ import các class KHÔNG được tự động resolve
-    // View, Controller, Model KHÔNG cần khai báo ở đây (đã khai qua alias)
-    'Ext.grid.column.Action',
-    'Ext.form.field.Date'
-],
-```
+Không bắt buộc khai báo `requires` cho View, kể cả khi tách component con ra file riêng. Không thêm `requires: []` hoặc danh sách dependency theo mẫu một cách máy móc. Sử dụng `xtype`, `controller` và `viewModel` theo quy tắc đặt tên ở mục 1.2.
 
 ### 7.2. Trong Controller
 
-```javascript
-requires: [
-    // Các class cần thiết cho controller logic
-    'DEMO.view.some.SharedComponent'
-],
-```
+Không bắt buộc khai báo `requires` cho ViewController; không thêm mảng rỗng hoặc dependency theo mẫu. Khi có lỗi tải class thực tế trong View/ViewController, kiểm tra cơ chế nạp dependency hiện có và chỉ bổ sung khai báo cần thiết cho lỗi đã xác định. Không mặc định rằng alias luôn bảo đảm class đã được tải.
+
+Nếu thay đổi dependency trong source, phải thử runtime/UI của luồng liên quan, kiểm tra console/request và sửa lỗi → kiểm tra lại đến khi đạt trong phạm vi task. Nếu môi trường chặn xác minh, báo rõ bằng chứng và phần chưa kiểm tra. Không tự xóa hàng loạt `requires` trong source hiện có.
+
+Quy tắc View/ViewController này ưu tiên hơn ví dụ bắt buộc `requires` cũ trong CLAUDE.md và skill; không thay đổi quy định ViewModel bên dưới hoặc cấu hình package trong `app.json`.
 
 ### 7.3. Trong Model
 
@@ -1276,7 +1295,7 @@ onTimKiem: function () {
 - LUÔN có đủ 3 file (View, Controller, Model) cho mỗi màn hình
 - LUÔN khai báo `fields` rõ ràng trong stores
 - LUÔN dùng `itemId` có ý nghĩa khi cần truy cập element
-- LUÔN có `requires` đầy đủ trong mỗi file
+- Không bắt buộc `requires` trong View/ViewController; không thêm khai báo rỗng hoặc theo mẫu. Xử lý lỗi tải class thực tế theo mục 7.1–7.2; ViewModel theo mục 7.3.
 - LUÔN format code theo quy chuẩn đã định
 - LUÔN test UI bằng tiếng Việt trước khi commit
 - LUÔN kiểm tra trước khi viết code: component có phức tạp không? Có cần tách file không? Có ảnh hưởng chỗ khác không?
@@ -1288,14 +1307,14 @@ onTimKiem: function () {
 - [ ] Tạo thư mục: `classic/src/view/pages/{Feature}/`
 - [ ] **Quyết định cách viết View:** Đơn giản (1 grid + filter + paging) → View = `Ext.grid.Panel` | Phức tạp → View = `Ext.container.Container`
 - [ ] Tạo `{Feature}_View.js` với namespace đúng, **xtype = tên file** (`{Feature}_View`), có `controller` và `viewModel` alias
-- [ ] Tạo `{Feature}_ViewController.js` với `alias: 'controller.{feature}'`
-- [ ] Tạo `{Feature}_ViewModel.js` với `alias: 'viewmodel.{feature}'`
+- [ ] Tạo `{Feature}_ViewController.js` với `alias: 'controller.{Feature}_ViewController'`
+- [ ] Tạo `{Feature}_ViewModel.js` với `alias: 'viewmodel.{Feature}_ViewModel'`
 - [ ] Kiểm tra tách component theo mục 1.1.1; form dài tách theo khối nghiệp vụ.
 - [ ] Field khai báo trực tiếp; không factory/schema sinh UI tĩnh, không initComponent không cần thiết.
 - [ ] Nếu có Grid phức tạp → tạo `{Feature}_ViewGrid.js` trong **folder component sở hữu**, **xtype = tên file**
 - [ ] Nếu có Form phức tạp → tạo `{Feature}_ViewForm.js` trong **folder component sở hữu**, **xtype = tên file**
 - [ ] View trình bày dùng chung Controller/Model của parent; component độc lập có đủ bộ ba trong folder riêng
-- [ ] Đảm bảo component tách ra đã được `requires` trong `_View.js`
+- [ ] Component tách ra dùng đúng namespace/xtype; không bắt buộc thêm `requires` trong `_View.js`. Nếu sửa dependency trong source, kiểm thử tải class và luồng runtime/UI liên quan theo mục 7.1–7.2.
 - [ ] Đăng ký route trong MainController.js (dùng xtype = tên file)
 - [ ] Đăng ký menu item trong tree store (MainModel.js) (dùng xtype = tên file)
 - [ ] Tạo file SCSS: `classic/sass/src/view/pages/{Feature}/{ComponentPath}/{TênFile}.scss` (ComponentPath theo namespace)

@@ -7,7 +7,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig', {
     tieuChi: {
         tongQuan: {
             TONG: { ten: 'Tổng số đối tượng', icon: 'folder', mau: 'blue', thuTu: 1 },
-            DTCB: { ten: 'ĐTCB', icon: 'search', mau: 'green', thuTu: 2 },
+            DTCB: { ten: 'ĐTCB', icon: 'file-text', mau: 'green', thuTu: 2 },
             SUUTRA: { ten: 'Sưu tra', icon: 'clipboard', mau: 'amber', thuTu: 3 },
             HIEMNGHI: { ten: 'Hiềm nghi', icon: 'warning', mau: 'red', thuTu: 4 },
             CHUYENAN: { ten: 'Chuyên án', icon: 'briefcase', mau: 'purple', thuTu: 5 },

@@ -5,14 +5,13 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewTrangThaiChart', 
         'Ext.chart.CartesianChart',
         'Ext.chart.series.Bar',
         'Ext.chart.axis.Numeric',
-        'Ext.chart.axis.Category',
-        'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig'
+        'Ext.chart.axis.Category'
     ],
     cls: 'tcn-card dash-card',
     height: 320,
     layout: { type: 'vbox', align: 'stretch' },
     items: [
-        { xtype: 'component', html: '<h2>Đối tượng QLNV</h2>' },
+        { xtype: 'component', bind: { html: '<h2>{nhanDoiTuongVietHoa:htmlEncode} QLNV</h2>' } },
         {
             xtype: 'cartesian',
             itemId: 'trangThaiChart_IdView',
@@ -40,7 +39,9 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewTrangThaiChart', 
                     style: { textPadding: 0 },
                     label: { fontSize: 12, rotationRads: 0 },
                     renderer: function (axis, value) {
-                        return DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('trangThai', value).nhanTruc;
+                        const record = axis.getChart().getStore().findRecord('name', value, 0, false, true, true);
+
+                        return record ? record.get('nhanTruc') : value;
                     }
                 }
             ],
@@ -57,9 +58,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewTrangThaiChart', 
                     if (!colors || !record) {
                         return {};
                     }
-                    const name = record.get('name');
-                    const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('trangThai', name);
-                    const color = colors[display.mau] || colors.muted;
+                    const color = colors[record.get('mau')] || colors.muted;
 
                     return { fillStyle: color, strokeStyle: color };
                 },
@@ -77,14 +76,12 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewTrangThaiChart', 
                     trackMouse: true,
                     renderer: function (tooltip, record) {
                         const name = record.get('name');
-                        const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('trangThai', name);
-
-                        tooltip.setHtml(Ext.String.htmlEncode(display.ten || name) + ': ' +
-                            Number(record.get('soLuong')).toLocaleString('vi-VN') + ' đối tượng');
+                        tooltip.setHtml(Ext.String.htmlEncode(record.get('ten') || name) + ': ' +
+                            Number(record.get('soLuong')).toLocaleString('vi-VN') + ' ' + Ext.String.htmlEncode(record.get('nhanDonVi')));
                     }
                 }
             }]
         },
-        { xtype: 'component', cls: 'tcn-note', html: 'Phân bổ đối tượng theo từng giai đoạn xử lý' }
+        { xtype: 'component', cls: 'tcn-note', bind: { html: 'Phân bổ {nhanDoiTuong.dayDu:htmlEncode} theo từng giai đoạn xử lý' } }
     ]
 });

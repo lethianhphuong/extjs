@@ -4,6 +4,10 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.Store.TrangChuNew1_DonViStore', {
     fields: [
         { name: 'code', type: 'string' },
         { name: 'name', type: 'string' },
+        { name: 'kyHieu', type: 'string' },
+        { name: 'nhanDonVi', type: 'string' },
+        { name: 'ten', type: 'string' },
+        { name: 'mau', type: 'string' },
         { name: 'val', type: 'int' },
         { name: 'thuHang', type: 'int' }
     ],

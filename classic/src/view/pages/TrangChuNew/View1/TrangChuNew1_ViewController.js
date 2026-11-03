@@ -2,7 +2,6 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.trangchunew1',
     requires: [
-        'DEMO.app.NotiCommon',
         'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_MockData'
     ],
 
@@ -23,15 +22,16 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
         const viewModel = me.getViewModel();
         const data = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_MockData.getData();
 
-        viewModel.getStore('trangThaiChartStore').loadData(data.trangThaiChartStore || []);
         viewModel.getStore('dienBienChartStore').loadData(data.namThongKeDonVi || []);
-        viewModel.getStore('donViStore').loadData(data.donViStore || []);
         viewModel.set({
+            trangThaiData: data.trangThaiChartStore || [],
+            donViData: data.donViStore || [],
             chiSo: data.chiSo || [],
             hieuQuaDtcb: data.hieuQuaDtcb || [],
             hieuQuaSuuTra: data.hieuQuaSuuTra || [],
             lucLuong: data.lucLuong || []
         });
+        viewModel.notify();
         if (me.getView().rendered) {
             me.updateChartColors();
         }
@@ -76,7 +76,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
         }
         component.unitStacked = stacked;
         component.toggleCls('tcn-unit-stacked', stacked);
-        const size = stacked ? 100 : 180;
+        const size = stacked ? 130 : 230;
         const donut = component.down('#donViChart_IdView');
         const wrapper = component.down('#donViDonutWrap_IdView');
         const center = component.down('#donViDonutCenter_IdView');
@@ -209,6 +209,27 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
     //#endregion
 
     /** Giải phóng observer thuộc vòng đời trang. */
+    onUnitListReady: function (list) {
+        const tip = Ext.create('Ext.tip.ToolTip', {
+            target: list.getEl(),
+            delegate: '.tcn-unit-rank',
+            listeners: {
+                beforeshow: function (tooltip) {
+                    const name = tooltip.triggerElement?.getAttribute('data-unit-name');
+
+                    if (!name) {
+                        return false;
+                    }
+                    tooltip.update(Ext.String.htmlEncode(name));
+                }
+            }
+        });
+
+        list.on('beforedestroy', function () {
+            tip.destroy();
+        });
+    },
+
     destroy: function () {
         const me = this;
 

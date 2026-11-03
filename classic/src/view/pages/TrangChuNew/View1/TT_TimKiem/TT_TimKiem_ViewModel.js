@@ -1,82 +1,77 @@
 Ext.define('DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.TT_TimKiem_ViewModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.tt_timkiem',
-    data: {
-        timKiemNangCao: {
-            thoiGian: 'nam2026',
-            tuNgay: null,
-            denNgay: null,
-            donVi: [],
-            cucTinh: [],
-            loaiHoSo: [],
-            heLucLuong: [],
-            tinhTrang: []
-        }
-    },
-    // Danh mục minh họa local; không nạp hoặc giả lập kết quả thống kê.
+    alias: 'viewmodel.TT_TimKiem_ViewModel',
+    requires: [
+        'DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.store.TT_TimKiem_ReportTypeTreeStore',
+        'DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.store.TT_TimKiem_ListReportStore',
+        'DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.store.TT_TimKiem_DM_NghiepVuCoBanStore',
+        'DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.store.TT_TimKiem_DM_HeLucLuongBCTK_Store',
+        'DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.store.TT_TimKiem_DS_PQX_DonVi_store',
+        'DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.store.TT_TimKiem_DM_BaoCaoDinhKy_Store',
+        'DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.store.TT_TimKiem_DM_ThangTrongNamBCTK_Store',
+        'DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.store.TT_TimKiem_DM_QuyTrongNamBCTK_Store',
+        'DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.store.TT_TimKiem_PhamViThongKeStore',
+        'DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.store.TT_TimKiem_Ds_DonViStore',
+        'DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.store.TT_TimKiem_DM_TinhStore',
+        'DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.store.TT_TimKiem_DM_HuyenStore',
+        'DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.store.TT_TimKiem_DM_XaStore'
+    ],
     stores: {
-        thoiGianStore: {
-            fields: ['ma', 'ten', 'thangBatDau', 'thangKetThuc'],
-            data: [
-                { ma: 'nam2026', ten: 'Năm 2026', thangBatDau: 0, thangKetThuc: 11 },
-                { ma: 'quy1', ten: 'Quý I/2026', thangBatDau: 0, thangKetThuc: 2 },
-                { ma: 'quy2', ten: 'Quý II/2026', thangBatDau: 3, thangKetThuc: 5 },
-                { ma: 'quy3', ten: 'Quý III/2026', thangBatDau: 6, thangKetThuc: 8 },
-                { ma: 'quy4', ten: 'Quý IV/2026', thangBatDau: 9, thangKetThuc: 11 },
-                { ma: 'tuyChon', ten: 'Tùy chọn' }
-            ]
+        ReportTypeTreeStore: { type: 'TT_TimKiem_ReportTypeTreeStore' },
+        ListReportStore: { type: 'TT_TimKiem_ListReportStore' },
+        DM_HeLucLuong_Store: { type: 'TT_TimKiem_DM_NghiepVuCoBanStore' },
+        DM_TinhTrucThuoc_Store: { type: 'TT_TimKiem_DS_PQX_DonVi_store' },
+        DM_CucTrucThuoc_Store: { type: 'TT_TimKiem_DM_HeLucLuongBCTK_Store' },
+        DM_PhongThuocTinh_Store: { type: 'TT_TimKiem_DS_PQX_DonVi_store' },
+        DM_PhongThuocCuc_Store: { type: 'TT_TimKiem_DS_PQX_DonVi_store' },
+        DM_DoiThuocPhong_Store: { type: 'TT_TimKiem_DS_PQX_DonVi_store' },
+        DM_BaoCaoDinhKy_Store: { type: 'TT_TimKiem_DM_BaoCaoDinhKy_Store' },
+        DM_ThangTrongNamStore: { type: 'TT_TimKiem_DM_ThangTrongNamBCTK_Store' },
+        DM_QuyTrongNamStore: { type: 'TT_TimKiem_DM_QuyTrongNamBCTK_Store' },
+        PhamViThongKeStore: { type: 'TT_TimKiem_PhamViThongKeStore' },
+        Ds_DonViStore: { type: 'TT_TimKiem_Ds_DonViStore' },
+        Ds_DonViTinhStore: { type: 'TT_TimKiem_Ds_DonViStore' },
+        Ds_DonViDoiStore: { type: 'TT_TimKiem_Ds_DonViStore' },
+        DM_TinhStore: { type: 'TT_TimKiem_DM_TinhStore' },
+        DM_HuyenStore: { type: 'TT_TimKiem_DM_HuyenStore' },
+        DM_XaStore: { type: 'TT_TimKiem_DM_XaStore' },
+        DM_LinhVucHoaDongStore: { type: 'TT_TimKiem_DM_NghiepVuCoBanStore' },
+        DM_LoaiHinhStore: { type: 'TT_TimKiem_DM_NghiepVuCoBanStore' }
+    },
+    data: {
+        // Mã tạm cho demo, đặt tại ViewModel theo phạm vi của form.
+        constant: {
+            CAPDONVI_BCTK: { TOANQUOC: 'toanQuoc', CAPCUC: 'capCuc', TINHTHANH: 'tinhThanh' },
+            BAOCAODINHKY: { THANG: 'month', QUY: 'quarter', NAM: 'year' },
+            DANHMUC: { HE_LUC_LUONG: ['AN', 'CS'], LINH_VUC: 'linhVuc', LOAI_HINH: 'loaiHinh' }
         },
-        donViStore: {
-            fields: ['ma', 'ten'],
-            data: [
-                { ma: 'cuc', ten: 'Cấp Cục' },
-                { ma: 'tinh', ten: 'Cấp Tỉnh/Thành phố' },
-                { ma: 'xa', ten: 'Cấp Xã/Phường' }
-            ]
+        tieuChiKhacParams: {},
+        maxYear: new Date().getFullYear(),
+        minYear: 2025,
+        readOnlyCapDonVi: false,
+        readOnlyTinh: false,
+        readOnlyCuc: false,
+        readOnlyPhongTinh: true,
+        readOnlyPhongCuc: true,
+        readOnlyDoi: true,
+        isHiddenHeLL: false,
+        isHiddenCuc: false,
+        isHiddenPhongCuc: false,
+        isHiddenTinhThanh: false,
+        isHiddenPhongTinh: false
+    },
+    formulas: {
+        isMonth: function (get) {
+            return get('tieuChiKhacParams.baoCaoDinhKy') === get('constant.BAOCAODINHKY.THANG');
         },
-        cucTinhStore: {
-            fields: ['ma', 'ten'],
-            data: [
-                { ma: 'c02', ten: 'Cục Cảnh sát hình sự' },
-                { ma: 'c03', ten: 'Cục Cảnh sát kinh tế' },
-                { ma: 'c04', ten: 'Cục Cảnh sát điều tra tội phạm về ma túy' },
-                { ma: 'haNoi', ten: 'CA TP Hà Nội' },
-                { ma: 'tpHcm', ten: 'CA TP Hồ Chí Minh' },
-                { ma: 'thanhHoa', ten: 'CA tỉnh Thanh Hóa' },
-                { ma: 'ngheAn', ten: 'CA tỉnh Nghệ An' },
-                { ma: 'dongNai', ten: 'CA tỉnh Đồng Nai' }
-            ]
+        isQuarter: function (get) {
+            return get('tieuChiKhacParams.baoCaoDinhKy') === get('constant.BAOCAODINHKY.QUY');
         },
-        loaiHoSoStore: {
-            fields: ['ma', 'ten'],
-            data: [
-                { ma: 'dtcb', ten: 'ĐTCB' },
-                { ma: 'suuTra', ten: 'Sưu tra' },
-                { ma: 'hiemNghi', ten: 'Hiềm nghi' },
-                { ma: 'chuyenAn', ten: 'Chuyên án' },
-                { ma: 'ctvbm', ten: 'CTVBM' },
-                { ma: 'htbm', ten: 'HTBM' },
-                { ma: 'vaiAo', ten: 'Vai ảo NV' }
-            ]
+        isYear: function (get) {
+            return get('tieuChiKhacParams.baoCaoDinhKy') === get('constant.BAOCAODINHKY.NAM');
         },
-        heLucLuongStore: {
-            fields: ['ma', 'ten'],
-            data: [
-                { ma: 'tratTuXaHoi', ten: 'Trật tự xã hội' },
-                { ma: 'maTuy', ten: 'Ma túy' },
-                { ma: 'kinhTe', ten: 'Kinh tế' },
-                { ma: 'moiTruong', ten: 'Môi trường' },
-                { ma: 'khac', ten: 'Khác' }
-            ]
-        },
-        tinhTrangStore: {
-            fields: ['ma', 'ten'],
-            data: [
-                { ma: 'dangQuanLy', ten: 'Đang quản lý' },
-                { ma: 'daKetThuc', ten: 'Đã kết thúc' },
-                { ma: 'lapMoi', ten: 'Lập mới' },
-                { ma: 'chuaCoSoHoSo', ten: 'Chưa có số HS' }
-            ]
+        flexKy: function (get) {
+            return get('isYear') ? 3 : 2;
         }
     }
 });

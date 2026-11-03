@@ -10,6 +10,50 @@
 
 Một số ví dụ cũ trong conventions chưa khớp quy tắc hiện hành. Dùng `let`/`const`, single quotes, semicolon, không trailing comma, indentation 4 spaces và `const me = this`; không sao chép `var`, selector theo label/text hoặc `init` rỗng từ ví dụ. Truy cập component bằng `itemId` theo quy tắc bên dưới. Tiêu chí tách component theo mục 1.1.1 và ngoại lệ màn hình đơn giản tại 1.1.2. Navigation hiện tại theo tree node `route` + `component` như CLAUDE.md và code, không tạo thêm route-to-xtype map từ ví dụ cũ ở mục 6. Nếu gặp mâu thuẫn khác ảnh hưởng hành vi, nêu rõ trong plan thay vì tự đổi kiến trúc.
 
+## Quy tắc đặt tên View, ViewController và ViewModel — toàn project
+
+Với View `{Feature}_View.js`, Controller phải là `{Feature}_ViewController.js` và ViewModel phải là `{Feature}_ViewModel.js`. Tên class cuối trong `Ext.define()` phải trùng tên file bỏ `.js`; namespace khớp đầy đủ đường dẫn thư mục.
+
+Alias phải giữ nguyên tên file bỏ `.js`, kể cả chữ hoa/thường và dấu `_`, thêm tiền tố tương ứng:
+
+- Controller: `alias: 'controller.{Feature}_ViewController'`.
+- ViewModel: `alias: 'viewmodel.{Feature}_ViewModel'`.
+- View sử dụng `controller: '{Feature}_ViewController'` và `viewModel: '{Feature}_ViewModel'`, không kèm tiền tố alias.
+- `xtype` của View trùng tên file bỏ `.js`: `{Feature}_View`.
+
+Ví dụ với `TrangChuNew1_View.js`:
+
+```javascript
+Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_View', {
+    extend: 'Ext.container.Container',
+    xtype: 'TrangChuNew1_View',
+    controller: 'TrangChuNew1_ViewController',
+    viewModel: 'TrangChuNew1_ViewModel'
+});
+
+Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.TrangChuNew1_ViewController'
+});
+
+Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewModel', {
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.TrangChuNew1_ViewModel'
+});
+```
+
+“Model” trong quy tắc này là `Ext.app.ViewModel`, không phải `Ext.data.Model`. Tên `{Feature}` phải đủ phân biệt để xtype/alias duy nhất toàn ứng dụng.
+
+Áp dụng khi tạo mới hoặc sửa tên/alias của bộ MVVM trong phạm vi task; khi đổi alias phải cập nhật đồng bộ các nơi sử dụng, gồm `controller`, `viewModel`/`viewModel.type`, `requires` hiện có và tên class nếu liên quan. Không tự chuyển đổi hàng loạt source hiện có. Quy tắc này ưu tiên hơn ví dụ alias viết thường hoặc rút gọn cũ trong CLAUDE.md và skill.
+
+## Quy tắc `requires` trong View và ViewController
+
+Không bắt buộc khai báo `requires` trong View và ViewController. Không thêm `requires: []` hoặc danh sách dependency theo mẫu một cách máy móc, kể cả khi tách component con ra file riêng.
+
+Khi gặp lỗi tải class thực tế, kiểm tra cơ chế nạp dependency hiện có và chỉ bổ sung khai báo cần thiết để giải quyết lỗi đã xác định. Không mặc định rằng alias luôn bảo đảm class đã được tải. Nếu thay đổi dependency trong source, phải thử runtime/UI của luồng liên quan và sửa lỗi → kiểm tra lại đến khi đạt; nếu bị chặn bởi môi trường thì báo rõ bằng chứng và phần chưa xác minh.
+
+Quy tắc này áp dụng cho View/ViewController, ưu tiên hơn hướng dẫn bắt buộc `requires` trong ví dụ cũ của CLAUDE.md và skill. Giữ nguyên quy định của ViewModel và cấu hình package trong `app.json`; không tự xóa hàng loạt `requires` trong source hiện có.
+
 ## Quy tắc truy cập component — toàn project
 
 Ưu tiên `itemId` theo mẫu `ten_IdView` (tên chức năng camelCase + `_IdView`), ví dụ `donViChart_IdView`. Controller dùng `const me = this;` và `me.getView().down('#donViChart_IdView')`; tên dùng động cũng phải giữ hậu tố này. Dùng cách này thay cho `reference`/`lookupReference()` khi tạo mới hoặc sửa phần truy cập component trong phạm vi task.

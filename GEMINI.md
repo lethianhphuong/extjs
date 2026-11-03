@@ -1,5 +1,11 @@
 # Hướng dẫn Gemini — DEMO ExtJS
 
+Áp dụng quy tắc đặt tên MVVM trong [AGENTS.md](AGENTS.md) cho toàn project: View `{Feature}_View.js` đi cùng `{Feature}_ViewController.js` và `{Feature}_ViewModel.js`; tên class cuối trong `Ext.define()` trùng tên file bỏ `.js`, namespace khớp đường dẫn. Alias giữ nguyên chữ hoa/thường và dấu `_`: `controller.{Feature}_ViewController`, `viewmodel.{Feature}_ViewModel`. View dùng `controller: '{Feature}_ViewController'` và `viewModel: '{Feature}_ViewModel'` (không kèm tiền tố alias); xtype là `{Feature}_View`.
+
+Ví dụ: `TrangChuNew1_View` dùng `TrangChuNew1_ViewController` và `TrangChuNew1_ViewModel`, với alias tương ứng `controller.TrangChuNew1_ViewController` và `viewmodel.TrangChuNew1_ViewModel`. Model ở đây là ViewModel, không phải `Ext.data.Model`. Quy tắc ưu tiên hơn ví dụ alias viết thường/rút gọn cũ trong CLAUDE.md và skill. Khi sửa tên/alias trong phạm vi task phải cập nhật đồng bộ nơi sử dụng; không tự chuyển đổi hàng loạt source hiện có.
+
+Áp dụng quy tắc `requires` trong View/ViewController tại [AGENTS.md](AGENTS.md): không bắt buộc khai báo, không thêm `requires: []` hoặc danh sách dependency theo mẫu một cách máy móc. Khi có lỗi tải class thực tế, kiểm tra cơ chế nạp hiện có và chỉ bổ sung dependency cần thiết; không mặc định alias bảo đảm class đã được tải. Thay đổi dependency trong source phải được kiểm thử runtime/UI theo AGENTS.md. Quy tắc này ưu tiên hơn ví dụ bắt buộc `requires` cũ trong CLAUDE.md và skill; giữ nguyên quy định ViewModel, package trong `app.json` và không tự xóa hàng loạt source.
+
 Áp dụng quy tắc truy cập component trong [AGENTS.md](AGENTS.md) cho toàn project: ưu tiên `itemId: 'ten_IdView'` và `me.getView().down('#ten_IdView')` với `const me = this;`, thay cho `reference`/`lookupReference()` khi tạo mới hoặc sửa phần truy cập component trong phạm vi task. Tên phải mô tả chức năng và duy nhất trong cây View được tìm kiếm. Không dùng `id` toàn cục hoặc selector theo label/text; chỉ dùng `up()` khi cần tìm component cha. Giữ binding/ViewModel cho cập nhật state và reset field.
 
 Quy tắc này ưu tiên hơn hướng dẫn reference cũ trong CONVENTIONS.md, CLAUDE.md và skill, kể cả đoạn chỉ giới hạn itemId cho TrangChuNew. Không tự chuyển đổi hàng loạt source hiện có hoặc refactor ngoài phạm vi task.

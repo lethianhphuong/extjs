@@ -7,9 +7,9 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_MockData', {
             chiSo: [
                 {
                     code: 'HIEMNGHI',
-                    typeLech: -1,
-                    val: 1122,
-                    valLech: 17
+                    typeLech: 1,
+                    val: 11,
+                    valLech: 11
                 },
                 {
                     code: 'VANV',
@@ -252,51 +252,61 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_MockData', {
                 {
                     code: '500101032',
                     name: 'Phòng Cảnh sát điều tra tội phạm về tham nhũng, kinh tế, buôn lậu, môi trường',
+                    kyHieu: 'PC03',
                     val: 6503
                 },
                 {
                     code: '500101030',
                     name: 'Văn phòng Cơ quan Cảnh sát điều tra',
+                    kyHieu: 'VP CQCSĐT',
                     val: 865
                 },
                 {
                     code: '500101031',
                     name: 'Phòng Cảnh sát điều tra tội phạm về trật tự xã hội',
+                    kyHieu: 'PC02',
                     val: 398
                 },
                 {
                     code: '500101011',
                     name: 'Phòng An ninh nội địa',
+                    kyHieu: 'PA02',
                     val: 27
                 },
                 {
                     code: '500101439',
                     name: 'Công an phường Long Biên',
+                    kyHieu: 'CAP Long Biên',
                     val: 27
                 },
                 {
                     code: '500101033',
                     name: 'Phòng Cảnh sát điều tra tội phạm về ma túy',
+                    kyHieu: 'PC04',
                     val: 25
                 },
                 {
                     code: '500101400',
                     name: 'Công an phường Hoàn Kiếm',
+                    kyHieu: 'CAP Hoàn Kiếm',
                     val: 18
                 },
                 {
                     code: '500101452',
                     name: 'Công an phường Thanh Liệt',
+                    kyHieu: 'CAP Thanh Liệt',
                     val: 10
                 },
                 {
                     code: '500101402',
                     name: 'Công an phường Ba Đình',
+                    kyHieu: 'CAP Ba Đình',
                     val: 10
                 },
                 {
                     code: '500101055',
                     name: 'Phòng Hồ sơ nghiệp vụ',
+                    kyHieu: 'PV06',
                     val: 9
                 }
             ],

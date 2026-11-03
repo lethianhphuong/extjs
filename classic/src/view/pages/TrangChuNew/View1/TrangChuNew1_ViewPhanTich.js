@@ -14,9 +14,9 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewPhanTich', {
             bind: {
                 data: {
                     tieuDe: 'Hiệu quả công tác ĐTCB',
-                    mau: 'blue',
                     items: '{hieuQuaDtcbHienThi.items}',
-                    tyLeChinhText: '{hieuQuaDtcbHienThi.tyLeChinhText}'
+                    tongSoText: '{hieuQuaDtcbHienThi.tongSoText}',
+                    nhanDonVi: '{nhanDoiTuong.vietTat}'
                 }
             }
         },
@@ -25,9 +25,9 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewPhanTich', {
             bind: {
                 data: {
                     tieuDe: 'Hiệu quả công tác Sưu tra',
-                    mau: 'purple',
                     items: '{hieuQuaSuuTraHienThi.items}',
-                    tyLeChinhText: '{hieuQuaSuuTraHienThi.tyLeChinhText}'
+                    tongSoText: '{hieuQuaSuuTraHienThi.tongSoText}',
+                    nhanDonVi: '{nhanDoiTuong.vietTat}'
                 }
             }
         },
@@ -36,7 +36,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewPhanTich', {
             cls: 'tcn-card tcn-info-card dash-card',
             bind: { data: '{lucLuongHienThi}' },
             tpl: [
-                '<header class="tcn-info-header"><h2>Đối tượng theo hệ lực lượng</h2>',
+                '<header class="tcn-info-header"><h2>{nhanDoiTuong:htmlEncode} theo hệ lực lượng</h2>',
                 '<span class="tcn-info-hint">{soHe} hệ chính</span></header>',
                 '<div class="tcn-info-content"><tpl for="items">',
                 '<div class="tcn-progress-row tcn-force-row tcn-tone-{mau:htmlEncode}">',
@@ -46,8 +46,9 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewPhanTich', {
                 '<div class="tcn-progress-track" role="progressbar" aria-label="{ten:htmlEncode}" ',
                 'aria-valuemin="0" aria-valuemax="100" aria-valuenow="{tyLe}">',
                 '<div class="tcn-progress-fill" style="width:{tyLe}%"></div></div></div>',
-                '</tpl></div><footer class="tcn-info-footer"><span>Tổng cộng:</span>',
-                '<strong class="tcn-total">{tongSoText:htmlEncode} <small>ĐT</small></strong></footer>'
+                '</tpl></div>',
+                '<footer class="tcn-info-footer"><span>Tổng cộng:</span>',
+                '<strong class="tcn-total">{tongSoText:htmlEncode} <small>{nhanDonVi:htmlEncode}</small></strong></footer>'
             ]
         }
     ]

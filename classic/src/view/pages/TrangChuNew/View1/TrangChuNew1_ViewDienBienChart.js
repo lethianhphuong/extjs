@@ -18,7 +18,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDienBienChart', {
             cls: 'tcn-trend-header',
             layout: 'auto',
             items: [
-                { xtype: 'component', cls: 'tcn-trend-title', html: '<h2>Diễn biến mở mới và kết thúc hồ sơ</h2>' },
+                { xtype: 'component', cls: 'tcn-trend-title', bind: { html: '<h2>Diễn biến mở mới và kết thúc {nhanDoiTuong.dayDu:htmlEncode}</h2>' } },
                 {
                     xtype: 'container',
                     cls: 'tcn-trend-controls',
