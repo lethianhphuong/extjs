@@ -9,6 +9,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewModel', {
         'DEMO.view.pages.TrangChuNew.View1.Store.TrangChuNew1_DonViTopStore'
     ],
     data: {
+        anFooterHieuQua: true,
         nhanDoiTuong: { dayDu: 'đối tượng', vietTat: 'ĐT' },
         trangThaiData: [],
         donViData: [],
@@ -16,7 +17,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewModel', {
         hieuQuaDtcb: [],
         hieuQuaSuuTra: [],
         lucLuong: [],
-        gioiHanDonVi: 10,
+        gioiHanDonVi: 5,
         hienMoMoi: true,
         hienKetThuc: true
     },
@@ -32,37 +33,9 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewModel', {
             const label = get('nhanDoiTuong.dayDu');
             const rawList = get('chiSo') || [];
 
-            return rawList.map(function (row) {
-                const code = row.code;
-                const val = typeof row.val === 'number' ? row.val : 0;
-                const typeLech = typeof row.typeLech === 'number' ? row.typeLech : 0;
-                const valLech = typeof row.valLech === 'number' ? row.valLech : 0;
-                // val là số kỳ hiện tại, valLech là độ lớn chênh lệch đã tính sẵn.
-                // typeLech (-1 giảm, 0 không đổi, 1 tăng) xác định dấu của chênh lệch.
-                // Kỳ trước = val - chênh lệch có dấu; tỷ lệ = chênh lệch có dấu / kỳ trước × 100.
-                const change = typeLech * valLech;
-                const previous = val - change;
-                const rate = previous > 0 ? change * 100 / previous : null;
-                const sign = change > 0 ? '+' : (change < 0 ? '-' : '');
-                const percentSign = rate > 0 ? '+' : '';
-                const percentText = rate === null ? '—' : percentSign + me.formatPercent(rate, 1);
-                const display = me.getDisplayConfig('tongQuan', code);
-
-                return Object.assign({}, row, display, {
-                    code: code,
-                    val: val,
-                    typeLech: typeLech,
-                    valLech: valLech,
-                    ten: me.formatObjectLabel(display.ten, label),
-                    mauIcon: display.mau,
-                    giaTriText: me.formatNumber(val),
-                    thayDoiText: sign + me.formatNumber(valLech),
-                    phanTramText: percentText,
-                    xuHuong: typeLech > 0 ? '↑' : (typeLech < 0 ? '↓' : '→'),
-                    trangThai: typeLech > 0 ? 'up' : (typeLech < 0 ? 'down' : 'neutral'),
-                    laTong: code === 'TONG'
-                });
-            }).sort((a, b) => a.thuTu - b.thuTu);
+            return rawList
+                .map(row => me.formatMetricItem(row, label))
+                .sort((a, b) => a.thuTu - b.thuTu);
         },
         trangThaiHienThi: function (get) {
             const me = this;
@@ -74,29 +47,33 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewModel', {
                 return Object.assign({}, row, display, {
                     ten: me.formatObjectLabel(display.ten, label),
                     nhanTruc: me.formatObjectLabel(display.nhanTruc, label),
-                    nhanDonVi: label
+                    nhanDonVi: get('nhanDoiTuong.dayDu')
                 });
-            });
+            }).sort((a, b) => a.thuTu - b.thuTu);
         },
         donViDataHienThi: function (get) {
             const me = this;
-            const abbreviation = get('nhanDoiTuong.vietTat');
-            // Gán màu fallback theo thứ hạng như danh sách và donut hiện tại.
-            const rows = (get('donViData') || []).map(function (row) {
-                return Object.assign({}, row, { val: parseInt(row.val, 10) || 0 });
-            }).sort((a, b) => b.val - a.val);
+            const label = get('nhanDoiTuong.vietTat');
 
-            return rows.map(function (row, index) {
-                const display = me.getDisplayConfig('donVi', row.code, index);
+            return (get('donViData') || [])
+                .slice()
+                .sort((a, b) => b.val - a.val)
+                .map(function (row, index) {
+                    const display = me.getDisplayConfig('donVi', row.code, index);
 
-                return Object.assign({}, row, display, {
-                    nhanDonVi: abbreviation,
-                    ten: row.name || display.ten
+                    return Object.assign({}, row, display, {
+                        ten: row.name || display.ten,
+                        kyHieu: (row.kyHieu || '').trim() || display.kyHieu || row.code,
+                        nhanDonVi: label,
+                        thuHang: index + 1
+                    });
                 });
-            });
         },
         donViDangHienThi: {
-            bind: { bindTo: '{donViTopStore}', deep: true },
+            bind: {
+                bindTo: '{donViTopStore}',
+                deep: true
+            },
             get: function (store) {
                 return store ? store.getRange().map(function (record) {
                     return record.getData();
@@ -118,18 +95,8 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewModel', {
                 nhanDoiTuong: title,
                 tongSoText: me.formatNumber(total),
                 nhanDonVi: get('nhanDoiTuong.vietTat'),
-                tyLeTongText: me.formatPercent(allTotal ? total * 100 / allTotal : 0, 1),
-                items: rows.map(function (row, index) {
-                    const val = row.val || 0;
-
-                    return Object.assign({}, row, {
-                        kyHieu: (row.kyHieu || '').trim() || row.name || row.ten,
-                        thuHang: row.thuHang || (index + 1),
-                        soLuongText: me.formatNumber(val),
-                        tyLeText: me.formatPercent(total ? val * 100 / total : 0),
-                        doDai: maximum ? val * 100 / maximum : 0
-                    });
-                })
+                tyLeTongText: me.formatPercent(allTotal ? (total * 100) / allTotal : 0, 1),
+                items: rows.map((row, index) => me.formatUnitItem(row, index, total, maximum))
             };
         },
         hieuQuaDtcbHienThi: function (get) {
@@ -153,23 +120,11 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewModel', {
             }, 0);
 
             return {
-                items: rows.map(function (row, index) {
-                    const code = row.code;
-                    const name = row.name;
-                    const val = typeof row.val === 'number' ? row.val : 0;
-                    const percent = total ? val * 100 / total : 0;
-                    const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('heLucLuong', code, index);
-
-                    return Object.assign({}, row, display, {
-                        code: code,
-                        ten: name || display.ten,
-                        val: val,
-                        tyLe: percent,
-                        tyLeText: me.formatPercent(percent, 1),
-                        soLuongText: me.formatNumber(val)
-                    });
-                }).sort((a, b) => b.val - a.val || a.thuTu - b.thuTu),
+                items: rows
+                    .map((row, index) => me.formatForceItem(row, index, total))
+                    .sort((a, b) => b.val - a.val || a.thuTu - b.thuTu),
                 soHe: rows.length,
+                tongTyTrongText: me.formatPercent(total ? 100 : 0),
                 tongSoText: me.formatNumber(total),
                 nhanDonVi: get('nhanDoiTuong.vietTat'),
                 nhanDoiTuong: title
@@ -177,6 +132,118 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewModel', {
         }
     },
     //#endregion
+
+    /** Định dạng từng chỉ số thống kê tổng quan. */
+    formatMetricItem: function (row, label) {
+        const me = this;
+        const code = row.code;
+        const val = typeof row.val === 'number' ? row.val : 0;
+        const typeLech = typeof row.typeLech === 'number' ? row.typeLech : 0;
+        const valLech = typeof row.valLech === 'number' ? row.valLech : 0;
+        const display = me.getDisplayConfig('tongQuan', code);
+        const trend = me.calculateTrend(val, typeLech, valLech);
+
+        return Object.assign({}, row, display, {
+            code: code,
+            val: val,
+            typeLech: typeLech,
+            valLech: valLech,
+            ten: me.formatObjectLabel(display.ten, label),
+            mauIcon: display.mau,
+            giaTriText: me.formatNumber(val),
+            thayDoiText: trend.thayDoiText,
+            phanTramText: trend.phanTramText,
+            xuHuong: trend.xuHuong,
+            trangThai: trend.trangThai,
+            laTong: code === 'TONG'
+        });
+    },
+
+    /** Tính toán xu hướng biến động và định dạng dấu không dùng ternary lồng nhau. */
+    calculateTrend: function (val, typeLech, valLech) {
+        const me = this;
+        const change = typeLech * valLech;
+        const previous = val - change;
+        const rate = previous > 0 ? (change * 100) / previous : null;
+        let sign = '';
+        let xuHuong = '→';
+        let trangThai = 'neutral';
+
+        if (change > 0) {
+            sign = '+';
+        } else if (change < 0) {
+            sign = '-';
+        }
+
+        if (typeLech > 0) {
+            xuHuong = '↑';
+            trangThai = 'up';
+        } else if (typeLech < 0) {
+            xuHuong = '↓';
+            trangThai = 'down';
+        }
+
+        const percentSign = rate > 0 ? '+' : '';
+        const percentText = rate === null ? '—' : percentSign + me.formatPercent(rate, 1);
+
+        return {
+            thayDoiText: sign + me.formatNumber(valLech),
+            phanTramText: percentText,
+            xuHuong: xuHuong,
+            trangThai: trangThai
+        };
+    },
+
+    /** Định dạng dòng đơn vị cho bảng xếp hạng. */
+    formatUnitItem: function (row, index, total, maximum) {
+        const me = this;
+        const val = row.val || 0;
+
+        return Object.assign({}, row, {
+            kyHieu: (row.kyHieu || '').trim() || row.name || row.ten,
+            thuHang: row.thuHang || (index + 1),
+            soLuongText: me.formatNumber(val),
+            tyLeText: me.formatPercent(total ? (val * 100) / total : 0),
+            doDai: maximum ? (val * 100) / maximum : 0
+        });
+    },
+
+    /** Định dạng một dòng hệ lực lượng. */
+    formatForceItem: function (row, index, total) {
+        const code = row.code;
+        const name = row.name;
+        const val = typeof row.val === 'number' ? row.val : 0;
+        const percent = total ? (val * 100) / total : 0;
+        const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get('heLucLuong', code, index);
+
+        return Object.assign({}, row, display, {
+            code: code,
+            ten: name || display.ten,
+            val: val,
+            tyLe: percent,
+            tyLeText: this.formatPercent(percent, 1),
+            soLuongText: this.formatNumber(val)
+        });
+    },
+
+    /** Định dạng một dòng trong thẻ chuyển hóa. */
+    formatConversionItem: function (row, group, label, index, total) {
+        const me = this;
+        const code = row.code;
+        const name = row.name;
+        const val = typeof row.val === 'number' ? row.val : 0;
+        const percent = total ? (val * 100) / total : 0;
+        const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get(group, code, index);
+
+        return Object.assign({}, row, display, {
+            code: code,
+            ten: me.formatObjectLabel(name || display.ten, label),
+            val: val,
+            soLuongText: me.formatNumber(val),
+            tyLe: percent,
+            tyLeText: me.formatPercent(percent, 1)
+        });
+    },
 
     /** Đầu mối duy nhất tra cấu hình hiển thị cho các formulas. */
     getDisplayConfig: function (group, code, index = 0) {
@@ -214,27 +281,27 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewModel', {
         }, 0);
 
         return {
-            items: list.map(function (row, index) {
-                const code = row.code;
-                const name = row.name;
-                const val = typeof row.val === 'number' ? row.val : 0;
-                const percent = total ? val * 100 / total : 0;
-                const display = DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig.get(group, code, index);
-
-                return Object.assign({}, row, display, {
-                    code: code,
-                    ten: me.formatObjectLabel(name || display.ten, label),
-                    val: val,
-                    soLuongText: me.formatNumber(val),
-                    tyLe: percent,
-                    tyLeText: me.formatPercent(percent, 1)
-                });
-            }).sort((a, b) => b.val - a.val || a.thuTu - b.thuTu),
-            tongSoText: me.formatNumber(total)
+            items: list
+                .map((row, index) => me.formatConversionItem(row, group, label, index, total))
+                .sort((a, b) => b.val - a.val || a.thuTu - b.thuTu),
+            tongSoText: me.formatNumber(total),
+            tongTyTrongText: me.formatPercent(total ? 100 : 0)
         };
     },
 
     stores: {
+        hieuQuaDtcbTableStore: {
+            fields: ['ten', 'soLuongText', 'tyLeText', 'tyLe'],
+            data: '{hieuQuaDtcbHienThi.items}'
+        },
+        hieuQuaSuuTraTableStore: {
+            fields: ['ten', 'soLuongText', 'tyLeText', 'tyLe'],
+            data: '{hieuQuaSuuTraHienThi.items}'
+        },
+        lucLuongTableStore: {
+            fields: ['ten', 'soLuongText', 'tyLeText', 'tyLe'],
+            data: '{lucLuongHienThi.items}'
+        },
         trangThaiChartStore: {
             type: 'trangchunew1trangthai',
             data: '{trangThaiHienThi}'

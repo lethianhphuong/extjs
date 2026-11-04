@@ -193,43 +193,52 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.TT_TimKiem_ViewControll
     getPeriodRange: function (filter) {
         const me = this;
         const ky = me.getViewModel().get('constant.BAOCAODINHKY');
-        let start;
-        let end;
-        let period;
+        let range = null;
 
-        switch (filter.baoCaoDinhKy) {
-            case ky.THANG:
-                start = new Date(filter.monthYear, filter.month - 2, 15);
-                end = new Date(filter.monthYear, filter.month - 1, 14);
-                period = 'M';
-                break;
-            case ky.QUY:
-                start = new Date(filter.quarterYear, (filter.quarter - 1) * 3 - 3, 15);
-                end = new Date(filter.quarterYear, (filter.quarter - 1) * 3, 14);
-                period = 'Q';
-                break;
-            case ky.NAM: {
-                start = new Date(filter.toYear - 1, 9, 15);
-                end = new Date(filter.toYear, 9, 14);
-                const yesterday = Ext.Date.clearTime(new Date(), true);
-
-                yesterday.setDate(yesterday.getDate() - 1);
-                if (filter.toYear === yesterday.getFullYear() && yesterday < end) {
-                    end = yesterday;
-                }
-                period = 'Y';
-                break;
-            }
-            default:
-                return null;
+        if (filter.baoCaoDinhKy === ky.THANG) {
+            range = me.getMonthPeriodRange(filter);
+        } else if (filter.baoCaoDinhKy === ky.QUY) {
+            range = me.getQuarterPeriodRange(filter);
+        } else if (filter.baoCaoDinhKy === ky.NAM) {
+            range = me.getYearPeriodRange(filter);
         }
-        if (!Ext.isDate(start) || !Ext.isDate(end) || isNaN(start.getTime()) || isNaN(end.getTime())) {
+
+        if (!range || !Ext.isDate(range.start) || !Ext.isDate(range.end) || isNaN(range.start.getTime()) || isNaN(range.end.getTime())) {
             return null;
         }
-        start = Ext.Date.clearTime(start, true);
-        end = Ext.Date.clearTime(end, true);
+        const start = Ext.Date.clearTime(range.start, true);
+        const end = Ext.Date.clearTime(range.end, true);
+
         end.setHours(23, 59, 59, 999);
-        return { start: start, end: end, period: period };
+        return { start: start, end: end, period: range.period };
+    },
+
+    getMonthPeriodRange: function (filter) {
+        return {
+            start: new Date(filter.monthYear, filter.month - 2, 15),
+            end: new Date(filter.monthYear, filter.month - 1, 14),
+            period: 'M'
+        };
+    },
+
+    getQuarterPeriodRange: function (filter) {
+        return {
+            start: new Date(filter.quarterYear, (filter.quarter - 1) * 3 - 3, 15),
+            end: new Date(filter.quarterYear, (filter.quarter - 1) * 3, 14),
+            period: 'Q'
+        };
+    },
+
+    getYearPeriodRange: function (filter) {
+        const start = new Date(filter.toYear - 1, 9, 15);
+        let end = new Date(filter.toYear, 9, 14);
+        const yesterday = Ext.Date.clearTime(new Date(), true);
+
+        yesterday.setDate(yesterday.getDate() - 1);
+        if (filter.toYear === yesterday.getFullYear() && yesterday < end) {
+            end = yesterday;
+        }
+        return { start: start, end: end, period: 'Y' };
     },
 
     /** Phát điều kiện hợp lệ; chưa kết nối API hoặc thay số liệu dashboard. */
@@ -253,8 +262,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.TT_TimKiem_ViewControll
         filter.toDate = Ext.Date.format(range.end, 'd/m/Y H:i:s');
         filter.period = range.period;
         view.fireEvent('timkiem', view, filter);
-        debugger
-        notiCommon.show({
+                notiCommon.show({
             type: 'info',
             message: 'Điều kiện tìm kiếm hợp lệ. Đang dùng dữ liệu mẫu, chưa kết nối API tìm kiếm.'
         });
@@ -264,10 +272,21 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.TT_TimKiem_ViewControll
     onSearchReady: function (view) {
         const me = this;
 
-        view.mon(view.getEl(), 'wheel', me.onTagWheel, me, {
+        me.initTagWheel(view);
+        me.initTagTooltip(view);
+        me.initMultiSelectFields(view);
+    },
+
+    initTagWheel: function (view) {
+        view.mon(view.getEl(), 'wheel', this.onTagWheel, this, {
             delegate: '.x-tagfield',
             passive: false
         });
+    },
+
+    initTagTooltip: function (view) {
+        const me = this;
+
         me.selectedValuesTip = Ext.create('Ext.tip.ToolTip', {
             target: view.getEl(),
             delegate: '.x-tagfield',
@@ -283,6 +302,11 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.TT_TimKiem_ViewControll
                 beforeshow: { fn: me.onSelectedValuesTipBeforeShow, scope: me }
             }
         });
+    },
+
+    initMultiSelectFields: function (view) {
+        const me = this;
+
         view.query('tagfield').forEach(function (field) {
             if (field.multiSelect) {
                 view.mon(field, {
@@ -338,7 +362,13 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TT_TimKiem.TT_TimKiem_ViewControll
         if (!nativeEvent || nativeEvent.deltaX || !nativeEvent.deltaY || maximum <= 0) {
             return;
         }
-        const step = nativeEvent.deltaMode === 1 ? 16 : nativeEvent.deltaMode === 2 ? element.clientWidth : 1;
+        let step = 1;
+
+        if (nativeEvent.deltaMode === 1) {
+            step = 16;
+        } else if (nativeEvent.deltaMode === 2) {
+            step = element.clientWidth;
+        }
         const position = Math.max(0, Math.min(maximum, element.scrollLeft + nativeEvent.deltaY * step));
 
         const previous = element.scrollLeft;

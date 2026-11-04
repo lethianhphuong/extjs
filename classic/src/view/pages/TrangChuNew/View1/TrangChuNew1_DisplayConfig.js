@@ -79,24 +79,15 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_DisplayConfig', {
     get: function (group, code, index = 0) {
         const me = this;
         const definitions = me.tieuChi[group] || {};
-        const definition = Object.prototype.hasOwnProperty.call(definitions, code) ? definitions[code] : null;
-
-        if (definition) {
-            return Object.assign({
-                ten: code,
-                nhanTruc: code,
-                icon: 'identity',
-                mau: me.paletteColors[index % me.paletteColors.length],
-                thuTu: index + 1
-            }, definition);
-        }
-
-        return {
+        const definition = Object.hasOwn(definitions, code) ? definitions[code] : null;
+        const base = {
             ten: code,
             nhanTruc: code,
             icon: 'identity',
             mau: me.paletteColors[index % me.paletteColors.length],
             thuTu: index + 1
         };
+
+        return definition ? Object.assign(base, definition) : base;
     }
 });

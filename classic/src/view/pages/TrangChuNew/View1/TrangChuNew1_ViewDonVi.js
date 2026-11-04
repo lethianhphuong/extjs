@@ -19,7 +19,10 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDonVi', {
                 {
                     xtype: 'component',
                     bind: { data: '{donViHienThi}' },
-                    tpl: '<h2>{nhanDoiTuong:htmlEncode} theo đơn vị <span class="tcn-unit-title-tag">Top {gioiHan} Đơn vị</span></h2>'
+                    tpl: '<h2><span class="tcn-analysis-icon tcn-tone-blue" aria-hidden="true">' +
+                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                        '<path d="M3 21h18M5 21V8h7v13m0 0V3h7v18M8 11h1m-1 4h1m6-8h1m-1 4h1m-1 4h1"/>' +
+                        '</svg></span>{nhanDoiTuong:htmlEncode} theo đơn vị <span class="tcn-unit-title-tag">Top {gioiHan} Đơn vị</span></h2>'
                 },
                 {
                     xtype: 'segmentedbutton',

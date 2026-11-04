@@ -25,9 +25,8 @@ description: Chọn và thực hiện kiểm tra phù hợp cho thay đổi DEMO
 
 ## Chọn lệnh
 
-- Kiểm tra công cụ đã có. package.json hiện không có npm scripts lint/test/build và không khai báo ESLint. Không tự cài hoặc dùng lệnh có thể tải package chỉ để kiểm tra.
-- Có Node: `node --check <file.js>` cho file JS thay đổi, chỉ xác minh cú pháp, không xác minh ExtJS runtime/binding.
-- Có ESLint tương thích .eslintrc.json đã cài: chạy trên file thay đổi, đối chiếu globals thực tế, không quét SDK. Báo nếu thiếu công cụ hoặc config không tương thích.
+- Dự án đã cài đặt ESLint v8 tương thích `.eslintrc.json`: chạy `npx eslint <file.js>` (hoặc `npm run lint`) trên các file JS thay đổi, dùng `--fix` (`npm run lint:fix`) để tự động sửa các lỗi format như nháy đơn, chấm phẩy, trailing comma. Không quét SDK.
+- Có Node: `node --check <file.js>` cho file JS thay đổi, xác minh cú pháp trước khi chạy ExtJS runtime/binding.
 - Khi đổi ConNguoiLienQuan/ComBoDiaChi, đọc `scripts/check-con-nguoi.cjs`, rồi cân nhắc `node scripts/check-con-nguoi.cjs`. Script chỉ kiểm tra một số bất biến/hành vi của nhóm này, không đại diện toàn app.
 - Đọc test liên quan trong tests/ để biết runner, dữ liệu, môi trường trước khi chạy; không giả định folder có nghĩa runner đã sẵn sàng.
 - Sencha Cmd và build: **Tuyệt đối KHÔNG tự động chạy các lệnh build** (`sencha app build`, `sencha app build classic`, build dev/prod...) trừ khi người dùng có lệnh yêu cầu rõ ràng. Lệnh build sẽ sinh ra hàng loạt file rác đè lên `build/` và `classic.jsonp`. Chỉ chạy watch/server khi thực sự cần thử nghiệm UI trong phạm vi được giao.

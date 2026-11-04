@@ -22,7 +22,8 @@
 		"semi": [
 			"warn",
 			"always"
-		]
+		],
+		"no-nested-ternary": "error"
 	},
 	"globals": {
 		"Ext": "readonly",

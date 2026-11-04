@@ -11,45 +11,76 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewPhanTich', {
         { xtype: 'TrangChuNew1_ViewTrangThaiChart' },
         {
             xtype: 'TrangChuNew1_ViewChuyenHoa',
-            bind: {
-                data: {
-                    tieuDe: 'Hiệu quả công tác ĐTCB',
-                    items: '{hieuQuaDtcbHienThi.items}',
-                    tongSoText: '{hieuQuaDtcbHienThi.tongSoText}',
-                    nhanDonVi: '{nhanDoiTuong.vietTat}'
+            userCls: 'tcn-tone-green',
+            viewModel: {
+                formulas: {
+                    tableHeader: function () {
+                        return {
+                            tieuDe: 'Hiệu quả công tác ĐTCB',
+                            bieuTuong: 'hoSo',
+                            cotTen: 'Chỉ tiêu'
+                        };
+                    },
+                    tableStore: function (get) {
+                        return get('hieuQuaDtcbTableStore');
+                    },
+                    tableFooter: function (get) {
+                        return {
+                            tongSoText: get('hieuQuaDtcbHienThi.tongSoText'),
+                            tongTyTrongText: get('hieuQuaDtcbHienThi.tongTyTrongText')
+                        };
+                    }
                 }
             }
         },
         {
             xtype: 'TrangChuNew1_ViewChuyenHoa',
-            bind: {
-                data: {
-                    tieuDe: 'Hiệu quả công tác Sưu tra',
-                    items: '{hieuQuaSuuTraHienThi.items}',
-                    tongSoText: '{hieuQuaSuuTraHienThi.tongSoText}',
-                    nhanDonVi: '{nhanDoiTuong.vietTat}'
+            userCls: 'tcn-tone-amber',
+            viewModel: {
+                formulas: {
+                    tableHeader: function () {
+                        return {
+                            tieuDe: 'Hiệu quả công tác Sưu tra',
+                            bieuTuong: 'theoDoi',
+                            cotTen: 'Chỉ tiêu'
+                        };
+                    },
+                    tableStore: function (get) {
+                        return get('hieuQuaSuuTraTableStore');
+                    },
+                    tableFooter: function (get) {
+                        return {
+                            tongSoText: get('hieuQuaSuuTraHienThi.tongSoText'),
+                            tongTyTrongText: get('hieuQuaSuuTraHienThi.tongTyTrongText')
+                        };
+                    }
                 }
             }
         },
         {
-            xtype: 'component',
-            cls: 'tcn-card tcn-info-card dash-card',
-            bind: { data: '{lucLuongHienThi}' },
-            tpl: [
-                '<header class="tcn-info-header"><h2>{nhanDoiTuong:htmlEncode} theo hệ lực lượng</h2>',
-                '<span class="tcn-info-hint">{soHe} hệ chính</span></header>',
-                '<div class="tcn-info-content"><tpl for="items">',
-                '<div class="tcn-progress-row tcn-force-row tcn-tone-{mau:htmlEncode}">',
-                '<div class="tcn-progress-label"><span><i class="tcn-square"></i>{ten:htmlEncode}</span>',
-                '<span class="tcn-force-values"><small>{tyLeText:htmlEncode}</small>',
-                '<strong>{soLuongText:htmlEncode}</strong></span></div>',
-                '<div class="tcn-progress-track" role="progressbar" aria-label="{ten:htmlEncode}" ',
-                'aria-valuemin="0" aria-valuemax="100" aria-valuenow="{tyLe}">',
-                '<div class="tcn-progress-fill" style="width:{tyLe}%"></div></div></div>',
-                '</tpl></div>',
-                '<footer class="tcn-info-footer"><span>Tổng cộng:</span>',
-                '<strong class="tcn-total">{tongSoText:htmlEncode} <small>{nhanDonVi:htmlEncode}</small></strong></footer>'
-            ]
+            xtype: 'TrangChuNew1_ViewChuyenHoa',
+            userCls: 'tcn-tone-blue',
+            viewModel: {
+                data: { anFooterHieuQua: false },
+                formulas: {
+                    tableHeader: function (get) {
+                        return {
+                            tieuDe: get('lucLuongHienThi.nhanDoiTuong') + ' theo hệ lực lượng',
+                            bieuTuong: 'lucLuong',
+                            cotTen: 'Lực lượng'
+                        };
+                    },
+                    tableStore: function (get) {
+                        return get('lucLuongTableStore');
+                    },
+                    tableFooter: function (get) {
+                        return {
+                            tongSoText: get('lucLuongHienThi.tongSoText'),
+                            tongTyTrongText: get('lucLuongHienThi.tongTyTrongText')
+                        };
+                    }
+                }
+            }
         }
     ]
 });

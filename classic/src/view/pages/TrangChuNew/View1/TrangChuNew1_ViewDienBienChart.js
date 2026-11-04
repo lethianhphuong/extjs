@@ -18,7 +18,16 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewDienBienChart', {
             cls: 'tcn-trend-header',
             layout: 'auto',
             items: [
-                { xtype: 'component', cls: 'tcn-trend-title', bind: { html: '<h2>Diễn biến mở mới và kết thúc {nhanDoiTuong.dayDu:htmlEncode}</h2>' } },
+                {
+                    xtype: 'component',
+                    cls: 'tcn-trend-title',
+                    bind: {
+                        html: '<h2><span class="tcn-analysis-icon tcn-tone-green" aria-hidden="true">' +
+                            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                            '<path d="M4 4v16h16M7 15l4-4 4 2 5-6m-5 0h5v5"/>' +
+                            '</svg></span>Diễn biến mở mới và kết thúc {nhanDoiTuong.dayDu:htmlEncode}</h2>'
+                    }
+                },
                 {
                     xtype: 'container',
                     cls: 'tcn-trend-controls',

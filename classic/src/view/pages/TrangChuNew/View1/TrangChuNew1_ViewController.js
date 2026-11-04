@@ -42,7 +42,13 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
         const eightColumnMinWidth = 1200;
         const fourColumnMinWidth = 640;
         const availableWidth = typeof width === 'number' ? width : component.getWidth();
-        const columns = availableWidth >= eightColumnMinWidth ? 8 : availableWidth >= fourColumnMinWidth ? 4 : 2;
+        let columns = 2;
+
+        if (availableWidth >= eightColumnMinWidth) {
+            columns = 8;
+        } else if (availableWidth >= fourColumnMinWidth) {
+            columns = 4;
+        }
 
         if (availableWidth <= 0 || component.metricColumns === columns) {
             return;
@@ -77,14 +83,15 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
         component.unitStacked = stacked;
         component.toggleCls('tcn-unit-stacked', stacked);
         const size = stacked ? 130 : 230;
-        const donut = component.down('#donViChart_IdView');
-        const wrapper = component.down('#donViDonutWrap_IdView');
-        const center = component.down('#donViDonutCenter_IdView');
 
-        wrapper.setSize(size, size);
-        donut.setSize(size, size);
-        center.setSize(size, size);
+        this.resizeDonutElements(component, size);
         component.updateLayout();
+    },
+
+    resizeDonutElements: function (component, size) {
+        component.down('#donViDonutWrap_IdView').setSize(size, size);
+        component.down('#donViChart_IdView').setSize(size, size);
+        component.down('#donViDonutCenter_IdView').setSize(size, size);
     },
 
     //#endregion
@@ -183,17 +190,21 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
         chart.getSeries().forEach(function (series, index) {
             series.setStyle({
                 strokeStyle: colors[index],
-                fillStyle: {
-                    type: 'linear',
-                    degrees: 90,
-                    stops: [
-                        { offset: 0, color: colors[index] },
-                        { offset: 1, color: 'rgba(0,0,0,0)' }
-                    ]
-                }
+                fillStyle: me.buildGradientFill(colors[index])
             });
             series.setHidden(!me.getViewModel().get(stateKeys[index]));
         });
+    },
+
+    buildGradientFill: function (color) {
+        return {
+            type: 'linear',
+            degrees: 90,
+            stops: [
+                { offset: 0, color: color },
+                { offset: 1, color: 'rgba(0,0,0,0)' }
+            ]
+        };
     },
 
     /** Palette lấy theo thứ tự xếp hạng, giữ màu đơn vị khi đổi Top 5/10. */

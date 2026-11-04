@@ -381,6 +381,107 @@ strong {
     color: var(--theme-text-muted);
 }
 
+.tcn-analysis-columns {
+    display: grid;
+    grid-template-columns: unquote('minmax(0, 1fr) 78px 72px');
+    align-items: center;
+    min-height: 32px;
+    border-bottom: 1px solid var(--theme-border-light);
+
+    > * {
+        padding: 5px 8px;
+        min-width: 0;
+    }
+
+    > :nth-child(n+2) {
+        align-self: stretch;
+        align-content: center;
+        border-left: 1px solid var(--theme-border-light);
+        text-align: right;
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+.tcn-analysis-heading,
+.tcn-analysis-total {
+    background: var(--theme-bg-card-hover);
+    font-weight: 600;
+}
+
+.tcn-analysis-table,
+.tcn-status-title,
+.tcn-unit-header,
+.tcn-trend-title {
+    .tcn-info-header h2,
+    &.tcn-status-title h2,
+    &.tcn-unit-header h2,
+    &.tcn-trend-title h2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .tcn-analysis-icon {
+        display: inline-grid;
+        place-items: center;
+        flex: 0 0 26px;
+        height: 26px;
+        color: var(--tcn-tone);
+        background: color-mix(in srgb, var(--tcn-tone) 12%, var(--theme-bg-card-hover));
+        border-radius: 7px;
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .tcn-analysis-meter {
+        display: block;
+        height: 3px;
+        margin-top: 2px;
+        border-radius: 3px;
+        background: var(--theme-border-light);
+
+        > span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: var(--tcn-tone);
+        }
+    }
+
+    .tcn-info-hint {
+        background: var(--theme-bg-card-hover);
+        border-radius: 999px;
+        padding: 2px 8px;
+    }
+
+    .tcn-analysis-heading {
+        font-size: 12px;
+        color: var(--theme-text-secondary);
+        border-radius: 6px 6px 0 0;
+    }
+
+    .tcn-analysis-record:hover {
+        background: var(--theme-bg-card-hover);
+    }
+
+    .tcn-analysis-total {
+        min-height: 36px;
+        background: color-mix(in srgb, var(--tcn-tone) 8%, var(--theme-bg-card-hover));
+        border-top: 1px solid var(--theme-border);
+        border-radius: 0 0 6px 6px;
+    }
+}
+
+.tcn-analysis-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .tcn-info-content {
     flex: 1 1 0;
     min-height: 0;

@@ -11,7 +11,16 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewTrangThaiChart', 
     height: 320,
     layout: { type: 'vbox', align: 'stretch' },
     items: [
-        { xtype: 'component', bind: { html: '<h2>{nhanDoiTuongVietHoa:htmlEncode} QLNV</h2>' } },
+        {
+            xtype: 'component',
+            cls: 'tcn-status-title tcn-tone-blue',
+            bind: {
+                html: '<h2><span class="tcn-analysis-icon" aria-hidden="true">' +
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+                    '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/>' +
+                    '</svg></span>{nhanDoiTuongVietHoa:htmlEncode} QLNV</h2>'
+            }
+        },
         {
             xtype: 'cartesian',
             itemId: 'trangThaiChart_IdView',
