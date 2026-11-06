@@ -226,7 +226,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_ViewController', {
             delegate: '.tcn-unit-rank',
             listeners: {
                 beforeshow: function (tooltip) {
-                    const name = tooltip.triggerElement?.getAttribute('data-unit-name');
+                    const name = tooltip.triggerElement.getAttribute('data-unit-name');
 
                     if (!name) {
                         return false;

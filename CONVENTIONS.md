@@ -1129,6 +1129,20 @@ classic/sass/src/view/pages/OrderList/OrderList_View.scss
 
 ### 8.2. Viết SCSS
 
+Với selector có nhiều cấp con trực tiếp, viết mỗi cấp `>.class` trong một block lồng nhau theo thứ tự DOM. Giữ quan hệ con trực tiếp ở từng cấp.
+
+```scss
+.tcn2-section {
+    >.x-box-inner {
+        >.x-box-target {
+            >.tcn2-section-header {
+                display: flex;
+            }
+        }
+    }
+}
+```
+
 ```scss
 // SAI - dùng inline style trong View
 { style: { color: 'red' } }
