@@ -21,6 +21,13 @@
     --tcn5-theme-shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
     --tcn5-theme-bg-page: #f8fafc;
 
+    /* Alias tương thích để Controller luôn đọc được giá trị màu độc lập */
+    --theme-text-primary: #0f172a;
+    --theme-text-secondary: #475569;
+    --theme-text-muted: #94a3b8;
+    --theme-bg-card: #ffffff;
+    --theme-border: #cbd5e1;
+
     --tcn5-blue: #2563eb;
     --tcn5-indigo: #4f46e5;
     --tcn5-purple: #9333ea;

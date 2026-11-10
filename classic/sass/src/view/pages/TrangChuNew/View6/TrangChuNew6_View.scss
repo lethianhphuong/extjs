@@ -1,0 +1,704 @@
+/* ==========================================================================
+   TrangChuNew6 Stylesheet - ExtJS 7.5 Classic Toolkit
+   Phong cách hiện đại, trực quan cho Màn hình Trang chủ View 6
+   Tất cả CSS được đóng gói ĐỘC LẬP HOÀN TOÀN trong scope .trang-chu-new6
+   Chạy độc lập 100%, không phụ thuộc app.css hay bất kỳ file CSS bên ngoài
+   Tuyệt đối KHÔNG sử dụng :root
+   ========================================================================== */
+
+.trang-chu-new6 {
+    /* ==========================================================================
+       Hệ thống biến theme nội bộ View 6 (Tự chứa, độc lập với app.css)
+       ========================================================================== */
+    --tcn6-theme-text-primary: #0f172a;
+    --tcn6-theme-text-secondary: #475569;
+    --tcn6-theme-text-muted: #94a3b8;
+    --tcn6-theme-bg-card: #ffffff;
+    --tcn6-theme-bg-card-hover: #f8fafc;
+    --tcn6-theme-border: #cbd5e1;
+    --tcn6-theme-border-light: #e2e8f0;
+    --tcn6-theme-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --tcn6-theme-shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+
+    /* Alias tương thích để Controller đọc trực tiếp và fallback độc lập */
+    --theme-text-primary: #0f172a;
+    --theme-text-secondary: #475569;
+    --theme-text-muted: #94a3b8;
+    --theme-bg-card: #ffffff;
+    --theme-border: #cbd5e1;
+
+    --tcn6-brand: #00a47e;
+    --tcn6-blue: #2563eb;
+    --tcn6-green: #059669;
+    --tcn6-amber: #d97706;
+    --tcn6-orange: #ea580c;
+    --tcn6-red: #dc2626;
+    --tcn6-purple: #7c3aed;
+    --tcn6-indigo: #4f46e5;
+    --tcn6-pink: #db2777;
+    --tcn6-slate: #475569;
+    --tcn6-muted: #64748b;
+
+    background-color: #f8fafc;
+    color: #0f172a;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    //#region NOTE: Card và tiêu đề
+    .tcn6-card {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .tcn6-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 32px;
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .tcn6-card-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 22px;
+        color: #0f172a;
+    }
+
+    .tcn6-title-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        background: #e2e8f0;
+        color: #475569;
+
+        &.tcn6-tone-blue { background: #dbeafe; color: #1d4ed8; }
+        &.tcn6-tone-green { background: #d1fae5; color: #047857; }
+        &.tcn6-tone-amber { background: #fef3c7; color: #b45309; }
+        &.tcn6-tone-orange { background: #ffedd5; color: #c2410c; }
+        &.tcn6-tone-red { background: #fee2e2; color: #b91c1c; }
+        &.tcn6-tone-purple { background: #ede9fe; color: #7c3aed; }
+        &.tcn6-tone-indigo { background: #e0e7ff; color: #4338ca; }
+        &.tcn6-tone-pink { background: #fce7f3; color: #be185d; }
+        &.tcn6-tone-slate { background: #f1f5f9; color: #334155; }
+        &.tcn6-tone-muted { background: #f1f5f9; color: #64748b; }
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .tcn6-muted {
+        color: #475569;
+        font-size: 12px;
+
+        b {
+            color: #0f172a;
+            font-size: 14px;
+        }
+    }
+
+    .tcn6-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 20px;
+        color: #334155;
+        background: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        white-space: nowrap;
+
+        &[class*='tcn6-tone-'] {
+            color: var(--tcn6-tone, #1d4ed8);
+        }
+
+        &.tcn6-tone-blue { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+        &.tcn6-tone-green { background: #f0fdf4; border-color: #bbf7d0; color: #15803d; }
+        &.tcn6-tone-amber { background: #fffbeb; border-color: #fde68a; color: #b45309; }
+        &.tcn6-tone-orange { background: #fff7ed; border-color: #fed7aa; color: #c2410c; }
+        &.tcn6-tone-red { background: #fef2f2; border-color: #fecdd3; color: #b91c1c; }
+        &.tcn6-tone-purple { background: #faf5ff; border-color: #e9d5ff; color: #6b21a8; }
+        &.tcn6-tone-indigo { background: #eef2ff; border-color: #c7d2fe; color: #4338ca; }
+        &.tcn6-tone-pink { background: #fdf2f8; border-color: #fbcfe8; color: #be185d; }
+    }
+
+    .tcn6-empty {
+        padding: 24px 0;
+        color: #94a3b8;
+        text-align: center;
+    }
+
+    .tcn6-dot {
+        display: inline-block;
+        flex: none;
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        background: var(--tcn6-tone, #2563eb);
+    }
+    //#endregion
+
+    //#region NOTE: Thẻ cán bộ
+    .tcn6-officer {
+        padding: 20px;
+        background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 60%);
+    }
+
+    .tcn6-officer-top {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .tcn6-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        color: #ffffff;
+        font-size: 22px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #2563eb, #4f46e5);
+        box-shadow: 0 6px 16px -6px rgba(37, 99, 235, 0.5);
+    }
+
+    .tcn6-officer-label {
+        color: #64748b;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+    }
+
+    .tcn6-officer-name {
+        margin: 2px 0 6px;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 28px;
+        color: #0f172a;
+    }
+
+    .tcn6-officer-meta {
+        margin: 18px 0 0;
+        padding-top: 14px;
+        border-top: 1px dashed #cbd5e1;
+
+        dt {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        dd {
+            margin: 2px 0 10px;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 20px;
+            color: #0f172a;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    //#endregion
+
+    //#region NOTE: Thẻ KPI
+    .tcn6-kpi-grid {
+        display: grid;
+        grid-template-columns: unquote('repeat(3, minmax(0, 1fr))');
+        gap: 16px;
+        height: 100%;
+        padding-top: 4px;
+        padding-bottom: 6px;
+        overflow: visible !important;
+    }
+
+    .tcn6-kpi {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 14px 16px;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        color: #0f172a;
+        box-sizing: border-box;
+        transition: box-shadow 0.15s ease, border-color 0.15s ease;
+        transform: none !important;
+
+        &:hover {
+            transform: none !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-color: #94a3b8;
+        }
+
+        &.tcn6-tone-blue {
+            background: #f0f6fe;
+            border-color: #bfdbfe;
+        }
+
+        &.tcn6-tone-green {
+            background: #ecfdf5;
+            border-color: #a7f3d0;
+        }
+
+        &.tcn6-tone-amber {
+            background: #fffbeb;
+            border-color: #fde68a;
+        }
+
+        &.tcn6-tone-orange {
+            background: #fff7ed;
+            border-color: #fed7aa;
+        }
+
+        &.tcn6-tone-red {
+            background: #fef2f2;
+            border-color: #fecdd3;
+        }
+
+        &.tcn6-tone-purple {
+            background: #f5f3ff;
+            border-color: #ddd6fe;
+        }
+
+        &.tcn6-tone-indigo {
+            background: #eef2ff;
+            border-color: #c7d2fe;
+        }
+
+        &.tcn6-tone-pink {
+            background: #fdf2f8;
+            border-color: #fbcfe8;
+        }
+
+        &.tcn6-tone-slate,
+        &.tcn6-tone-muted {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+    }
+
+    .tcn6-kpi-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .tcn6-kpi-title {
+        color: #475569;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 18px;
+    }
+
+    .tcn6-kpi-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: #f1f5f9;
+        color: #475569;
+
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    .tcn6-tone-blue .tcn6-kpi-icon { background: #dbeafe; color: #1d4ed8; }
+    .tcn6-tone-green .tcn6-kpi-icon { background: #d1fae5; color: #047857; }
+    .tcn6-tone-amber .tcn6-kpi-icon { background: #fef3c7; color: #b45309; }
+    .tcn6-tone-orange .tcn6-kpi-icon { background: #ffedd5; color: #c2410c; }
+    .tcn6-tone-red .tcn6-kpi-icon { background: #fee2e2; color: #b91c1c; }
+    .tcn6-tone-purple .tcn6-kpi-icon { background: #ede9fe; color: #7c3aed; }
+    .tcn6-tone-indigo .tcn6-kpi-icon { background: #e0e7ff; color: #4338ca; }
+    .tcn6-tone-pink .tcn6-kpi-icon { background: #fce7f3; color: #be185d; }
+    .tcn6-tone-slate .tcn6-kpi-icon { background: #f1f5f9; color: #334155; }
+    .tcn6-tone-muted .tcn6-kpi-icon { background: #f1f5f9; color: #64748b; }
+
+    .tcn6-kpi-val {
+        margin-top: auto;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 36px;
+        letter-spacing: -0.5px;
+        color: #0f172a;
+    }
+
+    .tcn6-kpi-unit {
+        color: #64748b;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    // Thẻ tổng: nền màu gradient xanh, chữ trắng
+    .tcn6-kpi-total {
+        border-color: transparent !important;
+        background: linear-gradient(135deg, #1d4ed8, #4338ca) !important;
+        box-shadow: 0 4px 12px -2px rgba(29, 78, 216, 0.35);
+        transform: none !important;
+
+        &:hover {
+            transform: none !important;
+            box-shadow: 0 6px 16px -2px rgba(29, 78, 216, 0.45) !important;
+        }
+
+        .tcn6-kpi-title,
+        .tcn6-kpi-val,
+        .tcn6-kpi-unit {
+            color: #ffffff !important;
+        }
+
+        .tcn6-kpi-unit {
+            opacity: 0.85;
+        }
+
+        .tcn6-kpi-icon {
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.22) !important;
+        }
+
+        .tcn6-kpi-val {
+            font-size: 34px;
+            font-weight: 800;
+        }
+    }
+
+    // Thẻ cảnh báo: viền trái và số theo màu nhấn
+    .tcn6-kpi-warn {
+        border-left: 4px solid var(--tcn6-tone, #dc2626) !important;
+
+        .tcn6-kpi-val {
+            color: var(--tcn6-tone, #dc2626) !important;
+        }
+    }
+    //#endregion
+
+    //#region NOTE: Thẻ loại hồ sơ
+    .tcn6-loai-row {
+        display: grid;
+        grid-template-columns: unquote('repeat(6, minmax(0, 1fr))');
+        gap: 12px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        overflow: visible !important;
+    }
+
+    .tcn6-loai-chip {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 9px 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        background: #ffffff;
+        box-sizing: border-box;
+        transition: box-shadow 0.15s ease, border-color 0.15s ease;
+        cursor: default;
+        transform: none !important;
+
+        &:hover {
+            transform: none !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border-color: #94a3b8;
+        }
+
+        &.tcn6-tone-blue { background: #f0f6fe; border-color: #bfdbfe; }
+        &.tcn6-tone-green { background: #ecfdf5; border-color: #a7f3d0; }
+        &.tcn6-tone-amber { background: #fffbeb; border-color: #fde68a; }
+        &.tcn6-tone-orange { background: #fff7ed; border-color: #fed7aa; }
+        &.tcn6-tone-red { background: #fef2f2; border-color: #fecdd3; }
+        &.tcn6-tone-purple { background: #f5f3ff; border-color: #ddd6fe; }
+        &.tcn6-tone-indigo { background: #eef2ff; border-color: #c7d2fe; }
+        &.tcn6-tone-pink { background: #fdf2f8; border-color: #fbcfe8; }
+        &.tcn6-tone-slate,
+        &.tcn6-tone-muted { background: #f8fafc; border-color: #cbd5e1; }
+
+        span {
+            overflow: hidden;
+            color: #1e293b;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        b {
+            color: #0f172a;
+            font-size: 16px;
+            font-weight: 700;
+        }
+    }
+
+    .tcn6-vlegend {
+        > div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #0f172a;
+
+            span {
+                flex: 1;
+                overflow: hidden;
+                color: #475569;
+                font-weight: 500;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            b {
+                font-size: 14px;
+                font-weight: 700;
+                color: #0f172a;
+            }
+
+            small {
+                min-width: 48px;
+                color: #64748b;
+                font-size: 12px;
+                text-align: right;
+            }
+        }
+    }
+    //#endregion
+
+    //#region NOTE: Donut và legend dọc
+    .tcn6-donut-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+
+        strong {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 32px;
+            color: #0f172a;
+        }
+
+        small {
+            color: #64748b;
+            font-size: 12px;
+        }
+    }
+
+    .tcn6-vlegend {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        padding-left: 16px;
+
+        > div {
+            padding: 8px 0;
+            border-bottom: 1px dashed #e2e8f0;
+
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+    }
+    //#endregion
+
+    //#region NOTE: Grid danh sách hồ sơ (Vách ngăn rõ nét)
+    .tcn6-grid {
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        overflow: hidden;
+
+        .x-grid-header-ct {
+            border: 0;
+            background: #f1f5f9 !important;
+            border-bottom: 2px solid #cbd5e1 !important;
+            border-radius: 8px 8px 0 0;
+            box-shadow: none;
+        }
+
+        .x-column-header {
+            background: transparent !important;
+            border-top: none !important;
+            border-left: none !important;
+            border-bottom: none !important;
+            border-right: 1px solid #e2e8f0 !important;
+            box-shadow: none !important;
+
+            &:last-child {
+                border-right: none !important;
+            }
+        }
+
+        .x-column-header-inner {
+            padding: 10px 12px !important;
+            background: transparent !important;
+            text-align: left;
+        }
+
+        .x-column-header-align-center .x-column-header-inner {
+            text-align: center;
+        }
+
+        .x-column-header-text-inner {
+            color: #0f172a !important;
+            font-size: 12px !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+
+        .x-column-header-over,
+        .x-column-header-open {
+            background: #e2e8f0 !important;
+        }
+
+        .x-column-header-trigger {
+            border-left: 0;
+            background-color: transparent;
+        }
+
+        .x-grid-item {
+            background: #ffffff;
+        }
+
+        .x-grid-item-alt {
+            background: #f8fafc;
+        }
+
+        .x-grid-item-over,
+        .x-grid-item-selected {
+            background: #eff6ff !important;
+        }
+
+        .x-grid-cell {
+            border-top: none !important;
+            border-left: none !important;
+            border-right: 1px solid #e2e8f0 !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+
+            &:last-child {
+                border-right: none !important;
+            }
+        }
+
+        .x-grid-cell-inner {
+            padding: 10px 12px;
+            color: #0f172a;
+            font-size: 13px;
+            line-height: 20px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .x-grid-td {
+            border-bottom: 1px solid #e2e8f0;
+        }
+    }
+
+    .tcn6-code {
+        font-family: unquote('ui-monospace, "SFMono-Regular", Consolas, monospace');
+        font-weight: 600;
+        color: #1d4ed8;
+    }
+
+    .tcn6-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 18px;
+        background: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        color: #334155;
+
+        &:before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        &.tcn6-tone-blue { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+        &.tcn6-tone-green { background: #f0fdf4; border-color: #bbf7d0; color: #15803d; }
+        &.tcn6-tone-amber { background: #fffbeb; border-color: #fde68a; color: #b45309; }
+        &.tcn6-tone-orange { background: #fff7ed; border-color: #fed7aa; color: #c2410c; }
+        &.tcn6-tone-red { background: #fef2f2; border-color: #fecdd3; color: #b91c1c; }
+        &.tcn6-tone-purple { background: #faf5ff; border-color: #e9d5ff; color: #6b21a8; }
+        &.tcn6-tone-indigo { background: #eef2ff; border-color: #c7d2fe; color: #4338ca; }
+        &.tcn6-tone-pink { background: #fdf2f8; border-color: #fbcfe8; color: #be185d; }
+    }
+    //#endregion
+
+    //#region NOTE: Token màu
+    .tcn6-tone-blue { --tcn6-tone: #2563eb; color: #2563eb; }
+    .tcn6-tone-green { --tcn6-tone: #059669; color: #059669; }
+    .tcn6-tone-amber { --tcn6-tone: #d97706; color: #d97706; }
+    .tcn6-tone-orange { --tcn6-tone: #ea580c; color: #ea580c; }
+    .tcn6-tone-red { --tcn6-tone: #dc2626; color: #dc2626; }
+    .tcn6-tone-purple { --tcn6-tone: #7c3aed; color: #7c3aed; }
+    .tcn6-tone-indigo { --tcn6-tone: #4f46e5; color: #4f46e5; }
+    .tcn6-tone-pink { --tcn6-tone: #db2777; color: #db2777; }
+    .tcn6-tone-slate { --tcn6-tone: #475569; color: #475569; }
+    .tcn6-tone-muted { --tcn6-tone: #64748b; color: #64748b; }
+
+    .tcn6-title-icon {
+        color: var(--tcn6-tone, #2563eb);
+    }
+    //#endregion
+}
+
+.dark-mode .trang-chu-new6 {
+    --tcn6-brand: #34d399;
+    --tcn6-blue: #60a5fa;
+    --tcn6-green: #34d399;
+    --tcn6-amber: #fbbf24;
+    --tcn6-orange: #fb923c;
+    --tcn6-red: #f87171;
+    --tcn6-purple: #a78bfa;
+    --tcn6-indigo: #818cf8;
+    --tcn6-pink: #f472b6;
+    --tcn6-slate: #94a3b8;
+    --tcn6-muted: #64748b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .trang-chu-new6 .tcn6-kpi,
+    .trang-chu-new6 .tcn6-loai-chip {
+        transition: none;
+    }
+}
+
+@media (max-width: 1280px) {
+    .trang-chu-new6 .tcn6-kpi-grid,
+    .trang-chu-new6 .tcn6-loai-row {
+        grid-template-columns: unquote('repeat(3, minmax(0, 1fr))');
+    }
+}

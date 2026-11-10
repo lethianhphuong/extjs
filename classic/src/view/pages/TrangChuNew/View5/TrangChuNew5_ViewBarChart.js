@@ -8,7 +8,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewBarChart', {
     listeners: { afterrender: 'onChartReady', storechange: 'onBarStoreChange' },
     axes: [
         { type: 'numeric', position: 'left', minimum: 0, hidden: true },
-        { type: 'category', position: 'bottom', fields: ['code'], label: { fontSize: 10, rotationRads: 0 },
+        { type: 'category', position: 'bottom', fields: ['code'], label: { fontSize: 10, rotationRads: 0, color: '#475569' },
             style: { textPadding: 0 },
             renderer: function (axis, value) {
                 const chart = axis.getChart();
@@ -21,7 +21,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewBarChart', {
     series: [{
         type: 'bar', xField: 'code', yField: 'val',
         style: { maxBarWidth: 28, radius: 4 },
-        label: { field: 'val', display: 'outside', orientation: 'horizontal', calloutLine: false },
+        label: { field: 'val', display: 'outside', orientation: 'horizontal', calloutLine: false, color: '#0f172a' },
         renderer: function (sprite, config, data, index) {
             const me = this;
             const palette = me.getChart().recordColors;

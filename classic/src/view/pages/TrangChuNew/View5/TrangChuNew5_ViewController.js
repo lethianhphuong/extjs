@@ -55,19 +55,35 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewController', {
         const view = me.getView();
         if (!view.rendered) { return; }
         const styles = window.getComputedStyle(view.getEl().dom);
-        const color = name => styles.getPropertyValue(name).trim();
+        const color = function (name, fallback) {
+            const val = styles.getPropertyValue(name).trim()
+                || (name.startsWith('--theme-') ? styles.getPropertyValue('--tcn5' + name).trim() : '');
+            return val || fallback || '';
+        };
+        const defaultPalette = {
+            blue: '#2563eb',
+            green: '#16a34a',
+            amber: '#d97706',
+            orange: '#ea580c',
+            violet: '#7c3aed',
+            pink: '#db2777',
+            cyan: '#0891b2',
+            muted: '#64748b',
+            indigo: '#4f46e5',
+            purple: '#9333ea'
+        };
         const palette = {};
         ['blue', 'green', 'amber', 'orange', 'violet', 'pink', 'cyan', 'muted', 'indigo', 'purple'].forEach(function (name) {
-            palette[name] = color('--tcn5-' + name);
+            palette[name] = color('--tcn5-' + name, defaultPalette[name]) || defaultPalette[name];
         });
         view.query('cartesian, polar').forEach(function (chart) {
             if (!chart.rendered) { return; }
             chart.recordColors = palette;
-            chart.setBackground(color('--theme-bg-card'));
+            chart.setBackground(color('--theme-bg-card', '#ffffff'));
             if (chart.getAxes) {
                 chart.getAxes().forEach(function (axis) {
-                    axis.setLabel({ color: color('--theme-text-secondary'), fontSize: 10 });
-                    axis.setStyle({ strokeStyle: color('--theme-border') });
+                    axis.setLabel({ color: color('--theme-text-secondary', '#475569'), fontSize: 10 });
+                    axis.setStyle({ strokeStyle: color('--theme-border', '#cbd5e1') });
                 });
             }
             if (chart.isXType('polar')) {
@@ -93,7 +109,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewController', {
                 const store = chart.getStore();
                 const maximum = store ? store.getRange().reduce((max, record) => Math.max(max, Number(record.get('val')) || 0), 0) : 0;
                 chart.getAxes()[0].setMaximum(Math.max(1, Math.ceil((maximum || 0) * 1.2)));
-                chart.getSeries()[0].setLabel({ color: color('--theme-text-primary'), fontSize: 10 });
+                chart.getSeries()[0].setLabel({ color: color('--theme-text-primary', '#0f172a'), fontSize: 10 });
             }
             chart.redraw();
         });

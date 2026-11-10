@@ -82,8 +82,8 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewKetQua', {
             bind: { store: '{tienDoThangStore}' },
             listeners: { afterrender: 'onChartReady' },
             axes: [
-                { type: 'numeric', position: 'left', fields: ['soLuong'], minimum: 0, majorTickSteps: 4, grid: true },
-                { type: 'category', position: 'bottom', fields: ['thang'] }
+                { type: 'numeric', position: 'left', fields: ['soLuong'], minimum: 0, majorTickSteps: 4, grid: true, label: { fontSize: 11, color: '#475569' } },
+                { type: 'category', position: 'bottom', fields: ['thang'], label: { fontSize: 11, color: '#475569' } }
             ],
             series: [{
                 type: 'line',
@@ -93,7 +93,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewKetQua', {
                 smooth: true,
                 style: { lineWidth: 3, fillOpacity: 0.14 },
                 marker: { type: 'circle', radius: 4, lineWidth: 2 },
-                label: { field: 'soLuong', display: 'over', fontSize: 12, fontWeight: 'bold' },
+                label: { field: 'soLuong', display: 'over', fontSize: 12, fontWeight: 'bold', color: '#0f172a' },
                 tooltip: {
                     trackMouse: true,
                     renderer: function (tooltip, record) {

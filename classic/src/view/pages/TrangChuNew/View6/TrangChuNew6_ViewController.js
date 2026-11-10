@@ -104,41 +104,66 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewController', {
         const view = me.getView();
         if (!view || !view.rendered) { return; }
         const styles = window.getComputedStyle(view.getEl().dom);
-        const color = name => styles.getPropertyValue(name).trim();
+        const color = function (name, fallback) {
+            let val = styles.getPropertyValue(name).trim();
+            if (!val && name.indexOf('--theme-') === 0) {
+                val = styles.getPropertyValue('--tcn6-' + name.substring(2)).trim();
+            }
+            return val || fallback || '';
+        };
+        const defaultPalette = {
+            blue: '#2563eb',
+            green: '#059669',
+            amber: '#d97706',
+            orange: '#ea580c',
+            red: '#dc2626',
+            purple: '#7c3aed',
+            indigo: '#4f46e5',
+            pink: '#db2777',
+            slate: '#475569',
+            muted: '#64748b'
+        };
         const palette = {};
         DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_DisplayConfig.tones.forEach(function (tone) {
-            palette[tone] = color('--tcn6-' + tone);
+            palette[tone] = color('--tcn6-' + tone, defaultPalette[tone]);
         });
 
         const donut = view.down('#trangThaiDonutChart_IdView');
         if (donut && donut.rendered && donut.getStore()) {
-            const colors = donut.getStore().getRange().map(record => palette[record.get('mau')] || palette.muted);
-            donut.setBackground(color('--theme-bg-card'));
+            const colors = donut.getStore().getRange().map(record => palette[record.get('mau')] || palette.muted || '#64748b');
+            const bgCard = color('--theme-bg-card', '#ffffff');
+            donut.setBackground(bgCard);
             donut.getSeries()[0].setColors(colors);
-            donut.getSeries()[0].setStyle({ strokeStyle: color('--theme-bg-card'), lineWidth: 2 });
+            donut.getSeries()[0].setStyle({ strokeStyle: bgCard, lineWidth: 2 });
             donut.redraw();
         }
 
         const line = view.down('#tienDoLineChart_IdView');
         if (line && line.rendered && line.getStore()) {
             const max = line.getStore().getRange().reduce((m, record) => Math.max(m, Number(record.get('soLuong')) || 0), 0);
-            line.setBackground(color('--theme-bg-card'));
+            const bgCard = color('--theme-bg-card', '#ffffff');
+            const textSecondary = color('--theme-text-secondary', '#475569');
+            const border = color('--theme-border', '#cbd5e1');
+            const textPrimary = color('--theme-text-primary', '#0f172a');
+            const blueTone = palette.blue || '#2563eb';
+
+            line.setBackground(bgCard);
             line.getAxes().forEach(function (axis) {
-                axis.setLabel({ color: color('--theme-text-secondary'), fontSize: 12 });
-                axis.setStyle({ strokeStyle: color('--theme-border') });
+                axis.setLabel({ color: textSecondary, fontSize: 12 });
+                axis.setStyle({ strokeStyle: border });
                 if (axis.type === 'numeric') {
                     axis.setMaximum(Math.max(10, Math.ceil(max * 1.2 / 10) * 10));
                 }
             });
             line.getSeries()[0].setStyle({
-                strokeStyle: palette.blue,
+                strokeStyle: blueTone,
                 fillStyle: { type: 'linear', degrees: 90, stops: [
-                    { offset: 0, color: palette.blue },
+                    { offset: 0, color: blueTone },
                     { offset: 1, color: 'rgba(0,0,0,0)' }
                 ] }
             });
-            line.getSeries()[0].setMarker({ fillStyle: palette.blue, strokeStyle: color('--theme-bg-card') });
-            line.getSeries()[0].setLabel({ color: color('--theme-text-primary') });
+            line.getSeries()[0].setMarker({ fillStyle: blueTone, strokeStyle: bgCard });
+            line.getSeries()[0].setLabel({ color: textPrimary });
             line.redraw();
         }
     },

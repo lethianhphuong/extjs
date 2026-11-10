@@ -20,6 +20,13 @@
     --tcn6-theme-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     --tcn6-theme-shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
 
+    /* Alias tương thích để Controller đọc trực tiếp và fallback độc lập */
+    --theme-text-primary: #0f172a;
+    --theme-text-secondary: #475569;
+    --theme-text-muted: #94a3b8;
+    --theme-bg-card: #ffffff;
+    --theme-border: #cbd5e1;
+
     --tcn6-brand: #00a47e;
     --tcn6-blue: #2563eb;
     --tcn6-green: #059669;
