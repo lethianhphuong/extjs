@@ -3,7 +3,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewKetQua', {
     xtype: 'TrangChuNew6_ViewKetQua',
     layout: { type: 'hbox', align: 'stretch' },
     items: [{
-        //#region NOTE: Trạng thái công việc (Donut + legend động)
+        //#region NOTE: Trạng thái công việc trực tiếp thực hiện (biểu đồ cột đứng theo trangThaiCongViecTrucTiep)
         xtype: 'container',
         cls: 'tcn6-card',
         flex: 1,
@@ -14,50 +14,48 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewKetQua', {
         items: [{
             xtype: 'component',
             cls: 'tcn6-card-header',
-            html: '<div class="tcn6-card-title">Trạng thái công việc trực tiếp thực hiện</div>'
+            bind: { data: '{trangThai}' },
+            tpl: '<div class="tcn6-card-title">Trạng thái công việc trực tiếp thực hiện</div>' +
+                '<span class="tcn6-muted">Tổng <b>{tongText}</b></span>'
         }, {
-            xtype: 'container',
+            xtype: 'cartesian',
+            itemId: 'trangThaiCongViecChart_IdView',
             flex: 1,
-            layout: { type: 'hbox', align: 'stretch' },
-            items: [{
-                xtype: 'container',
-                flex: 1,
-                layout: 'absolute',
-                items: [{
-                    xtype: 'polar',
-                    itemId: 'trangThaiDonutChart_IdView',
-                    anchor: '100% 100%',
-                    animation: false,
-                    insetPadding: 6,
-                    bind: { store: '{trangThaiDonutStore}' },
-                    listeners: { afterrender: 'onChartReady' },
-                    series: [{
-                        type: 'pie',
-                        angleField: 'soLuong',
-                        donut: 66,
-                        highlight: false,
-                        tooltip: {
-                            trackMouse: true,
-                            renderer: function (tooltip, record) {
-                                tooltip.setHtml(Ext.String.htmlEncode(record.get('name')) + ': <b>' +
-                                    Number(record.get('soLuong')).toLocaleString('vi-VN') + '</b> (' + record.get('tyLeText') + ')');
-                            }
-                        }
-                    }]
-                }, {
-                    xtype: 'component',
-                    cls: 'tcn6-donut-center',
-                    anchor: '100% 100%',
-                    bind: { data: '{trangThai}' },
-                    tpl: '<strong>{tongText}</strong><small>hồ sơ</small>'
-                }]
-            }, {
-                xtype: 'component',
-                flex: 1,
-                cls: 'tcn6-vlegend',
-                bind: { data: '{trangThai}' },
-                tpl: '<tpl for="items"><div class="tcn6-tone-{mau}">' +
-                    '<i class="tcn6-dot"></i><span>{name:htmlEncode}</span><b>{soLuongText}</b><small>{tyLeText}</small></div></tpl>'
+            animation: false,
+            insetPadding: { top: 24, right: 8, bottom: 4, left: 4 },
+            innerPadding: { top: 0, right: 16, bottom: 0, left: 16 },
+            bind: { store: '{trangThaiCongViecStore}' },
+            listeners: { afterrender: 'onChartReady' },
+            axes: [
+                { type: 'numeric', position: 'left', fields: ['val'], minimum: 0, majorTickSteps: 4, grid: true },
+                { type: 'category', position: 'bottom', fields: ['name'] }
+            ],
+            series: [{
+                type: 'bar',
+                xField: 'name',
+                yField: 'val',
+                style: { maxBarWidth: 56, minGapWidth: 24, radius: 6 },
+                // Màu từng cột theo code (DisplayConfig.trangThaiTone → CSS variable)
+                renderer: function (sprite, config, data, index) {
+                    const palette = this.getChart().recordColors;
+                    const record = data.store.getAt(index);
+                    const mau = palette && record ? palette[record.get('mau')] : null;
+                    return mau ? { fillStyle: mau, strokeStyle: mau } : {};
+                },
+                label: {
+                    field: 'val',
+                    display: 'outside',
+                    orientation: 'horizontal',
+                    calloutLine: false,
+                    renderer: function (text) { return Number(text || 0).toLocaleString('vi-VN'); }
+                },
+                tooltip: {
+                    trackMouse: true,
+                    renderer: function (tooltip, record) {
+                        tooltip.setHtml(Ext.String.htmlEncode(record.get('name')) + ': <b>' +
+                            Number(record.get('val') || 0).toLocaleString('vi-VN') + '</b>');
+                    }
+                }
             }]
         }]
         //#endregion
@@ -82,22 +80,22 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewKetQua', {
             bind: { store: '{tienDoThangStore}' },
             listeners: { afterrender: 'onChartReady' },
             axes: [
-                { type: 'numeric', position: 'left', fields: ['soLuong'], minimum: 0, majorTickSteps: 4, grid: true },
+                { type: 'numeric', position: 'left', fields: ['sl'], minimum: 0, majorTickSteps: 4, grid: true },
                 { type: 'category', position: 'bottom', fields: ['thang'] }
             ],
             series: [{
                 type: 'line',
                 xField: 'thang',
-                yField: 'soLuong',
+                yField: 'sl',
                 fill: true,
                 smooth: true,
                 style: { lineWidth: 3, fillOpacity: 0.14 },
                 marker: { type: 'circle', radius: 4, lineWidth: 2 },
-                label: { field: 'soLuong', display: 'over', fontSize: 12, fontWeight: 'bold' },
+                label: { field: 'sl', display: 'over', fontSize: 12, fontWeight: 'bold' },
                 tooltip: {
                     trackMouse: true,
                     renderer: function (tooltip, record) {
-                        tooltip.setHtml(Ext.String.htmlEncode(record.get('thang')) + ': <b>' + record.get('soLuong') + '</b> hồ sơ');
+                        tooltip.setHtml(Ext.String.htmlEncode(record.get('thang')) + ': <b>' + record.get('sl') + '</b> hồ sơ');
                     }
                 }
             }]

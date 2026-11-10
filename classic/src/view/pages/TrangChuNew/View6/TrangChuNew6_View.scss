@@ -217,7 +217,8 @@
     //#region NOTE: Thẻ KPI
     .tcn6-kpi-grid {
         display: grid;
-        grid-template-columns: unquote('repeat(3, minmax(0, 1fr))');
+        // 4 thẻ theo tongQuan (DataView6): lưới 2 x 2
+        grid-template-columns: unquote('repeat(2, minmax(0, 1fr))');
         gap: 16px;
         height: 100%;
     }
@@ -344,6 +345,29 @@
         font-weight: 500;
     }
 
+    // Badge chênh lệch so với kỳ trước (từ PER_* của tongQuan)
+    .tcn6-kpi-lech {
+        display: inline-block;
+        margin-left: 6px;
+        padding: 0 8px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 18px;
+        color: #64748b;
+        background: #f1f5f9;
+    }
+
+    .tcn6-kpi-lech-up {
+        color: #047857;
+        background: #ecfdf5;
+    }
+
+    .tcn6-kpi-lech-down {
+        color: #b91c1c;
+        background: #fef2f2;
+    }
+
     // Thẻ tổng: nền màu gradient xanh, chữ trắng
     .tcn6-kpi-total {
         border-color: transparent !important;
@@ -384,7 +408,7 @@
     //#region NOTE: Thẻ loại hồ sơ
     .tcn6-loai-row {
         display: grid;
-        grid-template-columns: unquote('repeat(6, minmax(0, 1fr))');
+        grid-template-columns: unquote('repeat(4, minmax(0, 1fr))');
         gap: 12px;
     }
 
@@ -675,6 +699,6 @@
 @media (max-width: 1280px) {
     .trang-chu-new6 .tcn6-kpi-grid,
     .trang-chu-new6 .tcn6-loai-row {
-        grid-template-columns: unquote('repeat(3, minmax(0, 1fr))');
+        grid-template-columns: unquote('repeat(2, minmax(0, 1fr))');
     }
 }

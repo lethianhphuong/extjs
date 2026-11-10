@@ -19,14 +19,24 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewGrid', {
         },
         {
             text: 'Loại hồ sơ',
-            dataIndex: 'loaiHsText',
-            flex: 1,
-            minWidth: 140,
+            dataIndex: 'tenLoaiDoituongMoi',
+            flex: 2,
+            minWidth: 220,
             renderer: function (val, meta, record) {
-                return '<span class="tcn6-badge tcn6-tone-' + Ext.String.htmlEncode(record.get('loaiHsTone')) + '">' + Ext.String.htmlEncode(val || '') + '</span>';
+                const text = Ext.String.htmlEncode(val || '');
+                meta.tdAttr = 'data-qtip="' + text + '"';
+                return '<span class="tcn6-badge tcn6-tone-' + Ext.String.htmlEncode(record.get('loaiTone')) + '">' + text + '</span>';
             }
         },
-        { text: 'Ngày đưa vào quản lý', dataIndex: 'ngayDuaVaoQuanLy', flex: 1, minWidth: 160, align: 'center' },
-        { text: 'Số đăng ký', dataIndex: 'soDangKy', flex: 1, minWidth: 150 }
+        { text: 'Ngày ký duyệt', dataIndex: 'ngayKyDuyetText', flex: 1, minWidth: 140, align: 'center' },
+        {
+            text: 'Số đăng ký',
+            dataIndex: 'soDangKy',
+            flex: 1,
+            minWidth: 130,
+            renderer: function (val) {
+                return val ? Ext.String.htmlEncode(val) : '<span class="tcn6-muted">—</span>';
+            }
+        }
     ]
 });

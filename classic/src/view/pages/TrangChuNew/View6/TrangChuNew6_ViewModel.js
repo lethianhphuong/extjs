@@ -12,8 +12,9 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewModel', {
     },
 
     stores: {
-        trangThaiDonutStore: { fields: ['code', 'name', 'soLuong', 'tyLeText', 'mau'] },
-        tienDoThangStore: { fields: ['thang', 'soLuong'] },
-        dsHoSoStore: { fields: ['stt', 'maDoiTuong', 'ngayDuaVaoQuanLy', 'loaiHsCode', 'loaiHsText', 'loaiHsTone', 'soDangKy'] }
+        // Key theo DataView6: trangThaiCongViecTrucTiep / tienDoXuLyTheoThang / danhSachHoSoDuocGiao
+        trangThaiCongViecStore: { fields: ['code', 'name', 'val', 'mau'] },
+        tienDoThangStore: { fields: ['thang', 'sl'] },
+        dsHoSoStore: { fields: ['stt', 'id', 'maDoiTuong', 'loaiDoituongMoi', 'tenLoaiDoituongMoi', 'loaiTone', 'ngayKyDuyet', 'ngayKyDuyetText', 'soDangKy'] }
     }
 });

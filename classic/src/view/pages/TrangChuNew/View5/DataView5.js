@@ -974,68 +974,84 @@ Ext.define('NVCB.view.Home.TrangChu.TrangChuLanhDao.View2.data', {
     capTinh: [
         {
             'code': 'DTCB',
+            'name': 'ĐTCB',
             'val': 666
         },
         {
             'code': 'SUUTRA',
+            'name': 'Sưu tra',
             'val': 532
         },
         {
             'code': 'HIEMNGHI',
+            'name': 'Hiềm nghi',
             'val': 1013
         },
         {
             'code': 'CHUYENAN',
+            'name': 'Chuyên án',
             'val': 465
         },
         {
             'code': 'CTVBM',
+            'name': 'CTVBM',
             'val': 6172
         },
         {
             'code': 'HTBM',
+            'name': 'HTBM',
             'val': 233
         },
         {
             'code': 'VANV',
+            'name': 'Vai ảo NV',
             'val': 219
         },
         {
             'code': 'NNV',
+            'name': 'Nhà nghiệp vụ',
             'val': 71
         }
     ],
     capXa: [
         {
             'code': 'DTCB',
+            'name': 'ĐTCB',
             'val': 476
         },
         {
             'code': 'SUUTRA',
+            'name': 'Sưu tra',
             'val': 327
         },
         {
             'code': 'HIEMNGHI',
+            'name': 'Hiềm nghi',
             'val': 507
         },
         {
             'code': 'CHUYENAN',
+            'name': 'Chuyên án',
             'val': 41
         },
         {
             'code': 'CTVBM',
+            'name': 'CTVBM',
             'val': 556
         },
         {
             'code': 'HTBM',
+            'name': 'HTBM',
             'val': 55
         },
         {
             'code': 'VANV',
+            'name': 'Vai ảo NV',
             'val': 51
         },
         {
             'code': 'NNV',
+            'name': 'Nhà nghiệp vụ',
             'val': 1
         }
     ],
