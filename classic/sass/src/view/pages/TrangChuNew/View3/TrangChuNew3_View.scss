@@ -900,18 +900,31 @@
 
     /* Alert list */
     .tcn3-alert-body {
-        padding: 10px 14px;
+        padding: 12px 14px;
+        box-sizing: border-box;
+    }
+
+    .tcn3-alert-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
 
     .tcn3-alert-item {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 8px 12px;
-        border-radius: 6px;
-        margin-bottom: 7px;
+        padding: 13px 14px;
+        border-radius: 8px;
+        margin-bottom: 0;
         background: #fafafa;
         border: 1px solid #f1f5f9;
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+
+        &:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
     }
 
     .tcn3-alert-left {

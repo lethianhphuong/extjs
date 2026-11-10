@@ -10,16 +10,16 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewMapAlerts', {
     ],
     cls: 'tcn3-map-alerts-row',
     layout: { type: 'hbox', align: 'stretch' },
-    height: 360,
-    minHeight: 360,
-    margin: '12 0 0 0',
+    height: 340,
+    minHeight: 340,
+
     items: [
         // Khối 1: Diễn biến mở mới và kết thúc hồ sơ (12 tháng)
         {
             xtype: 'container',
             cls: 'tcn3-card',
-            flex: 1.1,
-            margin: '0 8 0 0',
+            flex: 1,
+            margin: '0 12 0 0',
             layout: { type: 'vbox', align: 'stretch' },
             items: [
                 {
@@ -119,8 +119,8 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewMapAlerts', {
         {
             xtype: 'container',
             cls: 'tcn3-card tcn3-tone-amber',
-            flex: 1.6,
-            margin: '0 8 0 0',
+            flex: 1.4,
+            margin: '0 12 0 0',
             layout: { type: 'vbox', align: 'stretch' },
             items: [
                 {
@@ -234,7 +234,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewMapAlerts', {
         {
             xtype: 'container',
             cls: 'tcn3-card tcn3-alert-card',
-            flex: 0.9,
+            flex: 1,
             layout: { type: 'vbox', align: 'stretch' },
             items: [
                 {

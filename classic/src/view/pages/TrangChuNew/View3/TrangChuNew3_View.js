@@ -28,7 +28,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_View', {
         // 2. Thống kê KPI: 6 thẻ chỉ số chính + 6 ô loại hồ sơ nghiệp vụ
         {
             xtype: 'TrangChuNew3_ViewThongKe',
-            margin: '10 0 0 0'
+            margin: '12 0 0 0'
         },
         // 3. Cụm 3 Biểu đồ: Cơ cấu đơn vị, Biến động theo quý, Tỷ lệ quá hạn
         {

@@ -13,15 +13,15 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewCharts', {
     ],
     cls: 'tcn3-charts-row',
     layout: { type: 'hbox', align: 'stretch' },
-    height: 320,
-    minHeight: 320,
+    height: 340,
+    minHeight: 340,
     items: [
         // Biểu đồ 1: Cơ cấu hồ sơ theo loại đơn vị (Donut Chart)
         {
             xtype: 'container',
             cls: 'tcn3-card',
             flex: 1,
-            margin: '0 8 0 0',
+            margin: '0 12 0 0',
             layout: { type: 'vbox', align: 'stretch' },
             items: [
                 {
@@ -109,8 +109,8 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewCharts', {
         {
             xtype: 'container',
             cls: 'tcn3-card',
-            flex: 1.5,
-            margin: '0 8 0 0',
+            flex: 1.4,
+            margin: '0 12 0 0',
             layout: { type: 'vbox', align: 'stretch' },
             items: [
                 {
