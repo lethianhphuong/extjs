@@ -4,15 +4,15 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewGrid', {
     itemId: 'dsHoSoGrid_IdView',
     cls: 'tcn6-grid',
     border: false,
-    columnLines: false,
+    columnLines: true,
     bind: { store: '{dsHoSoStore}' },
     columns: [
-        { text: 'STT', dataIndex: 'stt', width: 64, align: 'center' },
+        { text: 'STT', dataIndex: 'stt', width: 56, align: 'center' },
         {
             text: 'Mã đối tượng',
             dataIndex: 'maDoiTuong',
-            flex: 1,
-            minWidth: 150,
+            flex: 1.2,
+            minWidth: 160,
             renderer: function (val) {
                 return '<span class="tcn6-code">' + Ext.String.htmlEncode(val || '') + '</span>';
             }
@@ -26,7 +26,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewGrid', {
                 return '<span class="tcn6-badge tcn6-tone-' + Ext.String.htmlEncode(record.get('loaiHsTone')) + '">' + Ext.String.htmlEncode(val || '') + '</span>';
             }
         },
-        { text: 'Ngày đưa vào quản lý', dataIndex: 'ngayDuaVaoQuanLy', flex: 1, minWidth: 170 },
+        { text: 'Ngày đưa vào quản lý', dataIndex: 'ngayDuaVaoQuanLy', flex: 1, minWidth: 160, align: 'center' },
         { text: 'Số đăng ký', dataIndex: 'soDangKy', flex: 1, minWidth: 150 }
     ]
 });

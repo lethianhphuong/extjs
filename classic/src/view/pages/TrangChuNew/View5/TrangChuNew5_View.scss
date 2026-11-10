@@ -1,9 +1,26 @@
 /* ==========================================================================
-   SCSS cho TrangChuNew5 (View 5) — Đồng bộ kiến trúc với View 1, 2, 3, 4
-   Namespace: DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_View
+   TrangChuNew5 Stylesheet - ExtJS 7.5 Classic Toolkit
+   Phong cách hiện đại, trực quan cho Màn hình Trang chủ View 5
+   Tất cả CSS được đóng gói ĐỘC LẬP HOÀN TOÀN trong scope .trang-chu-new5
+   Chạy độc lập 100%, không phụ thuộc app.css hay bất kỳ file CSS bên ngoài
+   Tuyệt đối KHÔNG sử dụng :root
    ========================================================================== */
 
 .trang-chu-new5 {
+    /* ==========================================================================
+       Hệ thống biến theme nội bộ View 5 (Tự chứa, độc lập với app.css)
+       ========================================================================== */
+    --tcn5-theme-text-primary: #0f172a;
+    --tcn5-theme-text-secondary: #475569;
+    --tcn5-theme-text-muted: #94a3b8;
+    --tcn5-theme-bg-card: #ffffff;
+    --tcn5-theme-bg-card-hover: #f8fafc;
+    --tcn5-theme-border: #cbd5e1;
+    --tcn5-theme-border-light: #e2e8f0;
+    --tcn5-theme-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --tcn5-theme-shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+    --tcn5-theme-bg-page: #f8fafc;
+
     --tcn5-blue: #2563eb;
     --tcn5-indigo: #4f46e5;
     --tcn5-purple: #9333ea;
@@ -14,24 +31,30 @@
     --tcn5-red: #e11d48;
     --tcn5-pink: #ec4899;
     --tcn5-cyan: #06b6d4;
-    --tcn5-muted: #94a3b8;
-    color: var(--theme-text-primary);
-    font-size: 12px;
+    --tcn5-muted: #64748b;
 
-    .tcn5-card,
-    .tcn5-metric {
-        background: var(--theme-bg-card);
-        border: 1px solid var(--theme-border);
+    background-color: #f8fafc;
+    color: #0f172a;
+    font-size: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    /* --- Card nền chung nội bộ View 5 --- */
+    .tcn5-card {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
         border-radius: 12px;
-        box-shadow: var(--theme-shadow);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         transition: transform 0.15s ease, box-shadow 0.15s ease;
 
         &:hover {
             transform: translateY(-2px);
-            box-shadow: var(--theme-shadow-lg, var(--theme-shadow));
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
         }
     }
 
+    /* ==========================================================================
+       1. KPI Metrics (Hàng 1) — Đậm đà, sắc nét, có chiều sâu
+       ========================================================================== */
     .tcn5-metrics {
         display: grid;
         grid-template-columns: unquote('repeat(6, minmax(0, 1fr))');
@@ -39,24 +62,124 @@
     }
 
     .tcn5-metric {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
         padding: 14px;
         min-height: 106px;
+        box-sizing: border-box;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+        }
+
+        &.tcn5-tone-blue {
+            background: #f0f6fe;
+            border-color: #bfdbfe;
+        }
+
+        &.tcn5-tone-green {
+            background: #ecfdf5;
+            border-color: #a7f3d0;
+        }
+
+        &.tcn5-tone-purple {
+            background: #f5f3ff;
+            border-color: #ddd6fe;
+        }
+
+        &.tcn5-tone-orange {
+            background: #fff7ed;
+            border-color: #fed7aa;
+        }
+
+        &.tcn5-tone-amber {
+            background: #fffbeb;
+            border-color: #fde68a;
+        }
+
+        &.tcn5-tone-red {
+            background: #fef2f2;
+            border-color: #fecdd3;
+        }
+
+        &.tcn5-tone-cyan {
+            background: #ecfeff;
+            border-color: #a5f3fc;
+        }
+
+        &.tcn5-tone-indigo {
+            background: #eef2ff;
+            border-color: #c7d2fe;
+        }
+
+        &.tcn5-tone-violet {
+            background: #f5f3ff;
+            border-color: #ddd6fe;
+        }
+
+        &.tcn5-tone-pink {
+            background: #fdf2f8;
+            border-color: #fbcfe8;
+        }
+
+        &.tcn5-tone-muted {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        /* Thẻ Tổng số hồ sơ đang quản lý (laTong) */
+        &.tcn5-metric-total {
+            background: #ebf5ff;
+            border: 1.5px solid #60a5fa;
+            box-shadow: 0 2px 5px rgba(37, 99, 235, 0.1);
+
+            .tcn5-metric-bottom strong {
+                color: #1d4ed8;
+                font-weight: 800;
+                font-size: 26px;
+            }
+        }
     }
 
     .tcn5-metric-label {
         display: flex;
         justify-content: space-between;
+        align-items: flex-start;
         gap: 8px;
-        color: var(--theme-text-secondary);
+        color: #1e293b;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 1.35;
         min-height: 45px;
 
         i {
-            padding: 7px;
-            background: var(--theme-bg-card-hover);
-            border-radius: 7px;
-            height: 27px;
-            width: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            flex-shrink: 0;
+            font-size: 14px;
             text-align: center;
+            background: #e2e8f0;
+            color: #475569;
+
+            &.tcn5-tone-blue { background: #dbeafe; color: #1d4ed8; }
+            &.tcn5-tone-green { background: #d1fae5; color: #047857; }
+            &.tcn5-tone-purple { background: #ede9fe; color: #7c3aed; }
+            &.tcn5-tone-orange { background: #ffedd5; color: #c2410c; }
+            &.tcn5-tone-amber { background: #fef3c7; color: #b45309; }
+            &.tcn5-tone-red { background: #fee2e2; color: #b91c1c; }
+            &.tcn5-tone-cyan { background: #cffafe; color: #0e7490; }
+            &.tcn5-tone-indigo { background: #e0e7ff; color: #4338ca; }
+            &.tcn5-tone-violet { background: #ede9fe; color: #6d28d9; }
+            &.tcn5-tone-pink { background: #fce7f3; color: #be185d; }
+            &.tcn5-tone-muted { background: #f1f5f9; color: #475569; }
         }
     }
 
@@ -69,53 +192,81 @@
 
         strong {
             font-size: 24px;
-            letter-spacing: -1px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
             line-height: 1.1;
+            color: #0f172a;
         }
     }
 
     .tcn5-badge {
-        padding: 4px 6px;
+        padding: 3px 7px;
         font-size: 11px;
         line-height: 16px;
         border-radius: 4px;
-        background: var(--theme-bg-card-hover);
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
         white-space: nowrap;
+        font-weight: 600;
+
+        &.tcn5-tone-green {
+            color: #059669;
+            background: #ecfdf5;
+            border-color: #a7f3d0;
+        }
+
+        &.tcn5-tone-red {
+            color: #e11d48;
+            background: #fff1f2;
+            border-color: #fecdd3;
+        }
+
+        &.tcn5-tone-muted {
+            color: #64748b;
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
     }
 
+    /* ==========================================================================
+       2. Hàng 2: Thẻ phân loại hồ sơ nghiệp vụ
+       ========================================================================== */
     .tcn5-summary {
         display: grid;
         grid-template-columns: unquote('repeat(8, minmax(0, 1fr))');
         gap: 10px;
         margin-top: 10px;
 
-        >div {
-            background: var(--theme-bg-card);
-            border: 1px solid var(--theme-border);
+        > div {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
             border-radius: 12px;
-            box-shadow: var(--theme-shadow);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
             padding: 8px 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-sizing: border-box;
             transition: transform 0.15s ease, box-shadow 0.15s ease;
 
             &:hover {
                 transform: translateY(-2px);
-                box-shadow: var(--theme-shadow-lg, var(--theme-shadow));
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            }
+
+            span {
+                display: inline-flex;
+                align-items: center;
+                color: #1e293b;
+                font-size: 12px;
+                font-weight: 600;
             }
 
             b {
                 font-size: 13.5px;
+                font-weight: 700;
+                color: #0f172a;
             }
-        }
-
-        span {
-            color: var(--theme-text-secondary);
-        }
-
-        .tcn5-card-icon {
-            color: var(--tcn5-tone);
         }
     }
 
@@ -126,22 +277,40 @@
         width: 28px;
         height: 28px;
         border-radius: 8px;
-        background: color-mix(in srgb, currentColor 12%, var(--theme-bg-card));
+        background: #f1f5f9;
         margin-right: 8px;
-        font-size: 14px;
+        font-size: 13px;
         vertical-align: middle;
+        flex-shrink: 0;
+
+        &.tcn5-tone-blue { background: #dbeafe; color: #1d4ed8; }
+        &.tcn5-tone-green { background: #d1fae5; color: #047857; }
+        &.tcn5-tone-purple { background: #ede9fe; color: #7c3aed; }
+        &.tcn5-tone-orange { background: #ffedd5; color: #c2410c; }
+        &.tcn5-tone-amber { background: #fef3c7; color: #b45309; }
+        &.tcn5-tone-red { background: #fee2e2; color: #b91c1c; }
+        &.tcn5-tone-cyan { background: #cffafe; color: #0e7490; }
+        &.tcn5-tone-indigo { background: #e0e7ff; color: #4338ca; }
+        &.tcn5-tone-violet { background: #ede9fe; color: #6d28d9; }
+        &.tcn5-tone-pink { background: #fce7f3; color: #be185d; }
+        &.tcn5-tone-muted { background: #f1f5f9; color: #475569; }
     }
 
+    /* ==========================================================================
+       3. Headings, Cards & Chế độ xem Đơn vị / Lực lượng
+       ========================================================================== */
     .tcn5-heading {
         display: flex;
         align-items: center;
         gap: 8px;
         padding-bottom: 14px;
-        border-bottom: 1px solid var(--theme-border-light);
+        border-bottom: 1px solid #e2e8f0;
         min-height: 32px;
 
         b {
             font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
         }
 
         &:before {
@@ -150,31 +319,34 @@
     }
 
     .tcn5-level {
-        color: var(--tcn5-blue);
-        background: var(--theme-bg-card-hover);
+        color: #2563eb;
+        background: #eff6ff;
         padding: 4px 8px;
         border-radius: 16px;
         font-size: 10px;
+        font-weight: 600;
     }
 
     .tcn5-status {
         margin-left: auto;
-        color: var(--tcn5-green);
+        color: #059669;
         font-size: 10px;
+        font-weight: 600;
     }
 
     .tcn5-inner {
-        background: var(--theme-bg-card-hover);
-        border: 1px solid var(--theme-border);
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
         border-radius: 10px;
     }
 
     .tcn5-subheading {
-        font-size: 11px;
-        font-weight: 600;
+        font-size: 12px;
+        font-weight: 700;
+        color: #0f172a;
         min-height: 44px;
         padding-bottom: 10px;
-        border-bottom: 1px solid var(--theme-border-light);
+        border-bottom: 1px solid #e2e8f0;
 
         &:before {
             display: none;
@@ -186,10 +358,12 @@
         pointer-events: none;
         line-height: 20px;
         font-size: 16px;
+        font-weight: 700;
+        color: #0f172a;
 
         small {
-            color: var(--theme-text-muted);
-            font-size: 9px;
+            color: #64748b;
+            font-size: 10px;
         }
     }
 
@@ -198,19 +372,20 @@
         flex-wrap: wrap;
         gap: 8px;
         padding-top: 12px;
-        border-top: 1px solid var(--theme-border-light);
-        font-size: 10px;
+        border-top: 1px solid #e2e8f0;
+        font-size: 11px;
 
-        >span {
+        > span {
             white-space: nowrap;
+            color: #334155;
         }
     }
 
     .tcn5-dot {
         display: inline-block;
         background: currentColor;
-        width: 7px;
-        height: 7px;
+        width: 8px;
+        height: 8px;
         border-radius: 50%;
         margin-right: 5px;
     }
@@ -218,20 +393,24 @@
     .tcn5-trend-title {
         display: flex;
         justify-content: space-between;
-        font-size: 10px;
+        font-size: 11px;
         margin-bottom: 8px;
 
-        >span {
-            color: var(--theme-text-secondary);
+        > span {
+            color: #475569;
+            font-weight: 500;
         }
     }
 
     .tcn5-trend-header {
         padding-bottom: 10px;
         margin-bottom: 8px;
-        border-bottom: 1px solid var(--theme-border);
+        border-bottom: 1px solid #cbd5e1;
     }
 
+    /* ==========================================================================
+       4. Bảng Top Đơn vị (Có vách ngăn rõ nét)
+       ========================================================================== */
     .tcn5-top-table {
         margin-top: 12px;
 
@@ -243,116 +422,77 @@
         }
 
         th {
-            background: var(--theme-bg-page);
+            background: #f1f5f9;
             text-align: left;
-            color: var(--theme-text-primary);
+            color: #0f172a;
             font-size: 11px;
             line-height: 18px;
             font-weight: 700;
             padding: 10px 8px;
-            border-bottom: 2px solid var(--theme-border);
+            border-bottom: 2px solid #cbd5e1;
+            border-right: 1px solid #e2e8f0;
 
             &:first-child {
-                width: 34px;
+                width: 38px;
+                text-align: center;
             }
 
             &:last-child {
                 width: 130px;
                 text-align: right;
+                border-right: none;
             }
         }
 
         td {
             padding: 9px 8px;
             height: 48px;
-            border-bottom: 1px solid var(--theme-border-light);
+            border-bottom: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
             line-height: 20px;
             overflow-wrap: break-word;
+            font-variant-numeric: tabular-nums;
 
             &:first-child {
                 text-align: center;
-                color: var(--theme-text-secondary);
+                color: #64748b;
             }
 
             &:last-child {
                 text-align: right;
+                font-weight: 600;
+                color: #0f172a;
+                border-right: none;
             }
         }
-    }
 
-    /* Token màu cho View 5 đồng bộ View 1 */
-    .tcn5-tone-blue {
-        --tcn5-tone: var(--tcn5-blue);
-        color: var(--tcn5-blue);
-    }
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
 
-    .tcn5-tone-green {
-        --tcn5-tone: var(--tcn5-green);
-        color: var(--tcn5-green);
-    }
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
 
-    .tcn5-tone-amber {
-        --tcn5-tone: var(--tcn5-amber);
-        color: var(--tcn5-amber);
-    }
-
-    .tcn5-tone-red {
-        --tcn5-tone: var(--tcn5-red);
-        color: var(--tcn5-red);
-    }
-
-    .tcn5-tone-purple {
-        --tcn5-tone: var(--tcn5-purple);
-        color: var(--tcn5-purple);
-    }
-
-    .tcn5-tone-cyan {
-        --tcn5-tone: var(--tcn5-cyan);
-        color: var(--tcn5-cyan);
-    }
-
-    .tcn5-tone-indigo {
-        --tcn5-tone: var(--tcn5-indigo);
-        color: var(--tcn5-indigo);
-    }
-
-    .tcn5-tone-orange {
-        --tcn5-tone: var(--tcn5-orange);
-        color: var(--tcn5-orange);
-    }
-
-    .tcn5-tone-violet {
-        --tcn5-tone: var(--tcn5-violet);
-        color: var(--tcn5-violet);
-    }
-
-    .tcn5-tone-pink {
-        --tcn5-tone: var(--tcn5-pink);
-        color: var(--tcn5-pink);
-    }
-
-    .tcn5-tone-muted {
-        --tcn5-tone: var(--tcn5-muted);
-        color: var(--tcn5-muted);
-    }
-
-    .tcn5-metric {
-        background: color-mix(in srgb, var(--tcn5-tone) 8%, var(--theme-bg-card-hover));
-        border-color: color-mix(in srgb, var(--tcn5-tone) 20%, var(--theme-border));
-        color: var(--theme-text-primary);
-    }
-
-    .tcn5-summary {
-        >div {
-            background: color-mix(in srgb, var(--tcn5-tone) 8%, var(--theme-bg-card-hover));
-            border-color: color-mix(in srgb, var(--tcn5-tone) 20%, var(--theme-border));
-            color: var(--theme-text-primary);
+        tr:hover {
+            background-color: #eff6ff;
         }
     }
 
-    .tcn5-metric-label i {
-        background: color-mix(in srgb, currentColor 10%, var(--theme-bg-card));
-    }
+    /* ==========================================================================
+       5. Token màu cho View 5
+       ========================================================================== */
+    .tcn5-tone-blue { --tcn5-tone: #2563eb; color: #2563eb; }
+    .tcn5-tone-green { --tcn5-tone: #059669; color: #059669; }
+    .tcn5-tone-amber { --tcn5-tone: #d97706; color: #d97706; }
+    .tcn5-tone-red { --tcn5-tone: #e11d48; color: #e11d48; }
+    .tcn5-tone-purple { --tcn5-tone: #9333ea; color: #9333ea; }
+    .tcn5-tone-cyan { --tcn5-tone: #06b6d4; color: #06b6d4; }
+    .tcn5-tone-indigo { --tcn5-tone: #4f46e5; color: #4f46e5; }
+    .tcn5-tone-orange { --tcn5-tone: #ea580c; color: #ea580c; }
+    .tcn5-tone-violet { --tcn5-tone: #8b5cf6; color: #8b5cf6; }
+    .tcn5-tone-pink { --tcn5-tone: #ec4899; color: #ec4899; }
+    .tcn5-tone-muted { --tcn5-tone: #64748b; color: #64748b; }
 
     .tcn5-series-button {
         background: transparent;
@@ -370,7 +510,7 @@
 
         .x-btn-inner,
         .x-btn-inner-default-small {
-            color: var(--tcn5-tone);
+            color: var(--tcn5-tone, #2563eb);
             font-size: 11px;
 
             &:before {
@@ -402,7 +542,7 @@
         }
 
         .tcn5-summary {
-            >div {
+            > div {
                 transition: none;
             }
         }
@@ -448,7 +588,6 @@
 
 @media (max-width: 480px) {
     .trang-chu-new5 {
-
         .tcn5-metrics,
         .tcn5-summary {
             grid-template-columns: unquote('minmax(0, 1fr)');

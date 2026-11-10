@@ -19,6 +19,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewModel', {
             const result = Object.assign({}, row, display);
             if (group === 'chiSo') {
                 Object.assign(result, me.formatTrend(row));
+                result.laTong = (row.code === 'DANG_QUAN_LY');
             }
             return result;
         }).sort((a, b) => a.thuTu - b.thuTu);
