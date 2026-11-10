@@ -195,13 +195,14 @@ Ext.define('DEMO.view.pages.TrangChuNew.View4.TrangChuNew4_ViewKetQua', {
                         {
                             text: 'STT',
                             dataIndex: 'stt',
-                            width: 50,
+                            width: 60,
                             align: 'center'
                         },
                         {
                             text: 'Mã đối tượng',
                             dataIndex: 'maDoiTuong',
-                            width: 130,
+                            flex: 1,
+                            minWidth: 150,
                             align: 'center',
                             renderer: function (val) {
                                 return '<span class="tcn4-code-text">' + Ext.String.htmlEncode(val) + '</span>';
@@ -210,13 +211,15 @@ Ext.define('DEMO.view.pages.TrangChuNew.View4.TrangChuNew4_ViewKetQua', {
                         {
                             text: 'Ngày đưa vào quản lý',
                             dataIndex: 'ngayDuaVaoQuanLy',
-                            width: 160,
+                            flex: 1.25,
+                            minWidth: 180,
                             align: 'center'
                         },
                         {
                             text: 'Loại hồ sơ',
                             dataIndex: 'loaiHsText',
-                            width: 120,
+                            flex: 1,
+                            minWidth: 140,
                             align: 'center',
                             renderer: function (val) {
                                 return Ext.String.htmlEncode(val || '');
@@ -225,7 +228,8 @@ Ext.define('DEMO.view.pages.TrangChuNew.View4.TrangChuNew4_ViewKetQua', {
                         {
                             text: 'Số đăng ký',
                             dataIndex: 'soDangKy',
-                            flex: 1,
+                            flex: 1.15,
+                            minWidth: 160,
                             align: 'center'
                         }
                     ]
