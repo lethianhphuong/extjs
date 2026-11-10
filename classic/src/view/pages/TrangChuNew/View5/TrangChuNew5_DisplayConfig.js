@@ -6,18 +6,20 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_DisplayConfig', {
             LAP_MOI: { icon: 'plus', mau: 'green', thuTu: 2 },
             DA_KET_THUC: { icon: 'check', mau: 'purple', thuTu: 3 },
             CHUYEN_MUC: { icon: 'exchange-alt', mau: 'orange', thuTu: 4 },
-            SAP_DEN_HAN: { icon: 'clock', mau: 'orange', thuTu: 5 },
-            QUA_HAN: { icon: 'exclamation-triangle', mau: 'red', thuTu: 6 }
+            PER_LAP_MOI: { icon: 'chart-line', mau: 'cyan', thuTu: 5 },
+            PER_DA_KET_THUC: { icon: 'history', mau: 'indigo', thuTu: 6 },
+            SAP_DEN_HAN: { icon: 'clock', mau: 'orange', thuTu: 7 },
+            QUA_HAN: { icon: 'exclamation-triangle', mau: 'red', thuTu: 8 }
         },
         loaiHoSo: {
-            DTCB: { icon: 'file-alt', mau: 'green', thuTu: 1 },
-            SUUTRA: { icon: 'clipboard', mau: 'amber', thuTu: 2 },
-            HIEMNGHI: { icon: 'exclamation-triangle', mau: 'red', thuTu: 3 },
-            CHUYENAN: { icon: 'briefcase', mau: 'purple', thuTu: 4 },
-            CTVBM: { icon: 'users', mau: 'cyan', thuTu: 5 },
-            HTBM: { icon: 'envelope', mau: 'indigo', thuTu: 6 },
-            VANV: { icon: 'id-card', mau: 'muted', thuTu: 7 },
-            NNV: { icon: 'home', mau: 'muted', thuTu: 8 }
+            DTCB: { name: 'ĐTCB', icon: 'file-alt', mau: 'green', thuTu: 1 },
+            SUUTRA: { name: 'Sưu tra', icon: 'clipboard', mau: 'amber', thuTu: 2 },
+            HIEMNGHI: { name: 'Hiềm nghi', icon: 'exclamation-triangle', mau: 'red', thuTu: 3 },
+            CHUYENAN: { name: 'Chuyên án', icon: 'briefcase', mau: 'purple', thuTu: 4 },
+            CTVBM: { name: 'CTVBM', icon: 'users', mau: 'cyan', thuTu: 5 },
+            HTBM: { name: 'HTBM', icon: 'envelope', mau: 'indigo', thuTu: 6 },
+            VANV: { name: 'Vai ảo NV', icon: 'id-card', mau: 'violet', thuTu: 7 },
+            NNV: { name: 'Nhà nghiệp vụ', icon: 'home', mau: 'pink', thuTu: 8 }
         },
         donVi: {
             P1: { mau: 'blue', thuTu: 1 },
@@ -27,14 +29,14 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_DisplayConfig', {
             P5: { mau: 'muted', thuTu: 5 }
         },
         lucLuong: {
-            DTCB: { mau: 'blue', thuTu: 1 },
-            SUUTRA: { mau: 'green', thuTu: 2 },
-            HIEMNGHI: { mau: 'amber', thuTu: 3 },
-            CHUYENAN: { mau: 'orange', thuTu: 4 },
-            CTVBM: { mau: 'violet', thuTu: 5 },
-            HTBM: { mau: 'pink', thuTu: 6 },
-            VANV: { mau: 'cyan', thuTu: 7 },
-            NNV: { mau: 'muted', thuTu: 8 }
+            DTCB: { name: 'ĐTCB', mau: 'blue', thuTu: 1 },
+            SUUTRA: { name: 'Sưu tra', mau: 'green', thuTu: 2 },
+            HIEMNGHI: { name: 'Hiềm nghi', mau: 'amber', thuTu: 3 },
+            CHUYENAN: { name: 'Chuyên án', mau: 'orange', thuTu: 4 },
+            CTVBM: { name: 'CTVBM', mau: 'violet', thuTu: 5 },
+            HTBM: { name: 'HTBM', mau: 'pink', thuTu: 6 },
+            VANV: { name: 'Vai ảo NV', mau: 'cyan', thuTu: 7 },
+            NNV: { name: 'Nhà nghiệp vụ', mau: 'muted', thuTu: 8 }
         }
     },
     /** Tra cấu hình bằng mã ổn định, không phụ thuộc vị trí response. */

@@ -11,15 +11,19 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewController', {
         const me = this;
         const vm = me.getViewModel();
         const data = DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_MockData.getData();
+        const coCauDonVi = vm.prepareCoCauDonVi(data.coCauHoSoTheoDonVi);
+        const bienDongDonVi = vm.prepareBienDongDonVi(data.bienDongHoSoTheoDonVi);
+
         vm.set({
-            chiSo: vm.prepareRows(data.chiSo, 'chiSo'),
+            chiSo: vm.prepareTongQuan(data.tongQuan),
             loaiHoSo: vm.prepareRows(data.loaiHoSo, 'loaiHoSo'),
-            donVi: vm.prepareUnits(data.donVi),
-            topTinh: data.topTinh,
-            topXa: data.topXa
+            coCauDonViList: coCauDonVi,
+            topTinh: data.topDiaBanTinhCoNhieuHoSo,
+            topXa: data.topDiaBanXaCoNhieuHoSo
         });
-        vm.getStore('donViStore').loadData(vm.get('donVi'));
-        vm.getStore('dienBienStore').loadData(data.dienBien);
+        vm.getStore('coCauDonViStore').loadData(coCauDonVi);
+        vm.getStore('bienDongDonViStore').loadData(bienDongDonVi);
+        vm.getStore('dienBienStore').loadData(data.dienBienMoMoiVaKetThuc);
         vm.getStore('capTinhStore').loadData(vm.prepareRows(data.capTinh, 'lucLuong'));
         vm.getStore('capXaStore').loadData(vm.prepareRows(data.capXa, 'lucLuong'));
         vm.notify();
@@ -70,7 +74,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewController', {
                 const colors = chart.getStore().getRange().map(record => palette[record.get('mau')] || palette.muted);
                 chart.setColors(colors);
                 chart.getSeries()[0].setColors(colors);
-                chart.getSeries()[0].setLabel({ color: color('--theme-text-primary') });
+                chart.getSeries()[0].setLabel({ color: '#ffffff' });
             } else if (chart.chartKind === 'trend') {
                 const colors = [palette.blue, palette.green];
                 chart.setColors(colors);
@@ -127,4 +131,3 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewController', {
         me.callParent(arguments);
     }
 });
-

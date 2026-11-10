@@ -11,8 +11,11 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewBarChart', {
         { type: 'category', position: 'bottom', fields: ['code'], label: { fontSize: 10, rotationRads: 0 },
             style: { textPadding: 0 },
             renderer: function (axis, value) {
-                const record = axis.getChart().getStore().findRecord('code', value, 0, false, true, true);
-                return record ? record.get('name').replace(/ /g, '\n') : value;
+                const chart = axis.getChart();
+                const store = chart ? chart.getStore() : null;
+                const record = store ? store.findRecord('code', value, 0, false, true, true) : null;
+                const text = record ? (record.get('name') || record.get('code') || value) : value;
+                return typeof text === 'string' ? text.replace(/ /g, '\n') : (text || '');
             } }
     ],
     series: [{
@@ -28,7 +31,9 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewBarChart', {
         tooltip: {
             trackMouse: true,
             renderer: function (tooltip, record) {
-                tooltip.setHtml(Ext.String.htmlEncode(record.get('name')) + ': ' + Number(record.get('val')).toLocaleString('vi-VN'));
+                const label = record ? (record.get('name') || record.get('code') || '') : '';
+                const val = record ? Number(record.get('val') || 0).toLocaleString('vi-VN') : 0;
+                tooltip.setHtml(Ext.String.htmlEncode(label) + ': ' + val);
             }
         }
     }]

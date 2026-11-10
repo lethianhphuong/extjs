@@ -85,8 +85,8 @@
 
     .tcn5-summary {
         display: grid;
-        grid-template-columns: unquote('repeat(6, minmax(0, 1fr))');
-        gap: 14px;
+        grid-template-columns: unquote('repeat(8, minmax(0, 1fr))');
+        gap: 10px;
         margin-top: 10px;
 
         > div {
@@ -94,7 +94,7 @@
             border: 1px solid var(--theme-border);
             border-radius: 12px;
             box-shadow: var(--theme-shadow);
-            padding: 8px 12px;
+            padding: 8px 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -321,7 +321,18 @@
         color: var(--tcn5-orange);
     }
 
+    .tcn5-tone-violet {
+        --tcn5-tone: var(--tcn5-violet);
+        color: var(--tcn5-violet);
+    }
+
+    .tcn5-tone-pink {
+        --tcn5-tone: var(--tcn5-pink);
+        color: var(--tcn5-pink);
+    }
+
     .tcn5-tone-muted {
+        --tcn5-tone: var(--tcn5-muted);
         color: var(--tcn5-muted);
     }
 
@@ -418,7 +429,7 @@
         }
 
         .tcn5-summary {
-            grid-template-columns: unquote('repeat(3, minmax(0, 1fr))');
+            grid-template-columns: unquote('repeat(4, minmax(0, 1fr))');
         }
     }
 }

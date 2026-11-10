@@ -11,8 +11,10 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewDienBienChart', {
         { type: 'numeric', position: 'left', minimum: 0, grid: true },
         { type: 'category', position: 'bottom', fields: ['code'],
             renderer: function (axis, value) {
-                const record = axis.getChart().getStore().findRecord('code', value, 0, false, true, true);
-                return record ? record.get('name') : value;
+                const chart = axis.getChart();
+                const store = chart ? chart.getStore() : null;
+                const record = store ? store.findRecord('code', value, 0, false, true, true) : null;
+                return record ? (record.get('name') || value) : value;
             } }
     ],
     series: [
@@ -23,7 +25,9 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewDienBienChart', {
             tooltip: {
                 trackMouse: true,
                 renderer: function (tooltip, record) {
-                    tooltip.setHtml(Ext.String.htmlEncode(record.get('nameHover') || record.get('name')) + ' — Mở mới: ' + Number(record.get('moMoi')).toLocaleString('vi-VN') + ' hồ sơ');
+                    const title = record ? (record.get('nameHover') || record.get('name') || '') : '';
+                    const val = record ? Number(record.get('moMoi') || 0).toLocaleString('vi-VN') : 0;
+                    tooltip.setHtml(Ext.String.htmlEncode(title) + ' — Mở mới: ' + val + ' hồ sơ');
                 }
             }
         },
@@ -34,7 +38,9 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewDienBienChart', {
             tooltip: {
                 trackMouse: true,
                 renderer: function (tooltip, record) {
-                    tooltip.setHtml(Ext.String.htmlEncode(record.get('nameHover') || record.get('name')) + ' — Kết thúc: ' + Number(record.get('ketThuc')).toLocaleString('vi-VN') + ' hồ sơ');
+                    const title = record ? (record.get('nameHover') || record.get('name') || '') : '';
+                    const val = record ? Number(record.get('ketThuc') || 0).toLocaleString('vi-VN') : 0;
+                    tooltip.setHtml(Ext.String.htmlEncode(title) + ' — Kết thúc: ' + val + ' hồ sơ');
                 }
             }
         }
