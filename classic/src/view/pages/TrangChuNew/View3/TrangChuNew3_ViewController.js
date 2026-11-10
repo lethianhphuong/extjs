@@ -262,13 +262,18 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewController', {
         });
 
         // 8. Ánh xạ loại đối tượng
-        const loaiDoiTuongList = Array.isArray(data.loaiDoiTuong) ? data.loaiDoiTuong.map(function (it) {
+        // Đảo ngược thứ tự để khi vẽ trên Horizontal Bar Chart (flipXY: true)
+        // danh mục thứ nhất trong API sẽ hiển thị ở trên cùng (ExtJS category axis vẽ từ dưới lên trên).
+        const rawLoaiDoiTuong = Array.isArray(data.loaiDoiTuong) ? data.loaiDoiTuong : [];
+        const loaiDoiTuongList = rawLoaiDoiTuong.slice().reverse().map(function (it, idx) {
+            const originalIndex = rawLoaiDoiTuong.length - 1 - idx;
             return {
                 code: it.code || '',
                 name: it.name || it.ten || '',
-                val: typeof it.val === 'number' ? it.val : 0
+                val: typeof it.val === 'number' ? it.val : 0,
+                originalIndex: originalIndex
             };
-        }) : [];
+        });
 
         // 9. Tình hình đơn vị theo cấp từ tabList (CUC / TINH / XA: Grid 14 cột theo chuẩn nghiệp vụ)
         const mockRaw = DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_MockData.getData();

@@ -269,7 +269,8 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewCharts', {
                                 const store = rendererData.store;
                                 const record = store ? store.getAt(index) : null;
                                 const key = record ? (record.get('code') || record.get('name')) : null;
-                                const color = cfg.getLoaiDoiTuongColor(key, index);
+                                const originalIndex = record && record.get('originalIndex') !== undefined ? record.get('originalIndex') : index;
+                                const color = cfg.getLoaiDoiTuongColor(key, originalIndex);
 
                                 return {
                                     fillStyle: color,
