@@ -16,6 +16,8 @@ Quy trình: khảo sát và trình bày plan trước khi thay đổi, triển k
 
 Không tự ý build (dev hoặc prod): Tuyệt đối không tự động chạy các lệnh build (`sencha app build`, `sencha app build development`, `sencha app build production`, `sencha app build classic`...). Chỉ khi nào người dùng có yêu cầu/lệnh rõ ràng mới được chạy lệnh build. Không tự ý dùng lệnh build làm bước kiểm tra xác minh code để tránh phát sinh file rác vào `build/`, `classic.jsonp`.
 
+Không viết CSS vào `resources/css/`: Tuyệt đối không thêm, sửa hoặc viết CSS vào thư mục `resources/css/` (bao gồm `resources/css/app.css` hay tạo thêm file CSS mới tại đây). Mọi style cho màn hình, popup và component phải được viết bằng SCSS tại `classic/sass/src/` theo đúng cấu trúc namespace ánh xạ từ View theo CONVENTIONS.md.
+
 Sau khi code, bắt buộc thực thi kiểm tra để xác minh phần thay đổi chạy được theo mục “Bắt buộc kiểm tra chạy và sửa lỗi sau khi code” trong AGENTS.md. Chạy kiểm tra và tự động fix lint trên các file JS thay đổi bằng `npx eslint <file> --fix` (hoặc `npm run lint:fix`), đảm bảo sạch lỗi/cảnh báo theo `.eslintrc.json`. Với giao diện phải thử luồng runtime/UI liên quan. Nếu lỗi thuộc phạm vi task, sửa và kiểm tra lại đến khi đạt, không chỉ báo lỗi rồi dừng. Nếu môi trường hoặc lỗi ngoài phạm vi chặn việc xác minh, báo rõ bằng chứng đã kiểm tra và phần còn bị chặn; không khẳng định chạy được khi chưa thực thi.
 
 Các quy trình dùng chung nằm trong `.agents/skills/`; mở file tương ứng khi công cụ không tự phát hiện skill:

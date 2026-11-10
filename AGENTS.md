@@ -70,7 +70,7 @@ Quy tắc này áp dụng cho toàn repository và ưu tiên hơn hướng dẫn
 - `classic/src/view/components/`: component dùng qua nhiều màn hình, ví dụ `ComBoDiaChi/`.
 - `app/`: code dùng chung, gồm `Common.js` và `view/common/NotiCommon.js`.
 - `classic/overrides/`: hành vi mặc định toàn cục; đọc override liên quan trước khi cấu hình component/proxy.
-- `classic/sass/src/`: SCSS theo namespace; `resources/css/app.css`: theme variables và utility classes.
+- `classic/sass/src/`: SCSS theo namespace (nơi duy nhất viết style cho view/component); `resources/css/app.css`: theme variables và utility classes tĩnh có sẵn (không viết css vào đây).
 - `app.json`, `workspace.json`, `index.html`: cấu hình và entry; thư viện bên thứ ba nằm trong `lib/`, được nạp qua HTML.
 - `scripts/`, `tests/`: kiểm tra hiện có; đọc phạm vi và điều kiện chạy trước khi dùng.
 
@@ -98,6 +98,7 @@ Quy tắc này áp dụng cho toàn repository và ưu tiên hơn hướng dẫn
 
 - Không sửa SDK `ext/`, thư viện vendor `lib/`, secret hoặc môi trường thật nếu task không yêu cầu.
 - Không sửa tay output `build/`, `bootstrap.js`, `bootstrap.css`, `classic.json`, `classic.jsonp`; kiểm tra diff sau lệnh Sencha có sinh file.
+- **Không viết CSS vào `resources/css/`**: Tuyệt đối không tự ý thêm, sửa hoặc viết CSS vào thư mục `resources/css/` (bao gồm `resources/css/app.css` hoặc tạo file CSS mới trong thư mục này). Mọi style của màn hình, popup và component phải được viết bằng SCSS tại `classic/sass/src/` theo đúng cấu trúc namespace ánh xạ từ View theo CONVENTIONS.md (mục 8).
 - **Không tự ý build (dev hoặc prod)**: Tuyệt đối không tự động chạy các lệnh build (`sencha app build`, `sencha app build development`, `sencha app build production`, `sencha app build classic`...). Chỉ khi nào người dùng có yêu cầu/lệnh trực tiếp mới được chạy lệnh build. Không tự ý dùng lệnh build làm bước kiểm tra code vì sẽ sinh ra file rác trong `build/`, `classic.jsonp`.
 - Không chuyển sang React/MUI, ES modules hoặc thêm bundler. Dự án sử dụng ESLint v8 với cấu hình tại `.eslintrc.json`. Sử dụng `npx eslint <file>` (hoặc `npm run lint`) để kiểm tra lint các file thay đổi, và `npx eslint <file> --fix` (hoặc `npm run lint:fix`) để tự động chuẩn hóa nháy đơn, chấm phẩy, trailing comma. Không tự ý cài thêm dependency ngoài phạm vi.
 - Các lệnh Sencha được tài liệu hiện tại ghi nhận: `sencha app watch`, `sencha app build`, `sencha app build classic`. Kiểm tra công cụ/profile phù hợp trước khi chạy; không chạy server hoặc build khi task chỉ lập brief hoặc khi chưa có lệnh build rõ ràng từ người dùng.
