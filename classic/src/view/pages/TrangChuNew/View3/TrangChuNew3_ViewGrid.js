@@ -38,7 +38,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewGrid', {
         bind: { store: '{gridStore}' },
         enableColumnHide: true,
         enableColumnMove: true,
-        columnLines: false,
+        columnLines: true,
         viewConfig: {
             stripeRows: true,
             enableTextSelection: true,
@@ -49,23 +49,23 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewGrid', {
         columns: {
             defaults: { align: 'right', renderer: 'renderSoLieuGrid' },
             items: [
-                { text: 'STT', dataIndex: 'stt', width: 56, align: 'center', renderer: 'renderSttGrid' },
-                { text: 'Đơn vị', dataIndex: 'tenDonVi', align: 'left', minWidth: 220, flex: 1, renderer: 'renderDonViGrid' },
-                { text: 'Tổng số hồ sơ<br>đang quản lý', dataIndex: 'tongHoSo', width: 116, tdCls: 'tcn3-col-total' },
+                { text: 'STT', dataIndex: 'stt', width: 50, align: 'center', renderer: 'renderSttGrid' },
+                { text: 'Đơn vị', dataIndex: 'tenDonVi', align: 'left', minWidth: 220, flex: 1.5, renderer: 'renderDonViGrid' },
+                { text: 'Tổng số hồ sơ<br>đang quản lý', dataIndex: 'tongHoSo', width: 135, tdCls: 'tcn3-col-total' },
                 {
                     text: 'Biến động trong kỳ',
                     align: 'center',
                     defaults: { align: 'right', renderer: 'renderSoLieuGrid' },
                     columns: [
-                        { text: 'Mở mới', dataIndex: 'moMoi', width: 84 },
-                        { text: 'Kết thúc', dataIndex: 'ketThuc', width: 84 },
-                        { text: 'Chuyển mức', dataIndex: 'chuyenMuc', width: 92 }
+                        { text: 'Mở mới', dataIndex: 'moMoi', width: 88 },
+                        { text: 'Kết thúc', dataIndex: 'ketThuc', width: 88 },
+                        { text: 'Chuyển mức', dataIndex: 'chuyenMuc', width: 95 }
                     ]
                 },
                 {
                     text: 'Theo loại hồ sơ',
                     align: 'center',
-                    defaults: { align: 'right', width: 80, renderer: 'renderSoLieuGrid' },
+                    defaults: { align: 'right', width: 85, renderer: 'renderSoLieuGrid' },
                     columns: [
                         { text: 'ĐTCB', dataIndex: 'dtcb' },
                         { text: 'Sưu tra', dataIndex: 'suuTra' },
