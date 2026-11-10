@@ -221,6 +221,9 @@
         grid-template-columns: unquote('repeat(2, minmax(0, 1fr))');
         gap: 16px;
         height: 100%;
+        padding-top: 4px;
+        padding-bottom: 6px;
+        overflow: visible !important;
     }
 
     .tcn6-kpi {
@@ -228,17 +231,19 @@
         display: flex;
         flex-direction: column;
         padding: 14px 16px;
-        overflow: hidden;
         background: #ffffff;
         border: 1px solid #cbd5e1;
         border-radius: 12px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         color: #0f172a;
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        box-sizing: border-box;
+        transition: box-shadow 0.15s ease, border-color 0.15s ease;
+        transform: none !important;
 
         &:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            transform: none !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-color: #94a3b8;
         }
 
         &.tcn6-tone-blue {
@@ -373,6 +378,12 @@
         border-color: transparent !important;
         background: linear-gradient(135deg, #1d4ed8, #4338ca) !important;
         box-shadow: 0 4px 12px -2px rgba(29, 78, 216, 0.35);
+        transform: none !important;
+
+        &:hover {
+            transform: none !important;
+            box-shadow: 0 6px 16px -2px rgba(29, 78, 216, 0.45) !important;
+        }
 
         .tcn6-kpi-title,
         .tcn6-kpi-val,
@@ -410,6 +421,9 @@
         display: grid;
         grid-template-columns: unquote('repeat(4, minmax(0, 1fr))');
         gap: 12px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        overflow: visible !important;
     }
 
     .tcn6-loai-chip {
@@ -421,12 +435,15 @@
         border: 1px solid #cbd5e1;
         border-radius: 10px;
         background: #ffffff;
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        box-sizing: border-box;
+        transition: box-shadow 0.15s ease, border-color 0.15s ease;
         cursor: default;
+        transform: none !important;
 
         &:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            transform: none !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border-color: #94a3b8;
         }
 
         &.tcn6-tone-blue { background: #f0f6fe; border-color: #bfdbfe; }
