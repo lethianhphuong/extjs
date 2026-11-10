@@ -255,6 +255,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewController', {
                 diaBan: it.kyHieu || it.name || it.diaBan || '',
                 soHoSo: val,
                 soHoSoText: Number(val).toLocaleString('vi-VN'),
+                tyLe: Math.max(0, Math.min(100, Math.round((val / (topDiaBanList[0] && (topDiaBanList[0].val || topDiaBanList[0].soHoSo) ? (topDiaBanList[0].val || topDiaBanList[0].soHoSo) : 1)) * 100))),
                 loai: 'tinh'
             };
         });
@@ -557,7 +558,9 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewController', {
     /** Mở URL bản đồ (URL cấu hình trong TrangChuNew3_DisplayConfig) */
     onOpenMapUrl: function () {
         const cfg = DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_DisplayConfig;
-        const fakeMapUrl = (cfg && cfg.bandoMapUrl) || 'https://gis.demo.bando-dieuhanh.gov.vn/phan-bo-ho-so?view=toan-quoc';
+        const targetHash = (cfg && cfg.bandoMapUrl) || '#ban-do';
+        const cleanHash = targetHash.indexOf('#') === 0 ? targetHash : '#' + targetHash;
+        const fakeMapUrl = window.location.origin + window.location.pathname + cleanHash;
         window.open(fakeMapUrl, '_blank');
     },
 
