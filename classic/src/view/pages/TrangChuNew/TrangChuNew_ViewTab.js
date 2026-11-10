@@ -4,6 +4,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.TrangChuNew_ViewTab', {
     requires: [
         'DEMO.view.pages.TrangChuNew.View1.TrangChuNew1_View',
         'DEMO.view.pages.TrangChuNew.View2.TrangChuNew2_View',
+        'DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_View',
         'Ext.chart.PolarChart',
         'Ext.chart.CartesianChart',
         'Ext.chart.series.Pie',

@@ -11,7 +11,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewThongKe', {
             bind: { data: '{kpiCards}' },
             tpl: '<div class="tcn3-metrics">' +
                 '<tpl for=".">' +
-                '<div class="tcn3-metric tcn3-tone-{mau}" data-tcn3-tip="{name:htmlEncode}: {[Number(values.val).toLocaleString("vi-VN")]} hồ sơ<tpl if="hienBienDong"> — {lech:htmlEncode}</tpl>">' +
+                '<div class="tcn3-metric tcn3-tone-{mau}<tpl if="laTong"> tcn3-metric-total</tpl>" data-tcn3-tip="{name:htmlEncode}: {[Number(values.val).toLocaleString("vi-VN")]} hồ sơ<tpl if="hienBienDong"> — {lech:htmlEncode}</tpl>">' +
                 '  <div class="tcn3-metric-label">{name:htmlEncode}<i class="x-fa fa-{icon} tcn3-tone-{mau}"></i></div>' +
                 '  <div class="tcn3-metric-bottom" style="display: flex; flex-direction: row; align-items: center; gap: 8px; flex-wrap: wrap;">' +
                 '    <strong>{[Number(values.val).toLocaleString("vi-VN")]}</strong>' +

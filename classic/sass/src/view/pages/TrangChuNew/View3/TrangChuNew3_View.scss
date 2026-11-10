@@ -1,12 +1,37 @@
 /* ==========================================================================
    TrangChuNew3 Stylesheet - ExtJS 7.5 Classic Toolkit
    Phong cách hiện đại, trực quan cho Màn hình Trang chủ Lãnh đạo
-   Tất cả CSS được đóng gói an toàn trong scope .trang-chu-new3 để không ảnh hưởng Tab 1, Tab 2
+   Tất cả CSS được đóng gói ĐỘC LẬP HOÀN TOÀN trong scope .trang-chu-new3
+   Chạy độc lập 100%, không phụ thuộc app.css hay bất kỳ file CSS bên ngoài
    Tuyệt đối KHÔNG sử dụng :root
    ========================================================================== */
 
 .trang-chu-new3 {
+    /* ==========================================================================
+       Hệ thống biến theme nội bộ View 3 (Tự chứa, độc lập với app.css)
+       ========================================================================== */
+    --tcn3-theme-text-primary: #0f172a;
+    --tcn3-theme-text-secondary: #64748b;
+    --tcn3-theme-text-muted: #94a3b8;
+    --tcn3-theme-bg-card: #ffffff;
+    --tcn3-theme-bg-card-hover: #f8fafc;
+    --tcn3-theme-border: #e2e8f0;
+    --tcn3-theme-border-light: #f1f5f9;
+
+    --tcn3-blue: #2563eb;
+    --tcn3-indigo: #4f46e5;
+    --tcn3-purple: #9333ea;
+    --tcn3-violet: #8b5cf6;
+    --tcn3-green: #059669;
+    --tcn3-amber: #d97706;
+    --tcn3-orange: #ea580c;
+    --tcn3-red: #e11d48;
+    --tcn3-pink: #ec4899;
+    --tcn3-cyan: #06b6d4;
+    --tcn3-muted: #94a3b8;
+
     background-color: #f8fafc;
+    color: #0f172a;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
     /* --- Card nền chung nội bộ View3 --- */
@@ -20,6 +45,7 @@
     .tcn3-card-header {
         padding: 10px 14px;
         border-bottom: 1px solid #f1f5f9;
+        background: #ffffff;
     }
 
     .tcn3-header-wrap {
@@ -48,73 +74,61 @@
             width: 15px;
             height: 15px;
         }
-    }
 
-    .tcn3-tone-blue {
-        background: rgba(37, 99, 235, 0.1);
-        color: #2563eb;
-    }
+        &.tcn3-tone-blue {
+            background: #eff6ff;
+            color: #2563eb;
+        }
 
-    .tcn3-tone-green {
-        background: rgba(22, 163, 74, 0.1);
-        color: #16a34a;
-    }
+        &.tcn3-tone-green {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
 
-    .tcn3-tone-red {
-        background: rgba(220, 38, 38, 0.1);
-        color: #dc2626;
+        &.tcn3-tone-red {
+            background: #fef2f2;
+            color: #dc2626;
+        }
     }
 
     /* ==========================================================================
-       1. KPI Metrics (Hàng 1 & Hàng 2) — Đồng bộ giao diện với View 5
+       1. KPI Metrics (Hàng 1 & Hàng 2) — Đồng bộ giao diện độc lập chuẩn màu
        ========================================================================== */
-    --tcn3-blue: #2563eb;
-    --tcn3-indigo: #4f46e5;
-    --tcn3-purple: #9333ea;
-    --tcn3-violet: #8b5cf6;
-    --tcn3-green: #059669;
-    --tcn3-amber: #d97706;
-    --tcn3-orange: #ea580c;
-    --tcn3-red: #e11d48;
-    --tcn3-pink: #ec4899;
-    --tcn3-cyan: #06b6d4;
-    --tcn3-muted: #94a3b8;
-
     .tcn3-tone-blue {
-        --tcn3-tone: var(--tcn3-blue);
-        color: var(--tcn3-blue);
+        --tcn3-tone: #2563eb;
+        color: #2563eb;
     }
     .tcn3-tone-green {
-        --tcn3-tone: var(--tcn3-green);
-        color: var(--tcn3-green);
+        --tcn3-tone: #059669;
+        color: #059669;
     }
     .tcn3-tone-amber {
-        --tcn3-tone: var(--tcn3-amber);
-        color: var(--tcn3-amber);
+        --tcn3-tone: #d97706;
+        color: #d97706;
     }
     .tcn3-tone-red {
-        --tcn3-tone: var(--tcn3-red);
-        color: var(--tcn3-red);
+        --tcn3-tone: #e11d48;
+        color: #e11d48;
     }
     .tcn3-tone-purple {
-        --tcn3-tone: var(--tcn3-purple);
-        color: var(--tcn3-purple);
+        --tcn3-tone: #9333ea;
+        color: #9333ea;
     }
     .tcn3-tone-cyan {
-        --tcn3-tone: var(--tcn3-cyan);
-        color: var(--tcn3-cyan);
+        --tcn3-tone: #06b6d4;
+        color: #06b6d4;
     }
     .tcn3-tone-indigo {
-        --tcn3-tone: var(--tcn3-indigo);
-        color: var(--tcn3-indigo);
+        --tcn3-tone: #4f46e5;
+        color: #4f46e5;
     }
     .tcn3-tone-orange {
-        --tcn3-tone: var(--tcn3-orange);
-        color: var(--tcn3-orange);
+        --tcn3-tone: #ea580c;
+        color: #ea580c;
     }
     .tcn3-tone-muted {
-        --tcn3-tone: var(--tcn3-muted);
-        color: var(--tcn3-muted);
+        --tcn3-tone: #94a3b8;
+        color: #94a3b8;
     }
 
     .tcn3-kpi-container {
@@ -128,22 +142,75 @@
     }
 
     .tcn3-metric {
-        background: color-mix(in srgb, var(--tcn3-tone, #2563eb) 8%, var(--theme-bg-card-hover, #ffffff));
-        border: 1px solid color-mix(in srgb, var(--tcn3-tone, #2563eb) 20%, var(--theme-border, #e2e8f0));
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
         border-radius: 12px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        padding: 14px;
+        min-height: 106px;
+        box-sizing: border-box;
         transition: transform 0.15s ease, box-shadow 0.15s ease;
 
         &:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
         }
-    }
 
-    .tcn3-metric {
-        padding: 14px;
-        min-height: 106px;
-        box-sizing: border-box;
+        &.tcn3-tone-blue {
+            background: #f8faff;
+            border-color: #dbeafe;
+        }
+
+        &.tcn3-tone-green {
+            background: #f6fdf9;
+            border-color: #d1fae5;
+        }
+
+        &.tcn3-tone-purple {
+            background: #fcf9fe;
+            border-color: #f3e8ff;
+        }
+
+        &.tcn3-tone-orange {
+            background: #fffaf5;
+            border-color: #ffedd5;
+        }
+
+        &.tcn3-tone-amber {
+            background: #fefcf6;
+            border-color: #fef3c7;
+        }
+
+        &.tcn3-tone-red {
+            background: #fff8f8;
+            border-color: #fee2e2;
+        }
+
+        &.tcn3-tone-cyan {
+            background: #f4fdfd;
+            border-color: #cffafe;
+        }
+
+        &.tcn3-tone-indigo {
+            background: #f8f8fe;
+            border-color: #e0e7ff;
+        }
+
+        &.tcn3-tone-muted {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+        }
+
+        /* Thẻ Tổng số hồ sơ đang quản lý (laTong) */
+        &.tcn3-metric-total {
+            background: #f0f7ff;
+            border-color: #93c5fd;
+            box-shadow: 0 2px 5px rgba(37, 99, 235, 0.08);
+
+            .tcn3-metric-bottom strong {
+                color: #1d4ed8;
+            }
+        }
     }
 
     .tcn3-metric-label {
@@ -151,7 +218,7 @@
         justify-content: space-between;
         align-items: flex-start;
         gap: 8px;
-        color: var(--theme-text-secondary, #64748b);
+        color: #64748b;
         min-height: 45px;
         font-size: 12.5px;
         font-weight: 500;
@@ -162,13 +229,58 @@
             align-items: center;
             justify-content: center;
             padding: 7px;
-            background: color-mix(in srgb, currentColor 10%, #ffffff);
+            background: #f1f5f9;
             border-radius: 7px;
             height: 27px;
             width: 30px;
             text-align: center;
             font-size: 13.5px;
             flex-shrink: 0;
+
+            &.tcn3-tone-blue {
+                background: #eff6ff;
+                color: #2563eb;
+            }
+
+            &.tcn3-tone-green {
+                background: #ecfdf5;
+                color: #059669;
+            }
+
+            &.tcn3-tone-purple {
+                background: #f5f3ff;
+                color: #9333ea;
+            }
+
+            &.tcn3-tone-orange {
+                background: #fff7ed;
+                color: #ea580c;
+            }
+
+            &.tcn3-tone-amber {
+                background: #fffbeb;
+                color: #d97706;
+            }
+
+            &.tcn3-tone-red {
+                background: #fef2f2;
+                color: #e11d48;
+            }
+
+            &.tcn3-tone-cyan {
+                background: #ecfeff;
+                color: #06b6d4;
+            }
+
+            &.tcn3-tone-indigo {
+                background: #eef2ff;
+                color: #4f46e5;
+            }
+
+            &.tcn3-tone-muted {
+                background: #f1f5f9;
+                color: #64748b;
+            }
         }
     }
 
@@ -185,7 +297,7 @@
             letter-spacing: -1px;
             line-height: 1.1;
             font-weight: 700;
-            color: var(--theme-text-primary, #0f172a);
+            color: #0f172a;
         }
     }
 
@@ -225,8 +337,8 @@
         margin-top: 10px;
 
         > div {
-            background: color-mix(in srgb, var(--tcn3-tone, #2563eb) 8%, var(--theme-bg-card-hover, #ffffff));
-            border: 1px solid color-mix(in srgb, var(--tcn3-tone, #2563eb) 20%, var(--theme-border, #e2e8f0));
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 12px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
             padding: 8px 10px;
@@ -241,10 +353,19 @@
                 box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
             }
 
+            &.tcn3-tone-green { background: #f6fdf9; border-color: #d1fae5; }
+            &.tcn3-tone-amber { background: #fefcf6; border-color: #fef3c7; }
+            &.tcn3-tone-red { background: #fff8f8; border-color: #fee2e2; }
+            &.tcn3-tone-purple { background: #fcf9fe; border-color: #f3e8ff; }
+            &.tcn3-tone-cyan { background: #f4fdfd; border-color: #cffafe; }
+            &.tcn3-tone-indigo { background: #f8f8fe; border-color: #e0e7ff; }
+            &.tcn3-tone-muted { background: #f8fafc; border-color: #e2e8f0; }
+            &.tcn3-tone-blue { background: #f8faff; border-color: #dbeafe; }
+
             span {
                 display: inline-flex;
                 align-items: center;
-                color: var(--theme-text-secondary, #475569);
+                color: #475569;
                 font-size: 12px;
                 font-weight: 500;
             }
@@ -252,7 +373,7 @@
             b {
                 font-size: 13.5px;
                 font-weight: 700;
-                color: var(--theme-text-primary, #0f172a);
+                color: #0f172a;
             }
         }
 
@@ -263,13 +384,21 @@
             width: 28px;
             height: 28px;
             border-radius: 8px;
-            background: color-mix(in srgb, currentColor 12%, #ffffff);
-            color: var(--tcn3-tone);
+            background: #f1f5f9;
             margin-right: 8px;
             font-size: 13px;
             vertical-align: middle;
             flex-shrink: 0;
         }
+
+        .tcn3-tone-green .tcn3-card-icon { background: #ecfdf5; color: #059669; }
+        .tcn3-tone-amber .tcn3-card-icon { background: #fffbeb; color: #d97706; }
+        .tcn3-tone-red .tcn3-card-icon { background: #fef2f2; color: #e11d48; }
+        .tcn3-tone-purple .tcn3-card-icon { background: #f5f3ff; color: #9333ea; }
+        .tcn3-tone-cyan .tcn3-card-icon { background: #ecfeff; color: #06b6d4; }
+        .tcn3-tone-indigo .tcn3-card-icon { background: #eef2ff; color: #4f46e5; }
+        .tcn3-tone-muted .tcn3-card-icon { background: #f1f5f9; color: #64748b; }
+        .tcn3-tone-blue .tcn3-card-icon { background: #eff6ff; color: #2563eb; }
     }
 
     [data-tcn3-tip] {
@@ -580,16 +709,16 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        border: 1px solid var(--theme-border-light, #e2e8f0);
+        border: 1px solid #e2e8f0;
         border-radius: 6px;
         overflow: hidden;
-        background: var(--theme-bg-card, #ffffff);
+        background: #ffffff;
     }
 
     .tcn3-diaban-subhead {
-        background-color: var(--theme-bg-card-hover, #f8fafc);
+        background-color: #f8fafc;
         padding: 8px 12px;
-        border-bottom: 1px solid var(--theme-border-light, #e2e8f0);
+        border-bottom: 1px solid #e2e8f0;
 
         .tcn3-subhead-wrap {
             display: flex;
@@ -602,7 +731,7 @@
             margin: 0;
             font-size: 12.5px;
             font-weight: 600;
-            color: var(--theme-text-primary, #0f172a);
+            color: #0f172a;
         }
     }
 
@@ -610,12 +739,12 @@
         border: none !important;
 
         .x-grid-header-ct {
-            background-color: var(--theme-bg-card-hover, #f8fafc) !important;
+            background-color: #f8fafc !important;
             background-image: none !important;
             border-top: none !important;
             border-left: none !important;
             border-right: none !important;
-            border-bottom: 1px solid var(--theme-border-light, #e2e8f0) !important;
+            border-bottom: 1px solid #e2e8f0 !important;
             box-shadow: none !important;
         }
 
@@ -629,14 +758,14 @@
             box-shadow: none !important;
 
             &:nth-child(n+2) {
-                border-left: 1px solid var(--theme-border-light, #e2e8f0) !important;
+                border-left: 1px solid #e2e8f0 !important;
             }
 
             .x-column-header-inner {
                 background: transparent !important;
                 background-image: none !important;
                 font-weight: 600;
-                color: var(--theme-text-secondary, #64748b);
+                color: #64748b;
                 font-size: 12px;
                 padding: 6px 8px !important;
             }
@@ -652,17 +781,17 @@
             font-size: 12px;
             padding: 5px 8px;
             border-top: none !important;
-            border-bottom: 1px solid var(--theme-border-light, #f1f5f9) !important;
+            border-bottom: 1px solid #f1f5f9 !important;
             border-right: none !important;
             border-left: none !important;
 
             &:nth-child(n+2) {
-                border-left: 1px solid var(--theme-border-light, #f1f5f9) !important;
+                border-left: 1px solid #f1f5f9 !important;
             }
         }
 
         .x-grid-item-over {
-            background-color: var(--theme-bg-card-hover, #f8fafc);
+            background-color: #f8fafc;
         }
 
         .tcn3-num-cell {
@@ -673,7 +802,7 @@
             font-variant-numeric: tabular-nums;
 
             strong {
-                color: var(--theme-text-primary, #0f172a);
+                color: #0f172a;
                 font-weight: 600;
             }
         }
@@ -683,7 +812,7 @@
             width: 100%;
             height: 3px;
             border-radius: 3px;
-            background: var(--theme-border-light, #e2e8f0);
+            background: #e2e8f0;
             overflow: hidden;
 
             > span {
@@ -728,7 +857,7 @@
 
     .tcn3-diaban-name {
         font-weight: 500;
-        color: var(--theme-text-primary, #0f172a);
+        color: #0f172a;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -737,8 +866,8 @@
     .tcn3-diaban-footer {
         text-align: right;
         padding: 7px 12px 8px;
-        border-top: 1px solid var(--theme-border-light, #e2e8f0);
-        background: var(--theme-bg-card-hover, #f8fafc);
+        border-top: 1px solid #e2e8f0;
+        background: #f8fafc;
     }
 
     .tcn3-map-link {
@@ -792,22 +921,22 @@
     }
 
     .tcn3-alert-tone-red .tcn3-alert-icon {
-        background: rgba(220, 38, 38, 0.1);
+        background: #fef2f2;
         color: #dc2626;
     }
 
     .tcn3-alert-tone-orange .tcn3-alert-icon {
-        background: rgba(234, 88, 12, 0.1);
+        background: #fff7ed;
         color: #ea580c;
     }
 
     .tcn3-alert-tone-amber .tcn3-alert-icon {
-        background: rgba(217, 119, 6, 0.1);
+        background: #fffbeb;
         color: #d97706;
     }
 
     .tcn3-alert-tone-purple .tcn3-alert-icon {
-        background: rgba(124, 58, 237, 0.1);
+        background: #f5f3ff;
         color: #7c3aed;
     }
 
@@ -825,23 +954,22 @@
 
     /* ==========================================================================
        4. Bảng tình hình theo đơn vị (Hàng 5): tiêu đề + tab segmented + grid
-       Dùng !important ở các chỗ cần ghi đè style tab/grid chung của app (nền xanh lá, padding 3px).
        ========================================================================== */
     .tcn3-grid-tabpanel {
         overflow: hidden;
 
         .tcn3-grid-toolbar {
             padding: 12px 16px;
-            border-bottom: 1px solid var(--theme-border, #e2e8f0);
-            background: var(--theme-bg-card, #ffffff);
+            border-bottom: 1px solid #e2e8f0;
+            background: #ffffff;
         }
 
         /* --- Tab dạng segmented control --- */
         .tcn3-tabbar.x-tab-bar {
             padding: 4px !important;
-            border: 1px solid var(--theme-border, #e2e8f0) !important;
+            border: 1px solid #e2e8f0 !important;
             border-radius: 10px;
-            background: var(--theme-bg-card-hover, #f1f5f9) !important;
+            background: #f1f5f9 !important;
             background-image: none !important;
 
             .x-tab-bar-body {
@@ -871,27 +999,27 @@
 
             .x-tab-icon-el {
                 font-size: 13px !important;
-                color: var(--theme-text-muted, #94a3b8) !important;
+                color: #94a3b8 !important;
             }
 
             .x-tab-inner {
                 font-size: 13px !important;
                 font-weight: 600 !important;
-                color: var(--theme-text-secondary, #64748b) !important;
+                color: #64748b !important;
             }
 
             &.x-tab-over:not(.x-tab-active) {
-                background: color-mix(in srgb, var(--theme-bg-card, #ffffff) 60%, transparent) !important;
+                background: rgba(255, 255, 255, 0.7) !important;
 
                 .x-tab-inner,
                 .x-tab-icon-el {
-                    color: var(--theme-text-primary, #0f172a) !important;
+                    color: #0f172a !important;
                 }
             }
 
             &.x-tab-active {
-                background: var(--theme-bg-card, #ffffff) !important;
-                // Gạch chân màu thương hiệu (vẽ bằng box-shadow để không làm lệch chiều cao tab)
+                background: #ffffff !important;
+                // Gạch chân màu thương hiệu
                 box-shadow: inset 0 -2px 0 #00a47e, 0 1px 3px rgba(15, 23, 42, 0.12) !important;
 
                 .x-tab-inner,
@@ -916,18 +1044,18 @@
             font-weight: 700;
             line-height: 18px;
             text-align: center;
-            color: var(--theme-text-secondary, #64748b);
-            background: var(--theme-border, #e2e8f0);
+            color: #64748b;
+            background: #e2e8f0;
         }
 
         /* --- Grid --- */
         .tcn3-main-grid {
-            /* Header bảng: cùng kiểu với grid View6 (nền xanh nhạt, chữ xanh đậm, kẻ đáy xanh) */
+            /* Header bảng: nền xanh nhạt tĩnh, chữ xanh đậm, kẻ đáy xanh */
             .x-grid-header-ct {
                 border: 0 !important;
-                background: color-mix(in srgb, #00a47e 7%, var(--theme-bg-card, #ffffff)) !important;
+                background: #f0fbf8 !important;
                 background-image: none !important;
-                box-shadow: inset 0 -2px 0 color-mix(in srgb, #00a47e 30%, var(--theme-border, #e2e8f0));
+                box-shadow: inset 0 -2px 0 #b2e3d7;
             }
 
             .x-column-header {
@@ -936,11 +1064,11 @@
                 background-image: none !important;
             }
 
-            /* Hàng nhóm: kẻ đáy nhạt để tách với hàng tên cột */
+            /* Hàng nhóm */
             .x-group-header {
-                border-bottom: 1px solid color-mix(in srgb, #00a47e 18%, var(--theme-border, #e2e8f0)) !important;
+                border-bottom: 1px solid #d1efe7 !important;
 
-                >.x-column-header-inner .x-column-header-text-inner {
+                > .x-column-header-inner .x-column-header-text-inner {
                     color: #00a47e !important;
                     letter-spacing: 0.4px;
                     text-transform: uppercase;
@@ -955,7 +1083,7 @@
 
             .x-column-header-text,
             .x-column-header-text-inner {
-                color: color-mix(in srgb, #00a47e 35%, var(--theme-text-primary, #0f172a)) !important;
+                color: #0b4d3d !important;
                 font-size: 12px !important;
                 font-weight: 700 !important;
             }
@@ -967,48 +1095,60 @@
 
             .x-column-header-over,
             .x-column-header-open {
-                background: color-mix(in srgb, #00a47e 12%, var(--theme-bg-card, #ffffff)) !important;
+                background: #e6f7f2 !important;
             }
 
             .x-grid-item {
-                background: var(--theme-bg-card, #ffffff);
+                background: #ffffff;
             }
 
             .x-grid-item-alt {
-                background: color-mix(in srgb, var(--theme-bg-card-hover, #f8fafc) 70%, var(--theme-bg-card, #ffffff));
+                background: #fafbfd;
             }
 
             .x-grid-item-over,
             .x-grid-item-selected {
-                background: color-mix(in srgb, #00a47e 7%, var(--theme-bg-card, #ffffff)) !important;
+                background: #f0fbf8 !important;
             }
 
             .x-grid-cell {
                 border-right: 0 !important;
-                border-bottom: 1px solid var(--theme-border-light, #f1f5f9) !important;
+                border-bottom: 1px solid #f1f5f9 !important;
             }
 
             .x-grid-cell-inner {
                 padding: 11px 10px !important;
                 font-size: 13px;
                 line-height: 20px;
-                color: var(--theme-text-primary, #0f172a);
+                color: #0f172a;
                 font-variant-numeric: tabular-nums;
             }
 
             /* Cột tổng số nổi bật */
             .tcn3-col-total {
-                background: color-mix(in srgb, #00a47e 5%, transparent);
+                background: #f0fdf9 !important;
+                background-color: #f0fdf9 !important;
 
                 .x-grid-cell-inner {
-                    font-weight: 700;
-                    color: #00664f;
+                    font-weight: 700 !important;
+                    color: #00664f !important;
                 }
             }
 
             .tcn3-num-zero {
-                color: var(--theme-text-muted, #cbd5e1);
+                color: #cbd5e1;
             }
+        }
+    }
+
+    /* Đảm bảo cột tổng số luôn nhận diện kể cả khi style được áp dụng trực tiếp */
+    .tcn3-col-total {
+        background: #f0fdf9 !important;
+        background-color: #f0fdf9 !important;
+
+        .x-grid-cell-inner {
+            font-weight: 700 !important;
+            color: #00664f !important;
         }
     }
 
@@ -1083,7 +1223,7 @@
         cursor: pointer;
     }
 
-        .tcn3-placeholder-tab {
+    .tcn3-placeholder-tab {
         background: #ffffff;
         border: 1px solid #e2e8f0;
         border-radius: 8px;
@@ -1110,7 +1250,7 @@
     }
 
     .tcn3-summary-name {
-        color: var(--theme-text-primary, #0f172a);
+        color: #0f172a;
     }
 
     /* Dòng Tổng cộng của Grid */
