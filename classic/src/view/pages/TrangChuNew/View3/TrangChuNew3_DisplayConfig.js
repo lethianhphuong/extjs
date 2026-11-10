@@ -10,7 +10,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_DisplayConfig', {
     // bandoImgUrlOnline: 'https://vnpa.moh.gov.vn/wp-content/uploads/2025/11/1268.jpg',
 
     /** URL mở ra khi người dùng click vào ảnh bản đồ hoặc link xem chi tiết */
-    bandoMapUrl: 'https://gis.demo.bando-dieuhanh.gov.vn/phan-bo-ho-so?view=toan-quoc',
+    bandoMapUrl: '#ban-do',
 
     paletteColors: [
         '#2563eb', // blue

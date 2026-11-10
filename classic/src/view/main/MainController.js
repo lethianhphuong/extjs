@@ -34,8 +34,13 @@ Ext.define('DEMO.view.main.MainController', {
         'DEMO.view.pages.UploadFileDemo.UploadFileDemo_ViewModel',
         'DEMO.app.Common',
         'DEMO.view.pages.YeuCauTraCuu.DanhSach.YeuCauTraCuu_View',
-        'DEMO.view.pages.DeXuatCTVBM.DeXuatCTVBM_View'
+        'DEMO.view.pages.DeXuatCTVBM.DeXuatCTVBM_View',
+        'DEMO.view.pages.BanDo.BanDo_View'
     ],
+
+    standaloneRoutes: {
+        'ban-do': 'BanDo_View'
+    },
 
     // ---- Init: listen hash change + load view from URL on F5 ----
 
@@ -58,7 +63,8 @@ Ext.define('DEMO.view.main.MainController', {
     getTokenFromHash: function () {
         var hash = window.location.hash;
         if (hash && hash.length > 1) {
-            return hash.substring(1); // remove '#'
+            var token = hash.substring(1); // remove '#'
+            return token.replace(/^\/+/, '');
         }
         return null;
     },
@@ -73,10 +79,49 @@ Ext.define('DEMO.view.main.MainController', {
         }
 
         if (!token) return;
+        token = token.replace(/^\/+/, '');
 
         var node = me.findNodeByRoute(token);
         if (node) {
             me.navigateTo(node);
+        } else if (me.standaloneRoutes && me.standaloneRoutes[token]) {
+            me.navigateToRoute(token, me.standaloneRoutes[token]);
+        }
+    },
+
+    navigateToRoute: function (id, xtype) {
+        var me = this,
+            center = me.getCenter();
+
+        if (!center || !xtype) return;
+
+        // Tạo view nếu chưa có
+        var target = center.getComponent('view-' + id);
+        if (!target) {
+            center.add({
+                xtype: xtype,
+                itemId: 'view-' + id
+            });
+            target = center.getComponent('view-' + id);
+        }
+
+        // Chuyển card
+        if (target) {
+            center.setActiveItem(target);
+        }
+
+        me.getViewModel().set('currentView', id);
+
+        // Sync URL hash (without triggering hashchange again)
+        var currentHash = window.location.hash.substring(1).replace(/^\/+/, '');
+        if (currentHash !== id) {
+            history.replaceState(null, '', '#' + id);
+        }
+
+        // Deselect tree item since this route is not on the sidebar menu
+        var tree = me.getView().down('treelist');
+        if (tree && tree.getSelection()) {
+            tree.setSelection(null);
         }
     },
 

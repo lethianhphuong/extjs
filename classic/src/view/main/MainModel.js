@@ -41,7 +41,8 @@ Ext.define('DEMO.view.main.MainModel', {
                 'xem-pdf-demo': 'Xem PDF Demo',
                 'test-noti': 'Test NotiCommon',
                 'upload-file-demo': 'Upload File Demo',
-                'de-xuat-ctvbm': 'Đề xuất CTVBM'
+                'de-xuat-ctvbm': 'Đề xuất CTVBM',
+                'ban-do': 'Bản đồ phân bổ hồ sơ'
             };
             return map[get('currentView')] || 'Dashboard';
         }

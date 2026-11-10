@@ -1,0 +1,1094 @@
+/* ==========================================================================
+   TrangChuNew3 Stylesheet - ExtJS 7.5 Classic Toolkit
+   Phong cách hiện đại, trực quan cho Màn hình Trang chủ Lãnh đạo
+   Tất cả CSS được đóng gói an toàn trong scope .trang-chu-new3 để không ảnh hưởng Tab 1, Tab 2
+   Tuyệt đối KHÔNG sử dụng :root
+   ========================================================================== */
+
+.trang-chu-new3 {
+    background-color: #f8fafc;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    /* --- Card nền chung nội bộ View3 --- */
+    .tcn3-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .tcn3-card-header {
+        padding: 10px 14px;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .tcn3-header-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        h3 {
+            margin: 0;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+    }
+
+    .tcn3-header-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        flex-shrink: 0;
+
+        svg {
+            width: 15px;
+            height: 15px;
+        }
+    }
+
+    .tcn3-tone-blue {
+        background: rgba(37, 99, 235, 0.1);
+        color: #2563eb;
+    }
+
+    .tcn3-tone-green {
+        background: rgba(22, 163, 74, 0.1);
+        color: #16a34a;
+    }
+
+    .tcn3-tone-red {
+        background: rgba(220, 38, 38, 0.1);
+        color: #dc2626;
+    }
+
+    /* ==========================================================================
+       1. KPI Metrics (Hàng 1 & Hàng 2) — Đồng bộ giao diện với View 5
+       ========================================================================== */
+    --tcn3-blue: #2563eb;
+    --tcn3-indigo: #4f46e5;
+    --tcn3-purple: #9333ea;
+    --tcn3-violet: #8b5cf6;
+    --tcn3-green: #059669;
+    --tcn3-amber: #d97706;
+    --tcn3-orange: #ea580c;
+    --tcn3-red: #e11d48;
+    --tcn3-pink: #ec4899;
+    --tcn3-cyan: #06b6d4;
+    --tcn3-muted: #94a3b8;
+
+    .tcn3-tone-blue {
+        --tcn3-tone: var(--tcn3-blue);
+        color: var(--tcn3-blue);
+    }
+    .tcn3-tone-green {
+        --tcn3-tone: var(--tcn3-green);
+        color: var(--tcn3-green);
+    }
+    .tcn3-tone-amber {
+        --tcn3-tone: var(--tcn3-amber);
+        color: var(--tcn3-amber);
+    }
+    .tcn3-tone-red {
+        --tcn3-tone: var(--tcn3-red);
+        color: var(--tcn3-red);
+    }
+    .tcn3-tone-purple {
+        --tcn3-tone: var(--tcn3-purple);
+        color: var(--tcn3-purple);
+    }
+    .tcn3-tone-cyan {
+        --tcn3-tone: var(--tcn3-cyan);
+        color: var(--tcn3-cyan);
+    }
+    .tcn3-tone-indigo {
+        --tcn3-tone: var(--tcn3-indigo);
+        color: var(--tcn3-indigo);
+    }
+    .tcn3-tone-orange {
+        --tcn3-tone: var(--tcn3-orange);
+        color: var(--tcn3-orange);
+    }
+    .tcn3-tone-muted {
+        --tcn3-tone: var(--tcn3-muted);
+        color: var(--tcn3-muted);
+    }
+
+    .tcn3-kpi-container {
+        width: 100%;
+    }
+
+    .tcn3-metrics {
+        display: grid;
+        grid-template-columns: unquote('repeat(6, minmax(0, 1fr))');
+        gap: 14px;
+    }
+
+    .tcn3-metric {
+        background: color-mix(in srgb, var(--tcn3-tone, #2563eb) 8%, var(--theme-bg-card-hover, #ffffff));
+        border: 1px solid color-mix(in srgb, var(--tcn3-tone, #2563eb) 20%, var(--theme-border, #e2e8f0));
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+        }
+    }
+
+    .tcn3-metric {
+        padding: 14px;
+        min-height: 106px;
+        box-sizing: border-box;
+    }
+
+    .tcn3-metric-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+        color: var(--theme-text-secondary, #64748b);
+        min-height: 45px;
+        font-size: 12.5px;
+        font-weight: 500;
+        line-height: 1.35;
+
+        i {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7px;
+            background: color-mix(in srgb, currentColor 10%, #ffffff);
+            border-radius: 7px;
+            height: 27px;
+            width: 30px;
+            text-align: center;
+            font-size: 13.5px;
+            flex-shrink: 0;
+        }
+    }
+
+    .tcn3-metric-bottom {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 4px;
+
+        strong {
+            font-size: 24px;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            font-weight: 700;
+            color: var(--theme-text-primary, #0f172a);
+        }
+    }
+
+    .tcn3-badge {
+        padding: 4px 6px;
+        font-size: 11px;
+        line-height: 16px;
+        border-radius: 4px;
+        background: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        white-space: nowrap;
+        font-weight: 600;
+
+        &.tcn3-tone-green {
+            color: #059669;
+            background: #ecfdf5;
+            border-color: #a7f3d0;
+        }
+
+        &.tcn3-tone-red {
+            color: #e11d48;
+            background: #fff1f2;
+            border-color: #fecdd3;
+        }
+
+        &.tcn3-tone-muted {
+            color: #64748b;
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+    }
+
+    .tcn3-summary {
+        display: grid;
+        grid-template-columns: unquote('repeat(8, minmax(0, 1fr))');
+        gap: 10px;
+        margin-top: 10px;
+
+        > div {
+            background: color-mix(in srgb, var(--tcn3-tone, #2563eb) 8%, var(--theme-bg-card-hover, #ffffff));
+            border: 1px solid color-mix(in srgb, var(--tcn3-tone, #2563eb) 20%, var(--theme-border, #e2e8f0));
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            padding: 8px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            }
+
+            span {
+                display: inline-flex;
+                align-items: center;
+                color: var(--theme-text-secondary, #475569);
+                font-size: 12px;
+                font-weight: 500;
+            }
+
+            b {
+                font-size: 13.5px;
+                font-weight: 700;
+                color: var(--theme-text-primary, #0f172a);
+            }
+        }
+
+        .tcn3-card-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: color-mix(in srgb, currentColor 12%, #ffffff);
+            color: var(--tcn3-tone);
+            margin-right: 8px;
+            font-size: 13px;
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+    }
+
+    [data-tcn3-tip] {
+        cursor: help;
+    }
+
+    /* ==========================================================================
+       2. Charts Row (Hàng 3)
+       ========================================================================== */
+    .tcn3-charts-row {
+        width: 100%;
+
+        .tcn3-card {
+            box-sizing: border-box;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 8px !important;
+        }
+    }
+
+    /* Donut chart */
+    .tcn3-donut-body-wrap {
+        position: relative;
+        width: 100%;
+        min-height: 185px;
+    }
+
+    .tcn3-donut-center-label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 4;
+    }
+
+    .tcn3-donut-center-inner {
+        text-align: center;
+        line-height: 1.2;
+
+        strong {
+            display: block;
+            font-size: 17px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        small {
+            font-size: 11.5px;
+            color: #64748b;
+        }
+    }
+
+    .tcn3-donut-legend-horizontal,
+    .tcn3-biendong-legend-horizontal {
+        width: 100%;
+        padding: 6px 0 10px 0;
+    }
+
+    .tcn3-legend-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        font-size: 12px;
+        color: #334155;
+    }
+
+    .tcn3-legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+
+        i {
+            width: 9px;
+            height: 9px;
+            display: inline-block;
+            border-radius: 2px;
+
+            &.tcn3-line-dot {
+                width: 14px;
+                height: 2px;
+                background: #2563eb;
+                position: relative;
+                border-radius: 0;
+
+                &::after {
+                    content: '';
+                    width: 6px;
+                    height: 6px;
+                    background: #2563eb;
+                    border: 1.5px solid #ffffff;
+                    border-radius: 50%;
+                    position: absolute;
+                    left: 4px;
+                    top: -2px;
+                }
+            }
+        }
+    }
+
+    /* Stacked Bar Legend & Callout */
+    .tcn3-chart-legend-floating {
+        position: absolute;
+        right: 14px;
+        top: 36px;
+        pointer-events: none;
+        z-index: 5;
+    }
+
+    .tcn3-floating-legend-box {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        font-size: 11.5px;
+        color: #475569;
+    }
+
+    .tcn3-line-dot {
+        width: 11px;
+        height: 2px;
+        background: #2563eb;
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+
+        &::after {
+            content: '';
+            width: 5px;
+            height: 5px;
+            background: #2563eb;
+            border-radius: 50%;
+            position: absolute;
+            left: 3px;
+            top: -1.5px;
+        }
+    }
+
+    .tcn3-callout-badge-floating {
+        position: absolute;
+        right: 92px;
+        top: 18px;
+        pointer-events: none;
+        z-index: 6;
+    }
+
+    .tcn3-callout-pill {
+        background: #1d4ed8;
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 2px 7px;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(29, 78, 216, 0.35);
+    }
+
+    /* Capsule Progress Bars (Tỷ lệ quá hạn) */
+    .tcn3-progress-list-container {
+        padding: 16px 18px;
+    }
+
+    .tcn3-progress-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 100%;
+        gap: 16px;
+    }
+
+    .tcn3-progress-item {
+        width: 100%;
+    }
+
+    .tcn3-progress-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+    }
+
+    .tcn3-progress-label {
+        font-size: 12.5px;
+        font-weight: 500;
+        color: #1e293b;
+    }
+
+    .tcn3-progress-val {
+        font-size: 13px;
+        font-weight: 700;
+        color: #0f172a;
+    }
+
+    .tcn3-progress-track {
+        width: 100%;
+        height: 10px;
+        background-color: #f1f5f9;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .tcn3-progress-fill {
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.4s ease;
+    }
+
+    /* ==========================================================================
+       3. Map & Alerts Row (Hàng 4)
+       ========================================================================== */
+    .tcn3-map-alerts-row {
+        width: 100%;
+    }
+
+    .tcn3-period-pill {
+        display: flex;
+        align-items: center;
+    }
+
+    .tcn3-pill-btn {
+        font-size: 11.5px;
+        color: #475569;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 4px;
+        padding: 2px 8px;
+        cursor: pointer;
+    }
+
+    .tcn3-arrow-down {
+        font-size: 9px;
+        margin-left: 2px;
+        vertical-align: middle;
+    }
+
+    .tcn3-dienbien-legend-bar {
+        padding: 4px 14px 0;
+    }
+
+    .tcn3-dienbien-legend {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 11.5px;
+        color: #64748b;
+    }
+
+    .tcn3-db-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+
+        .db-line {
+            width: 12px;
+            height: 2px;
+            display: inline-block;
+        }
+
+        &.db-blue .db-line {
+            background-color: #0284c7;
+        }
+
+        &.db-green .db-line {
+            background-color: #16a34a;
+        }
+    }
+
+    /* Bản đồ Việt Nam tĩnh */
+    .tcn3-vietnam-map-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px;
+        cursor: pointer;
+        border-right: 1px solid #f1f5f9;
+        background: #ffffff;
+
+        &:hover {
+            background: #ffffff;
+        }
+
+        .tcn3-map-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tcn3-static-map-img {
+            width: 100%;
+            height: 100%;
+            max-height: 295px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.2s ease;
+        }
+
+        &:hover .tcn3-static-map-img {
+            transform: scale(1.02);
+        }
+    }
+
+    /* Top địa bàn - Đồng bộ phong cách Phân tích / Sưu tra View 1 */
+    .tcn3-top-diaban-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--theme-border-light, #e2e8f0);
+        border-radius: 6px;
+        overflow: hidden;
+        background: var(--theme-bg-card, #ffffff);
+    }
+
+    .tcn3-diaban-subhead {
+        background-color: var(--theme-bg-card-hover, #f8fafc);
+        padding: 8px 12px;
+        border-bottom: 1px solid var(--theme-border-light, #e2e8f0);
+
+        .tcn3-subhead-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tcn3-subhead-title,
+        h4 {
+            margin: 0;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--theme-text-primary, #0f172a);
+        }
+    }
+
+    .tcn3-top-diaban-grid {
+        border: none !important;
+
+        .x-grid-header-ct {
+            background-color: var(--theme-bg-card-hover, #f8fafc) !important;
+            background-image: none !important;
+            border-top: none !important;
+            border-left: none !important;
+            border-right: none !important;
+            border-bottom: 1px solid var(--theme-border-light, #e2e8f0) !important;
+            box-shadow: none !important;
+        }
+
+        .x-column-header {
+            background: transparent !important;
+            background-image: none !important;
+            border-top: none !important;
+            border-bottom: none !important;
+            border-right: none !important;
+            border-left: none !important;
+            box-shadow: none !important;
+
+            &:nth-child(n+2) {
+                border-left: 1px solid var(--theme-border-light, #e2e8f0) !important;
+            }
+
+            .x-column-header-inner {
+                background: transparent !important;
+                background-image: none !important;
+                font-weight: 600;
+                color: var(--theme-text-secondary, #64748b);
+                font-size: 12px;
+                padding: 6px 8px !important;
+            }
+
+            .x-column-header-text {
+                color: inherit !important;
+                font-size: inherit !important;
+                font-weight: inherit !important;
+            }
+        }
+
+        .x-grid-cell {
+            font-size: 12px;
+            padding: 5px 8px;
+            border-top: none !important;
+            border-bottom: 1px solid var(--theme-border-light, #f1f5f9) !important;
+            border-right: none !important;
+            border-left: none !important;
+
+            &:nth-child(n+2) {
+                border-left: 1px solid var(--theme-border-light, #f1f5f9) !important;
+            }
+        }
+
+        .x-grid-item-over {
+            background-color: var(--theme-bg-card-hover, #f8fafc);
+        }
+
+        .tcn3-num-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+            font-variant-numeric: tabular-nums;
+
+            strong {
+                color: var(--theme-text-primary, #0f172a);
+                font-weight: 600;
+            }
+        }
+
+        .tcn3-analysis-meter {
+            display: block;
+            width: 100%;
+            height: 3px;
+            border-radius: 3px;
+            background: var(--theme-border-light, #e2e8f0);
+            overflow: hidden;
+
+            > span {
+                display: block;
+                height: 100%;
+                border-radius: inherit;
+                background: #d97706;
+            }
+        }
+    }
+
+    .tcn3-rank-badge {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        text-align: center;
+        border-radius: 50%;
+        font-size: 10.5px;
+        font-weight: 600;
+        background: #f1f5f9;
+        color: #64748b;
+
+        &.rank-1 {
+            background: #fef3c7;
+            color: #b45309;
+            font-weight: 700;
+        }
+
+        &.rank-2 {
+            background: #f1f5f9;
+            color: #475569;
+            font-weight: 700;
+        }
+
+        &.rank-3 {
+            background: #ffedd5;
+            color: #c2410c;
+            font-weight: 700;
+        }
+    }
+
+    .tcn3-diaban-name {
+        font-weight: 500;
+        color: var(--theme-text-primary, #0f172a);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .tcn3-diaban-footer {
+        text-align: right;
+        padding: 7px 12px 8px;
+        border-top: 1px solid var(--theme-border-light, #e2e8f0);
+        background: var(--theme-bg-card-hover, #f8fafc);
+    }
+
+    .tcn3-map-link {
+        font-size: 12px;
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+    }
+
+    /* Alert list */
+    .tcn3-alert-body {
+        padding: 10px 14px;
+    }
+
+    .tcn3-alert-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 12px;
+        border-radius: 6px;
+        margin-bottom: 7px;
+        background: #fafafa;
+        border: 1px solid #f1f5f9;
+    }
+
+    .tcn3-alert-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .tcn3-alert-icon {
+        width: 22px;
+        height: 22px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        svg {
+            width: 14px;
+            height: 14px;
+        }
+    }
+
+    .tcn3-alert-tone-red .tcn3-alert-icon {
+        background: rgba(220, 38, 38, 0.1);
+        color: #dc2626;
+    }
+
+    .tcn3-alert-tone-orange .tcn3-alert-icon {
+        background: rgba(234, 88, 12, 0.1);
+        color: #ea580c;
+    }
+
+    .tcn3-alert-tone-amber .tcn3-alert-icon {
+        background: rgba(217, 119, 6, 0.1);
+        color: #d97706;
+    }
+
+    .tcn3-alert-tone-purple .tcn3-alert-icon {
+        background: rgba(124, 58, 237, 0.1);
+        color: #7c3aed;
+    }
+
+    .tcn3-alert-title {
+        font-size: 12.5px;
+        color: #0f172a;
+        font-weight: 500;
+    }
+
+    .tcn3-alert-count {
+        font-size: 15px;
+        font-weight: 700;
+        color: #b91c1c;
+    }
+
+        /* ==========================================================================
+       4. TabPanel & Main Grid (Hàng 5)
+       ========================================================================== */
+    .tcn3-grid-tabpanel {
+        .x-tab-close-btn {
+            display: none !important;
+        }
+
+        /* Đảm bảo viền đáy của thanh TabBar luôn hiển thị đầy đủ */
+        .tcn3-tabbar,
+        .x-tab-bar,
+        .x-tab-bar-default-top,
+        .x-docked-top {
+            background: #ffffff !important;
+            border: none !important;
+            border-bottom: 2px solid #e2e8f0 !important;
+            box-sizing: border-box !important;
+
+            .x-tab-bar-body {
+                padding: 0 !important;
+            }
+        }
+
+        .x-tab-default-top {
+            background: transparent !important;
+            border: none !important;
+            border-bottom: 2.5px solid transparent !important;
+            padding: 9px 18px !important;
+            margin-right: 6px !important;
+            border-radius: 6px 6px 0 0 !important;
+            cursor: pointer;
+            margin-bottom: -2px !important;
+            transition: all 0.15s ease;
+
+            /* Căn giữa toàn bộ nội dung nút tab */
+            .x-tab-wrap,
+            .x-tab-wrap-default-top {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                height: 100% !important;
+                width: 100% !important;
+            }
+
+            .x-tab-button,
+            .x-tab-button-default-top {
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 7px !important;
+                padding: 0 !important;
+                height: 100% !important;
+                width: 100% !important;
+            }
+
+            /* Icon tab */
+            .x-tab-icon-el,
+            .x-tab-icon-el-default {
+                position: static !important;
+                float: none !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-size: 15px !important;
+                line-height: 1 !important;
+                color: #64748b;
+                margin: 0 !important;
+            }
+
+            /* Text tab */
+            .x-tab-inner,
+            .x-tab-inner-default {
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-align: center !important;
+                padding: 0 !important;
+                color: #64748b;
+                font-weight: 600;
+                font-size: 13.5px;
+                line-height: 1.4 !important;
+            }
+
+            /* Hover state */
+            &:hover:not(.x-tab-active) {
+                background: rgba(241, 245, 249, 0.7) !important;
+
+                .x-tab-inner,
+                .x-tab-inner-default {
+                    color: #1e293b;
+                }
+                .x-tab-icon-el,
+                .x-tab-icon-el-default {
+                    color: #1e293b;
+                }
+            }
+
+            /* Active state (Tình hình theo đơn vị) */
+            &.x-tab-active {
+                background: transparent !important;
+                border-bottom: 2.5px solid #2563eb !important;
+                margin-bottom: -2px !important;
+
+                .x-tab-inner,
+                .x-tab-inner-default {
+                    color: #2563eb !important;
+                    font-weight: 700 !important;
+                }
+
+                .x-tab-icon-el,
+                .x-tab-icon-el-default {
+                    color: #2563eb !important;
+                }
+            }
+        }
+
+        /* Đảm bảo viền dưới của header bảng Grid luôn sắc nét */
+        .x-grid-header-ct {
+            border-bottom: 1px solid #0f766e !important;
+        }
+    }
+
+    /* Nút Xuất báo cáo dạng Outline */
+    .tcn3-btn-export-outline {
+        background-color: #ffffff !important;
+        border: 1px solid #2563eb !important;
+        color: #2563eb !important;
+        font-weight: 600 !important;
+        border-radius: 4px !important;
+        margin-right: 12px !important;
+
+        .x-btn-inner {
+            color: #2563eb !important;
+        }
+
+        .x-btn-icon-el {
+            color: #2563eb !important;
+        }
+
+        &:hover {
+            background-color: #eff6ff !important;
+        }
+    }
+
+    .tcn3-unit-link {
+        color: #2563eb;
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .tcn3-grid-trend {
+        font-size: 11.5px;
+        font-weight: 600;
+
+        &.trend-down-good {
+            color: #16a34a;
+        }
+
+        &.trend-down-bad {
+            color: #dc2626;
+        }
+    }
+
+    .tcn3-badge-status {
+        display: inline-block;
+        padding: 2px 9px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+
+        &.badge-tot {
+            background: #dcfce7;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+        }
+
+        &.badge-can-quan-tam {
+            background: #fef3c7;
+            color: #d97706;
+            border: 1px solid #fde68a;
+        }
+    }
+
+    .tcn3-action-icon {
+        color: #2563eb !important;
+        font-size: 14px !important;
+        cursor: pointer;
+    }
+
+        .tcn3-placeholder-tab {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 40px;
+        text-align: center;
+    }
+
+    .tcn3-placeholder-card {
+        i {
+            font-size: 40px;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+        h3 {
+            margin: 0 0 6px 0;
+            color: #334155;
+            font-size: 16px;
+        }
+        p {
+            margin: 0;
+            color: #64748b;
+            font-size: 13px;
+        }
+    }
+
+    /* Dòng Tổng cộng của Grid */
+    .tcn3-summary-row,
+    .x-grid-item.tcn3-summary-row,
+    .x-grid-row.tcn3-summary-row {
+        background-color: #f1f5f9 !important;
+        font-weight: 700 !important;
+        border-top: 2px solid #cbd5e1 !important;
+
+        td {
+            background-color: #f1f5f9 !important;
+            font-weight: 700 !important;
+        }
+    }
+}
+
+/* ==========================================================================
+   Responsive Breakpoints cho TrangChuNew3
+   ========================================================================== */
+@media (max-width: 1399px) {
+    .trang-chu-new3 {
+        .tcn3-metrics {
+            grid-template-columns: unquote('repeat(3, minmax(0, 1fr))');
+        }
+
+        .tcn3-summary {
+            grid-template-columns: unquote('repeat(4, minmax(0, 1fr))');
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .trang-chu-new3 {
+        .tcn3-metrics {
+            grid-template-columns: unquote('repeat(2, minmax(0, 1fr))');
+        }
+
+        .tcn3-summary {
+            grid-template-columns: unquote('repeat(2, minmax(0, 1fr))');
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .trang-chu-new3 {
+        .tcn3-metrics,
+        .tcn3-summary {
+            grid-template-columns: unquote('minmax(0, 1fr)');
+        }
+    }
+}

@@ -123,7 +123,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewMapAlerts', {
         // Khối 2: Bản đồ phân bổ hồ sơ theo địa bàn & Top địa bàn
         {
             xtype: 'container',
-            cls: 'tcn3-card',
+            cls: 'tcn3-card tcn3-tone-amber',
             flex: 1.6,
             margin: '0 8 0 0',
             layout: { type: 'vbox', align: 'stretch' },
@@ -132,7 +132,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewMapAlerts', {
                     xtype: 'component',
                     cls: 'tcn3-card-header',
                     html: '<div class="tcn3-header-wrap">' +
-                        '<span class="tcn3-header-icon tcn3-tone-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>' +
+                        '<span class="tcn3-header-icon tcn3-tone-amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>' +
                         '<h3>Bản đồ phân bổ hồ sơ theo địa bàn</h3>' +
                         '</div>'
                 },
@@ -175,7 +175,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewMapAlerts', {
                                     xtype: 'component',
                                     cls: 'tcn3-diaban-subhead',
                                     html: '<div class="tcn3-subhead-wrap">' +
-                                        '<h4>Top địa bàn có nhiều hồ sơ</h4>' +
+                                        '<span class="tcn3-subhead-title">Top địa bàn có nhiều hồ sơ</span>' +
                                         '</div>'
                                 },
                                 {
@@ -208,10 +208,12 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewMapAlerts', {
                                         {
                                             text: 'Số hồ sơ',
                                             dataIndex: 'soHoSoText',
-                                            width: 85,
+                                            width: 95,
                                             align: 'right',
-                                            renderer: function (val) {
-                                                return '<strong>' + Ext.String.htmlEncode(val) + '</strong>';
+                                            renderer: function (val, meta, record) {
+                                                const tyLe = (record && record.get) ? (record.get('tyLe') || 0) : 0;
+                                                return '<div class="tcn3-num-cell"><strong>' + Ext.String.htmlEncode(val) + '</strong>' +
+                                                    '<span class="tcn3-analysis-meter"><span style="width:' + tyLe + '%"></span></span></div>';
                                             }
                                         }
                                     ]
