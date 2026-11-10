@@ -2,8 +2,12 @@
 # Sencha ExtJS .gitignore
 # ============================================
 
-# Sencha Cmd temporary build artifacts
-build/temp/
+# Sencha Cmd build artifacts & bootstrap manifests
+build/
+bootstrap.css
+bootstrap.js
+classic.json
+classic.jsonp
 .sass-cache/
 
 # Archive files

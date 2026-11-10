@@ -42,44 +42,49 @@ Ext.define('DEMO.view.pages.TrangChuNew.View4.TrangChuNew4_ViewController', {
         }
     },
 
-    loadMockData: function () {
+    applyData: function (data) {
         const me = this;
         const viewModel = me.getViewModel();
-        if (!viewModel) return;
+        if (!viewModel || !data) return;
 
         const config = DEMO.view.pages.TrangChuNew.View4.TrangChuNew4_DisplayConfig;
-        const mockData = DEMO.view.pages.TrangChuNew.View4.TrangChuNew4_MockData.getData();
 
         // 1. Gắn SVG icon vào thẻ KPI
-        const kpiCards = Ext.Array.clone(mockData.kpiCards || []).map(function (item) {
+        const kpiCards = Ext.Array.clone(data.kpiCards || []).map(function (item) {
             return Ext.apply({}, item, {
                 iconSvg: config.getIconSvg(item.icon)
             });
         });
 
         // 2. Cập nhật dữ liệu ViewModel
-        viewModel.set('canBoInfo', mockData.canBo || {});
+        viewModel.set('canBoInfo', data.canBo || {});
         viewModel.set('kpiCards', kpiCards);
-        viewModel.set('loaiHoSoCards', mockData.loaiHoSoCards || []);
-        viewModel.set('tongSoDonut', 128);
+        viewModel.set('loaiHoSoCards', data.loaiHoSoCards || []);
+        viewModel.set('tongSoDonut', data.tongSoDonut || 128);
 
         // 3. Nạp store Donut Chart
         const donutStore = viewModel.getStore('trangThaiDonutStore');
-        if (donutStore && mockData.trangThaiDonut) {
-            donutStore.loadData(mockData.trangThaiDonut);
+        if (donutStore && data.trangThaiDonut) {
+            donutStore.loadData(data.trangThaiDonut);
         }
 
         // 4. Nạp store Line Chart
         const lineStore = viewModel.getStore('tienDoThangStore');
-        if (lineStore && mockData.tienDoThang) {
-            lineStore.loadData(mockData.tienDoThang);
+        if (lineStore && data.tienDoThang) {
+            lineStore.loadData(data.tienDoThang);
         }
 
-        // 5. Nạp store Danh sách hồ sơ
+        // 5. Nạp store Danh sách hồ sơ (trực tiếp không slice)
         const dsStore = viewModel.getStore('dsHoSoStore');
-        if (dsStore && mockData.dsHoSo) {
-            dsStore.loadData(mockData.dsHoSo);
+        if (dsStore && data.dsHoSo) {
+            dsStore.loadData(data.dsHoSo);
         }
+    },
+
+    loadMockData: function () {
+        const me = this;
+        const mockData = DEMO.view.pages.TrangChuNew.View4.TrangChuNew4_MockData.getData();
+        me.applyData(mockData);
     },
 
     loadApiData: function () {
@@ -93,7 +98,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View4.TrangChuNew4_ViewController', {
                         try {
                             const res = Ext.decode(response.responseText);
                             if (res.success && res.data) {
-                                // Gán dữ liệu API
+                                me.applyData(res.data);
                                 return;
                             }
                         } catch (e) {

@@ -89,7 +89,7 @@
         gap: 10px;
         margin-top: 10px;
 
-        > div {
+        >div {
             background: var(--theme-bg-card);
             border: 1px solid var(--theme-border);
             border-radius: 12px;
@@ -201,7 +201,7 @@
         border-top: 1px solid var(--theme-border-light);
         font-size: 10px;
 
-        > span {
+        >span {
             white-space: nowrap;
         }
     }
@@ -221,7 +221,7 @@
         font-size: 10px;
         margin-bottom: 8px;
 
-        > span {
+        >span {
             color: var(--theme-text-secondary);
         }
     }
@@ -343,7 +343,7 @@
     }
 
     .tcn5-summary {
-        > div {
+        >div {
             background: color-mix(in srgb, var(--tcn5-tone) 8%, var(--theme-bg-card-hover));
             border-color: color-mix(in srgb, var(--tcn5-tone) 20%, var(--theme-border));
             color: var(--theme-text-primary);
@@ -402,7 +402,7 @@
         }
 
         .tcn5-summary {
-            > div {
+            >div {
                 transition: none;
             }
         }
@@ -448,6 +448,7 @@
 
 @media (max-width: 480px) {
     .trang-chu-new5 {
+
         .tcn5-metrics,
         .tcn5-summary {
             grid-template-columns: unquote('minmax(0, 1fr)');
