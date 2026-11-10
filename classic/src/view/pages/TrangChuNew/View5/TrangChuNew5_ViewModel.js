@@ -2,7 +2,15 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.TrangChuNew5_ViewModel',
     requires: ['DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_DisplayConfig'],
-    data: { hienMoMoi: true, hienKetThuc: true, chiSo: [], loaiHoSo: [], donVi: [], topTinh: [], topXa: [] },
+    data: {
+        hienMoMoi: true,
+        hienKetThuc: true,
+        chiSo: [],
+        loaiHoSo: [],
+        coCauDonViList: [],
+        topTinh: [],
+        topXa: []
+    },
     /** Gắn cấu hình FE theo code, tính biến động từ số liệu thô. */
     prepareRows: function (rows, group) {
         const me = this;
@@ -15,7 +23,12 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewModel', {
             return result;
         }).sort((a, b) => a.thuTu - b.thuTu);
     },
-    /** Định dạng hướng, số lượng và tỷ lệ biến động như View1. */
+    /** Chuẩn hóa tổng quan từ API: hiển thị đầy đủ 6 thẻ KPI. */
+    prepareTongQuan: function (rows) {
+        const me = this;
+        return me.prepareRows(rows || [], 'chiSo');
+    },
+    /** Định dạng hướng, số lượng và tỷ lệ biến động. */
     formatTrend: function (row) {
         if (typeof row.valLech !== 'number' || !Number.isFinite(row.valLech)) {
             return { hienBienDong: false };
@@ -48,21 +61,60 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewModel', {
             xuHuong: tone
         };
     },
-    /** Tỷ lệ được tính từ số lượng, không lưu cứng trong mock. */
-    prepareUnits: function (rows) {
-        const me = this;
-        const units = me.prepareRows(rows, 'donVi');
-        const total = units.reduce((sum, row) => sum + row.val, 0);
-        return units.map(function (row) {
-            const rate = total ? row.val * 100 / total : 0;
-            return Object.assign({}, row, {
+    /** Chuẩn hóa cơ cấu đơn vị cho Donut Chart (lấy Top đơn vị lớn nhất + nhóm Khác). */
+    prepareCoCauDonVi: function (rows) {
+        if (!rows || !rows.length) return [];
+        const sorted = rows.slice().sort((a, b) => (b.val || 0) - (a.val || 0));
+        const total = sorted.reduce((sum, it) => sum + (it.val || 0), 0);
+        const palette = ['blue', 'indigo', 'cyan', 'purple', 'green', 'amber', 'muted'];
+
+        const top = sorted.slice(0, 5);
+        const rest = sorted.slice(5);
+        const restVal = rest.reduce((sum, it) => sum + (it.val || 0), 0);
+
+        const result = top.map(function (it, idx) {
+            const rate = total ? (it.val || 0) * 100 / total : 0;
+            return {
+                code: it.maDonVi || ('CC_' + idx),
+                name: it.capDonVi || it.name || ('Đơn vị ' + (idx + 1)),
+                val: it.val || 0,
                 tyLe: rate,
-                tyLeText: rate.toLocaleString('vi-VN', { maximumFractionDigits: 1 }) + '%'
+                tyLeText: rate.toLocaleString('vi-VN', { maximumFractionDigits: 1 }) + '%',
+                mau: palette[idx % palette.length]
+            };
+        });
+
+        if (restVal > 0) {
+            const restRate = total ? restVal * 100 / total : 0;
+            result.push({
+                code: 'KHAC',
+                name: 'Đơn vị khác',
+                val: restVal,
+                tyLe: restRate,
+                tyLeText: restRate.toLocaleString('vi-VN', { maximumFractionDigits: 1 }) + '%',
+                mau: 'muted'
             });
+        }
+        return result;
+    },
+    /** Chuẩn hóa biến động số lượng hồ sơ theo đơn vị cho Bar Chart. */
+    prepareBienDongDonVi: function (rows) {
+        if (!rows || !rows.length) return [];
+        const sorted = rows.slice().sort((a, b) => (b.val || 0) - (a.val || 0));
+        const palette = ['cyan', 'blue', 'indigo', 'purple', 'green', 'amber', 'orange'];
+        const top = sorted.slice(0, 7);
+        return top.map(function (it, idx) {
+            return {
+                code: it.maDonVi || ('BD_' + idx),
+                name: it.capDonVi || it.name || ('Đơn vị ' + (idx + 1)),
+                val: it.val || 0,
+                mau: palette[idx % palette.length]
+            };
         });
     },
     stores: {
-        donViStore: { fields: ['code', 'name', 'val', 'tyLe', 'tyLeText', 'mau'] },
+        coCauDonViStore: { fields: ['code', 'name', 'val', 'tyLe', 'tyLeText', 'mau'] },
+        bienDongDonViStore: { fields: ['code', 'name', 'val', 'mau'] },
         dienBienStore: { fields: ['code', 'name', 'nameHover', 'moMoi', 'ketThuc'] },
         capTinhStore: { fields: ['code', 'name', 'val', 'mau'] },
         capXaStore: { fields: ['code', 'name', 'val', 'mau'] }
