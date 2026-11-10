@@ -22,32 +22,35 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_DisplayConfig', {
         '#64748b'  // slate / muted
     ],
 
+    // Màu theo cấp đơn vị: Cấp tỉnh (chiếm phần lớn) dùng màu thương hiệu #00a47e (màu active menu); Cục xanh dương, Xã tím nhạt
+    // cùng dải màu lạnh để hài hòa nhưng vẫn phân biệt rõ; đường tổng màu cam làm điểm nhấn ấm
     coCauColors: {
-        'Cấp Cục': '#2563eb',
-        'Cấp tỉnh': '#22c55e',
-        'Cấp Xã': '#f59e0b'
+        'Cấp Cục': '#3b82f6',
+        'Cấp tỉnh': '#00a47e',
+        'Cấp Xã': '#a78bfa',
+        'Tổng': '#f97316'
     },
 
-    /** Bảng màu mềm dịu cho biểu đồ Cơ cấu theo loại đối tượng */
+    /** Bảng màu biểu đồ Cơ cấu theo loại đối tượng: tránh xanh lá thương hiệu (dành cho cấp đơn vị) và đỏ/vàng cam (cảnh báo) */
     loaiDoiTuongColors: [
-        '#4f86f7', // 1. Hình sự (soft slate blue)
-        '#48bb78', // 2. Kinh tế (soft sage green)
-        '#e6a23c', // 3. Ma túy (soft warm amber)
-        '#f08c54', // 4. Môi trường (soft coral orange)
-        '#9d8df1'  // 5. Khác (soft lavender purple)
+        '#4f46e5', // 1. Hình sự (indigo)
+        '#0891b2', // 2. Kinh tế (cyan)
+        '#db2777', // 3. Ma túy (pink)
+        '#ca8a04', // 4. Môi trường (ochre)
+        '#94a3b8'  // 5. Khác (slate)
     ],
 
     loaiDoiTuongColorMap: {
-        '029': '#4f86f7',
-        '030': '#48bb78',
-        '031': '#e6a23c',
-        '032': '#f08c54',
-        '-1': '#9d8df1',
-        'Hình sự': '#4f86f7',
-        'Kinh tế': '#48bb78',
-        'Ma túy': '#e6a23c',
-        'Môi trường': '#f08c54',
-        'Khác': '#9d8df1'
+        '029': '#4f46e5',
+        '030': '#0891b2',
+        '031': '#db2777',
+        '032': '#ca8a04',
+        '-1': '#94a3b8',
+        'Hình sự': '#4f46e5',
+        'Kinh tế': '#0891b2',
+        'Ma túy': '#db2777',
+        'Môi trường': '#ca8a04',
+        'Khác': '#94a3b8'
     },
 
     getLoaiDoiTuongColor: function (codeOrName, index) {

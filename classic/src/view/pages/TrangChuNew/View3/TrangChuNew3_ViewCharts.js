@@ -53,7 +53,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewCharts', {
                                 radiusFactor: 95,
                                 highlight: false,
                                 style: { lineWidth: 1.5, strokeStyle: '#ffffff' },
-                                colors: ['#2563eb', '#10b981', '#f59e0b'],
+                                colors: ['#3b82f6', '#00a47e', '#a78bfa'],
                                 labelOverflowPadding: 0,
                                 label: {
                                     field: 'tyLe',
@@ -97,9 +97,9 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewCharts', {
                     xtype: 'component',
                     cls: 'tcn3-donut-legend-horizontal',
                     html: '<div class="tcn3-legend-row">' +
-                        '<span class="tcn3-legend-item"><i style="background:#2563eb"></i>Cấp Cục</span>' +
-                        '<span class="tcn3-legend-item"><i style="background:#10b981"></i>Cấp tỉnh</span>' +
-                        '<span class="tcn3-legend-item"><i style="background:#f59e0b"></i>Cấp Xã</span>' +
+                        '<span class="tcn3-legend-item"><i style="background:#3b82f6"></i>Cấp Cục</span>' +
+                        '<span class="tcn3-legend-item"><i style="background:#00a47e"></i>Cấp tỉnh</span>' +
+                        '<span class="tcn3-legend-item"><i style="background:#a78bfa"></i>Cấp Xã</span>' +
                         '</div>'
                 }
             ]
@@ -128,7 +128,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewCharts', {
                     itemId: 'bienDongChart_IdView',
                     flex: 1,
                     animation: false,
-                    colors: ['#f59e0b', '#10b981', '#2563eb'],
+                    colors: ['#a78bfa', '#00a47e', '#3b82f6'],
                     insetPadding: { top: 25, right: 15, bottom: 8, left: 16 },
                     bind: { store: '{bienDongStore}' },
                     listeners: { afterrender: 'onChartReady' },
@@ -159,7 +159,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewCharts', {
                             stacked: true,
                             xField: 'code',
                             yField: ['capXa', 'capTinh', 'capCuc'],
-                            style: { maxBarWidth: 32, radius: 3 },
+                            style: { maxBarWidth: 30, radius: 3, lineWidth: 1, strokeStyle: '#ffffff' },
                             tooltip: {
                                 trackMouse: true,
                                 renderer: function (tooltip, record, item) {
@@ -176,12 +176,12 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewCharts', {
                             type: 'line',
                             xField: 'code',
                             yField: 'tongSo',
-                            style: { strokeStyle: '#2563eb', lineWidth: 2.5 },
-                            marker: { radius: 3.5, fillStyle: '#2563eb' },
+                            style: { strokeStyle: '#f97316', lineWidth: 2.5 },
+                            marker: { radius: 4, fillStyle: '#f97316', strokeStyle: '#ffffff', lineWidth: 1.5 },
                             label: {
                                 field: 'tongSo',
                                 display: 'over',
-                                color: '#1d4ed8',
+                                color: '#c2410c',
                                 fontSize: 11,
                                 fontWeight: '700',
                                 renderer: function (val, sprite, config, data, index) {
@@ -208,9 +208,9 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewCharts', {
                     xtype: 'component',
                     cls: 'tcn3-biendong-legend-horizontal',
                     html: '<div class="tcn3-legend-row">' +
-                        '<span class="tcn3-legend-item"><i style="background:#2563eb"></i>Cấp Cục</span>' +
-                        '<span class="tcn3-legend-item"><i style="background:#10b981"></i>Cấp tỉnh</span>' +
-                        '<span class="tcn3-legend-item"><i style="background:#f59e0b"></i>Cấp Xã</span>' +
+                        '<span class="tcn3-legend-item"><i style="background:#3b82f6"></i>Cấp Cục</span>' +
+                        '<span class="tcn3-legend-item"><i style="background:#00a47e"></i>Cấp tỉnh</span>' +
+                        '<span class="tcn3-legend-item"><i style="background:#a78bfa"></i>Cấp Xã</span>' +
                         '<span class="tcn3-legend-item"><i class="tcn3-line-dot"></i>Số hồ sơ</span>' +
                         '</div>'
                 }
@@ -238,7 +238,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewCharts', {
                     flex: 1,
                     flipXY: true,
                     animation: false,
-                    insetPadding: { top: 15, right: 35, bottom: 18, left: 10 },
+                    insetPadding: { top: 15, right: 16, bottom: 18, left: 10 },
                     bind: { store: '{loaiDoiTuongStore}' },
                     listeners: { afterrender: 'onChartReady' },
                     axes: [
@@ -263,7 +263,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewCharts', {
                             type: 'bar',
                             xField: 'name',
                             yField: 'val',
-                            style: { maxBarWidth: 18, radius: 4, lineWidth: 0 },
+                            style: { maxBarWidth: 16, radius: 4, lineWidth: 0 },
                             renderer: function (sprite, config, rendererData, index) {
                                 const cfg = DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_DisplayConfig;
                                 const store = rendererData.store;
@@ -280,7 +280,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewCharts', {
                             label: {
                                 field: 'val',
                                 display: 'outside',
-                                color: '#0f172a',
+                                color: '#334155',
                                 fontSize: 11.5,
                                 fontWeight: '600',
                                 renderer: function (val) {

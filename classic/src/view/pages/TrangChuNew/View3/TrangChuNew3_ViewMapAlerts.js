@@ -81,8 +81,8 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewMapAlerts', {
                             title: 'Mở mới',
                             xField: 'code',
                             yField: 'moMoi',
-                            style: { strokeStyle: '#0284c7', lineWidth: 2.2 },
-                            marker: { radius: 3, fillStyle: '#0284c7' },
+                            style: { strokeStyle: '#00a47e', lineWidth: 2.2 },
+                            marker: { radius: 3, fillStyle: '#00a47e' },
                             highlight: true,
                             tooltip: {
                                 trackMouse: true,
@@ -98,8 +98,8 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewMapAlerts', {
                             title: 'Kết thúc',
                             xField: 'code',
                             yField: 'ketThuc',
-                            style: { strokeStyle: '#16a34a', lineWidth: 2.2 },
-                            marker: { radius: 3, fillStyle: '#16a34a' },
+                            style: { strokeStyle: '#4f46e5', lineWidth: 2.2 },
+                            marker: { radius: 3, fillStyle: '#4f46e5' },
                             highlight: true,
                             tooltip: {
                                 trackMouse: true,

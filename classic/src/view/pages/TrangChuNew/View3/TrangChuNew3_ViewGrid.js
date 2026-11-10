@@ -3,248 +3,81 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewGrid', {
     xtype: 'TrangChuNew3_ViewGrid',
     requires: [
         'Ext.grid.Panel',
-        'Ext.tab.Bar',
-        'Ext.toolbar.Fill'
+        'Ext.tab.Bar'
     ],
     cls: 'tcn3-card tcn3-grid-tabpanel',
     margin: '12 0 16 0',
-    minHeight: 380,
-    layout: 'fit',
-    dockedItems: [
-        {
+    layout: { type: 'vbox', align: 'stretch' },
+    dockedItems: [{
+        //#region NOTE: Tab cấp đơn vị dạng segmented
+        xtype: 'container',
+        dock: 'top',
+        cls: 'tcn3-grid-toolbar',
+        layout: { type: 'hbox', align: 'middle' },
+        items: [{
             xtype: 'tabbar',
-            dock: 'top',
             cls: 'tcn3-tabbar',
             itemId: 'gridTabBar_IdView',
+            // Đăng ký tab mặc định với tabbar qua setActiveTab; 'active: true' trên tab chỉ gắn class
+            // mà không cập nhật tabbar.activeTab nên lần chuyển tab đầu tiên không bỏ active tab cũ.
+            listeners: { afterrender: 'onGridTabBarReady' },
+            defaults: { closable: false, handler: 'onGridTabClick' },
             items: [
-                {
-                    xtype: 'tab',
-                    itemId: 'cucTab_IdView',
-                    text: 'Cấp Cục',
-                    iconCls: 'x-fa fa-university',
-                    capDonVi: 'CUC',
-                    closable: false,
-                    active: true,
-                    handler: 'onGridTabClick'
-                },
-                {
-                    xtype: 'tab',
-                    itemId: 'tinhTab_IdView',
-                    text: 'Cấp Tỉnh',
-                    iconCls: 'x-fa fa-map-marker-alt',
-                    capDonVi: 'TINH',
-                    closable: false,
-                    handler: 'onGridTabClick'
-                },
-                {
-                    xtype: 'tab',
-                    itemId: 'xaTab_IdView',
-                    text: 'Cấp Xã',
-                    iconCls: 'x-fa fa-sitemap',
-                    capDonVi: 'XA',
-                    closable: false,
-                    handler: 'onGridTabClick'
-                }
+                { xtype: 'tab', itemId: 'cucTab_IdView', text: 'Cấp Cục', iconCls: 'x-fa fa-university', capDonVi: 'CUC' },
+                { xtype: 'tab', itemId: 'tinhTab_IdView', text: 'Cấp Tỉnh', iconCls: 'x-fa fa-map-marker-alt', capDonVi: 'TINH' },
+                { xtype: 'tab', itemId: 'xaTab_IdView', text: 'Cấp Xã', iconCls: 'x-fa fa-sitemap', capDonVi: 'XA' }
             ]
-        }
-    ],
-    items: [
-        {
-            xtype: 'grid',
-            itemId: 'tinhHinhDonViGrid_IdView',
-            cls: 'tcn3-main-grid',
-            bind: { store: '{gridStore}' },
-            enableColumnHide: true,
-            enableColumnMove: true,
-            scrollable: 'x',
-            viewConfig: {
-                stripeRows: true,
-                enableTextSelection: true,
-                getRowClass: function (record) {
-                    if (record.get('isSummary') || record.get('maDonVi') === 'TONG') {
-                        return 'tcn3-summary-row';
-                    }
-                    return '';
-                }
-            },
-            columns: [
+        }]
+        //#endregion
+    }],
+    items: [{
+        xtype: 'grid',
+        itemId: 'tinhHinhDonViGrid_IdView',
+        cls: 'tcn3-main-grid',
+        maxHeight: 520,
+        bind: { store: '{gridStore}' },
+        enableColumnHide: true,
+        enableColumnMove: true,
+        columnLines: false,
+        viewConfig: {
+            stripeRows: true,
+            enableTextSelection: true,
+            getRowClass: function (record) {
+                return record.get('isSummary') || record.get('maDonVi') === 'TONG' ? 'tcn3-summary-row' : '';
+            }
+        },
+        columns: {
+            defaults: { align: 'right', renderer: 'renderSoLieuGrid' },
+            items: [
+                { text: 'STT', dataIndex: 'stt', width: 56, align: 'center', renderer: 'renderSttGrid' },
+                { text: 'Đơn vị', dataIndex: 'tenDonVi', align: 'left', minWidth: 220, flex: 1, renderer: 'renderDonViGrid' },
+                { text: 'Tổng số hồ sơ<br>đang quản lý', dataIndex: 'tongHoSo', width: 116, tdCls: 'tcn3-col-total' },
                 {
-                    text: 'STT',
-                    dataIndex: 'stt',
-                    width: 50,
+                    text: 'Biến động trong kỳ',
                     align: 'center',
-                    renderer: function (val, meta, record) {
-                        if (record.get('isSummary') || record.get('maDonVi') === 'TONG') {
-                            return '';
-                        }
-                        return val;
-                    }
+                    defaults: { align: 'right', renderer: 'renderSoLieuGrid' },
+                    columns: [
+                        { text: 'Mở mới', dataIndex: 'moMoi', width: 84 },
+                        { text: 'Kết thúc', dataIndex: 'ketThuc', width: 84 },
+                        { text: 'Chuyển mức', dataIndex: 'chuyenMuc', width: 92 }
+                    ]
                 },
                 {
-                    text: 'Đơn vị',
-                    dataIndex: 'tenDonVi',
-                    minWidth: 200,
-                    flex: 1.5,
-                    renderer: function (val, meta, record) {
-                        if (record.get('isSummary') || record.get('maDonVi') === 'TONG') {
-                            return '<strong style="color: #1e3a8a; font-size: 13.5px;">' + Ext.String.htmlEncode(val) + '</strong>';
-                        }
-                        return '<a href="javascript:void(0)" class="tcn3-unit-link">' + Ext.String.htmlEncode(val) + '</a>';
-                    }
-                },
-                {
-                    text: 'Tổng số hồ sơ<br>đang quản lý',
-                    dataIndex: 'tongHoSo',
-                    width: 140,
-                    align: 'right',
-                    renderer: function (val) {
-                        return '<strong>' + Number(val || 0).toLocaleString('vi-VN') + '</strong>';
-                    }
-                },
-                {
-                    text: 'Mở mới<br>trong kỳ',
-                    dataIndex: 'moMoi',
-                    width: 110,
-                    align: 'right',
-                    renderer: function (val, meta, record) {
-                        const formatted = Number(val || 0).toLocaleString('vi-VN');
-                        if (record.get('isSummary') || record.get('maDonVi') === 'TONG') {
-                            return '<strong>' + formatted + '</strong>';
-                        }
-                        return formatted;
-                    }
-                },
-                {
-                    text: 'Kết thúc<br>trong kỳ',
-                    dataIndex: 'ketThuc',
-                    width: 110,
-                    align: 'right',
-                    renderer: function (val, meta, record) {
-                        const formatted = Number(val || 0).toLocaleString('vi-VN');
-                        if (record.get('isSummary') || record.get('maDonVi') === 'TONG') {
-                            return '<strong>' + formatted + '</strong>';
-                        }
-                        return formatted;
-                    }
-                },
-                {
-                    text: 'Chuyển mức<br>trong kỳ',
-                    dataIndex: 'chuyenMuc',
-                    width: 110,
-                    align: 'right',
-                    renderer: function (val, meta, record) {
-                        const formatted = Number(val || 0).toLocaleString('vi-VN');
-                        if (record.get('isSummary') || record.get('maDonVi') === 'TONG') {
-                            return '<strong>' + formatted + '</strong>';
-                        }
-                        return formatted;
-                    }
-                },
-                {
-                    text: 'ĐTCB',
-                    dataIndex: 'dtcb',
-                    width: 95,
-                    align: 'right',
-                    renderer: function (val, meta, record) {
-                        const formatted = Number(val || 0).toLocaleString('vi-VN');
-                        if (record.get('isSummary') || record.get('maDonVi') === 'TONG') {
-                            return '<strong>' + formatted + '</strong>';
-                        }
-                        return formatted;
-                    }
-                },
-                {
-                    text: 'Sưu tra',
-                    dataIndex: 'suuTra',
-                    width: 95,
-                    align: 'right',
-                    renderer: function (val, meta, record) {
-                        const formatted = Number(val || 0).toLocaleString('vi-VN');
-                        if (record.get('isSummary') || record.get('maDonVi') === 'TONG') {
-                            return '<strong>' + formatted + '</strong>';
-                        }
-                        return formatted;
-                    }
-                },
-                {
-                    text: 'Hiềm nghi',
-                    dataIndex: 'hiemNghi',
-                    width: 95,
-                    align: 'right',
-                    renderer: function (val, meta, record) {
-                        const formatted = Number(val || 0).toLocaleString('vi-VN');
-                        if (record.get('isSummary') || record.get('maDonVi') === 'TONG') {
-                            return '<strong>' + formatted + '</strong>';
-                        }
-                        return formatted;
-                    }
-                },
-                {
-                    text: 'Chuyên án',
-                    dataIndex: 'chuyenAn',
-                    width: 95,
-                    align: 'right',
-                    renderer: function (val, meta, record) {
-                        const formatted = Number(val || 0).toLocaleString('vi-VN');
-                        if (record.get('isSummary') || record.get('maDonVi') === 'TONG') {
-                            return '<strong>' + formatted + '</strong>';
-                        }
-                        return formatted;
-                    }
-                },
-                {
-                    text: 'CTVBM',
-                    dataIndex: 'ctvbm',
-                    width: 95,
-                    align: 'right',
-                    renderer: function (val, meta, record) {
-                        const formatted = Number(val || 0).toLocaleString('vi-VN');
-                        if (record.get('isSummary') || record.get('maDonVi') === 'TONG') {
-                            return '<strong>' + formatted + '</strong>';
-                        }
-                        return formatted;
-                    }
-                },
-                {
-                    text: 'HTBM',
-                    dataIndex: 'htbm',
-                    width: 95,
-                    align: 'right',
-                    renderer: function (val, meta, record) {
-                        const formatted = Number(val || 0).toLocaleString('vi-VN');
-                        if (record.get('isSummary') || record.get('maDonVi') === 'TONG') {
-                            return '<strong>' + formatted + '</strong>';
-                        }
-                        return formatted;
-                    }
-                },
-                {
-                    text: 'VANV',
-                    dataIndex: 'vanv',
-                    width: 95,
-                    align: 'right',
-                    renderer: function (val, meta, record) {
-                        const formatted = Number(val || 0).toLocaleString('vi-VN');
-                        if (record.get('isSummary') || record.get('maDonVi') === 'TONG') {
-                            return '<strong>' + formatted + '</strong>';
-                        }
-                        return formatted;
-                    }
-                },
-                {
-                    text: 'NNV',
-                    dataIndex: 'nnv',
-                    width: 95,
-                    align: 'right',
-                    renderer: function (val, meta, record) {
-                        const formatted = Number(val || 0).toLocaleString('vi-VN');
-                        if (record.get('isSummary') || record.get('maDonVi') === 'TONG') {
-                            return '<strong>' + formatted + '</strong>';
-                        }
-                        return formatted;
-                    }
+                    text: 'Theo loại hồ sơ',
+                    align: 'center',
+                    defaults: { align: 'right', width: 80, renderer: 'renderSoLieuGrid' },
+                    columns: [
+                        { text: 'ĐTCB', dataIndex: 'dtcb' },
+                        { text: 'Sưu tra', dataIndex: 'suuTra' },
+                        { text: 'Hiềm nghi', dataIndex: 'hiemNghi' },
+                        { text: 'Chuyên án', dataIndex: 'chuyenAn' },
+                        { text: 'CTVBM', dataIndex: 'ctvbm' },
+                        { text: 'HTBM', dataIndex: 'htbm' },
+                        { text: 'VANV', dataIndex: 'vanv' },
+                        { text: 'NNV', dataIndex: 'nnv' }
+                    ]
                 }
             ]
         }
-    ]
+    }]
 });

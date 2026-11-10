@@ -195,10 +195,11 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewController', {
         };
 
         // 4. Ánh xạ cơ cấu đơn vị
+        const capColors = DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_DisplayConfig.coCauColors;
         const cfgDonVi = {
-            CUC: { name: 'Cấp Cục', mau: '#2563eb' },
-            TINH: { name: 'Cấp tỉnh', mau: '#22c55e' },
-            XA: { name: 'Cấp Xã', mau: '#f59e0b' }
+            CUC: { name: 'Cấp Cục', mau: capColors['Cấp Cục'] },
+            TINH: { name: 'Cấp tỉnh', mau: capColors['Cấp tỉnh'] },
+            XA: { name: 'Cấp Xã', mau: capColors['Cấp Xã'] }
         };
         const coCauList = Array.isArray(data.coCauHoSoTheoDonVi) ? data.coCauHoSoTheoDonVi : [];
         const totalCoCau = coCauList.reduce(function (sum, it) { return sum + (it.val || 0); }, 0);
@@ -396,6 +397,41 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewController', {
         }
     },
 
+    //#region NOTE: Renderer bảng tình hình theo đơn vị
+    /** Dòng tổng cộng (isSummary hoặc mã TONG). */
+    isSummaryRecord: function (record) {
+        return !!(record && (record.get('isSummary') || record.get('maDonVi') === 'TONG'));
+    },
+
+    /** Cột STT: ẩn số ở dòng tổng. */
+    renderSttGrid: function (val, meta, record) {
+        const me = this;
+        return me.isSummaryRecord(record) ? '' : val;
+    },
+
+    /** Cột đơn vị: link ở dòng thường, chữ đậm ở dòng tổng; tooltip tên đầy đủ khi bị cắt. */
+    renderDonViGrid: function (val, meta, record) {
+        const me = this;
+        const text = Ext.String.htmlEncode(val || '');
+        meta.tdAttr = 'data-qtip="' + text + '"';
+        if (me.isSummaryRecord(record)) {
+            return '<strong class="tcn3-summary-name">' + text + '</strong>';
+        }
+        return '<a href="javascript:void(0)" class="tcn3-unit-link">' + text + '</a>';
+    },
+
+    /** Cột số liệu: định dạng vi-VN, số 0 hiển thị mờ, dòng tổng in đậm. */
+    renderSoLieuGrid: function (val, meta, record) {
+        const me = this;
+        const num = Number(val || 0);
+        const formatted = num.toLocaleString('vi-VN');
+        if (me.isSummaryRecord(record)) {
+            return '<strong>' + formatted + '</strong>';
+        }
+        return num === 0 ? '<span class="tcn3-num-zero">0</span>' : formatted;
+    },
+    //#endregion
+
     /**
      * Cập nhật tiêu đề 3 Tab kèm tổng số hồ sơ động: Icon + Title tab + (tổng số hs)
      */
@@ -423,17 +459,17 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewController', {
 
         const cucTab = view.down('#cucTab_IdView');
         if (cucTab) {
-            cucTab.setText('Cấp Cục (' + Number(totalCuc).toLocaleString('vi-VN') + ')');
+            cucTab.setText('Cấp Cục<span class="tcn3-tab-count">' + Number(totalCuc).toLocaleString('vi-VN') + '</span>');
         }
 
         const tinhTab = view.down('#tinhTab_IdView');
         if (tinhTab) {
-            tinhTab.setText('Cấp Tỉnh (' + Number(totalTinh).toLocaleString('vi-VN') + ')');
+            tinhTab.setText('Cấp Tỉnh<span class="tcn3-tab-count">' + Number(totalTinh).toLocaleString('vi-VN') + '</span>');
         }
 
         const xaTab = view.down('#xaTab_IdView');
         if (xaTab) {
-            xaTab.setText('Cấp Xã (' + Number(totalXa).toLocaleString('vi-VN') + ')');
+            xaTab.setText('Cấp Xã<span class="tcn3-tab-count">' + Number(totalXa).toLocaleString('vi-VN') + '</span>');
         }
     },
 
@@ -442,6 +478,16 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewController', {
      * Chuyển tab sẽ nạp dữ liệu cấp tương ứng (CUC / TINH / XA) vào Grid duy nhất
      * @param {Ext.tab.Tab} tab Tab được click
      */
+    /** Kích hoạt tab theo cấp đang chọn khi tabbar render xong (mặc định Cấp Cục). */
+    onGridTabBarReady: function (tabBar) {
+        const me = this;
+        const cap = me.currentCap || 'CUC';
+        const tab = tabBar.items.findBy(item => item.capDonVi === cap);
+        if (tab) {
+            tabBar.setActiveTab(tab);
+        }
+    },
+
     onGridTabClick: function (tab) {
         const me = this;
         if (!tab) return;
@@ -513,7 +559,8 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewController', {
         if (coCauChart && coCauChart.rendered && (!targetChart || targetChart === coCauChart)) {
             const series = coCauChart.getSeries() && coCauChart.getSeries()[0];
             if (series && typeof series.setColors === 'function') {
-                series.setColors(['#2563eb', '#22c55e', '#f59e0b']);
+                const capColors = DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_DisplayConfig.coCauColors;
+                series.setColors([capColors['Cấp Cục'], capColors['Cấp tỉnh'], capColors['Cấp Xã']]);
                 coCauChart.redraw();
             }
         }
@@ -527,6 +574,13 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewController', {
         // Cập nhật biểu đồ cơ cấu theo loại đối tượng (Horizontal Bar Chart)
         const loaiDoiTuongChart = view.down('#loaiDoiTuongChart_IdView');
         if (loaiDoiTuongChart && loaiDoiTuongChart.rendered && (!targetChart || targetChart === loaiDoiTuongChart)) {
+            // Chừa khoảng trục cho nhãn số bên ngoài thanh dài nhất (nếu không nhãn bị ẩn)
+            const loaiStore = loaiDoiTuongChart.getStore();
+            const maxVal = loaiStore ? loaiStore.getRange().reduce((max, rec) => Math.max(max, Number(rec.get('val')) || 0), 0) : 0;
+            const numericAxis = loaiDoiTuongChart.getAxes().find(axis => axis.type === 'numeric');
+            if (numericAxis && maxVal > 0) {
+                numericAxis.setMaximum(Math.ceil(maxVal * 1.2));
+            }
             loaiDoiTuongChart.redraw();
         }
 

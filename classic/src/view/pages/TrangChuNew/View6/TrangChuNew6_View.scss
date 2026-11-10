@@ -4,6 +4,8 @@
    ========================================================================== */
 
 .trang-chu-new6 {
+    // Màu thương hiệu (màu active menu) — dùng cho header grid, đồng bộ với View3
+    --tcn6-brand: #00a47e;
     --tcn6-blue: #2563eb;
     --tcn6-green: #059669;
     --tcn6-amber: #d97706;
@@ -399,8 +401,8 @@
         .x-grid-header-ct {
             border: 0;
             // Ext đặt border-width inline cho header docked nên kẻ đáy bằng box-shadow.
-            box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--tcn6-blue) 30%, var(--theme-border));
-            background: color-mix(in srgb, var(--tcn6-blue) 7%, var(--theme-bg-card));
+            box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--tcn6-brand) 30%, var(--theme-border));
+            background: color-mix(in srgb, var(--tcn6-brand) 7%, var(--theme-bg-card));
             border-radius: 8px 8px 0 0;
         }
 
@@ -423,7 +425,7 @@
         }
 
         .x-column-header-text-inner {
-            color: color-mix(in srgb, var(--tcn6-blue) 35%, var(--theme-text-primary));
+            color: color-mix(in srgb, var(--tcn6-brand) 35%, var(--theme-text-primary));
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 0.4px;
@@ -432,7 +434,7 @@
 
         .x-column-header-over,
         .x-column-header-open {
-            background: color-mix(in srgb, var(--tcn6-blue) 12%, var(--theme-bg-card));
+            background: color-mix(in srgb, var(--tcn6-brand) 12%, var(--theme-bg-card));
         }
 
         .x-column-header-trigger {
@@ -453,7 +455,7 @@
         }
 
         .x-grid-item-over {
-            background: color-mix(in srgb, var(--tcn6-blue) 6%, var(--theme-bg-card));
+            background: color-mix(in srgb, var(--tcn6-brand) 6%, var(--theme-bg-card));
         }
 
         .x-grid-cell-inner {
@@ -515,6 +517,7 @@
 }
 
 .dark-mode .trang-chu-new6 {
+    --tcn6-brand: #34d399;
     --tcn6-blue: #60a5fa;
     --tcn6-green: #34d399;
     --tcn6-amber: #fbbf24;
