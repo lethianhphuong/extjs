@@ -46,10 +46,6 @@ Ext.define('DEMO.view.pages.TrangChuNew.TrangChuNew_ViewTab', {
         title: 'view3',
         closable: false
     }, {
-        xtype: 'TrangChuNew4_View',
-        title: 'view4',
-        closable: false
-    }, {
         xtype: 'TrangChuNew5_View',
         title: 'view5',
         closable: false
