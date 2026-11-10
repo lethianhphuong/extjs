@@ -202,24 +202,24 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_MockData', {
                 { capDonVi: 'Phòng 6', maDonVi: '100037013', val: 3 }
             ],
             capTinh: [
-                { code: 'DTCB', val: 666 },
-                { code: 'SUUTRA', val: 532 },
-                { code: 'HIEMNGHI', val: 1013 },
-                { code: 'CHUYENAN', val: 465 },
-                { code: 'CTVBM', val: 6172 },
-                { code: 'HTBM', val: 233 },
-                { code: 'VANV', val: 219 },
-                { code: 'NNV', val: 71 }
+                { code: 'DTCB', name: 'ĐTCB', val: 666 },
+                { code: 'SUUTRA', name: 'Sưu tra', val: 532 },
+                { code: 'HIEMNGHI', name: 'Hiềm nghi', val: 1013 },
+                { code: 'CHUYENAN', name: 'Chuyên án', val: 465 },
+                { code: 'CTVBM', name: 'CTVBM', val: 6172 },
+                { code: 'HTBM', name: 'HTBM', val: 233 },
+                { code: 'VANV', name: 'Vai ảo NV', val: 219 },
+                { code: 'NNV', name: 'Nhà nghiệp vụ', val: 71 }
             ],
             capXa: [
-                { code: 'DTCB', val: 476 },
-                { code: 'SUUTRA', val: 327 },
-                { code: 'HIEMNGHI', val: 507 },
-                { code: 'CHUYENAN', val: 41 },
-                { code: 'CTVBM', val: 556 },
-                { code: 'HTBM', val: 55 },
-                { code: 'VANV', val: 51 },
-                { code: 'NNV', val: 1 }
+                { code: 'DTCB', name: 'ĐTCB', val: 476 },
+                { code: 'SUUTRA', name: 'Sưu tra', val: 327 },
+                { code: 'HIEMNGHI', name: 'Hiềm nghi', val: 507 },
+                { code: 'CHUYENAN', name: 'Chuyên án', val: 41 },
+                { code: 'CTVBM', name: 'CTVBM', val: 556 },
+                { code: 'HTBM', name: 'HTBM', val: 55 },
+                { code: 'VANV', name: 'Vai ảo NV', val: 51 },
+                { code: 'NNV', name: 'Nhà nghiệp vụ', val: 1 }
             ],
             dienBienMoMoiVaKetThuc: [
                 { code: 202601, ketThuc: 23, moMoi: 171, name: 'T 11', nameHover: 'Tháng 11/2025' },

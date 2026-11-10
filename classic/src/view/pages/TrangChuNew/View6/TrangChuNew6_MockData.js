@@ -1,56 +1,52 @@
 Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_MockData', {
     singleton: true,
 
-    /** Dữ liệu mẫu cùng nội dung View4; màu không nằm trong dữ liệu mà map theo code ở DisplayConfig. */
+    /** Dữ liệu mẫu đồng bộ 100% key/cấu trúc với DataView6 (response API thực tế). */
     getData: function () {
         return {
+            // API chưa trả thông tin cán bộ; giữ tạm để thẻ cán bộ có dữ liệu hiển thị
             canBo: {
                 hoTen: 'Nguyễn Văn D',
                 chucVu: 'Đội trưởng',
                 donVi: 'Đội Phòng ngừa, Phòng CSHS - Công an tỉnh A',
                 linhVuc: 'Quản lý đối tượng, địa bàn trọng điểm'
             },
-            kpiCards: [
-                { key: 'tongSo', ten: 'Tổng số hồ sơ đang phụ trách', giaTri: 128, mau: 'blue', icon: 'folder', laTong: true },
-                { key: 'moMoi', ten: 'Mở mới trong kỳ', giaTri: 18, mau: 'green', icon: 'plus' },
-                { key: 'ketThuc', ten: 'Kết thúc trong kỳ', giaTri: 15, mau: 'purple', icon: 'check' },
-                { key: 'chuyenMuc', ten: 'Chuyển mức trong kỳ', giaTri: 4, mau: 'orange', icon: 'swap' },
-                { key: 'sapDenHan', ten: 'Sắp đến hạn', giaTri: 6, mau: 'amber', icon: 'clock', canhBao: true },
-                { key: 'quaHan', ten: 'Quá hạn', giaTri: 3, mau: 'red', icon: 'alert', canhBao: true }
+            tongQuan: [
+                { code: 'DANG_QUAN_LY', name: 'Tổng số hồ sơ đang quản lý', typeLech: 1, val: 5, valLech: null },
+                { code: 'LAP_MOI', name: 'Mở mới trong kỳ', typeLech: 1, val: 4, valLech: null },
+                { code: 'DA_KET_THUC', name: 'Kết thúc trong kỳ', typeLech: 0, val: 0, valLech: null },
+                { code: 'CHUYEN_MUC', name: 'Chuyển mức trong kỳ', typeLech: 0, val: 0, valLech: null },
+                { code: 'PER_LAP_MOI', name: 'Phần trăm mở mới trong kỳ', typeLech: 1, val: 4, valLech: 3 },
+                { code: 'PER_DA_KET_THUC', name: 'Phần trăm kết thúc trong kỳ', typeLech: 0, val: 0, valLech: 0 }
             ],
             loaiHoSo: [
-                { code: 'DTCB', ten: 'ĐTCB', soLuong: 1 },
-                { code: 'SUUTRA', ten: 'Sưu tra', soLuong: 4 },
-                { code: 'HIEMNGHI', ten: 'Hiềm nghi', soLuong: 2 },
-                { code: 'CHUYENAN', ten: 'Chuyên án', soLuong: 1 },
-                { code: 'CTVBM', ten: 'CTVBM', soLuong: 5 },
-                { code: 'HTBM', ten: 'HTBM', soLuong: 2 }
+                { code: 'DTCB', name: 'Điều tra cơ bản', val: 3 },
+                { code: 'SUUTRA', name: 'Sưu tra', val: 0 },
+                { code: 'HIEMNGHI', name: 'Hiềm nghi', val: 1 },
+                { code: 'CHUYENAN', name: 'Chuyên án', val: 0 },
+                { code: 'CTVBM', name: 'Cộng tác viên bí mật', val: 1 },
+                { code: 'HTBM', name: 'Hộp thư bí mật', val: 0 },
+                { code: 'VANV', name: 'Vai ảo NV', val: 0 },
+                { code: 'NNV', name: 'Nhà nghiệp vụ', val: 0 }
             ],
-            trangThai: [
-                { code: 'DANG_THUC_HIEN', name: 'Đang thực hiện', soLuong: 72 },
-                { code: 'HOAN_THANH', name: 'Đã hoàn thành', soLuong: 15 },
-                { code: 'SAP_DEN_HAN', name: 'Sắp đến hạn', soLuong: 6 },
-                { code: 'QUA_HAN', name: 'Quá hạn', soLuong: 3 },
-                { code: 'KHAC', name: 'Khác', soLuong: 32 }
+            trangThaiCongViecTrucTiep: [
+                { code: 'VIEC', name: 'Việc', taiKhoan: 'namtt220301', val: 15 },
+                { code: 'VAT', name: 'Vật ', taiKhoan: 'namtt220301', val: 46 },
+                { code: 'CONNGUOI', name: 'Con người', taiKhoan: 'namtt220301', val: 24 }
             ],
-            tienDoThang: [
-                { thang: 'T8/2025', soLuong: 42 },
-                { thang: 'T9/2025', soLuong: 63 },
-                { thang: 'T10/2025', soLuong: 81 },
-                { thang: 'T11/2025', soLuong: 98 },
-                { thang: 'T12/2025', soLuong: 128 }
+            tienDoXuLyTheoThang: [
+                { sl: 5, thang: 'T6/2026' },
+                { sl: 5, thang: 'T7/2026' },
+                { sl: 5, thang: 'T8/2026' },
+                { sl: 5, thang: 'T9/2026' },
+                { sl: 5, thang: 'T10/2026' }
             ],
-            dsHoSo: [
-                { stt: 1, maDoiTuong: 'DT1111154', ngayDuaVaoQuanLy: '15/10/2025', loaiHsCode: 'SUUTRA', loaiHsText: 'Sưu tra', soDangKy: '35/ĐK-CSHS' },
-                { stt: 2, maDoiTuong: 'DT3232352', ngayDuaVaoQuanLy: '22/10/2025', loaiHsCode: 'SUUTRA', loaiHsText: 'Sưu tra', soDangKy: '42/ĐK-CSHS' },
-                { stt: 3, maDoiTuong: 'DT3535353', ngayDuaVaoQuanLy: '05/11/2025', loaiHsCode: 'HIEMNGHI', loaiHsText: 'Hiềm nghi', soDangKy: '18/ĐK-CSHS' },
-                { stt: 4, maDoiTuong: 'DT3435435', ngayDuaVaoQuanLy: '18/11/2025', loaiHsCode: 'CHUYENAN', loaiHsText: 'Chuyên án', soDangKy: '09/ĐK-CSHS' },
-                { stt: 5, maDoiTuong: 'DT4545456', ngayDuaVaoQuanLy: '25/11/2025', loaiHsCode: 'SUUTRA', loaiHsText: 'Sưu tra', soDangKy: '15/ĐK-CSHS' },
-                { stt: 6, maDoiTuong: 'DT5656567', ngayDuaVaoQuanLy: '02/12/2025', loaiHsCode: 'HIEMNGHI', loaiHsText: 'Hiềm nghi', soDangKy: '24/ĐK-CSHS' },
-                { stt: 7, maDoiTuong: 'DT6767678', ngayDuaVaoQuanLy: '08/12/2025', loaiHsCode: 'CHUYENAN', loaiHsText: 'Chuyên án', soDangKy: '31/ĐK-CSHS' },
-                { stt: 8, maDoiTuong: 'DT7878789', ngayDuaVaoQuanLy: '14/12/2025', loaiHsCode: 'SUUTRA', loaiHsText: 'Sưu tra', soDangKy: '06/ĐK-CSHS' },
-                { stt: 9, maDoiTuong: 'DT8989890', ngayDuaVaoQuanLy: '20/12/2025', loaiHsCode: 'HIEMNGHI', loaiHsText: 'Hiềm nghi', soDangKy: '53/ĐK-CSHS' },
-                { stt: 10, maDoiTuong: 'DT9090901', ngayDuaVaoQuanLy: '27/12/2025', loaiHsCode: 'CHUYENAN', loaiHsText: 'Chuyên án', soDangKy: '11/ĐK-CSHS' }
+            danhSachHoSoDuocGiao: [
+                { id: '95be31f0-5855-45bb-8297-a2a556d02678', idDexuatXuly: '651773b9-85a2-4144-9755-334a4c895075', loaiDoituongMoi: '036005002', maDoiTuong: 'LC26-00017', ngayDangKy: null, ngayKyDuyet: 1767755257000, soDangKy: null, tenLoaiDoituongMoi: 'Cơ sở bí mật' },
+                { id: '7cb32fd4-9b7d-45b9-b7ab-5f079d323369', idDexuatXuly: 'b5f8d4c9-01d1-4970-b60f-69cfe0102f9f', loaiDoituongMoi: '036001003', maDoiTuong: 'ĐK25-00034', ngayDangKy: null, ngayKyDuyet: 1765818000000, soDangKy: null, tenLoaiDoituongMoi: 'Điều tra cơ bản địa bàn, khu vực trọng điểm' },
+                { id: 'ddf3fb16-94b9-470a-8f99-c3609b681aa2', idDexuatXuly: '18c7aa31-1e39-4496-bd68-730268624c8d', loaiDoituongMoi: '036001005', maDoiTuong: 'ĐĐ25-00027', ngayDangKy: null, ngayKyDuyet: 1764262800000, soDangKy: null, tenLoaiDoituongMoi: 'Điều tra cơ bản tuyến' },
+                { id: 'd752cae4-2de0-45d1-8dc5-90c425929f3e', idDexuatXuly: '668bea22-8242-47e1-b31a-09aabd869db3', loaiDoituongMoi: '036001002', maDoiTuong: 'ĐC25-00025', ngayDangKy: null, ngayKyDuyet: 1762189200000, soDangKy: null, tenLoaiDoituongMoi: 'Điều tra cơ bản cơ quan, tổ chức, doanh nghiệp' },
+                { id: '726d9d83-add3-4533-8f28-e02fe4a9b6d9', idDexuatXuly: '74dba889-0d8f-48fa-ae40-bb366403436a', loaiDoituongMoi: '036003002', maDoiTuong: 'HV25-00021', ngayDangKy: null, ngayKyDuyet: 1759856400000, soDangKy: null, tenLoaiDoituongMoi: 'Hiềm nghi việc, hiện tượng' }
             ]
         };
     }

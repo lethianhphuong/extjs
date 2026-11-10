@@ -97,10 +97,12 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewController', {
                 chart.getSeries().forEach(function (series, index) {
                     series.setStyle({
                         strokeStyle: colors[index],
-                        fillStyle: { type: 'linear', degrees: 90, stops: [
-                            { offset: 0, color: colors[index] },
-                            { offset: 1, color: 'rgba(0,0,0,0)' }
-                        ] }
+                        fillStyle: {
+                            type: 'linear', degrees: 90, stops: [
+                                { offset: 0, color: colors[index] },
+                                { offset: 1, color: 'rgba(0,0,0,0)' }
+                            ]
+                        }
                     });
                     series.setHidden(!me.getViewModel().get(index ? 'hienKetThuc' : 'hienMoMoi'));
                 });

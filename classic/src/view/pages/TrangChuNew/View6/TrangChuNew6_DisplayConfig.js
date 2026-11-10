@@ -8,14 +8,35 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_DisplayConfig', {
         HIEMNGHI: 'slate',
         CHUYENAN: 'purple',
         CTVBM: 'red',
-        HTBM: 'indigo'
+        HTBM: 'indigo',
+        VANV: 'blue',
+        NNV: 'amber'
     },
+    /** Tone cột biểu đồ "Trạng thái công việc trực tiếp thực hiện" theo code (trangThaiCongViecTrucTiep). */
     trangThaiTone: {
-        DANG_THUC_HIEN: 'blue',
-        HOAN_THANH: 'green',
-        SAP_DEN_HAN: 'amber',
-        QUA_HAN: 'red',
-        KHAC: 'muted'
+        VIEC: 'blue',
+        VAT: 'purple',
+        CONNGUOI: 'green'
+    },
+    /** Thẻ KPI theo code của tongQuan; PER_* được gộp làm badge chênh lệch cho thẻ gốc. */
+    kpi: {
+        DANG_QUAN_LY: { icon: 'folder', mau: 'blue', laTong: true, thuTu: 1 },
+        LAP_MOI: { icon: 'plus', mau: 'green', thuTu: 2 },
+        DA_KET_THUC: { icon: 'check', mau: 'purple', thuTu: 3 },
+        CHUYEN_MUC: { icon: 'swap', mau: 'orange', thuTu: 4 }
+    },
+    kpiGop: {
+        PER_LAP_MOI: 'LAP_MOI',
+        PER_DA_KET_THUC: 'DA_KET_THUC'
+    },
+    /** Tone badge loại hồ sơ trong grid theo 6 số đầu của loaiDoituongMoi (nhóm nghiệp vụ). */
+    loaiDoiTuongMoiTone: {
+        '036001': 'green',
+        '036002': 'pink',
+        '036003': 'slate',
+        '036004': 'purple',
+        '036005': 'red',
+        '036006': 'indigo'
     },
     /** Danh sách tone mà Controller đọc từ CSS để tô màu biểu đồ canvas. */
     tones: ['blue', 'green', 'amber', 'orange', 'red', 'purple', 'indigo', 'pink', 'slate', 'muted'],

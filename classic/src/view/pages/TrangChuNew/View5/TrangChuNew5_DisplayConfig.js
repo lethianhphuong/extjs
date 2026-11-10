@@ -28,15 +28,16 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_DisplayConfig', {
             P4: { mau: 'purple', thuTu: 4 },
             P5: { mau: 'muted', thuTu: 5 }
         },
+        // Hệ lực lượng: tên hiển thị lấy từ data (trường name), cấu hình FE chỉ giữ màu và thứ tự
         lucLuong: {
-            DTCB: { name: 'ĐTCB', mau: 'blue', thuTu: 1 },
-            SUUTRA: { name: 'Sưu tra', mau: 'green', thuTu: 2 },
-            HIEMNGHI: { name: 'Hiềm nghi', mau: 'amber', thuTu: 3 },
-            CHUYENAN: { name: 'Chuyên án', mau: 'orange', thuTu: 4 },
-            CTVBM: { name: 'CTVBM', mau: 'violet', thuTu: 5 },
-            HTBM: { name: 'HTBM', mau: 'pink', thuTu: 6 },
-            VANV: { name: 'Vai ảo NV', mau: 'cyan', thuTu: 7 },
-            NNV: { name: 'Nhà nghiệp vụ', mau: 'muted', thuTu: 8 }
+            DTCB: { mau: 'blue', thuTu: 1 },
+            SUUTRA: { mau: 'green', thuTu: 2 },
+            HIEMNGHI: { mau: 'amber', thuTu: 3 },
+            CHUYENAN: { mau: 'orange', thuTu: 4 },
+            CTVBM: { mau: 'violet', thuTu: 5 },
+            HTBM: { mau: 'pink', thuTu: 6 },
+            VANV: { mau: 'cyan', thuTu: 7 },
+            NNV: { mau: 'muted', thuTu: 8 }
         }
     },
     /** Tra cấu hình bằng mã ổn định, không phụ thuộc vị trí response. */

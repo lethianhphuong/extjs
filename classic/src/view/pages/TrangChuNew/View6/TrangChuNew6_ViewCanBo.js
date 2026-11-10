@@ -33,7 +33,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewCanBo', {
                 '<div class="tcn6-kpi-head"><span class="tcn6-kpi-title">{ten:htmlEncode}</span>' +
                 '<span class="tcn6-kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{iconSvg}</svg></span></div>' +
                 '<strong class="tcn6-kpi-val">{giaTriText:htmlEncode}</strong>' +
-                '<span class="tcn6-kpi-unit">hồ sơ</span>' +
+                '<span class="tcn6-kpi-unit">hồ sơ<tpl if="hienLech"> <span class="tcn6-kpi-lech tcn6-kpi-lech-{lechTone}">{lechText:htmlEncode} so với kỳ trước</span></tpl></span>' +
                 '</div></tpl></div>'
             //#endregion
         }]
