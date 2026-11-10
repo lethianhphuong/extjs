@@ -135,7 +135,8 @@
         width: 100%;
         overflow: visible !important;
 
-        .x-component {
+        .x-component,
+        .x-box-inner {
             overflow: visible !important;
         }
     }
@@ -144,8 +145,9 @@
         display: grid;
         grid-template-columns: unquote('repeat(6, minmax(0, 1fr))');
         gap: 14px;
-        padding-top: 2px;
-        padding-bottom: 2px;
+        padding-top: 4px;
+        padding-bottom: 6px;
+        overflow: visible !important;
     }
 
     .tcn3-metric {
@@ -157,8 +159,10 @@
         min-height: 106px;
         box-sizing: border-box;
         transition: box-shadow 0.15s ease, border-color 0.15s ease;
+        transform: none !important;
 
         &:hover {
+            transform: none !important;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             border-color: #94a3b8;
         }
@@ -211,11 +215,14 @@
         /* Thẻ Tổng số hồ sơ đang quản lý (laTong) */
         &.tcn3-metric-total {
             background: #ebf5ff;
-            border: 1.5px solid #60a5fa;
+            border: 2px solid #3b82f6;
             box-shadow: 0 2px 6px rgba(37, 99, 235, 0.12);
+            transform: none !important;
 
             &:hover {
-                border-color: #2563eb;
+                transform: none !important;
+                border-color: #1d4ed8 !important;
+                border-top-color: #1d4ed8 !important;
                 box-shadow: 0 4px 14px rgba(37, 99, 235, 0.22);
             }
 

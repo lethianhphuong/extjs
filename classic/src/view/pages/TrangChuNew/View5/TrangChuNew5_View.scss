@@ -44,21 +44,36 @@
         border: 1px solid #cbd5e1;
         border-radius: 12px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        transition: box-shadow 0.15s ease, border-color 0.15s ease;
+        transform: none !important;
 
         &:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            transform: none !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border-color: #94a3b8;
         }
     }
 
     /* ==========================================================================
        1. KPI Metrics (Hàng 1) — Đậm đà, sắc nét, có chiều sâu
        ========================================================================== */
+    .tcn5-kpi-container {
+        width: 100%;
+        overflow: visible !important;
+
+        .x-component,
+        .x-box-inner {
+            overflow: visible !important;
+        }
+    }
+
     .tcn5-metrics {
         display: grid;
         grid-template-columns: unquote('repeat(6, minmax(0, 1fr))');
         gap: 14px;
+        padding-top: 4px;
+        padding-bottom: 6px;
+        overflow: visible !important;
     }
 
     .tcn5-metric {
@@ -69,11 +84,13 @@
         padding: 14px;
         min-height: 106px;
         box-sizing: border-box;
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        transition: box-shadow 0.15s ease, border-color 0.15s ease;
+        transform: none !important;
 
         &:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            transform: none !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-color: #94a3b8;
         }
 
         &.tcn5-tone-blue {
@@ -134,8 +151,16 @@
         /* Thẻ Tổng số hồ sơ đang quản lý (laTong) */
         &.tcn5-metric-total {
             background: #ebf5ff;
-            border: 1.5px solid #60a5fa;
-            box-shadow: 0 2px 5px rgba(37, 99, 235, 0.1);
+            border: 2px solid #3b82f6;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.12);
+            transform: none !important;
+
+            &:hover {
+                transform: none !important;
+                border-color: #1d4ed8 !important;
+                border-top-color: #1d4ed8 !important;
+                box-shadow: 0 4px 14px rgba(37, 99, 235, 0.22);
+            }
 
             .tcn5-metric-bottom strong {
                 color: #1d4ed8;
@@ -236,6 +261,9 @@
         grid-template-columns: unquote('repeat(8, minmax(0, 1fr))');
         gap: 10px;
         margin-top: 10px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        overflow: visible !important;
 
         > div {
             background: #ffffff;
@@ -247,11 +275,13 @@
             justify-content: space-between;
             align-items: center;
             box-sizing: border-box;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            transition: box-shadow 0.15s ease, border-color 0.15s ease;
+            transform: none !important;
 
             &:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+                transform: none !important;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+                border-color: #94a3b8;
             }
 
             span {
