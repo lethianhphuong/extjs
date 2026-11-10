@@ -119,6 +119,54 @@ Ext.define('DEMO.view.pages.TrangChuNew.View4.TrangChuNew4_MockData', {
                     loaiHsCode: 'CHUYENAN',
                     loaiHsText: 'Chuyên án',
                     soDangKy: '09/ĐK-CSHS'
+                },
+                {
+                    stt: 5,
+                    maDoiTuong: 'DT4545456',
+                    ngayDuaVaoQuanLy: '25/11/2025',
+                    loaiHsCode: 'SUUTRA',
+                    loaiHsText: 'Sưu tra',
+                    soDangKy: '15/ĐK-CSHS'
+                },
+                {
+                    stt: 6,
+                    maDoiTuong: 'DT5656567',
+                    ngayDuaVaoQuanLy: '02/12/2025',
+                    loaiHsCode: 'HIEMNGHI',
+                    loaiHsText: 'Hiềm nghi',
+                    soDangKy: '24/ĐK-CSHS'
+                },
+                {
+                    stt: 7,
+                    maDoiTuong: 'DT6767678',
+                    ngayDuaVaoQuanLy: '08/12/2025',
+                    loaiHsCode: 'CHUYENAN',
+                    loaiHsText: 'Chuyên án',
+                    soDangKy: '31/ĐK-CSHS'
+                },
+                {
+                    stt: 8,
+                    maDoiTuong: 'DT7878789',
+                    ngayDuaVaoQuanLy: '14/12/2025',
+                    loaiHsCode: 'SUUTRA',
+                    loaiHsText: 'Sưu tra',
+                    soDangKy: '06/ĐK-CSHS'
+                },
+                {
+                    stt: 9,
+                    maDoiTuong: 'DT8989890',
+                    ngayDuaVaoQuanLy: '20/12/2025',
+                    loaiHsCode: 'HIEMNGHI',
+                    loaiHsText: 'Hiềm nghi',
+                    soDangKy: '53/ĐK-CSHS'
+                },
+                {
+                    stt: 10,
+                    maDoiTuong: 'DT9090901',
+                    ngayDuaVaoQuanLy: '27/12/2025',
+                    loaiHsCode: 'CHUYENAN',
+                    loaiHsText: 'Chuyên án',
+                    soDangKy: '11/ĐK-CSHS'
                 }
             ]
         };

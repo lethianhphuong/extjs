@@ -11,83 +11,13 @@ Ext.define('DEMO.view.pages.TrangChuNew.View4.TrangChuNew4_ViewKetQua', {
         'Ext.chart.axis.Category'
     ],
     cls: 'tcn4-ketqua-row',
-    layout: { type: 'hbox', align: 'stretch' },
-    height: 330,
+    layout: { type: 'vbox', align: 'stretch' },
     items: [
-        // Panel 1: Danh sách hồ sơ được giao (mới nhất) - GridPanel
+        // Khối 1 (trên): Kết quả công việc trực tiếp thực hiện (Donut + Line Chart)
         {
             xtype: 'container',
             cls: 'tcn4-card',
-            flex: 1.35,
-            margin: '0 10 0 0',
-            layout: { type: 'vbox', align: 'stretch' },
-            items: [
-                {
-                    xtype: 'component',
-                    cls: 'tcn4-card-header',
-                    html: '<div class="tcn4-header-wrap">' +
-                        '<span class="tcn4-header-icon tcn4-tone-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg></span>' +
-                        '<h3>Danh sách hồ sơ được giao (mới nhất)</h3>' +
-                        '</div>'
-                },
-                {
-                    xtype: 'grid',
-                    itemId: 'dsHoSoGrid_IdView',
-                    cls: 'tcn4-custom-grid',
-                    flex: 1,
-                    border: false,
-                    rowLines: true,
-                    columnLines: true,
-                    bind: { store: '{dsHoSoStore}' },
-                    columns: [
-                        {
-                            text: 'STT',
-                            dataIndex: 'stt',
-                            width: 50,
-                            align: 'center'
-                        },
-                        {
-                            text: 'Mã đối tượng',
-                            dataIndex: 'maDoiTuong',
-                            width: 130,
-                            align: 'center',
-                            renderer: function (val) {
-                                return '<span class="tcn4-code-text">' + Ext.String.htmlEncode(val) + '</span>';
-                            }
-                        },
-                        {
-                            text: 'Ngày đưa vào quản lý',
-                            dataIndex: 'ngayDuaVaoQuanLy',
-                            width: 160,
-                            align: 'center'
-                        },
-                        {
-                            text: 'Loại hồ sơ',
-                            dataIndex: 'loaiHsText',
-                            width: 120,
-                            align: 'center',
-                            renderer: function (val, meta, rec) {
-                                const code = rec.get('loaiHsCode') || '';
-                                return '<span class="tcn4-badge-loai tcn4-badge-' + code.toLowerCase() + '">' +
-                                    Ext.String.htmlEncode(val) + '</span>';
-                            }
-                        },
-                        {
-                            text: 'Số đăng ký',
-                            dataIndex: 'soDangKy',
-                            flex: 1,
-                            align: 'center'
-                        }
-                    ]
-                }
-            ]
-        },
-
-        // Panel 2: Kết quả công việc trực tiếp thực hiện (Donut + Line Chart)
-        {
-            xtype: 'container',
-            cls: 'tcn4-card',
-            flex: 1.15,
+            height: 290,
             layout: { type: 'vbox', align: 'stretch' },
             items: [
                 {
@@ -229,6 +159,74 @@ Ext.define('DEMO.view.pages.TrangChuNew.View4.TrangChuNew4_ViewKetQua', {
                                     ]
                                 }
                             ]
+                        }
+                    ]
+                }
+            ]
+        },
+
+        // Khối 2 (dưới): Danh sách hồ sơ được giao (mới nhất) - GridPanel
+        {
+            xtype: 'container',
+            cls: 'tcn4-card',
+            margin: '10 0 0 0',
+            height: 385,
+            layout: { type: 'vbox', align: 'stretch' },
+            items: [
+                {
+                    xtype: 'component',
+                    cls: 'tcn4-card-header',
+                    html: '<div class="tcn4-header-wrap">' +
+                        '<span class="tcn4-header-icon tcn4-tone-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg></span>' +
+                        '<h3>Danh sách hồ sơ được giao (mới nhất)</h3>' +
+                        '</div>'
+                },
+                {
+                    xtype: 'grid',
+                    itemId: 'dsHoSoGrid_IdView',
+                    cls: 'tcn4-custom-grid',
+                    flex: 1,
+                    border: false,
+                    rowLines: true,
+                    columnLines: true,
+                    scrollable: 'y',
+                    bind: { store: '{dsHoSoStore}' },
+                    columns: [
+                        {
+                            text: 'STT',
+                            dataIndex: 'stt',
+                            width: 50,
+                            align: 'center'
+                        },
+                        {
+                            text: 'Mã đối tượng',
+                            dataIndex: 'maDoiTuong',
+                            width: 130,
+                            align: 'center',
+                            renderer: function (val) {
+                                return '<span class="tcn4-code-text">' + Ext.String.htmlEncode(val) + '</span>';
+                            }
+                        },
+                        {
+                            text: 'Ngày đưa vào quản lý',
+                            dataIndex: 'ngayDuaVaoQuanLy',
+                            width: 160,
+                            align: 'center'
+                        },
+                        {
+                            text: 'Loại hồ sơ',
+                            dataIndex: 'loaiHsText',
+                            width: 120,
+                            align: 'center',
+                            renderer: function (val) {
+                                return Ext.String.htmlEncode(val || '');
+                            }
+                        },
+                        {
+                            text: 'Số đăng ký',
+                            dataIndex: 'soDangKy',
+                            flex: 1,
+                            align: 'center'
                         }
                     ]
                 }
