@@ -44,16 +44,6 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewGrid', {
                     capDonVi: 'XA',
                     closable: false,
                     handler: 'onGridTabClick'
-                },
-                {
-                    xtype: 'tbfill'
-                },
-                {
-                    xtype: 'button',
-                    text: 'Xuất báo cáo',
-                    cls: 'tcn3-btn-export-outline',
-                    iconCls: 'x-fa fa-download',
-                    handler: 'onExportReport'
                 }
             ]
         }

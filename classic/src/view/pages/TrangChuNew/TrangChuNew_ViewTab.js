@@ -20,7 +20,14 @@ Ext.define('DEMO.view.pages.TrangChuNew.TrangChuNew_ViewTab', {
         'DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewLucLuong',
         'DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewModel',
         'DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewThongKe',
-        'DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewTopDonVi'
+        'DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewTopDonVi',
+        'DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_MockData',
+        'DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_View',
+        'DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewCanBo',
+        'DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewController',
+        'DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewGrid',
+        'DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewKetQua',
+        'DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewModel'
     ],
     activeTab: 0,
     border: false,
@@ -44,6 +51,10 @@ Ext.define('DEMO.view.pages.TrangChuNew.TrangChuNew_ViewTab', {
     }, {
         xtype: 'TrangChuNew5_View',
         title: 'view5',
+        closable: false
+    }, {
+        xtype: 'TrangChuNew6_View',
+        title: 'view6',
         closable: false
     }]
 });

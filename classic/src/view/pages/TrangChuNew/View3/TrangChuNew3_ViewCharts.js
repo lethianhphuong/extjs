@@ -49,10 +49,27 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewCharts', {
                             series: [{
                                 type: 'pie',
                                 angleField: 'soLuong',
-                                donut: 68,
+                                donut: 60,
+                                radiusFactor: 95,
                                 highlight: false,
                                 style: { lineWidth: 1.5, strokeStyle: '#ffffff' },
                                 colors: ['#2563eb', '#10b981', '#f59e0b'],
+                                labelOverflowPadding: 0,
+                                label: {
+                                    field: 'tyLe',
+                                    display: 'inside',
+                                    fontSize: 12,
+                                    fontWeight: 'bold',
+                                    fillStyle: '#ffffff',
+                                    calloutLine: false,
+                                    renderer: function (val) {
+                                        const percent = Number(String(val).replace('%', '').replace(',', '.'));
+                                        return {
+                                            text: percent >= 7 ? String(val).replace('.', ',') + '%' : '',
+                                            rotationRads: 0
+                                        };
+                                    }
+                                },
                                 tooltip: {
                                     trackMouse: true,
                                     renderer: function (tooltip, record) {

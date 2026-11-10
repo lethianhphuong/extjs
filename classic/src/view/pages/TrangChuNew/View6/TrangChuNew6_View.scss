@@ -1,0 +1,542 @@
+/* ==========================================================================
+   SCSS cho TrangChuNew6 (View 6) — thiết kế lại từ View 4
+   Namespace: DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_View
+   ========================================================================== */
+
+.trang-chu-new6 {
+    --tcn6-blue: #2563eb;
+    --tcn6-green: #059669;
+    --tcn6-amber: #d97706;
+    --tcn6-orange: #ea580c;
+    --tcn6-red: #dc2626;
+    --tcn6-purple: #7c3aed;
+    --tcn6-indigo: #4f46e5;
+    --tcn6-pink: #db2777;
+    --tcn6-slate: #475569;
+    --tcn6-muted: #94a3b8;
+    color: var(--theme-text-primary);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+
+    //#region NOTE: Card và tiêu đề
+    .tcn6-card {
+        background: var(--theme-bg-card);
+        border: 1px solid var(--theme-border);
+        border-radius: 12px;
+        box-shadow: var(--theme-shadow);
+    }
+
+    .tcn6-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 32px;
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid var(--theme-border-light);
+    }
+
+    .tcn6-card-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 22px;
+    }
+
+    .tcn6-title-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        background: color-mix(in srgb, var(--tcn6-tone) 12%, var(--theme-bg-card));
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .tcn6-muted {
+        color: var(--theme-text-secondary);
+        font-size: 12px;
+
+        b {
+            color: var(--theme-text-primary);
+            font-size: 14px;
+        }
+    }
+
+    .tcn6-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 2px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 20px;
+        color: var(--theme-text-secondary);
+        background: var(--theme-bg-card-hover);
+        white-space: nowrap;
+
+        &[class*='tcn6-tone-'] {
+            color: var(--tcn6-tone);
+            background: color-mix(in srgb, var(--tcn6-tone) 12%, var(--theme-bg-card));
+        }
+    }
+
+    .tcn6-empty {
+        padding: 24px 0;
+        color: var(--theme-text-muted);
+        text-align: center;
+    }
+
+    .tcn6-dot {
+        display: inline-block;
+        flex: none;
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        background: var(--tcn6-tone);
+    }
+    //#endregion
+
+    //#region NOTE: Thẻ cán bộ
+    .tcn6-officer {
+        padding: 20px;
+        background: linear-gradient(135deg, color-mix(in srgb, var(--tcn6-blue) 10%, var(--theme-bg-card)) 0%, var(--theme-bg-card) 60%);
+    }
+
+    .tcn6-officer-top {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .tcn6-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        color: #ffffff;
+        font-size: 22px;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--tcn6-blue), var(--tcn6-indigo));
+        box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--tcn6-blue) 60%, transparent);
+    }
+
+    .tcn6-officer-label {
+        color: var(--theme-text-muted);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+    }
+
+    .tcn6-officer-name {
+        margin: 2px 0 6px;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 28px;
+    }
+
+    .tcn6-officer-meta {
+        margin: 18px 0 0;
+        padding-top: 14px;
+        border-top: 1px dashed var(--theme-border);
+
+        dt {
+            color: var(--theme-text-muted);
+            font-size: 12px;
+        }
+
+        dd {
+            margin: 2px 0 10px;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 20px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    //#endregion
+
+    //#region NOTE: Thẻ KPI
+    .tcn6-kpi-grid {
+        display: grid;
+        grid-template-columns: unquote('repeat(3, minmax(0, 1fr))');
+        gap: 16px;
+        height: 100%;
+    }
+
+    .tcn6-kpi {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 14px 16px;
+        overflow: hidden;
+        background: var(--theme-bg-card);
+        border: 1px solid var(--theme-border);
+        border-radius: 12px;
+        box-shadow: var(--theme-shadow);
+        color: var(--theme-text-primary);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--theme-shadow-lg, var(--theme-shadow));
+        }
+    }
+
+    .tcn6-kpi-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .tcn6-kpi-title {
+        color: var(--theme-text-secondary);
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 18px;
+    }
+
+    .tcn6-kpi-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        color: var(--tcn6-tone);
+        background: color-mix(in srgb, var(--tcn6-tone) 12%, var(--theme-bg-card));
+
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    .tcn6-kpi-val {
+        margin-top: auto;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 36px;
+        letter-spacing: -0.5px;
+    }
+
+    .tcn6-kpi-unit {
+        color: var(--theme-text-muted);
+        font-size: 12px;
+    }
+
+    // Thẻ tổng: nền màu nhấn, chữ trắng
+    .tcn6-kpi-total {
+        border-color: transparent;
+        background: linear-gradient(135deg, var(--tcn6-blue), var(--tcn6-indigo));
+
+        .tcn6-kpi-title,
+        .tcn6-kpi-val,
+        .tcn6-kpi-unit {
+            color: #ffffff;
+        }
+
+        .tcn6-kpi-unit {
+            opacity: 0.8;
+        }
+
+        .tcn6-kpi-icon {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .tcn6-kpi-val {
+            font-size: 34px;
+        }
+    }
+
+    // Thẻ cảnh báo: viền trái và số theo màu nhấn
+    .tcn6-kpi-warn {
+        border-color: color-mix(in srgb, var(--tcn6-tone) 35%, var(--theme-border));
+        background: color-mix(in srgb, var(--tcn6-tone) 6%, var(--theme-bg-card));
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--tcn6-tone);
+        }
+
+        .tcn6-kpi-val {
+            color: var(--tcn6-tone);
+        }
+    }
+    //#endregion
+
+    //#region NOTE: Thẻ loại hồ sơ
+    .tcn6-loai-row {
+        display: grid;
+        grid-template-columns: unquote('repeat(6, minmax(0, 1fr))');
+        gap: 12px;
+    }
+
+    .tcn6-loai-chip {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 9px 14px;
+        border: 1px solid color-mix(in srgb, var(--tcn6-tone) 28%, var(--theme-border));
+        border-radius: 10px;
+        background: color-mix(in srgb, var(--tcn6-tone) 8%, var(--theme-bg-card));
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        cursor: default;
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--theme-shadow);
+        }
+
+        span {
+            overflow: hidden;
+            color: var(--tcn6-tone);
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        b {
+            color: var(--theme-text-primary);
+            font-size: 16px;
+            font-weight: 700;
+        }
+    }
+
+    .tcn6-vlegend {
+        >div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--theme-text-primary);
+
+            span {
+                flex: 1;
+                overflow: hidden;
+                color: var(--theme-text-secondary);
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            b {
+                font-size: 14px;
+            }
+
+            small {
+                min-width: 48px;
+                color: var(--theme-text-muted);
+                font-size: 12px;
+                text-align: right;
+            }
+        }
+    }
+    //#endregion
+
+    //#region NOTE: Donut và legend dọc
+    .tcn6-donut-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+
+        strong {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 32px;
+        }
+
+        small {
+            color: var(--theme-text-muted);
+            font-size: 12px;
+        }
+    }
+
+    .tcn6-vlegend {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        padding-left: 16px;
+
+        >div {
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--theme-border-light);
+
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+    }
+    //#endregion
+
+    //#region NOTE: Grid danh sách hồ sơ
+    .tcn6-grid {
+        .x-grid-header-ct {
+            border: 0;
+            // Ext đặt border-width inline cho header docked nên kẻ đáy bằng box-shadow.
+            box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--tcn6-blue) 30%, var(--theme-border));
+            background: color-mix(in srgb, var(--tcn6-blue) 7%, var(--theme-bg-card));
+            border-radius: 8px 8px 0 0;
+        }
+
+        .x-column-header {
+            background: transparent;
+            border-right: 0;
+        }
+
+        .x-column-header-inner {
+            padding: 0 12px;
+            // Style header chung của app ép padding 3px bằng !important; chỉ ghi đè trong View6.
+            padding-top: 11px !important;
+            padding-bottom: 11px !important;
+            background: transparent;
+            text-align: left;
+        }
+
+        .x-column-header-align-center .x-column-header-inner {
+            text-align: center;
+        }
+
+        .x-column-header-text-inner {
+            color: color-mix(in srgb, var(--tcn6-blue) 35%, var(--theme-text-primary));
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+
+        .x-column-header-over,
+        .x-column-header-open {
+            background: color-mix(in srgb, var(--tcn6-blue) 12%, var(--theme-bg-card));
+        }
+
+        .x-column-header-trigger {
+            border-left: 0;
+            background-color: transparent;
+        }
+
+        .x-grid-cell {
+            border-right: 0;
+        }
+
+        .x-grid-item {
+            background: var(--theme-bg-card);
+        }
+
+        .x-grid-item-alt {
+            background: color-mix(in srgb, var(--theme-bg-card-hover) 60%, var(--theme-bg-card));
+        }
+
+        .x-grid-item-over {
+            background: color-mix(in srgb, var(--tcn6-blue) 6%, var(--theme-bg-card));
+        }
+
+        .x-grid-cell-inner {
+            padding: 11px 12px;
+            color: var(--theme-text-primary);
+            font-size: 13px;
+            line-height: 20px;
+        }
+
+        .x-grid-td {
+            border-bottom: 1px solid var(--theme-border-light);
+        }
+    }
+
+    .tcn6-code {
+        font-family: unquote('ui-monospace, "SFMono-Regular", Consolas, monospace');
+        font-weight: 600;
+        color: var(--tcn6-blue);
+    }
+
+    .tcn6-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 2px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 20px;
+        color: var(--tcn6-tone);
+        background: color-mix(in srgb, var(--tcn6-tone) 12%, var(--theme-bg-card));
+
+        &:before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+    }
+    //#endregion
+
+    //#region NOTE: Token màu
+    .tcn6-tone-blue { --tcn6-tone: var(--tcn6-blue); }
+    .tcn6-tone-green { --tcn6-tone: var(--tcn6-green); }
+    .tcn6-tone-amber { --tcn6-tone: var(--tcn6-amber); }
+    .tcn6-tone-orange { --tcn6-tone: var(--tcn6-orange); }
+    .tcn6-tone-red { --tcn6-tone: var(--tcn6-red); }
+    .tcn6-tone-purple { --tcn6-tone: var(--tcn6-purple); }
+    .tcn6-tone-indigo { --tcn6-tone: var(--tcn6-indigo); }
+    .tcn6-tone-pink { --tcn6-tone: var(--tcn6-pink); }
+    .tcn6-tone-slate { --tcn6-tone: var(--tcn6-slate); }
+    .tcn6-tone-muted { --tcn6-tone: var(--tcn6-muted); }
+
+    .tcn6-title-icon {
+        color: var(--tcn6-tone);
+    }
+    //#endregion
+}
+
+.dark-mode .trang-chu-new6 {
+    --tcn6-blue: #60a5fa;
+    --tcn6-green: #34d399;
+    --tcn6-amber: #fbbf24;
+    --tcn6-orange: #fb923c;
+    --tcn6-red: #f87171;
+    --tcn6-purple: #a78bfa;
+    --tcn6-indigo: #818cf8;
+    --tcn6-pink: #f472b6;
+    --tcn6-slate: #94a3b8;
+    --tcn6-muted: #64748b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .trang-chu-new6 .tcn6-kpi,
+    .trang-chu-new6 .tcn6-loai-chip {
+        transition: none;
+    }
+}
+
+@media (max-width: 1280px) {
+    .trang-chu-new6 .tcn6-kpi-grid,
+    .trang-chu-new6 .tcn6-loai-row {
+        grid-template-columns: unquote('repeat(3, minmax(0, 1fr))');
+    }
+}

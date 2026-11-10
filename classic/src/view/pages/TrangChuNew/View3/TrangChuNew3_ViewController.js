@@ -268,36 +268,51 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewController', {
             };
         }) : [];
 
-        // 9. Tình hình đơn vị theo cấp (CUC / TINH / XA: Grid 14 cột theo chuẩn nghiệp vụ)
+        // 9. Tình hình đơn vị theo cấp từ tabList (CUC / TINH / XA: Grid 14 cột theo chuẩn nghiệp vụ)
         const mockRaw = DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_MockData.getData();
-        const rawGridCap = (data && data.tinhHinhDonViTheoCap) || (mockRaw && mockRaw.tinhHinhDonViTheoCap) || {};
+        let tabList = [];
+        if (data && Array.isArray(data.tabList)) {
+            tabList = data.tabList;
+        } else if (mockRaw && Array.isArray(mockRaw.tabList)) {
+            tabList = mockRaw.tabList;
+        }
+
+        const cucTabItem = tabList.find(function (t) { return t.type === 'cuc' || t.type === 'CUC'; });
+        const tinhTabItem = tabList.find(function (t) { return t.type === 'tinh' || t.type === 'TINH'; });
+        const xaTabItem = tabList.find(function (t) { return t.type === 'xa' || t.type === 'XA'; });
 
         function mapGridItem(it, idx) {
             return {
-                stt: (it.isSummary || it.maDonVi === 'TONG') ? '' : (it.stt || (idx + 1)),
+                stt: it.stt || (idx + 1),
                 maDonVi: it.maDonVi || '',
                 tenDonVi: it.tenDonVi || it.name || '',
                 capDonVi: it.capDonVi || '',
-                tongHoSo: it.tongHoSo || 0,
+                tongHoSo: it.tongHoSo !== undefined ? it.tongHoSo : (it.tongQuanLy || 0),
                 moMoi: it.moMoi || 0,
                 ketThuc: it.ketThuc || 0,
                 chuyenMuc: it.chuyenMuc || 0,
                 dtcb: it.dtcb || 0,
-                suuTra: it.suuTra || 0,
-                hiemNghi: it.hiemNghi || 0,
-                chuyenAn: it.chuyenAn || 0,
+                suuTra: it.suuTra !== undefined ? it.suuTra : (it.suutra || 0),
+                hiemNghi: it.hiemNghi !== undefined ? it.hiemNghi : (it.hiemnghi || 0),
+                chuyenAn: it.chuyenAn !== undefined ? it.chuyenAn : (it.chuyenan || 0),
                 ctvbm: it.ctvbm || 0,
                 htbm: it.htbm || 0,
                 vanv: it.vanv || 0,
                 nnv: it.nnv || 0,
-                isSummary: !!it.isSummary || it.maDonVi === 'TONG'
+                isSummary: !!it.isSummary
             };
         }
 
         const capDataMap = {
-            CUC: Array.isArray(rawGridCap.CUC) ? rawGridCap.CUC.map(mapGridItem) : [],
-            TINH: Array.isArray(rawGridCap.TINH) ? rawGridCap.TINH.map(mapGridItem) : [],
-            XA: Array.isArray(rawGridCap.XA) ? rawGridCap.XA.map(mapGridItem) : []
+            CUC: cucTabItem && Array.isArray(cucTabItem.list) ? cucTabItem.list.map(mapGridItem) : [],
+            TINH: tinhTabItem && Array.isArray(tinhTabItem.list) ? tinhTabItem.list.map(mapGridItem) : [],
+            XA: xaTabItem && Array.isArray(xaTabItem.list) ? xaTabItem.list.map(mapGridItem) : []
+        };
+
+        const capTotalMap = {
+            CUC: cucTabItem && typeof cucTabItem.total === 'number' ? cucTabItem.total : null,
+            TINH: tinhTabItem && typeof tinhTabItem.total === 'number' ? tinhTabItem.total : null,
+            XA: xaTabItem && typeof xaTabItem.total === 'number' ? xaTabItem.total : null
         };
 
         return {
@@ -310,6 +325,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewController', {
             topDiaBanData: topDiaBanData,
             loaiDoiTuongData: loaiDoiTuongList,
             capDataMap: capDataMap,
+            capTotalMap: capTotalMap,
             tongSoDonut: Number(tongSoVal).toLocaleString('vi-VN')
         };
     },
@@ -360,6 +376,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewController', {
 
         // Nạp dữ liệu Grid theo cấp đơn vị đang chọn (mặc định CUC)
         me.capDataMap = mapped.capDataMap;
+        me.capTotalMap = mapped.capTotalMap;
         me.currentCap = me.currentCap || 'CUC';
 
         const gridStore = viewModel.getStore('gridStore');
@@ -387,15 +404,13 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewController', {
         if (!view) return;
 
         const capMap = me.capDataMap || {};
+        const capTotalMap = me.capTotalMap || {};
 
         function getCapTotal(cap) {
-            const list = capMap[cap] || [];
-            const summary = list.find(function (it) {
-                return it.isSummary || it.maDonVi === 'TONG';
-            });
-            if (summary && typeof summary.tongHoSo === 'number') {
-                return summary.tongHoSo;
+            if (typeof capTotalMap[cap] === 'number') {
+                return capTotalMap[cap];
             }
+            const list = capMap[cap] || [];
             return list.reduce(function (sum, it) {
                 return sum + (it.tongHoSo || 0);
             }, 0);
@@ -537,11 +552,6 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewController', {
         if (record) {
             Ext.Msg.alert('Chi tiết đơn vị', 'Xem thông tin chi tiết: ' + record.get('tenDonVi'));
         }
-    },
-
-    /** Xuất báo cáo Excel / PDF */
-    onExportReport: function () {
-        Ext.Msg.alert('Xuất báo cáo', 'Đang trích xuất dữ liệu báo cáo sang định dạng Excel...');
     },
 
     /** Mở URL bản đồ (URL cấu hình trong TrangChuNew3_DisplayConfig) */

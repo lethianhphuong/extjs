@@ -34,11 +34,6 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewMapAlerts', {
                                 '<span class="tcn3-header-icon tcn3-tone-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v16h16M7 15l4-4 4 2 5-6m-5 0h5v5"/></svg></span>' +
                                 '<h3>Diễn biến mở mới và kết thúc hồ sơ</h3>' +
                                 '</div>'
-                        },
-                        {
-                            xtype: 'component',
-                            cls: 'tcn3-period-pill',
-                            html: '<span class="tcn3-pill-btn">Theo tháng <i class="tcn3-arrow-down">▾</i></span>'
                         }
                     ]
                 },
