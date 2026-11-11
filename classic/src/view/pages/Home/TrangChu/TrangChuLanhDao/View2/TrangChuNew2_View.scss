@@ -31,6 +31,17 @@
 
     .tcn2-section {
         margin-bottom: 8px;
+
+        >.x-box-inner {
+            >.x-box-target {
+                >.tcn2-section-header {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: baseline;
+                    gap: 2px 8px;
+                }
+            }
+        }
     }
 
     h1,
@@ -267,18 +278,5 @@
 
     .tcn2-section-header p {
         font-size: 11px;
-    }
-
-    .tcn2-section {
-        >.x-box-inner {
-            >.x-box-target {
-                >.tcn2-section-header {
-                    display: flex;
-                    flex-wrap: wrap;
-                    align-items: baseline;
-                    gap: 2px 8px;
-                }
-            }
-        }
     }
 }

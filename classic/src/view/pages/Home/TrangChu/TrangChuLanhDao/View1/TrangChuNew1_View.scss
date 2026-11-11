@@ -881,6 +881,13 @@ strong {
     .x-form-item {
         margin-bottom: 0;
     }
+
+    .tcn-series-button.x-btn-default-small {
+        background: transparent !important;
+        background-image: none !important;
+        border-color: transparent;
+        box-shadow: none;
+    }
 }
 
 .tcn-series-button {
@@ -911,15 +918,6 @@ strong {
 
     &:focus-visible {
         outline: 2px solid var(--theme-text-primary);
-    }
-}
-
-.tcn-trend-controls {
-    .tcn-series-button.x-btn-default-small {
-        background: transparent !important;
-        background-image: none !important;
-        border-color: transparent;
-        box-shadow: none;
     }
 }
 
