@@ -3,7 +3,7 @@ Ext.define('DEMO.view.pages.BanDo.BanDo_ViewModel', {
     alias: 'viewmodel.BanDo_ViewModel',
 
     data: {
-        bandoImgUrl: 'classic/src/view/pages/TrangChuNew/View3/1268_transparent.png',
+        bandoImgUrl: 'classic/src/view/pages/Home/TrangChu/TrangChuLanhDao/View3/1268_transparent.png',
         filterDiaBan: '',
         tongSoHoSo: 11932,
         kpiSummary: {

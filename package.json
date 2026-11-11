@@ -2,10 +2,10 @@
   "name": "demo-extjs",
   "private": true,
   "scripts": {
-    "lint": "eslint classic/src/view/pages/TrangChuNew/View1",
-    "lint:fix": "eslint classic/src/view/pages/TrangChuNew/View1 --fix",
-    "lint:view1": "eslint classic/src/view/pages/TrangChuNew/View1",
-    "lint:view1:fix": "eslint classic/src/view/pages/TrangChuNew/View1 --fix"
+    "lint": "eslint classic/src/view/pages/Home/TrangChu/TrangChuLanhDao/View1",
+    "lint:fix": "eslint classic/src/view/pages/Home/TrangChu/TrangChuLanhDao/View1 --fix",
+    "lint:view1": "eslint classic/src/view/pages/Home/TrangChu/TrangChuLanhDao/View1",
+    "lint:view1:fix": "eslint classic/src/view/pages/Home/TrangChu/TrangChuLanhDao/View1 --fix"
   },
   "dependencies": {
     "browser-sync": "^3.0.4"
