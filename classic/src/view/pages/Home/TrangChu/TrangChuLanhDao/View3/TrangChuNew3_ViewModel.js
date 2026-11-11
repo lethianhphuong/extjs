@@ -111,6 +111,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         return {
             hasTrend: true,
             hienBienDong: true,
+            phanTramText: xuHuong + ' ' + phanTramText,
             trendText: trendText,
             lech: trendText,
             xuHuong: toneXuHuong,
@@ -150,6 +151,9 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                     hasTrend: trend.hasTrend,
                     hienBienDong: trend.hasTrend,
                     trendText: trend.trendText,
+                    // Thẻ phần trăm (code PER_*): bỏ val, chỉ hiển thị % biến động
+                    laPhanTram: code.indexOf('PER_') === 0,
+                    phanTramText: trend.hasTrend ? trend.phanTramText : '0%',
                     lech: trend.trendText,
                     xuHuong: trend.xuHuong,
                     trendClass: trend.trendClass

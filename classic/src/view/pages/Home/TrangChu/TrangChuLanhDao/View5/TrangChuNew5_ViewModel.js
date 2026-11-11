@@ -20,6 +20,12 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
             if (group === 'chiSo') {
                 Object.assign(result, me.formatTrend(row));
                 result.laTong = (row.code === 'DANG_QUAN_LY');
+                // Thẻ phần trăm (code PER_*): bỏ val, chỉ hiển thị % biến động
+                result.laPhanTram = String(row.code || '').indexOf('PER_') === 0;
+                if (!result.hienBienDong) {
+                    result.phanTramText = '0%';
+                    result.xuHuong = 'muted';
+                }
             }
             return result;
         }).sort((a, b) => a.thuTu - b.thuTu);
@@ -58,6 +64,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
         }
         return {
             hienBienDong: true,
+            phanTramText: arrow + ' ' + percentText,
             lech: arrow + ' ' + changeText + ' (' + percentText + ')',
             xuHuong: tone
         };
