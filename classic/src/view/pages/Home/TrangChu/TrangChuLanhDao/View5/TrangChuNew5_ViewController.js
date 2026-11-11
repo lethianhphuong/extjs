@@ -54,12 +54,38 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
         const me = this;
         const view = me.getView();
         if (!view.rendered) { return; }
+        const color = me.createThemeColorReader(view);
+        const palette = me.getChartPalette(color);
+        view.query('cartesian, polar').forEach(function (chart) {
+            if (!chart.rendered) { return; }
+            chart.recordColors = palette;
+            chart.setBackground(color('--theme-bg-card', '#ffffff'));
+            me.applyAxisColors(chart, color);
+            if (chart.isXType('polar')) {
+                me.applyPolarColors(chart, palette);
+            } else if (chart.chartKind === 'trend') {
+                me.applyTrendColors(chart, palette);
+            } else {
+                me.applyBarColors(chart, color);
+            }
+            chart.redraw();
+        });
+    },
+
+    /** Hàm đọc CSS variable của View; biến --theme-* chưa có thì thử --tcn5--theme-*, cuối cùng dùng fallback. */
+    createThemeColorReader: function (view) {
         const styles = window.getComputedStyle(view.getEl().dom);
-        const color = function (name, fallback) {
-            const val = styles.getPropertyValue(name).trim()
-                || (name.startsWith('--theme-') ? styles.getPropertyValue('--tcn5' + name).trim() : '');
+        return function (name, fallback) {
+            let val = styles.getPropertyValue(name).trim();
+            if (!val && name.startsWith('--theme-')) {
+                val = styles.getPropertyValue('--tcn5' + name).trim();
+            }
             return val || fallback || '';
         };
+    },
+
+    /** Bảng màu tone dùng cho chart (ưu tiên CSS variable --tcn5-*). */
+    getChartPalette: function (color) {
         const defaultPalette = {
             blue: '#2563eb',
             green: '#16a34a',
@@ -73,48 +99,57 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
             purple: '#9333ea'
         };
         const palette = {};
-        ['blue', 'green', 'amber', 'orange', 'violet', 'pink', 'cyan', 'muted', 'indigo', 'purple'].forEach(function (name) {
+        Object.keys(defaultPalette).forEach(function (name) {
             palette[name] = color('--tcn5-' + name, defaultPalette[name]) || defaultPalette[name];
         });
-        view.query('cartesian, polar').forEach(function (chart) {
-            if (!chart.rendered) { return; }
-            chart.recordColors = palette;
-            chart.setBackground(color('--theme-bg-card', '#ffffff'));
-            if (chart.getAxes) {
-                chart.getAxes().forEach(function (axis) {
-                    axis.setLabel({ color: color('--theme-text-secondary', '#475569'), fontSize: 10 });
-                    axis.setStyle({ strokeStyle: color('--theme-border', '#cbd5e1') });
-                });
-            }
-            if (chart.isXType('polar')) {
-                const colors = chart.getStore().getRange().map(record => palette[record.get('mau')] || palette.muted);
-                chart.setColors(colors);
-                chart.getSeries()[0].setColors(colors);
-                chart.getSeries()[0].setLabel({ color: '#ffffff' });
-            } else if (chart.chartKind === 'trend') {
-                const colors = [palette.blue, palette.green];
-                chart.setColors(colors);
-                chart.getSeries().forEach(function (series, index) {
-                    series.setStyle({
-                        strokeStyle: colors[index],
-                        fillStyle: {
-                            type: 'linear', degrees: 90, stops: [
-                                { offset: 0, color: colors[index] },
-                                { offset: 1, color: 'rgba(0,0,0,0)' }
-                            ]
-                        }
-                    });
-                    series.setHidden(!me.getViewModel().get(index ? 'hienKetThuc' : 'hienMoMoi'));
-                });
-            } else {
-                // Chừa khoảng trục cho nhãn ngoài cột, kể cả cột có giá trị lớn nhất.
-                const store = chart.getStore();
-                const maximum = store ? store.getRange().reduce((max, record) => Math.max(max, Number(record.get('val')) || 0), 0) : 0;
-                chart.getAxes()[0].setMaximum(Math.max(1, Math.ceil((maximum || 0) * 1.2)));
-                chart.getSeries()[0].setLabel({ color: color('--theme-text-primary', '#0f172a'), fontSize: 13, fontWeight: 'bold' });
-            }
-            chart.redraw();
+        return palette;
+    },
+
+    /** Màu nhãn và đường trục. */
+    applyAxisColors: function (chart, color) {
+        if (!chart.getAxes) { return; }
+        chart.getAxes().forEach(function (axis) {
+            axis.setLabel({ color: color('--theme-text-secondary', '#475569'), fontSize: 10 });
+            axis.setStyle({ strokeStyle: color('--theme-border', '#cbd5e1') });
         });
+    },
+
+    /** Donut: màu theo trường 'mau' của từng bản ghi. */
+    applyPolarColors: function (chart, palette) {
+        const colors = chart.getStore().getRange().map(record => palette[record.get('mau')] || palette.muted);
+        const series = chart.getSeries()[0];
+        chart.setColors(colors);
+        series.setColors(colors);
+        series.setLabel({ color: '#ffffff' });
+    },
+
+    /** Biểu đồ diễn biến: 2 đường mở mới / kết thúc, giữ trạng thái ẩn hiện. */
+    applyTrendColors: function (chart, palette) {
+        const me = this;
+        const colors = [palette.blue, palette.green];
+        const vm = me.getViewModel();
+        chart.setColors(colors);
+        chart.getSeries().forEach(function (series, index) {
+            series.setStyle({
+                strokeStyle: colors[index],
+                fillStyle: {
+                    type: 'linear', degrees: 90, stops: [
+                        { offset: 0, color: colors[index] },
+                        { offset: 1, color: 'rgba(0,0,0,0)' }
+                    ]
+                }
+            });
+            series.setHidden(!vm.get(index ? 'hienKetThuc' : 'hienMoMoi'));
+        });
+    },
+
+    /** Biểu đồ cột: chừa khoảng trục cho nhãn ngoài cột, kể cả cột có giá trị lớn nhất. */
+    applyBarColors: function (chart, color) {
+        const store = chart.getStore();
+        const records = store ? store.getRange() : [];
+        const maximum = records.reduce((max, record) => Math.max(max, Number(record.get('val')) || 0), 0);
+        chart.getAxes()[0].setMaximum(Math.max(1, Math.ceil(maximum * 1.2)));
+        chart.getSeries()[0].setLabel({ color: color('--theme-text-primary', '#0f172a'), fontSize: 13, fontWeight: 'bold' });
     },
     /** Bật/tắt riêng từng đường và giữ trạng thái khi cập nhật theme. */
     onToggleTrendSeries: function (button, pressed) {

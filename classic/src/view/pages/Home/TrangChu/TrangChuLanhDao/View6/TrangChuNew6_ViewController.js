@@ -143,19 +143,20 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         }
     },
 
-    /** Đọc CSS variable của View và áp vào canvas chart (canvas không tự nhận var()). */
-    updateChartColors: function () {
-        const me = this;
-        const view = me.getView();
-        if (!view || !view.rendered) { return; }
+    /** Hàm đọc CSS variable của View; biến --theme-* chưa có thì thử --tcn6-* tương ứng, cuối cùng dùng fallback. */
+    createThemeColorReader: function (view) {
         const styles = window.getComputedStyle(view.getEl().dom);
-        const color = function (name, fallback) {
+        return function (name, fallback) {
             let val = styles.getPropertyValue(name).trim();
-            if (!val && name.indexOf('--theme-') === 0) {
+            if (!val && name.startsWith('--theme-')) {
                 val = styles.getPropertyValue('--tcn6-' + name.substring(2)).trim();
             }
             return val || fallback || '';
         };
+    },
+
+    /** Bảng màu tone dùng cho chart (đọc từ DisplayConfig và CSS variable --tcn6-*). */
+    getChartPalette: function (color) {
         const defaultPalette = {
             blue: '#2563eb',
             green: '#059669',
@@ -169,57 +170,79 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
             muted: '#64748b'
         };
         const palette = {};
-        DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig.tones.forEach(function (tone) {
+        const tones = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig.tones;
+        tones.forEach(function (tone) {
             palette[tone] = color('--tcn6-' + tone, defaultPalette[tone]);
         });
-        // Màu nền/chữ/viền dùng chung cho các chart; có giá trị dự phòng khi CSS chưa nạp biến theme
-        const bgCard = color('--theme-bg-card', '#ffffff');
-        const textPrimary = color('--theme-text-primary', '#1e293b');
-        const textSecondary = color('--theme-text-secondary', '#64748b');
-        const border = color('--theme-border', '#e2e8f0');
-        const blueTone = palette.blue;
+        return palette;
+    },
 
-        const bar = view.down('#trangThaiCongViecChart_IdView');
-        if (bar && bar.rendered && bar.getStore()) {
-            const maxBar = bar.getStore().getRange().reduce((m, record) => Math.max(m, Number(record.get('val')) || 0), 0);
-            bar.recordColors = palette;
-            bar.setBackground(bgCard);
-            bar.getAxes().forEach(function (axis) {
-                axis.setLabel({ color: textSecondary, fontSize: 12 });
-                axis.setStyle({ strokeStyle: border });
-                if (axis.type === 'numeric') {
-                    // Chừa khoảng cho nhãn số trên đầu cột
-                    axis.setMaximum(Math.max(5, Math.ceil(maxBar * 1.2)));
-                }
-            });
-            bar.getSeries()[0].setLabel({ color: textPrimary, fontSize: 13, fontWeight: 'bold' });
-            bar.redraw();
-        }
+    /** Tập hợp màu giao diện nền/chữ/viền dùng chung cho các chart. */
+    getThemeTokens: function (color) {
+        return {
+            bgCard: color('--theme-bg-card', '#ffffff'),
+            textPrimary: color('--theme-text-primary', '#1e293b'),
+            textSecondary: color('--theme-text-secondary', '#64748b'),
+            border: color('--theme-border', '#e2e8f0')
+        };
+    },
 
-        const line = view.down('#tienDoLineChart_IdView');
-        if (line && line.rendered && line.getStore()) {
-            const max = line.getStore().getRange().reduce((m, record) => Math.max(m, Number(record.get('sl')) || 0), 0);
-            line.setBackground(bgCard);
-            line.getAxes().forEach(function (axis) {
-                axis.setLabel({ color: textSecondary, fontSize: 12 });
-                axis.setStyle({ strokeStyle: border });
-                if (axis.type === 'numeric') {
-                    axis.setMaximum(Math.max(10, Math.ceil(max * 1.2 / 10) * 10));
-                }
-            });
-            line.getSeries()[0].setStyle({
-                strokeStyle: blueTone,
-                fillStyle: {
-                    type: 'linear', degrees: 90, stops: [
-                        { offset: 0, color: blueTone },
-                        { offset: 1, color: 'rgba(0,0,0,0)' }
-                    ]
-                }
-            });
-            line.getSeries()[0].setMarker({ fillStyle: blueTone, strokeStyle: bgCard });
-            line.getSeries()[0].setLabel({ color: textPrimary });
-            line.redraw();
-        }
+    /** Cấu hình màu sắc, trục numeric chừa lề, font nhãn và vẽ lại biểu đồ cột trạng thái công việc. */
+    applyTrangThaiBarColors: function (bar, palette, tokens) {
+        if (!bar || !bar.rendered || !bar.getStore()) { return; }
+        const maxBar = bar.getStore().getRange().reduce((m, record) => Math.max(m, Number(record.get('val')) || 0), 0);
+        bar.recordColors = palette;
+        bar.setBackground(tokens.bgCard);
+        bar.getAxes().forEach(function (axis) {
+            axis.setLabel({ color: tokens.textSecondary, fontSize: 12 });
+            axis.setStyle({ strokeStyle: tokens.border });
+            if (axis.type === 'numeric') {
+                // Chừa khoảng cho nhãn số trên đầu cột
+                axis.setMaximum(Math.max(5, Math.ceil(maxBar * 1.2)));
+            }
+        });
+        bar.getSeries()[0].setLabel({ color: tokens.textPrimary, fontSize: 13, fontWeight: 'bold' });
+        bar.redraw();
+    },
+
+    /** Cấu hình màu line, gradient fill, marker và vẽ lại biểu đồ đường tiến độ. */
+    applyTienDoLineColors: function (line, blueTone, tokens) {
+        if (!line || !line.rendered || !line.getStore()) { return; }
+        const max = line.getStore().getRange().reduce((m, record) => Math.max(m, Number(record.get('sl')) || 0), 0);
+        line.setBackground(tokens.bgCard);
+        line.getAxes().forEach(function (axis) {
+            axis.setLabel({ color: tokens.textSecondary, fontSize: 12 });
+            axis.setStyle({ strokeStyle: tokens.border });
+            if (axis.type === 'numeric') {
+                axis.setMaximum(Math.max(10, Math.ceil(max * 1.2 / 10) * 10));
+            }
+        });
+        line.getSeries()[0].setStyle({
+            strokeStyle: blueTone,
+            fillStyle: {
+                type: 'linear', degrees: 90, stops: [
+                    { offset: 0, color: blueTone },
+                    { offset: 1, color: 'rgba(0,0,0,0)' }
+                ]
+            }
+        });
+        line.getSeries()[0].setMarker({ fillStyle: blueTone, strokeStyle: tokens.bgCard });
+        line.getSeries()[0].setLabel({ color: tokens.textPrimary });
+        line.redraw();
+    },
+
+    /** Đọc CSS variable của View và áp vào canvas chart (canvas không tự nhận var()). */
+    updateChartColors: function () {
+        const me = this;
+        const view = me.getView();
+        if (!view || !view.rendered) { return; }
+
+        const color = me.createThemeColorReader(view);
+        const palette = me.getChartPalette(color);
+        const tokens = me.getThemeTokens(color);
+
+        me.applyTrangThaiBarColors(view.down('#trangThaiCongViecChart_IdView'), palette, tokens);
+        me.applyTienDoLineColors(view.down('#tienDoLineChart_IdView'), palette.blue, tokens);
     },
     //#endregion
 

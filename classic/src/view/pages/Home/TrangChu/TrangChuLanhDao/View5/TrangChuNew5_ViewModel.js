@@ -21,7 +21,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
                 Object.assign(result, me.formatTrend(row));
                 result.laTong = (row.code === 'DANG_QUAN_LY');
                 // Thẻ phần trăm (code PER_*): bỏ val, chỉ hiển thị % biến động
-                result.laPhanTram = String(row.code || '').indexOf('PER_') === 0;
+                result.laPhanTram = String(row.code || '').startsWith('PER_');
                 if (!result.hienBienDong) {
                     result.phanTramText = '0%';
                     result.xuHuong = 'muted';

@@ -155,187 +155,198 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
      * @return {Object} Dữ liệu đã chuẩn hóa
      */
     mapData: function (rawData) {
+        const me = this;
         const data = rawData || {};
+        const tongQuanList = me.toList(data.tongQuan);
+        const capData = me.mapCapData(data);
 
-        // 1. Ánh xạ danh sách KPI tổng quan
-        const tongQuanList = Array.isArray(data.tongQuan) ? data.tongQuan : [];
-        let tongSoVal = 0;
-        if (tongQuanList.length > 0) {
-            const foundTotal = tongQuanList.find(function (it) {
-                return it.code === 'DANG_QUAN_LY' || it.code === 'TONG';
-            });
-            tongSoVal = (foundTotal && typeof foundTotal.val === 'number')
-                ? foundTotal.val
-                : (tongQuanList[0].val || 0);
-        }
+        return {
+            tongQuan: tongQuanList,
+            loaiHoSoRaw: me.mapLoaiHoSo(data.loaiHoSo),
+            canhBaoRaw: me.mapCanhBao(data.canhBaoNoiBat),
+            coCauData: me.mapCoCau(data.coCauHoSoTheoDonVi),
+            bienDongData: me.toList(data.bienDongHoSoTheoDonVi).map(me.mapBienDongItem),
+            dienBienData: me.toList(data.dienBienMoMoiVaKetThuc).slice(-12).map(me.mapDienBienItem),
+            topDiaBanData: me.mapTopDiaBan(data.topDiaBanCoNhieuHoSo),
+            loaiDoiTuongData: me.mapLoaiDoiTuong(data.loaiDoiTuong),
+            capDataMap: capData.capDataMap,
+            capTotalMap: capData.capTotalMap,
+            tongSoDonut: Number(me.getTongSoVal(tongQuanList)).toLocaleString('vi-VN')
+        };
+    },
 
-        // 2. Ánh xạ loại hồ sơ
-        const loaiHoSoList = Array.isArray(data.loaiHoSo) ? data.loaiHoSo : [];
-        const loaiHoSoRaw = loaiHoSoList.map(function (it) {
-            return {
-                code: it.code,
-                ten: it.name || it.ten || it.code,
-                val: it.val || 0
-            };
-        });
+    //#region NOTE: Hàm phụ trợ cho mapData
+    /** Trả về chính mảng đầu vào, không phải mảng thì trả về mảng rỗng. */
+    toList: function (value) {
+        return Array.isArray(value) ? value : [];
+    },
 
-        // 3. Ánh xạ cảnh báo nổi bật
-        const cbList = Array.isArray(data.canhBaoNoiBat) ? data.canhBaoNoiBat : [];
+    /** Lấy giá trị trường chính, không có (undefined) thì dùng trường dự phòng hoặc 0. */
+    pickNumber: function (item, key, fallbackKey) {
+        return item[key] !== undefined ? item[key] : (item[fallbackKey] || 0);
+    },
+
+    /** 1. Tổng số hồ sơ cho tâm donut: ưu tiên mã DANG_QUAN_LY / TONG, không có thì lấy phần tử đầu. */
+    getTongSoVal: function (tongQuanList) {
+        if (!tongQuanList.length) { return 0; }
+        const foundTotal = tongQuanList.find(it => it.code === 'DANG_QUAN_LY' || it.code === 'TONG');
+        if (foundTotal && typeof foundTotal.val === 'number') { return foundTotal.val; }
+        return tongQuanList[0].val || 0;
+    },
+
+    /** 2. Loại hồ sơ. */
+    mapLoaiHoSo: function (list) {
+        return this.toList(list).map(it => ({
+            code: it.code,
+            ten: it.name || it.ten || it.code,
+            val: it.val || 0
+        }));
+    },
+
+    /** 3. Cảnh báo nổi bật: chuyển mảng {code, val} thành object theo khóa nghiệp vụ. */
+    mapCanhBao: function (list) {
         const cbMap = {};
-        cbList.forEach(function (it) {
+        this.toList(list).forEach(function (it) {
             if (it && it.code) {
                 cbMap[it.code] = it.val || 0;
             }
         });
-        const canhBaoRaw = {
+        return {
             quaHan: cbMap.QUA_HAN || 0,
             sapHetHan: cbMap.HET_HAN || 0,
             tangBatThuong: cbMap.BAT_THUONG || 0,
             nhieuDonVi: cbMap.LIEN_QUAN || 0
         };
+    },
 
-        // 4. Ánh xạ cơ cấu đơn vị
+    /** 4. Cơ cấu hồ sơ theo cấp đơn vị (tên, màu, tỷ lệ %). */
+    mapCoCau: function (list) {
         const capColors = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig.coCauColors;
         const cfgDonVi = {
             CUC: { name: 'Cấp Cục', mau: capColors['Cấp Cục'] },
             TINH: { name: 'Cấp tỉnh', mau: capColors['Cấp tỉnh'] },
             XA: { name: 'Cấp Xã', mau: capColors['Cấp Xã'] }
         };
-        const coCauList = Array.isArray(data.coCauHoSoTheoDonVi) ? data.coCauHoSoTheoDonVi : [];
-        const totalCoCau = coCauList.reduce(function (sum, it) { return sum + (it.val || 0); }, 0);
-        const coCauData = coCauList.map(function (it) {
+        const coCauList = this.toList(list);
+        const totalCoCau = coCauList.reduce((sum, it) => sum + (it.val || 0), 0);
+        return coCauList.map(function (it) {
             const cfg = cfgDonVi[it.capDonVi] || { name: it.capDonVi || it.name, mau: '#94a3b8' };
-            const tyLe = totalCoCau > 0 ? Math.round(((it.val || 0) / totalCoCau) * 1000) / 10 : 0;
+            const soLuong = it.val || 0;
             return {
                 name: cfg.name,
-                soLuong: it.val || 0,
-                tyLe: tyLe,
+                soLuong: soLuong,
+                tyLe: totalCoCau > 0 ? Math.round((soLuong / totalCoCau) * 1000) / 10 : 0,
                 mau: cfg.mau
             };
         });
+    },
 
-        // 5. Ánh xạ biến động theo quý / tháng (hiển thị toàn bộ dữ liệu, không cắt slice)
-        const bienDongList = Array.isArray(data.bienDongHoSoTheoDonVi) ? data.bienDongHoSoTheoDonVi : [];
-        const bienDongData = bienDongList.map(function (it, idx) {
-            const cuc = it.cuc || 0;
-            const tinh = it.tinh || 0;
-            const xa = it.xa || 0;
-            const name = it.name || it.nameHover || '';
-            return {
-                code: it.code || idx,
-                name: name,
-                nameHover: it.nameHover || name,
-                quy: name,
-                capCuc: cuc,
-                capTinh: tinh,
-                capXa: xa,
-                tongSo: cuc + tinh + xa
-            };
-        });
+    /** 5. Biến động theo quý / tháng (hiển thị toàn bộ dữ liệu, không cắt slice). */
+    mapBienDongItem: function (it, idx) {
+        const cuc = it.cuc || 0;
+        const tinh = it.tinh || 0;
+        const xa = it.xa || 0;
+        const name = it.name || it.nameHover || '';
+        return {
+            code: it.code || idx,
+            name: name,
+            nameHover: it.nameHover || name,
+            quy: name,
+            capCuc: cuc,
+            capTinh: tinh,
+            capXa: xa,
+            tongSo: cuc + tinh + xa
+        };
+    },
 
-        // 6. Ánh xạ diễn biến mở mới và kết thúc (12 tháng gần nhất)
-        const dienBienList = Array.isArray(data.dienBienMoMoiVaKetThuc) ? data.dienBienMoMoiVaKetThuc.slice(-12) : [];
-        const dienBienData = dienBienList.map(function (it, idx) {
-            const thangLabel = it.name ? it.name.replace(/\s+/g, '') : ('T' + (idx + 1));
-            return {
-                code: it.code || idx,
-                name: it.name || thangLabel,
-                nameHover: it.nameHover || it.name || thangLabel,
-                thang: thangLabel,
-                moMoi: it.moMoi || 0,
-                ketThuc: it.ketThuc || 0
-            };
-        });
+    /** 6. Diễn biến mở mới và kết thúc (12 tháng gần nhất). */
+    mapDienBienItem: function (it, idx) {
+        const thangLabel = it.name ? it.name.replace(/\s+/g, '') : ('T' + (idx + 1));
+        return {
+            code: it.code || idx,
+            name: it.name || thangLabel,
+            nameHover: it.nameHover || it.name || thangLabel,
+            thang: thangLabel,
+            moMoi: it.moMoi || 0,
+            ketThuc: it.ketThuc || 0
+        };
+    },
 
-        // 7. Ánh xạ Top địa bàn (hiển thị toàn bộ dữ liệu có trong mảng, không cắt)
-        const topDiaBanList = Array.isArray(data.topDiaBanCoNhieuHoSo) ? data.topDiaBanCoNhieuHoSo : [];
-        const topDiaBanData = topDiaBanList.map(function (it, idx) {
+    /** 7. Top địa bàn (hiển thị toàn bộ); tỷ lệ % so với địa bàn đứng đầu. */
+    mapTopDiaBan: function (list) {
+        const topDiaBanList = this.toList(list);
+        const first = topDiaBanList[0];
+        const maxVal = (first && (first.val || first.soHoSo)) || 1;
+        return topDiaBanList.map(function (it, idx) {
             const val = it.val || it.soHoSo || 0;
             return {
                 stt: idx + 1,
                 diaBan: it.kyHieu || it.name || it.diaBan || '',
                 soHoSo: val,
                 soHoSoText: Number(val).toLocaleString('vi-VN'),
-                tyLe: Math.max(0, Math.min(100, Math.round((val / (topDiaBanList[0] && (topDiaBanList[0].val || topDiaBanList[0].soHoSo) ? (topDiaBanList[0].val || topDiaBanList[0].soHoSo) : 1)) * 100))),
+                tyLe: Math.max(0, Math.min(100, Math.round((val / maxVal) * 100))),
                 loai: 'tinh'
             };
         });
+    },
 
-        // 8. Ánh xạ loại đối tượng
-        // Đảo ngược thứ tự để khi vẽ trên Horizontal Bar Chart (flipXY: true)
-        // danh mục thứ nhất trong API sẽ hiển thị ở trên cùng (ExtJS category axis vẽ từ dưới lên trên).
-        const rawLoaiDoiTuong = Array.isArray(data.loaiDoiTuong) ? data.loaiDoiTuong : [];
-        const loaiDoiTuongList = rawLoaiDoiTuong.slice().reverse().map(function (it, idx) {
-            const originalIndex = rawLoaiDoiTuong.length - 1 - idx;
-            return {
-                code: it.code || '',
-                name: it.name || it.ten || '',
-                val: typeof it.val === 'number' ? it.val : 0,
-                originalIndex: originalIndex
-            };
+    /**
+     * 8. Loại đối tượng. Đảo ngược thứ tự để khi vẽ trên Horizontal Bar Chart (flipXY: true)
+     * danh mục thứ nhất trong API sẽ hiển thị ở trên cùng (ExtJS category axis vẽ từ dưới lên trên).
+     */
+    mapLoaiDoiTuong: function (list) {
+        const rawLoaiDoiTuong = this.toList(list);
+        return rawLoaiDoiTuong.slice().reverse().map((it, idx) => ({
+            code: it.code || '',
+            name: it.name || it.ten || '',
+            val: typeof it.val === 'number' ? it.val : 0,
+            originalIndex: rawLoaiDoiTuong.length - 1 - idx
+        }));
+    },
+
+    /** 9. Tình hình đơn vị theo cấp từ tabList (CUC / TINH / XA), thiếu thì lấy từ MockData. */
+    mapCapData: function (data) {
+        const me = this;
+        let tabList = data.tabList;
+        if (!Array.isArray(tabList)) {
+            const mockRaw = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_MockData.getData();
+            tabList = me.toList(mockRaw && mockRaw.tabList);
+        }
+        const capDataMap = {};
+        const capTotalMap = {};
+        ['CUC', 'TINH', 'XA'].forEach(function (cap) {
+            const tabItem = tabList.find(t => t.type === cap.toLowerCase() || t.type === cap);
+            const hasList = tabItem && Array.isArray(tabItem.list);
+            capDataMap[cap] = hasList ? tabItem.list.map(me.mapGridItem, me) : [];
+            capTotalMap[cap] = tabItem && typeof tabItem.total === 'number' ? tabItem.total : null;
         });
+        return { capDataMap: capDataMap, capTotalMap: capTotalMap };
+    },
 
-        // 9. Tình hình đơn vị theo cấp từ tabList (CUC / TINH / XA: Grid 14 cột theo chuẩn nghiệp vụ)
-        const mockRaw = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_MockData.getData();
-        let tabList = [];
-        if (data && Array.isArray(data.tabList)) {
-            tabList = data.tabList;
-        } else if (mockRaw && Array.isArray(mockRaw.tabList)) {
-            tabList = mockRaw.tabList;
-        }
-
-        const cucTabItem = tabList.find(function (t) { return t.type === 'cuc' || t.type === 'CUC'; });
-        const tinhTabItem = tabList.find(function (t) { return t.type === 'tinh' || t.type === 'TINH'; });
-        const xaTabItem = tabList.find(function (t) { return t.type === 'xa' || t.type === 'XA'; });
-
-        function mapGridItem(it, idx) {
-            return {
-                stt: it.stt || (idx + 1),
-                maDonVi: it.maDonVi || '',
-                tenDonVi: it.tenDonVi || it.name || '',
-                capDonVi: it.capDonVi || '',
-                tongHoSo: it.tongHoSo !== undefined ? it.tongHoSo : (it.tongQuanLy || 0),
-                moMoi: it.moMoi || 0,
-                ketThuc: it.ketThuc || 0,
-                chuyenMuc: it.chuyenMuc || 0,
-                dtcb: it.dtcb || 0,
-                suuTra: it.suuTra !== undefined ? it.suuTra : (it.suutra || 0),
-                hiemNghi: it.hiemNghi !== undefined ? it.hiemNghi : (it.hiemnghi || 0),
-                chuyenAn: it.chuyenAn !== undefined ? it.chuyenAn : (it.chuyenan || 0),
-                ctvbm: it.ctvbm || 0,
-                htbm: it.htbm || 0,
-                vanv: it.vanv || 0,
-                nnv: it.nnv || 0,
-                isSummary: !!it.isSummary
-            };
-        }
-
-        const capDataMap = {
-            CUC: cucTabItem && Array.isArray(cucTabItem.list) ? cucTabItem.list.map(mapGridItem) : [],
-            TINH: tinhTabItem && Array.isArray(tinhTabItem.list) ? tinhTabItem.list.map(mapGridItem) : [],
-            XA: xaTabItem && Array.isArray(xaTabItem.list) ? xaTabItem.list.map(mapGridItem) : []
-        };
-
-        const capTotalMap = {
-            CUC: cucTabItem && typeof cucTabItem.total === 'number' ? cucTabItem.total : null,
-            TINH: tinhTabItem && typeof tinhTabItem.total === 'number' ? tinhTabItem.total : null,
-            XA: xaTabItem && typeof xaTabItem.total === 'number' ? xaTabItem.total : null
-        };
-
+    /** Một dòng Grid tình hình đơn vị (14 cột theo chuẩn nghiệp vụ). */
+    mapGridItem: function (it, idx) {
+        const me = this;
         return {
-            tongQuan: tongQuanList,
-            loaiHoSoRaw: loaiHoSoRaw,
-            canhBaoRaw: canhBaoRaw,
-            coCauData: coCauData,
-            bienDongData: bienDongData,
-            dienBienData: dienBienData,
-            topDiaBanData: topDiaBanData,
-            loaiDoiTuongData: loaiDoiTuongList,
-            capDataMap: capDataMap,
-            capTotalMap: capTotalMap,
-            tongSoDonut: Number(tongSoVal).toLocaleString('vi-VN')
+            stt: it.stt || (idx + 1),
+            maDonVi: it.maDonVi || '',
+            tenDonVi: it.tenDonVi || it.name || '',
+            capDonVi: it.capDonVi || '',
+            tongHoSo: me.pickNumber(it, 'tongHoSo', 'tongQuanLy'),
+            moMoi: it.moMoi || 0,
+            ketThuc: it.ketThuc || 0,
+            chuyenMuc: it.chuyenMuc || 0,
+            dtcb: it.dtcb || 0,
+            suuTra: me.pickNumber(it, 'suuTra', 'suutra'),
+            hiemNghi: me.pickNumber(it, 'hiemNghi', 'hiemnghi'),
+            chuyenAn: me.pickNumber(it, 'chuyenAn', 'chuyenan'),
+            ctvbm: it.ctvbm || 0,
+            htbm: it.htbm || 0,
+            vanv: it.vanv || 0,
+            nnv: it.nnv || 0,
+            isSummary: !!it.isSummary
         };
     },
+    //#endregion
 
     /**
      * Nạp dữ liệu vào ViewModel và các Store
@@ -547,54 +558,76 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         }
     },
 
+    //#region NOTE: Cập nhật và đồng bộ biểu đồ
     /** Sự kiện khi từng chart được render */
     onChartReady: function (chart) {
         const me = this;
         me.updateChartColors(chart);
     },
 
-    /** Đồng bộ bảng màu và background cho toàn bộ các biểu đồ */
+    /** Kiểm tra chart đã render và có phải đối tượng cần cập nhật hay không. */
+    isTargetChart: function (chart, targetChart) {
+        return !!(chart && chart.rendered && (!targetChart || targetChart === chart));
+    },
+
+    /** Cập nhật màu cho biểu đồ Donut cơ cấu theo cấp đơn vị. */
+    updateCoCauChart: function (view, targetChart) {
+        const me = this;
+        const chart = view.down('#coCauChart_IdView');
+        if (!me.isTargetChart(chart, targetChart)) { return; }
+
+        const series = chart.getSeries() && chart.getSeries()[0];
+        if (series && typeof series.setColors === 'function') {
+            const capColors = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig.coCauColors;
+            series.setColors([capColors['Cấp Cục'], capColors['Cấp tỉnh'], capColors['Cấp Xã']]);
+            chart.redraw();
+        }
+    },
+
+    /** Cập nhật biểu đồ biến động theo quý (Stacked Bar + Line). */
+    updateBienDongChart: function (view, targetChart) {
+        const me = this;
+        const chart = view.down('#bienDongChart_IdView');
+        if (!me.isTargetChart(chart, targetChart)) { return; }
+        chart.redraw();
+    },
+
+    /** Cập nhật biểu đồ cơ cấu theo loại đối tượng (Horizontal Bar Chart), điều chỉnh trục tránh tràn nhãn. */
+    updateLoaiDoiTuongChart: function (view, targetChart) {
+        const me = this;
+        const chart = view.down('#loaiDoiTuongChart_IdView');
+        if (!me.isTargetChart(chart, targetChart)) { return; }
+
+        // Chừa khoảng trục cho nhãn số bên ngoài thanh dài nhất (nếu không nhãn bị ẩn)
+        const loaiStore = chart.getStore();
+        const maxVal = loaiStore ? loaiStore.getRange().reduce((max, rec) => Math.max(max, Number(rec.get('val')) || 0), 0) : 0;
+        const numericAxis = chart.getAxes().find(axis => axis.type === 'numeric');
+        if (numericAxis && maxVal > 0) {
+            numericAxis.setMaximum(Math.ceil(maxVal * 1.2));
+        }
+        chart.redraw();
+    },
+
+    /** Cập nhật biểu đồ diễn biến mở mới và kết thúc (12 tháng). */
+    updateDienBienChart: function (view, targetChart) {
+        const me = this;
+        const chart = view.down('#dienBienChart_IdView');
+        if (!me.isTargetChart(chart, targetChart)) { return; }
+        chart.redraw();
+    },
+
+    /** Đồng bộ bảng màu và trạng thái cho toàn bộ các biểu đồ */
     updateChartColors: function (targetChart) {
         const me = this;
         const view = me.getView();
-        if (!view || !view.rendered) return;
+        if (!view || !view.rendered) { return; }
 
-        // Cập nhật biểu đồ Donut Cơ cấu
-        const coCauChart = view.down('#coCauChart_IdView');
-        if (coCauChart && coCauChart.rendered && (!targetChart || targetChart === coCauChart)) {
-            const series = coCauChart.getSeries() && coCauChart.getSeries()[0];
-            if (series && typeof series.setColors === 'function') {
-                const capColors = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig.coCauColors;
-                series.setColors([capColors['Cấp Cục'], capColors['Cấp tỉnh'], capColors['Cấp Xã']]);
-                coCauChart.redraw();
-            }
-        }
-
-        // Cập nhật biểu đồ biến động theo quý (Stacked Bar + Line)
-        const bienDongChart = view.down('#bienDongChart_IdView');
-        if (bienDongChart && bienDongChart.rendered && (!targetChart || targetChart === bienDongChart)) {
-            bienDongChart.redraw();
-        }
-
-        // Cập nhật biểu đồ cơ cấu theo loại đối tượng (Horizontal Bar Chart)
-        const loaiDoiTuongChart = view.down('#loaiDoiTuongChart_IdView');
-        if (loaiDoiTuongChart && loaiDoiTuongChart.rendered && (!targetChart || targetChart === loaiDoiTuongChart)) {
-            // Chừa khoảng trục cho nhãn số bên ngoài thanh dài nhất (nếu không nhãn bị ẩn)
-            const loaiStore = loaiDoiTuongChart.getStore();
-            const maxVal = loaiStore ? loaiStore.getRange().reduce((max, rec) => Math.max(max, Number(rec.get('val')) || 0), 0) : 0;
-            const numericAxis = loaiDoiTuongChart.getAxes().find(axis => axis.type === 'numeric');
-            if (numericAxis && maxVal > 0) {
-                numericAxis.setMaximum(Math.ceil(maxVal * 1.2));
-            }
-            loaiDoiTuongChart.redraw();
-        }
-
-        // Cập nhật biểu đồ diễn biến mở mới và kết thúc
-        const dienBienChart = view.down('#dienBienChart_IdView');
-        if (dienBienChart && dienBienChart.rendered && (!targetChart || targetChart === dienBienChart)) {
-            dienBienChart.redraw();
-        }
+        me.updateCoCauChart(view, targetChart);
+        me.updateBienDongChart(view, targetChart);
+        me.updateLoaiDoiTuongChart(view, targetChart);
+        me.updateDienBienChart(view, targetChart);
     },
+    //#endregion
 
     /** Chuyển đổi tab xem Top địa bàn: Tỉnh/Thành hoặc Quận/Huyện */
     onToggleDiaBan: function (btn) {
@@ -618,14 +651,14 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
     onOpenMapUrl: function () {
         const cfg = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig;
         const targetHash = (cfg && cfg.bandoMapUrl) || '#ban-do';
-        const cleanHash = targetHash.indexOf('#') === 0 ? targetHash : '#' + targetHash;
+        const cleanHash = targetHash.startsWith('#') ? targetHash : '#' + targetHash;
         const fakeMapUrl = window.location.origin + window.location.pathname + cleanHash;
         window.open(fakeMapUrl, '_blank');
     },
 
     /** Khởi tạo tooltip cho các thẻ metric và thẻ tóm tắt nghiệp vụ */
     onTooltipReady: function (component) {
-        if (!component || !component.getEl()) return;
+        if (!component || !component.getEl()) { return; }
         const tip = Ext.create('Ext.tip.ToolTip', {
             target: component.getEl(),
             delegate: '[data-tcn3-tip]',
