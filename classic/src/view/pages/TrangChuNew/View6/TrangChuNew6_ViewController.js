@@ -36,7 +36,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewController', {
         vm.set({
             canBoInfo: Ext.apply({ chuCaiDau: me.getChuCaiDau(data.canBo && data.canBo.hoTen) }, data.canBo),
             kpiCards: me.prepareKpi(data.tongQuan),
-            loaiHoSo: me.prepareTyLe(data.loaiHoSo, config.loaiHoSoTone),
+            loaiHoSo: me.prepareLoaiHoSo(data.loaiHoSo),
             trangThai: trangThai,
             soHoSo: dsHoSo.length
         });
@@ -86,6 +86,17 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewController', {
             }
             return item;
         }).sort((a, b) => a.thuTu - b.thuTu);
+    },
+
+    /** Thẻ loại hồ sơ: tỷ lệ + tone + icon theo code. */
+    prepareLoaiHoSo: function (rows) {
+        const me = this;
+        const config = DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_DisplayConfig;
+        const result = me.prepareTyLe(rows, config.loaiHoSoTone);
+        result.items.forEach(function (item) {
+            item.icon = config.loaiHoSoIcon[item.code] || 'folder';
+        });
+        return result;
     },
 
     /** Tính tổng, tỷ lệ % và tone màu cho danh sách dạng { code, name, val }. */
@@ -161,28 +172,34 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewController', {
         DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_DisplayConfig.tones.forEach(function (tone) {
             palette[tone] = color('--tcn6-' + tone, defaultPalette[tone]);
         });
+        // Màu nền/chữ/viền dùng chung cho các chart; có giá trị dự phòng khi CSS chưa nạp biến theme
+        const bgCard = color('--theme-bg-card', '#ffffff');
+        const textPrimary = color('--theme-text-primary', '#1e293b');
+        const textSecondary = color('--theme-text-secondary', '#64748b');
+        const border = color('--theme-border', '#e2e8f0');
+        const blueTone = palette.blue;
 
         const bar = view.down('#trangThaiCongViecChart_IdView');
         if (bar && bar.rendered && bar.getStore()) {
             const maxBar = bar.getStore().getRange().reduce((m, record) => Math.max(m, Number(record.get('val')) || 0), 0);
             bar.recordColors = palette;
-            bar.setBackground(color('--theme-bg-card'));
+            bar.setBackground(bgCard);
             bar.getAxes().forEach(function (axis) {
-                axis.setLabel({ color: color('--theme-text-secondary'), fontSize: 12 });
-                axis.setStyle({ strokeStyle: color('--theme-border') });
+                axis.setLabel({ color: textSecondary, fontSize: 12 });
+                axis.setStyle({ strokeStyle: border });
                 if (axis.type === 'numeric') {
                     // Chừa khoảng cho nhãn số trên đầu cột
                     axis.setMaximum(Math.max(5, Math.ceil(maxBar * 1.2)));
                 }
             });
-            bar.getSeries()[0].setLabel({ color: color('--theme-text-primary'), fontSize: 13, fontWeight: 'bold' });
+            bar.getSeries()[0].setLabel({ color: textPrimary, fontSize: 13, fontWeight: 'bold' });
             bar.redraw();
         }
 
         const line = view.down('#tienDoLineChart_IdView');
         if (line && line.rendered && line.getStore()) {
             const max = line.getStore().getRange().reduce((m, record) => Math.max(m, Number(record.get('sl')) || 0), 0);
-            line.setBackground(color('--theme-bg-card'));
+            line.setBackground(bgCard);
             line.getAxes().forEach(function (axis) {
                 axis.setLabel({ color: textSecondary, fontSize: 12 });
                 axis.setStyle({ strokeStyle: border });

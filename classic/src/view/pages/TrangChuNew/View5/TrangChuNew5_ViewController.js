@@ -111,7 +111,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewController', {
                 const store = chart.getStore();
                 const maximum = store ? store.getRange().reduce((max, record) => Math.max(max, Number(record.get('val')) || 0), 0) : 0;
                 chart.getAxes()[0].setMaximum(Math.max(1, Math.ceil((maximum || 0) * 1.2)));
-                chart.getSeries()[0].setLabel({ color: color('--theme-text-primary', '#0f172a'), fontSize: 10 });
+                chart.getSeries()[0].setLabel({ color: color('--theme-text-primary', '#0f172a'), fontSize: 13, fontWeight: 'bold' });
             }
             chart.redraw();
         });

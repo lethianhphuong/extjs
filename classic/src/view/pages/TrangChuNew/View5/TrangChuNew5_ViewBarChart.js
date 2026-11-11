@@ -9,7 +9,8 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewBarChart', {
     axes: [
         { type: 'numeric', position: 'left', minimum: 0, hidden: true },
         { type: 'category', position: 'bottom', fields: ['code'], label: { fontSize: 10, rotationRads: 0, color: '#475569' },
-            style: { textPadding: 0 },
+            // Ext tự ẩn nhãn trục khi khung nhãn chạm nhau; textPadding âm cho phép sát nhau để không mất tên cột
+            style: { textPadding: -12 },
             renderer: function (axis, value) {
                 const chart = axis.getChart();
                 const store = chart ? chart.getStore() : null;
@@ -21,7 +22,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View5.TrangChuNew5_ViewBarChart', {
     series: [{
         type: 'bar', xField: 'code', yField: 'val',
         style: { maxBarWidth: 28, radius: 4 },
-        label: { field: 'val', display: 'outside', orientation: 'horizontal', calloutLine: false, color: '#0f172a' },
+        label: { field: 'val', display: 'outside', orientation: 'horizontal', calloutLine: false, color: '#0f172a', fontSize: 13, fontWeight: 'bold' },
         renderer: function (sprite, config, data, index) {
             const me = this;
             const palette = me.getChart().recordColors;

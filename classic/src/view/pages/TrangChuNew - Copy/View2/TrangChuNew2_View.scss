@@ -1,0 +1,284 @@
+.trang-chu-new2 {
+    --tcn2-chart-colors: #2563eb, #22c55e, #f59e0b, #f97316, #8b5cf6, #ec4899, #06b6d4, #14b8a6;
+    padding: 16px;
+    color: var(--theme-text-primary);
+
+    .tcn2-header {
+        margin-bottom: 8px;
+        padding: 8px 10px;
+        border: 1px solid var(--theme-border);
+        border-radius: 12px;
+        background: var(--theme-bg-card);
+    }
+
+    .tcn2-card {
+        padding: 8px 10px;
+        border: 1px solid var(--theme-border);
+        border-radius: 12px;
+        background: var(--theme-bg-card);
+
+        &:not(.tcn2-donut-card) {
+            margin-bottom: 8px;
+        }
+    }
+
+    .tt-tim-kiem {
+        margin-bottom: 8px;
+        border: 1px solid var(--theme-border);
+        border-radius: 12px;
+        background: var(--theme-bg-card);
+    }
+
+    .tcn2-section {
+        margin-bottom: 8px;
+    }
+
+    h1,
+    h2,
+    h3 {
+        margin: 0 0 5px;
+        line-height: 1.25;
+        color: var(--theme-text-primary);
+    }
+
+    h1 { font-size: 24px; }
+    h2 { font-size: 19px; }
+    h3 { font-size: 16px; }
+
+    p {
+        margin: 0;
+        color: var(--theme-text-secondary);
+    }
+
+    .tcn2-header > .tcn2-badge {
+        float: right;
+        margin: 0 0 4px 12px;
+    }
+
+    .tcn2-badge {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 4px 10px;
+        border: 1px solid var(--theme-border);
+        border-radius: 20px;
+        background: var(--theme-bg-card-hover);
+        font-weight: 600;
+    }
+
+    .tcn2-section-header-flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+
+        .tcn2-section-title-wrap {
+            min-width: 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 2px 8px;
+        }
+
+        .tcn2-badge {
+            margin-top: 0;
+            white-space: nowrap;
+            flex-shrink: 0;
+            color: #2563eb;
+            background: rgba(37, 99, 235, 0.08);
+            border-color: rgba(37, 99, 235, 0.2);
+            font-weight: 400;
+
+            strong {
+                font-weight: 700;
+            }
+        }
+    }
+
+    .tcn2-card-grid {
+        margin-top: 4px;
+
+        >.x-autocontainer-outerCt {
+            >.x-autocontainer-innerCt {
+                display: grid;
+                grid-template-columns: unquote('repeat(auto-fit, minmax(min(100%, 215px), 1fr))');
+                align-items: stretch;
+                gap: 12px;
+            }
+        }
+    }
+
+    .tcn2-donut-details {
+        padding-top: 10px;
+        border-top: 1px solid var(--theme-border);
+    }
+
+    .tcn2-legend-columns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px 14px;
+        max-height: 150px;
+        overflow-y: auto;
+    }
+
+    .tcn2-legend {
+        display: grid;
+        flex: 1 1 160px;
+        align-content: start;
+        gap: 6px;
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .tcn2-legend li {
+        display: grid;
+        grid-template-columns: unquote('14px minmax(0, 1fr) auto');
+        column-gap: 10px;
+        align-items: center;
+        color: var(--theme-text-primary);
+        font-size: 14px;
+        line-height: 22px;
+
+        span {
+            font-weight: 500;
+            overflow-wrap: anywhere;
+        }
+
+        strong {
+            text-align: right;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+    }
+
+    .tcn2-swatch {
+        width: 14px;
+        height: 14px;
+        border-radius: 3px;
+        flex-shrink: 0;
+    }
+
+    .tt-tim-kiem .tcn-filter-body {
+        padding: 8px;
+        background: var(--theme-bg-card);
+    }
+
+    .tt-tim-kiem .field-csstyle {
+        position: relative;
+        min-width: 0;
+    }
+
+    .tt-tim-kiem .x-form-trigger-wrap {
+        background: var(--theme-bg-input);
+        border-color: var(--theme-border);
+    }
+
+    .tcn2-footer {
+        padding: 8px;
+        color: var(--theme-text-secondary);
+        text-align: center;
+    }
+
+    $donut-palettes: (
+        dtcb: (#2563eb, #22c55e, #f59e0b, #f97316, #8b5cf6, #ec4899, #06b6d4, #14b8a6),
+        hiemNghi: (#2563eb, #22c55e, #f97316),
+        chuyenAn: (#2563eb, #22c55e, #f97316),
+        ctvbm: (#2563eb, #22c55e, #f97316),
+        phanLoai: (#2563eb, #22c55e),
+        danhMuc: (#2563eb, #22c55e, #f59e0b, #f97316),
+        doiTuong: (#2563eb, #22c55e, #f59e0b, #f97316, #8b5cf6, #ec4899, #06b6d4,
+            #14b8a6, #6366f1, #f43f5e, #84cc16, #a855f7, #0ea5e9)
+    );
+
+    @each $group, $colors in $donut-palettes {
+        .tcn2-donut-#{$group} {
+            --tcn2-chart-colors: #{join($colors, (), comma)};
+
+            @for $index from 1 through length($colors) {
+                .tcn2-swatch-#{$index} {
+                    background-color: nth($colors, $index);
+                }
+            }
+        }
+    }
+
+    .tcn2-donut-card {
+        min-width: 0;
+        padding: 10px 12px;
+    }
+
+    .tcn2-donut-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 8px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--theme-border);
+
+        h3 {
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .tcn2-donut-metrics {
+            padding: 5px 10px;
+            border: 1px solid #d5e5ff;
+            border-radius: 999px;
+            background: #edf5ff;
+            color: #1d4ed8;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 18px;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+    }
+
+    .tcn2-suu-tra,
+    .tcn2-co-cau {
+        padding: 7px 10px;
+        border: 1px solid var(--theme-border);
+        border-radius: 12px;
+        background: var(--theme-bg-card);
+        margin-bottom: 16px;
+
+        .tcn2-section-header {
+            text-align: center;
+        }
+
+        .tcn2-donut-card {
+            border: 1px solid var(--theme-border);
+            border-radius: 8px;
+            background: var(--theme-bg-card);
+        }
+    }
+
+    .tcn2-section-header h2 {
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .tcn2-section-header p {
+        font-size: 11px;
+    }
+
+    .tcn2-section {
+        >.x-box-inner {
+            >.x-box-target {
+                >.tcn2-section-header {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: baseline;
+                    gap: 2px 8px;
+                }
+            }
+        }
+    }
+}

@@ -44,7 +44,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_ViewCanBo', {
         margin: '16 0 0',
         bind: { data: '{loaiHoSo}' },
         tpl: '<tpl for="items"><div class="tcn6-loai-chip tcn6-tone-{mau}" title="{name:htmlEncode}: {soLuongText} hồ sơ ({tyLeText})">' +
-            '<span>{name:htmlEncode}</span><b>{soLuongText}</b></div></tpl>'
+            '<i class="x-fa fa-{icon} tcn6-loai-icon"></i><span>{name:htmlEncode}</span><b>{soLuongText}</b></div></tpl>'
         //#endregion
     }]
 });

@@ -229,7 +229,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_ViewCharts', {
                     cls: 'tcn3-card-header',
                     html: '<div class="tcn3-header-wrap">' +
                         '<span class="tcn3-header-icon tcn3-tone-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></span>' +
-                        '<h3>Cơ cấu theo loại đối tượng</h3>' +
+                        '<h3>Cơ cấu theo hệ lực lượng</h3>' +
                         '</div>'
                 },
                 {

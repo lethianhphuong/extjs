@@ -12,6 +12,17 @@ Ext.define('DEMO.view.pages.TrangChuNew.View6.TrangChuNew6_DisplayConfig', {
         VANV: 'blue',
         NNV: 'amber'
     },
+    /** Icon Font Awesome cho thẻ loại hồ sơ (cùng bộ icon với View3/View5). */
+    loaiHoSoIcon: {
+        DTCB: 'file-alt',
+        SUUTRA: 'clipboard',
+        HIEMNGHI: 'exclamation-triangle',
+        CHUYENAN: 'briefcase',
+        CTVBM: 'users',
+        HTBM: 'envelope',
+        VANV: 'id-card',
+        NNV: 'home'
+    },
     /** Tone cột biểu đồ "Trạng thái công việc trực tiếp thực hiện" theo code (trangThaiCongViecTrucTiep). */
     trangThaiTone: {
         VIEC: 'blue',

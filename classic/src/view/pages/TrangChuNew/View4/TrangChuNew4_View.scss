@@ -1,0 +1,525 @@
+/* ==========================================================================
+   TrangChuNew4 Stylesheet - ExtJS 7.5 Classic Toolkit
+   Phong cách hiện đại, trực quan cho Màn hình Trang chủ Cán bộ thực hiện
+   Bộ màu "tươi + đậm": màu bão hoà (blue/green/purple/orange/amber/red 600),
+   icon nền gradient đặc, chữ số đậm. Chỉ dùng hex/rgba để chạy được trình duyệt cũ.
+   Đóng gói an toàn trong scope .trang-chu-new4
+   Tuyệt đối KHÔNG dùng :root
+   ========================================================================== */
+
+.trang-chu-new4 {
+    background-color: #f1f5f9;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    /* --- Card nền chung --- */
+    .tcn4-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+    }
+
+    .tcn4-card-header {
+        padding: 10px 14px;
+        border-bottom: 1px solid #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .tcn4-header-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        h3 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+    }
+
+    .tcn4-header-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        flex-shrink: 0;
+        color: #ffffff;
+        box-shadow: 0 3px 8px -2px rgba(15, 23, 42, 0.25);
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    // Icon tiêu đề card: nền gradient đặc, icon trắng
+    .tcn4-tone-blue {
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        color: #ffffff;
+    }
+
+    .tcn4-tone-green {
+        background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+        color: #ffffff;
+    }
+
+    .tcn4-tone-red {
+        background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+        color: #ffffff;
+    }
+
+    /* --- Profile Cán bộ --- */
+    .tcn4-officer-card {
+        padding: 12px 14px;
+    }
+
+    .tcn4-officer-body {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+    }
+
+    .tcn4-officer-avatar-wrap {
+        flex-shrink: 0;
+    }
+
+    .tcn4-officer-avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        box-shadow: 0 6px 14px -4px rgba(21, 128, 61, 0.55);
+        border: 3px solid #bbf7d0;
+
+        svg {
+            width: 38px;
+            height: 38px;
+        }
+    }
+
+    .tcn4-officer-meta {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .tcn4-officer-name {
+        margin: 0 0 4px 0;
+        font-size: 18px;
+        font-weight: 800;
+        color: #0f172a;
+    }
+
+    .tcn4-officer-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: #475569;
+        margin-bottom: 2px;
+        line-height: 1.4;
+
+        .tcn4-meta-icon {
+            display: inline-flex;
+            color: #64748b;
+            svg {
+                width: 13px;
+                height: 13px;
+            }
+        }
+
+        .tcn4-meta-label {
+            color: #64748b;
+        }
+
+        .tcn4-meta-val {
+            color: #0f172a;
+            font-weight: 600;
+        }
+    }
+
+    /* --- 6 Thẻ KPI --- */
+    .tcn4-kpi-grid-wrap {
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+    }
+
+    .tcn4-kpi-grid {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .tcn4-kpi-item {
+        position: relative;
+        flex: 1 1 0;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 10px 10px 14px;
+        overflow: hidden;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        transition: box-shadow 0.15s ease, transform 0.15s ease;
+
+        // Vạch màu đậm bên trái theo tone
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #94a3b8;
+        }
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px -6px rgba(15, 23, 42, 0.25);
+        }
+    }
+
+    // Nền nhạt + viền + vạch trái + màu số theo tone của từng thẻ
+    .tcn4-kpi-tone-blue { background: #eff6ff; border-color: #bfdbfe; &:before { background: #2563eb; } .tcn4-kpi-val { color: #1d4ed8; } }
+    .tcn4-kpi-tone-green { background: #f0fdf4; border-color: #bbf7d0; &:before { background: #16a34a; } .tcn4-kpi-val { color: #15803d; } }
+    .tcn4-kpi-tone-purple { background: #faf5ff; border-color: #e9d5ff; &:before { background: #9333ea; } .tcn4-kpi-val { color: #7e22ce; } }
+    .tcn4-kpi-tone-orange { background: #fff7ed; border-color: #fed7aa; &:before { background: #ea580c; } .tcn4-kpi-val { color: #c2410c; } }
+    .tcn4-kpi-tone-amber { background: #fffbeb; border-color: #fde68a; &:before { background: #f59e0b; } .tcn4-kpi-val { color: #b45309; } }
+    .tcn4-kpi-tone-red { background: #fef2f2; border-color: #fecaca; &:before { background: #dc2626; } .tcn4-kpi-val { color: #b91c1c; } }
+
+    // Thẻ tổng: nền gradient xanh đậm, chữ trắng
+    .tcn4-kpi-total {
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+        border-color: transparent !important;
+        box-shadow: 0 8px 18px -8px rgba(29, 78, 216, 0.7);
+
+        &:before {
+            display: none;
+        }
+
+        .tcn4-kpi-title,
+        .tcn4-kpi-val {
+            color: #ffffff !important;
+        }
+
+        .tcn4-kpi-icon-box {
+            background: rgba(255, 255, 255, 0.22) !important;
+            box-shadow: none;
+        }
+    }
+
+    // Ô icon KPI: nền gradient đặc, icon trắng
+    .tcn4-kpi-icon-box {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        color: #ffffff;
+        box-shadow: 0 4px 10px -4px rgba(15, 23, 42, 0.4);
+
+        svg {
+            width: 19px;
+            height: 19px;
+        }
+    }
+
+    .tcn4-icon-bg-blue { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); }
+    .tcn4-icon-bg-green { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); }
+    .tcn4-icon-bg-purple { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); }
+    .tcn4-icon-bg-orange { background: linear-gradient(135deg, #fb923c 0%, #c2410c 100%); }
+    .tcn4-icon-bg-amber { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); }
+    .tcn4-icon-bg-red { background: linear-gradient(135deg, #f87171 0%, #b91c1c 100%); }
+
+    .tcn4-kpi-content {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    .tcn4-kpi-title {
+        font-size: 11.5px;
+        font-weight: 600;
+        color: #334155;
+        line-height: 1.25;
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .tcn4-kpi-val {
+        font-size: 22px;
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1.2;
+        margin-top: 2px;
+    }
+
+    /* --- 6 Huy hiệu loại hồ sơ --- */
+    .tcn4-subcards-bar {
+        width: 100%;
+    }
+
+    .tcn4-subcards-row {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .tcn4-subcard {
+        flex: 1 1 0;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 14px;
+        border-radius: 10px;
+        border: 1px solid #cbd5e1;
+        background: #ffffff;
+        font-size: 13px;
+        transition: box-shadow 0.15s ease;
+
+        &:hover {
+            box-shadow: 0 4px 10px -4px rgba(15, 23, 42, 0.25);
+        }
+
+        .tcn4-subcard-title {
+            color: #334155;
+            font-weight: 700;
+        }
+
+        .tcn4-subcard-value {
+            font-size: 16px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+    }
+
+    // Màu theo loại hồ sơ: nền 100, viền 300, tên 700, số 800
+    .tcn4-subcard-DTCB { border-color: #86efac; background: #dcfce7; .tcn4-subcard-title { color: #15803d; } .tcn4-subcard-value { color: #166534; } }
+    .tcn4-subcard-SUUTRA { border-color: #fdba74; background: #ffedd5; .tcn4-subcard-title { color: #c2410c; } .tcn4-subcard-value { color: #9a3412; } }
+    .tcn4-subcard-HIEMNGHI { border-color: #fca5a5; background: #fee2e2; .tcn4-subcard-title { color: #b91c1c; } .tcn4-subcard-value { color: #991b1b; } }
+    .tcn4-subcard-CHUYENAN { border-color: #d8b4fe; background: #f3e8ff; .tcn4-subcard-title { color: #7e22ce; } .tcn4-subcard-value { color: #6b21a8; } }
+    .tcn4-subcard-CTVBM { border-color: #67e8f9; background: #cffafe; .tcn4-subcard-title { color: #0e7490; } .tcn4-subcard-value { color: #155e75; } }
+    .tcn4-subcard-HTBM { border-color: #a5b4fc; background: #e0e7ff; .tcn4-subcard-title { color: #4338ca; } .tcn4-subcard-value { color: #3730a3; } }
+
+    /* --- Grid --- */
+    // Header grid: nền xanh nhạt, chữ xanh đậm, kẻ đáy xanh 2px.
+    // Style header chung của app dùng !important (nền xanh lá, padding 3px) nên phải ghi đè tương ứng.
+    .tcn4-custom-grid {
+        background: #ffffff;
+
+        .x-grid-header-ct {
+            background: #eff6ff !important;
+            background-image: none !important;
+            border: 0 !important;
+            box-shadow: inset 0 -2px 0 #2563eb;
+        }
+
+        .x-column-header {
+            background: transparent !important;
+            background-image: none !important;
+            border-right: 1px solid #dbeafe !important;
+        }
+
+        .x-column-header-inner {
+            background: transparent !important;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+        }
+
+        .x-column-header-text,
+        .x-column-header-text-inner {
+            font-weight: 700 !important;
+            color: #1e3a8a !important;
+            font-size: 12px !important;
+        }
+
+        .x-column-header-trigger {
+            background-color: transparent !important;
+            border-left: 0 !important;
+        }
+
+        .x-grid-item {
+            font-size: 13px;
+            color: #0f172a;
+        }
+
+        .x-grid-item-alt {
+            background-color: #f8fafc;
+        }
+
+        .x-grid-item-over {
+            background-color: #eff6ff;
+        }
+    }
+
+    .tcn4-code-text {
+        font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-weight: 700;
+        color: #1d4ed8;
+    }
+
+    .tcn4-hoso-title {
+        font-weight: 600;
+        color: #0f172a;
+    }
+
+    .tcn4-status-text {
+        color: #475569;
+    }
+
+    .tcn4-action-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        color: #2563eb;
+        background: #eff6ff;
+        cursor: pointer;
+
+        &:hover {
+            background: #dbeafe;
+        }
+    }
+
+    .tcn4-btn-outline {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 4px;
+        color: #2563eb;
+        padding: 3px 8px;
+        font-size: 12px;
+        font-weight: 600;
+
+        &:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+        }
+    }
+
+    .tcn4-badge-loai {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .tcn4-badge-suutra {
+        background: #fdf2f8;
+        color: #db2777;
+        border: 1px solid #fbcfe8;
+    }
+    .tcn4-badge-hiemnghi {
+        background: #f1f5f9;
+        color: #475569;
+        border: 1px solid #cbd5e1;
+    }
+    .tcn4-badge-chuyenan {
+        background: #faf5ff;
+        color: #7c3aed;
+        border: 1px solid #e9d5ff;
+    }
+
+    /* --- Donut Chart --- */
+    .tcn4-donut-wrapper {
+        position: relative;
+    }
+
+    .tcn4-donut-center-label {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        text-align: center;
+    }
+
+    .tcn4-donut-center-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        strong {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1;
+        }
+
+        small {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 2px;
+        }
+    }
+
+    .tcn4-donut-legend-vertical {
+        display: flex;
+        align-items: center;
+        padding: 10px 4px;
+    }
+
+    .tcn4-vlegend-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        width: 100%;
+    }
+
+    .tcn4-vlegend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: #334155;
+
+        i {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        strong {
+            color: #0f172a;
+            font-weight: 800;
+        }
+    }
+
+    /* --- Line Chart --- */
+    .tcn4-linechart-container {
+        padding: 4px 8px;
+    }
+
+    .tcn4-chart-subtitle {
+        font-size: 12.5px;
+        font-weight: 700;
+        color: #1e3a8a;
+        margin: 4px 0 2px 8px;
+    }
+}

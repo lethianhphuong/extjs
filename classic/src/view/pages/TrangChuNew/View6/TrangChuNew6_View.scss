@@ -426,8 +426,9 @@
     //#region NOTE: Thẻ loại hồ sơ
     .tcn6-loai-row {
         display: grid;
-        grid-template-columns: unquote('repeat(4, minmax(0, 1fr))');
-        gap: 12px;
+        // 8 loại hồ sơ trên 1 hàng
+        grid-template-columns: unquote('repeat(8, minmax(0, 1fr))');
+        gap: 10px;
         padding-top: 4px;
         padding-bottom: 4px;
         overflow: visible !important;
@@ -465,6 +466,8 @@
         &.tcn6-tone-muted { background: #f8fafc; border-color: #cbd5e1; }
 
         span {
+            flex: 1;
+            min-width: 0;
             overflow: hidden;
             color: #1e293b;
             font-size: 13px;
@@ -478,6 +481,21 @@
             font-size: 16px;
             font-weight: 700;
         }
+    }
+
+    // Icon loại hồ sơ: ô vuông bo góc, màu theo tone của thẻ
+    .tcn6-loai-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        width: 26px;
+        height: 26px;
+        border-radius: 7px;
+        font-size: 12px;
+        color: var(--tcn6-tone, #64748b);
+        background: #ffffff;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
     }
 
     .tcn6-vlegend {
@@ -697,6 +715,144 @@
         color: var(--tcn6-tone, #2563eb);
     }
     //#endregion
+
+    /* ==========================================================================
+       Bộ màu "tươi + đậm" (đồng bộ View 3, View 4) — đặt cuối để ghi đè các khối phía trên.
+       KPI: vạch màu trái 4px, ô icon nền gradient đặc + icon trắng, số đậm theo màu.
+       Loại hồ sơ: nền 100 / viền 300 / chữ đậm theo màu, icon gradient.
+       Chỉ dùng hex/rgba để chạy được trình duyệt cũ.
+       ========================================================================== */
+    .tcn6-kpi {
+        overflow: hidden;
+        padding-left: 18px;
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #94a3b8;
+        }
+    }
+
+    .tcn6-kpi-title {
+        color: #0f172a;
+        font-weight: 700;
+    }
+
+    .tcn6-kpi-val {
+        font-weight: 800;
+    }
+
+    .tcn6-kpi-icon {
+        width: 36px;
+        height: 36px;
+        box-shadow: 0 4px 10px -4px rgba(15, 23, 42, 0.4);
+    }
+
+    .tcn6-title-icon {
+        box-shadow: 0 3px 8px -2px rgba(15, 23, 42, 0.25);
+    }
+
+    .tcn6-card-title {
+        font-weight: 800;
+    }
+
+    .tcn6-loai-chip {
+        span {
+            font-weight: 600;
+        }
+
+        b {
+            font-weight: 800;
+        }
+    }
+
+    .tcn6-loai-icon {
+        box-shadow: 0 3px 8px -3px rgba(15, 23, 42, 0.4);
+    }
+
+    // Từng tone: KPI (nền 50, viền 200, vạch trái + số đậm), icon gradient + icon trắng; loại hồ sơ (nền 100, viền 300, chữ đậm)
+    .tcn6-kpi.tcn6-tone-blue { background: #eff6ff; border-color: #bfdbfe; &:before { background: #1d4ed8; } .tcn6-kpi-val { color: #1d4ed8; } }
+    .tcn6-tone-blue .tcn6-kpi-icon,
+    .tcn6-title-icon.tcn6-tone-blue,
+    .tcn6-loai-chip.tcn6-tone-blue .tcn6-loai-icon { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: #ffffff; }
+    .tcn6-loai-chip.tcn6-tone-blue { background: #dbeafe; border-color: #93c5fd; span { color: #1d4ed8; } b { color: #1e40af; } }
+
+    .tcn6-kpi.tcn6-tone-green { background: #f0fdf4; border-color: #bbf7d0; &:before { background: #15803d; } .tcn6-kpi-val { color: #15803d; } }
+    .tcn6-tone-green .tcn6-kpi-icon,
+    .tcn6-title-icon.tcn6-tone-green,
+    .tcn6-loai-chip.tcn6-tone-green .tcn6-loai-icon { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); color: #ffffff; }
+    .tcn6-loai-chip.tcn6-tone-green { background: #dcfce7; border-color: #86efac; span { color: #15803d; } b { color: #166534; } }
+
+    .tcn6-kpi.tcn6-tone-purple { background: #faf5ff; border-color: #e9d5ff; &:before { background: #7e22ce; } .tcn6-kpi-val { color: #7e22ce; } }
+    .tcn6-tone-purple .tcn6-kpi-icon,
+    .tcn6-title-icon.tcn6-tone-purple,
+    .tcn6-loai-chip.tcn6-tone-purple .tcn6-loai-icon { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); color: #ffffff; }
+    .tcn6-loai-chip.tcn6-tone-purple { background: #f3e8ff; border-color: #d8b4fe; span { color: #7e22ce; } b { color: #6b21a8; } }
+
+    .tcn6-kpi.tcn6-tone-orange { background: #fff7ed; border-color: #fed7aa; &:before { background: #c2410c; } .tcn6-kpi-val { color: #c2410c; } }
+    .tcn6-tone-orange .tcn6-kpi-icon,
+    .tcn6-title-icon.tcn6-tone-orange,
+    .tcn6-loai-chip.tcn6-tone-orange .tcn6-loai-icon { background: linear-gradient(135deg, #fb923c 0%, #c2410c 100%); color: #ffffff; }
+    .tcn6-loai-chip.tcn6-tone-orange { background: #ffedd5; border-color: #fdba74; span { color: #c2410c; } b { color: #9a3412; } }
+
+    .tcn6-kpi.tcn6-tone-amber { background: #fffbeb; border-color: #fde68a; &:before { background: #d97706; } .tcn6-kpi-val { color: #d97706; } }
+    .tcn6-tone-amber .tcn6-kpi-icon,
+    .tcn6-title-icon.tcn6-tone-amber,
+    .tcn6-loai-chip.tcn6-tone-amber .tcn6-loai-icon { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); color: #ffffff; }
+    .tcn6-loai-chip.tcn6-tone-amber { background: #fef3c7; border-color: #fcd34d; span { color: #d97706; } b { color: #92400e; } }
+
+    .tcn6-kpi.tcn6-tone-red { background: #fef2f2; border-color: #fecaca; &:before { background: #b91c1c; } .tcn6-kpi-val { color: #b91c1c; } }
+    .tcn6-tone-red .tcn6-kpi-icon,
+    .tcn6-title-icon.tcn6-tone-red,
+    .tcn6-loai-chip.tcn6-tone-red .tcn6-loai-icon { background: linear-gradient(135deg, #f87171 0%, #b91c1c 100%); color: #ffffff; }
+    .tcn6-loai-chip.tcn6-tone-red { background: #fee2e2; border-color: #fca5a5; span { color: #b91c1c; } b { color: #991b1b; } }
+
+    .tcn6-kpi.tcn6-tone-pink { background: #fdf2f8; border-color: #fbcfe8; &:before { background: #be185d; } .tcn6-kpi-val { color: #be185d; } }
+    .tcn6-tone-pink .tcn6-kpi-icon,
+    .tcn6-title-icon.tcn6-tone-pink,
+    .tcn6-loai-chip.tcn6-tone-pink .tcn6-loai-icon { background: linear-gradient(135deg, #f472b6 0%, #be185d 100%); color: #ffffff; }
+    .tcn6-loai-chip.tcn6-tone-pink { background: #fce7f3; border-color: #f9a8d4; span { color: #be185d; } b { color: #9d174d; } }
+
+    .tcn6-kpi.tcn6-tone-indigo { background: #eef2ff; border-color: #c7d2fe; &:before { background: #4338ca; } .tcn6-kpi-val { color: #4338ca; } }
+    .tcn6-tone-indigo .tcn6-kpi-icon,
+    .tcn6-title-icon.tcn6-tone-indigo,
+    .tcn6-loai-chip.tcn6-tone-indigo .tcn6-loai-icon { background: linear-gradient(135deg, #818cf8 0%, #4338ca 100%); color: #ffffff; }
+    .tcn6-loai-chip.tcn6-tone-indigo { background: #e0e7ff; border-color: #a5b4fc; span { color: #4338ca; } b { color: #3730a3; } }
+
+    .tcn6-kpi.tcn6-tone-slate { background: #f8fafc; border-color: #cbd5e1; &:before { background: #334155; } .tcn6-kpi-val { color: #334155; } }
+    .tcn6-tone-slate .tcn6-kpi-icon,
+    .tcn6-title-icon.tcn6-tone-slate,
+    .tcn6-loai-chip.tcn6-tone-slate .tcn6-loai-icon { background: linear-gradient(135deg, #94a3b8 0%, #334155 100%); color: #ffffff; }
+    .tcn6-loai-chip.tcn6-tone-slate { background: #f1f5f9; border-color: #cbd5e1; span { color: #334155; } b { color: #1e293b; } }
+
+    .tcn6-kpi.tcn6-tone-muted { background: #f8fafc; border-color: #cbd5e1; &:before { background: #475569; } .tcn6-kpi-val { color: #475569; } }
+    .tcn6-tone-muted .tcn6-kpi-icon,
+    .tcn6-title-icon.tcn6-tone-muted,
+    .tcn6-loai-chip.tcn6-tone-muted .tcn6-loai-icon { background: linear-gradient(135deg, #94a3b8 0%, #475569 100%); color: #ffffff; }
+    .tcn6-loai-chip.tcn6-tone-muted { background: #f1f5f9; border-color: #cbd5e1; span { color: #475569; } b { color: #334155; } }
+
+    // Thẻ tổng: giữ nền gradient xanh, ẩn vạch trái
+    .tcn6-kpi.tcn6-kpi-total {
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+
+        &:before {
+            display: none;
+        }
+
+        .tcn6-kpi-val {
+            color: #ffffff !important;
+        }
+
+        .tcn6-kpi-icon {
+            background: rgba(255, 255, 255, 0.22) !important;
+            color: #ffffff !important;
+            box-shadow: none;
+        }
+    }
 }
 
 .dark-mode .trang-chu-new6 {
@@ -721,8 +877,12 @@
 }
 
 @media (max-width: 1280px) {
-    .trang-chu-new6 .tcn6-kpi-grid,
-    .trang-chu-new6 .tcn6-loai-row {
+    .trang-chu-new6 .tcn6-kpi-grid {
         grid-template-columns: unquote('repeat(2, minmax(0, 1fr))');
+    }
+
+    // Màn hẹp: 8 loại hồ sơ chia 2 hàng
+    .trang-chu-new6 .tcn6-loai-row {
+        grid-template-columns: unquote('repeat(4, minmax(0, 1fr))');
     }
 }
