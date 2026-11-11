@@ -36,20 +36,8 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_MockData', {
                     val: 1203,
                     valLech: 26
                 },
-                {
-                    code: 'SAP_DEN_HAN',
-                    name: 'Sắp đến hạn',
-                    typeLech: 0,
-                    val: 8673,
-                    valLech: null
-                },
-                {
-                    code: 'QUA_HAN',
-                    name: 'Quá hạn',
-                    typeLech: 1,
-                    val: 3421,
-                    valLech: 384
-                }
+                { code: 'PER_LAP_MOI', name: 'Phần trăm mở mới trong kỳ', typeLech: 1, val: 552, valLech: 547 },
+                { code: 'PER_DA_KET_THUC', name: 'Phần trăm kết thúc trong kỳ', typeLech: 1, val: 16, valLech: 16 }
             ],
 
             loaiHoSo: [
@@ -129,7 +117,7 @@ Ext.define('DEMO.view.pages.TrangChuNew.View3.TrangChuNew3_MockData', {
                 { code: 'LIEN_QUAN', name: 'Hồ sơ nhiều đơn vị liên quan', val: 0 }
             ],
 
-                        tabList: [
+            tabList: [
                 {
                     type: 'cuc',
                     total: 537,
