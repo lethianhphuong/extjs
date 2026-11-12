@@ -10,7 +10,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.Store.TrangChuNew3_BienDongStore',
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.Store.TrangChuNew3_LoaiDoiTuongStore',
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.Store.TrangChuNew3_DienBienStore',
-        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.Store.TrangChuNew3_GridStore'
+        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.DS_Hoso_GridView3.DS_Hoso_GridView3Store'
     ],
 
 
@@ -21,7 +21,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         kyBaoCao: 'Q IV/2025',
         hienMoMoi: true,
         hienKetThuc: true,
-        tongSoDonut: '256.842'
+        limit: 20
     },
 
     //#region NOTE: Tính toán và chuẩn hóa thẻ KPI
@@ -172,8 +172,9 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
             fields: ['code', 'ten', 'tenDayDu', 'val', 'mauHex'],
             data: []
         },
-        gridStore: {
-            type: 'trangchunew3grid'
+        // Danh sách hồ sơ của grid DS_Hoso_GridView3 (trống cho tới khi click biểu đồ)
+        dsHoSoStore: {
+            type: 'DS_Hoso_GridView3Store'
         }
     }
 });

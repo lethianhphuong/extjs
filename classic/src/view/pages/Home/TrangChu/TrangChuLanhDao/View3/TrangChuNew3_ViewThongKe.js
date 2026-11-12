@@ -7,11 +7,11 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         // Hàng 1: Thẻ KPI tổng quan (6 thẻ chỉ số chính chuẩn View 5)
         {
             xtype: 'component',
-            listeners: { afterrender: 'onTooltipReady' },
+            listeners: { afterrender: 'onKpiReady' },
             bind: { data: '{kpiCards}' },
             tpl: '<div class="tcn3-metrics">' +
                 '<tpl for=".">' +
-                '<div class="tcn3-metric tcn3-tone-{mau}<tpl if="laTong"> tcn3-metric-total</tpl>" data-tcn3-tip="{name:htmlEncode}: <tpl if="laPhanTram">{phanTramText:htmlEncode}<tpl else>{[Number(values.val).toLocaleString("vi-VN")]} hồ sơ<tpl if="hienBienDong"> — {lech:htmlEncode}</tpl></tpl>">' +
+                '<div data-code="{code:htmlEncode}" class="tcn3-metric tcn3-tone-{mau}<tpl if="laTong"> tcn3-metric-total</tpl>" data-tcn3-tip="{name:htmlEncode}: <tpl if="laPhanTram">{phanTramText:htmlEncode}<tpl else>{[Number(values.val).toLocaleString("vi-VN")]} hồ sơ<tpl if="hienBienDong"> — {lech:htmlEncode}</tpl></tpl>">' +
                 '  <div class="tcn3-metric-label">{name:htmlEncode}<i class="x-fa fa-{icon} tcn3-tone-{mau}"></i></div>' +
                 '  <div class="tcn3-metric-bottom" style="display: flex; flex-direction: row; align-items: center; gap: 8px; flex-wrap: wrap;">' +
                 '    <tpl if="laPhanTram"><strong class="tcn3-tone-{xuHuong}">{phanTramText:htmlEncode}</strong>' +

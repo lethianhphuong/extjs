@@ -65,21 +65,6 @@
         }
     }
 
-    .tcn3-total-chip {
-        flex-shrink: 0;
-        padding: 3px 10px;
-        border: 1px solid #bfdbfe;
-        border-radius: 999px;
-        background: #eff6ff;
-        color: #1d4ed8;
-        font-size: 12px;
-        white-space: nowrap;
-
-        b {
-            font-weight: 800;
-        }
-    }
-
     .tcn3-header-icon {
         display: inline-flex;
         align-items: center;
@@ -172,6 +157,7 @@
     }
 
     .tcn3-metric {
+        cursor: zoom-in; // Thẻ KPI bấm được (D3_C01) → nạp danh sách hồ sơ
         background: #ffffff;
         border: 1px solid #cbd5e1;
         border-radius: 12px;
@@ -179,7 +165,7 @@
         padding: 14px;
         min-height: 0;
         box-sizing: border-box;
-        transition: box-shadow 0.15s ease, border-color 0.15s ease;
+        transition: box-shadow 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
         transform: none !important;
         position: relative;
         overflow: hidden;
@@ -192,6 +178,7 @@
             transform: none !important;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             border-color: #94a3b8;
+            opacity: 0.8;
         }
 
         &.tcn3-tone-blue {
@@ -463,36 +450,6 @@
         min-height: 185px;
     }
 
-    .tcn3-donut-center-label {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        pointer-events: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 4;
-    }
-
-    .tcn3-donut-center-inner {
-        text-align: center;
-        line-height: 1.2;
-
-        strong {
-            display: block;
-            font-size: 17px;
-            font-weight: 700;
-            color: #0f172a;
-        }
-
-        small {
-            font-size: 11.5px;
-            color: #64748b;
-        }
-    }
-
     .tcn3-donut-legend-horizontal,
     .tcn3-biendong-legend-horizontal {
         width: 100%;
@@ -508,17 +465,85 @@
         color: #334155;
     }
 
-    .tcn3-donut-legend-side {
-        padding: 0 14px 0 4px;
-    }
-
-    .tcn3-legend-col {
+    /* Danh sách cơ cấu theo cấp đơn vị (bên phải donut) */
+    .tcn3-cocau-list {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 12px;
-        font-size: 12px;
+        gap: 6px;
+        padding: 0 8px 0 2px;
+        overflow: hidden;
+    }
+
+    .tcn3-cocau-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 8px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        background: #f8fafc;
+        font-size: 12.5px;
         color: #334155;
+        cursor: zoom-in;
+        overflow: hidden;
+        transition: border-color 0.15s ease, background-color 0.15s ease;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: var(--cocau-color);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.15s ease;
+        }
+
+        &.is-hover {
+            border-color: var(--cocau-color);
+            background: #ffffff;
+
+            &::before {
+                opacity: 0.1;
+            }
+        }
+
+        .tcn3-cocau-dot {
+            flex-shrink: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            background: var(--cocau-color);
+        }
+
+        .tcn3-cocau-name {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .tcn3-cocau-val {
+            font-weight: 700;
+            color: var(--cocau-color);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .tcn3-cocau-pct {
+            flex-shrink: 0;
+            padding: 0 5px;
+            border: 1px solid var(--cocau-color);
+            border-radius: 6px;
+            font-size: 11.5px;
+            color: var(--cocau-color);
+            background: #ffffff;
+            font-variant-numeric: tabular-nums;
+        }
     }
 
     .tcn3-legend-item {
@@ -766,339 +791,6 @@
             .x-btn-inner-default-small {
                 color: #059669 !important;
             }
-        }
-    }
-
-    /* Bản đồ Việt Nam tĩnh */
-
-    /* Top địa bàn - Đồng bộ phong cách Phân tích / Sưu tra View 1 */
-
-    /* Alert list */
-
-    /* ==========================================================================
-       4. Bảng tình hình theo đơn vị (Hàng 5): tiêu đề + tab segmented + grid
-       ========================================================================== */
-    .tcn3-grid-tabpanel {
-        overflow: hidden;
-
-        .tcn3-grid-toolbar {
-            padding: 12px 16px;
-            border-bottom: 1px solid #cbd5e1;
-            background: #ffffff;
-        }
-
-        /* --- Tab dạng segmented control --- */
-        .tcn3-tabbar.x-tab-bar {
-            padding: 4px !important;
-            border: 1px solid #cbd5e1 !important;
-            border-radius: 8px;
-            background: #f1f5f9 !important;
-            background-image: none !important;
-
-            .x-tab-bar-body {
-                padding: 0 !important;
-            }
-
-            .x-tab-bar-strip {
-                display: none !important;
-            }
-        }
-
-        .tcn3-tabbar .x-tab {
-            padding: 7px 16px !important;
-            margin: 0 2px !important;
-            border: 0 !important;
-            border-bottom: 0 !important;
-            border-radius: 6px !important;
-            background: transparent !important;
-            background-image: none !important;
-            box-shadow: none !important;
-            cursor: pointer;
-            transition: background-color 0.15s ease, box-shadow 0.15s ease;
-
-            .x-tab-close-btn {
-                display: none !important;
-            }
-
-            .x-tab-icon-el {
-                font-size: 13px !important;
-                color: #64748b !important;
-            }
-
-            .x-tab-inner {
-                font-size: 13px !important;
-                font-weight: 600 !important;
-                color: #334155 !important;
-            }
-
-            &.x-tab-over:not(.x-tab-active) {
-                background: #e2e8f0 !important;
-
-                .x-tab-inner,
-                .x-tab-icon-el {
-                    color: #0f172a !important;
-                }
-            }
-
-            &.x-tab-active {
-                background: #ffffff !important;
-                box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12), inset 0 -2px 0 #2563eb !important;
-
-                .x-tab-inner,
-                .x-tab-icon-el {
-                    color: #2563eb !important;
-                    font-weight: 700 !important;
-                }
-
-                .tcn3-tab-count {
-                    color: #ffffff !important;
-                    background: #2563eb !important;
-                }
-            }
-        }
-
-        .tcn3-tab-count {
-            display: inline-block;
-            min-width: 22px;
-            margin-left: 8px;
-            padding: 0 7px;
-            border-radius: 999px;
-            font-size: 11px;
-            font-weight: 700;
-            line-height: 18px;
-            text-align: center;
-            color: #475569;
-            background: #e2e8f0;
-        }
-
-        /* --- Grid --- */
-        .tcn3-main-grid {
-            border: 1px solid #cbd5e1 !important;
-
-            /* Header bảng */
-            .x-grid-header-ct {
-                border: 0 !important;
-                border-bottom: 2px solid #cbd5e1 !important;
-                background: #f1f5f9 !important;
-                background-image: none !important;
-            }
-
-            .x-column-header {
-                border: 0 !important;
-                border-right: 1px solid #e2e8f0 !important;
-                border-bottom: 1px solid #e2e8f0 !important;
-                background: transparent !important;
-                background-image: none !important;
-            }
-
-            /* Hàng nhóm 2 tầng */
-            .x-group-header {
-                border-bottom: 1px solid #cbd5e1 !important;
-                background: #f8fafc !important;
-
-                > .x-column-header-inner .x-column-header-text-inner {
-                    color: #2563eb !important;
-                    letter-spacing: 0.4px;
-                    text-transform: uppercase;
-                    font-size: 11.5px !important;
-                    font-weight: 700 !important;
-                }
-            }
-
-            .x-column-header-inner {
-                padding: 10px 8px !important;
-                line-height: 16px !important;
-                background: transparent !important;
-            }
-
-            .x-column-header-text,
-            .x-column-header-text-inner {
-                color: #0f172a !important;
-                font-size: 12px !important;
-                font-weight: 700 !important;
-            }
-
-            .x-column-header-trigger {
-                border-left: 0 !important;
-                background-color: transparent !important;
-            }
-
-            .x-column-header-over,
-            .x-column-header-open {
-                background: #e2e8f0 !important;
-            }
-
-            .x-grid-item {
-                background: #ffffff;
-            }
-
-            .x-grid-item-alt {
-                background: #f8fafc;
-            }
-
-            .x-grid-item-over,
-            .x-grid-item-selected {
-                background: #eff6ff !important;
-            }
-
-            .x-grid-cell {
-                border-right: 1px solid #e2e8f0 !important;
-                border-bottom: 1px solid #e2e8f0 !important;
-            }
-
-            .x-grid-cell-inner {
-                padding: 10px 10px !important;
-                font-size: 13px;
-                line-height: 20px;
-                color: #0f172a;
-                font-variant-numeric: tabular-nums;
-            }
-
-            /* Cột tổng số nổi bật */
-            .tcn3-col-total {
-                background: #eff6ff !important;
-                background-color: #eff6ff !important;
-                border-left: 1px solid #bfdbfe !important;
-                border-right: 1px solid #bfdbfe !important;
-
-                .x-grid-cell-inner {
-                    font-weight: 700 !important;
-                    color: #1d4ed8 !important;
-                }
-            }
-
-            .tcn3-num-zero {
-                color: #94a3b8;
-            }
-        }
-    }
-
-    /* Đảm bảo cột tổng số luôn nhận diện */
-    .tcn3-col-total {
-        background: #eff6ff !important;
-        background-color: #eff6ff !important;
-        border-left: 1px solid #bfdbfe !important;
-        border-right: 1px solid #bfdbfe !important;
-
-        .x-grid-cell-inner {
-            font-weight: 700 !important;
-            color: #1d4ed8 !important;
-        }
-    }
-
-    /* Nút Xuất báo cáo dạng Outline */
-    .tcn3-btn-export-outline {
-        background-color: #ffffff !important;
-        border: 1px solid #2563eb !important;
-        color: #2563eb !important;
-        font-weight: 600 !important;
-        border-radius: 4px !important;
-        margin-right: 12px !important;
-
-        .x-btn-inner {
-            color: #2563eb !important;
-        }
-
-        .x-btn-icon-el {
-            color: #2563eb !important;
-        }
-
-        &:hover {
-            background-color: #eff6ff !important;
-        }
-    }
-
-    .tcn3-unit-link {
-        color: #1d4ed8;
-        font-weight: 600;
-        text-decoration: none;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-
-    .tcn3-grid-trend {
-        font-size: 11.5px;
-        font-weight: 600;
-
-        &.trend-down-good {
-            color: #16a34a;
-        }
-
-        &.trend-down-bad {
-            color: #dc2626;
-        }
-    }
-
-    .tcn3-badge-status {
-        display: inline-block;
-        padding: 2px 9px;
-        border-radius: 12px;
-        font-size: 11px;
-        font-weight: 600;
-
-        &.badge-tot {
-            background: #dcfce7;
-            color: #16a34a;
-            border: 1px solid #bbf7d0;
-        }
-
-        &.badge-can-quan-tam {
-            background: #fef3c7;
-            color: #d97706;
-            border: 1px solid #fde68a;
-        }
-    }
-
-    .tcn3-action-icon {
-        color: #2563eb !important;
-        font-size: 14px !important;
-        cursor: pointer;
-    }
-
-    .tcn3-placeholder-tab {
-        background: #ffffff;
-        border: 1px solid #cbd5e1;
-        border-radius: 8px;
-        padding: 40px;
-        text-align: center;
-    }
-
-    .tcn3-placeholder-card {
-        i {
-            font-size: 40px;
-            color: #94a3b8;
-            margin-bottom: 12px;
-        }
-        h3 {
-            margin: 0 0 6px 0;
-            color: #334155;
-            font-size: 16px;
-        }
-        p {
-            margin: 0;
-            color: #64748b;
-            font-size: 13px;
-        }
-    }
-
-    .tcn3-summary-name {
-        color: #0f172a;
-    }
-
-    /* Dòng Tổng cộng của Grid */
-    .tcn3-summary-row,
-    .x-grid-item.tcn3-summary-row,
-    .x-grid-row.tcn3-summary-row {
-        background-color: #f1f5f9 !important;
-        font-weight: 700 !important;
-        border-top: 2px solid #94a3b8 !important;
-        border-bottom: 2px solid #94a3b8 !important;
-
-        td {
-            background-color: #f1f5f9 !important;
-            font-weight: 700 !important;
         }
     }
 

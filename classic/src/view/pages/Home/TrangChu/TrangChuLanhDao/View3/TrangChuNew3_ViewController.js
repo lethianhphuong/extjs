@@ -158,7 +158,6 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         const me = this;
         const data = rawData || {};
         const tongQuanList = me.toList(data.tongQuan);
-        const capData = me.mapCapData(data);
         const loaiHoSoData = me.mapLoaiHoSo(data.loaiHoSo);
         const tongLoaiHoSo = loaiHoSoData.reduce((sum, it) => sum + it.val, 0);
 
@@ -169,10 +168,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
             coCauData: me.mapCoCau(data.coCauHoSoTheoDonVi),
             bienDongData: me.toList(data.bienDongHoSoTheoDonVi).map(me.mapBienDongItem),
             dienBienData: me.toList(data.dienBienMoMoiVaKetThuc).slice(-12).map(me.mapDienBienItem),
-            loaiDoiTuongData: me.mapLoaiDoiTuong(data.loaiDoiTuong),
-            capDataMap: capData.capDataMap,
-            capTotalMap: capData.capTotalMap,
-            tongSoDonut: Number(me.getTongSoVal(tongQuanList)).toLocaleString('vi-VN')
+            loaiDoiTuongData: me.mapLoaiDoiTuong(data.loaiDoiTuong)
         };
     },
 
@@ -180,19 +176,6 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
     /** Trả về chính mảng đầu vào, không phải mảng thì trả về mảng rỗng. */
     toList: function (value) {
         return Array.isArray(value) ? value : [];
-    },
-
-    /** Lấy giá trị trường chính, không có (undefined) thì dùng trường dự phòng hoặc 0. */
-    pickNumber: function (item, key, fallbackKey) {
-        return item[key] !== undefined ? item[key] : (item[fallbackKey] || 0);
-    },
-
-    /** 1. Tổng số hồ sơ cho tâm donut: ưu tiên mã DANG_QUAN_LY / TONG, không có thì lấy phần tử đầu. */
-    getTongSoVal: function (tongQuanList) {
-        if (!tongQuanList.length) { return 0; }
-        const foundTotal = tongQuanList.find(it => it.code === 'DANG_QUAN_LY' || it.code === 'TONG');
-        if (foundTotal && typeof foundTotal.val === 'number') { return foundTotal.val; }
-        return tongQuanList[0].val || 0;
     },
 
     /** 2. Loại hồ sơ cho biểu đồ cột: tên ngắn theo dữ liệu, tên đầy đủ và màu cột theo DisplayConfig. */
@@ -206,7 +189,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                 ten: ten,
                 tenDayDu: def.ten || ten,
                 val: typeof it.val === 'number' ? it.val : 0,
-                mauHex: def.hex || '#64748b'
+                mauHex: def.hex || '#64748b',
+                raw: it
             };
         });
     },
@@ -225,10 +209,12 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
             const cfg = cfgDonVi[it.capDonVi] || { name: it.capDonVi || it.name, mau: '#94a3b8' };
             const soLuong = it.val || 0;
             return {
+                code: it.capDonVi,
                 name: cfg.name,
                 soLuong: soLuong,
                 tyLe: totalCoCau > 0 ? Math.round((soLuong / totalCoCau) * 1000) / 10 : 0,
-                mau: cfg.mau
+                mau: cfg.mau,
+                raw: it
             };
         });
     },
@@ -247,7 +233,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
             capCuc: cuc,
             capTinh: tinh,
             capXa: xa,
-            tongSo: cuc + tinh + xa
+            tongSo: cuc + tinh + xa,
+            raw: it
         };
     },
 
@@ -260,7 +247,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
             nameHover: it.nameHover || it.name || thangLabel,
             thang: thangLabel,
             moMoi: it.moMoi || 0,
-            ketThuc: it.ketThuc || 0
+            ketThuc: it.ketThuc || 0,
+            raw: it
         };
     },
 
@@ -274,52 +262,11 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
             code: it.code || '',
             name: it.name || it.ten || '',
             val: typeof it.val === 'number' ? it.val : 0,
-            originalIndex: rawLoaiDoiTuong.length - 1 - idx
+            originalIndex: rawLoaiDoiTuong.length - 1 - idx,
+            raw: it
         }));
     },
 
-    /** 7. Tình hình đơn vị theo cấp từ tabList (CUC / TINH / XA), thiếu thì lấy từ MockData. */
-    mapCapData: function (data) {
-        const me = this;
-        let tabList = data.tabList;
-        if (!Array.isArray(tabList)) {
-            const mockRaw = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_MockData.getData();
-            tabList = me.toList(mockRaw && mockRaw.tabList);
-        }
-        const capDataMap = {};
-        const capTotalMap = {};
-        ['CUC', 'TINH', 'XA'].forEach(function (cap) {
-            const tabItem = tabList.find(t => t.type === cap.toLowerCase() || t.type === cap);
-            const hasList = tabItem && Array.isArray(tabItem.list);
-            capDataMap[cap] = hasList ? tabItem.list.map(me.mapGridItem, me) : [];
-            capTotalMap[cap] = tabItem && typeof tabItem.total === 'number' ? tabItem.total : null;
-        });
-        return { capDataMap: capDataMap, capTotalMap: capTotalMap };
-    },
-
-    /** Một dòng Grid tình hình đơn vị (14 cột theo chuẩn nghiệp vụ). */
-    mapGridItem: function (it, idx) {
-        const me = this;
-        return {
-            stt: it.stt || (idx + 1),
-            maDonVi: it.maDonVi || '',
-            tenDonVi: it.tenDonVi || it.name || '',
-            capDonVi: it.capDonVi || '',
-            tongHoSo: me.pickNumber(it, 'tongHoSo', 'tongQuanLy'),
-            moMoi: it.moMoi || 0,
-            ketThuc: it.ketThuc || 0,
-            chuyenMuc: it.chuyenMuc || 0,
-            dtcb: it.dtcb || 0,
-            suuTra: me.pickNumber(it, 'suuTra', 'suutra'),
-            hiemNghi: me.pickNumber(it, 'hiemNghi', 'hiemnghi'),
-            chuyenAn: me.pickNumber(it, 'chuyenAn', 'chuyenan'),
-            ctvbm: it.ctvbm || 0,
-            htbm: it.htbm || 0,
-            vanv: it.vanv || 0,
-            nnv: it.nnv || 0,
-            isSummary: !!it.isSummary
-        };
-    },
     //#endregion
 
     /**
@@ -345,8 +292,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         // Cập nhật ViewModel
         viewModel.set({
             tongQuan: mapped.tongQuan,
-            tongLoaiHoSoText: mapped.tongLoaiHoSoText,
-            tongSoDonut: mapped.tongSoDonut
+            tongLoaiHoSoText: mapped.tongLoaiHoSoText
         });
 
         // Nạp các Store
@@ -365,134 +311,11 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         const dienBienStore = viewModel.getStore('dienBienStore');
         if (dienBienStore) dienBienStore.loadData(mapped.dienBienData);
 
-        // Nạp dữ liệu Grid theo cấp đơn vị đang chọn (mặc định CUC)
-        me.capDataMap = mapped.capDataMap;
-        me.capTotalMap = mapped.capTotalMap;
-        me.currentCap = me.currentCap || 'CUC';
-
-        const gridStore = viewModel.getStore('gridStore');
-        if (gridStore && me.capDataMap) {
-            gridStore.loadData(me.capDataMap[me.currentCap] || []);
-        }
-
-        // Cập nhật tiêu đề 3 tab có tổng số hs: Icon + Title tab + (tổng số hs)
-        me.updateGridTabTitles();
-
         viewModel.notify();
 
         const view = me.getView();
         if (view && view.rendered) {
             me.updateChartColors();
-        }
-    },
-
-    //#region NOTE: Renderer bảng tình hình theo đơn vị
-    /** Dòng tổng cộng (isSummary hoặc mã TONG). */
-    isSummaryRecord: function (record) {
-        return !!(record && (record.get('isSummary') || record.get('maDonVi') === 'TONG'));
-    },
-
-    /** Cột STT: ẩn số ở dòng tổng. */
-    renderSttGrid: function (val, meta, record) {
-        const me = this;
-        return me.isSummaryRecord(record) ? '' : val;
-    },
-
-    /** Cột đơn vị: link ở dòng thường, chữ đậm ở dòng tổng; tooltip tên đầy đủ khi bị cắt. */
-    renderDonViGrid: function (val, meta, record) {
-        const me = this;
-        const text = Ext.String.htmlEncode(val || '');
-        meta.tdAttr = 'data-qtip="' + text + '"';
-        if (me.isSummaryRecord(record)) {
-            return '<strong class="tcn3-summary-name">' + text + '</strong>';
-        }
-        return '<a href="javascript:void(0)" class="tcn3-unit-link">' + text + '</a>';
-    },
-
-    /** Cột số liệu: định dạng vi-VN, số 0 hiển thị mờ, dòng tổng in đậm. */
-    renderSoLieuGrid: function (val, meta, record) {
-        const me = this;
-        const num = Number(val || 0);
-        const formatted = num.toLocaleString('vi-VN');
-        if (me.isSummaryRecord(record)) {
-            return '<strong>' + formatted + '</strong>';
-        }
-        return num === 0 ? '<span class="tcn3-num-zero">0</span>' : formatted;
-    },
-    //#endregion
-
-    /**
-     * Cập nhật tiêu đề 3 Tab kèm tổng số hồ sơ động: Icon + Title tab + (tổng số hs)
-     */
-    updateGridTabTitles: function () {
-        const me = this;
-        const view = me.getView();
-        if (!view) return;
-
-        const capMap = me.capDataMap || {};
-        const capTotalMap = me.capTotalMap || {};
-
-        function getCapTotal(cap) {
-            if (typeof capTotalMap[cap] === 'number') {
-                return capTotalMap[cap];
-            }
-            const list = capMap[cap] || [];
-            return list.reduce(function (sum, it) {
-                return sum + (it.tongHoSo || 0);
-            }, 0);
-        }
-
-        const totalCuc = getCapTotal('CUC');
-        const totalTinh = getCapTotal('TINH');
-        const totalXa = getCapTotal('XA');
-
-        const cucTab = view.down('#cucTab_IdView');
-        if (cucTab) {
-            cucTab.setText('Cấp Cục<span class="tcn3-tab-count">' + Number(totalCuc).toLocaleString('vi-VN') + '</span>');
-        }
-
-        const tinhTab = view.down('#tinhTab_IdView');
-        if (tinhTab) {
-            tinhTab.setText('Cấp Tỉnh<span class="tcn3-tab-count">' + Number(totalTinh).toLocaleString('vi-VN') + '</span>');
-        }
-
-        const xaTab = view.down('#xaTab_IdView');
-        if (xaTab) {
-            xaTab.setText('Cấp Xã<span class="tcn3-tab-count">' + Number(totalXa).toLocaleString('vi-VN') + '</span>');
-        }
-    },
-
-    /**
-     * Xử lý chuyển tab trên thanh TabBar của Grid
-     * Chuyển tab sẽ nạp dữ liệu cấp tương ứng (CUC / TINH / XA) vào Grid duy nhất
-     * @param {Ext.tab.Tab} tab Tab được click
-     */
-    /** Kích hoạt tab theo cấp đang chọn khi tabbar render xong (mặc định Cấp Cục). */
-    onGridTabBarReady: function (tabBar) {
-        const me = this;
-        const cap = me.currentCap || 'CUC';
-        const tab = tabBar.items.findBy(item => item.capDonVi === cap);
-        if (tab) {
-            tabBar.setActiveTab(tab);
-        }
-    },
-
-    onGridTabClick: function (tab) {
-        const me = this;
-        if (!tab) return;
-
-        const capDonVi = tab.capDonVi || 'CUC';
-        me.currentCap = capDonVi;
-
-        const tabBar = tab.up('#gridTabBar_IdView');
-        if (tabBar && typeof tabBar.setActiveTab === 'function') {
-            tabBar.setActiveTab(tab);
-        }
-
-        const viewModel = me.getViewModel();
-        const gridStore = viewModel ? viewModel.getStore('gridStore') : null;
-        if (gridStore && me.capDataMap) {
-            gridStore.loadData(me.capDataMap[capDonVi] || []);
         }
     },
 
@@ -536,6 +359,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
     onChartReady: function (chart) {
         const me = this;
         me.updateChartColors(chart);
+        me.bindBieuDoClick(chart);
     },
 
     /** Kiểm tra chart đã render và có phải đối tượng cần cập nhật hay không. */
@@ -652,6 +476,166 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         me.updateBienDongChart(view, targetChart);
         me.updateLoaiDoiTuongChart(view, targetChart);
         me.updateDienBienChart(view, targetChart);
+    },
+    //#endregion
+
+    //#region NOTE: Click biểu đồ — lấy mã biểu đồ D3_Cxx, code và record gốc
+    /**
+     * Gắn click cho chart có dataKey: đổi tọa độ chuột sang tọa độ surface của series
+     * rồi dùng chart.getItemForPoint để lấy đúng cột / lát / điểm được bấm.
+     */
+    bindBieuDoClick: function (chart) {
+        const me = this;
+        if (!chart || !chart.dataKey || chart.bieuDoClickBound) { return; }
+        chart.bieuDoClickBound = true;
+        chart.getEl().on('click', function (event) {
+            const item = me.getItemAtPoint(chart, event.getX(), event.getY());
+            if (item) {
+                me.onBieuDoClick(chart, item);
+            }
+        });
+        // Interaction itemhighlight của chart chặn mousemove của Ext nên dùng sự kiện DOM gốc
+        const dom = chart.getEl().dom;
+        dom.addEventListener('mousemove', function (event) {
+            me.onBieuDoHover(chart, me.getItemAtPoint(chart, event.pageX, event.pageY));
+        });
+        dom.addEventListener('mouseleave', function () {
+            me.onBieuDoHover(chart, null);
+        });
+    },
+
+    /** Item (cột / lát / điểm) nằm tại tọa độ trang (pageX, pageY), đổi sang tọa độ surface của series. */
+    getItemAtPoint: function (chart, pageX, pageY) {
+        const surfaceXY = chart.getSurface('series').el.getXY();
+        return chart.getItemForPoint(pageX - surfaceXY[0], pageY - surfaceXY[1]);
+    },
+
+    /** Độ mờ của phần tử đang rê chuột (giữ nguyên màu, chỉ làm mờ) và con trỏ báo hiệu bấm được. */
+    hoverOpacity: 0.6,
+    hoverCursor: 'zoom-in',
+
+    /** Rê chuột vào phần tử bấm được: đổi con trỏ và làm mờ phần tử đó. */
+    onBieuDoHover: function (chart, item) {
+        const me = this;
+        const current = chart.hoverItem;
+        const same = item && current && item.record === current.record && item.field === current.field;
+        if (same || (!item && !current)) { return; }
+        chart.hoverItem = item;
+        chart.getEl().dom.style.cursor = item ? me.hoverCursor : '';
+        if (item) {
+            // Highlight mặc định của Ext đổi màu (vàng/đỏ, tách lát, phóng to điểm) nên ghi đè bằng màu gốc + opacity
+            item.series.setHighlight(Ext.apply(me.getItemBaseStyle(chart, item), { globalAlpha: me.hoverOpacity }));
+            chart.setHighlightItem(null);
+        }
+        chart.setHighlightItem(item || null);
+        if (chart.itemId === 'coCauChart_IdView') {
+            me.syncCoCauList(item);
+        }
+    },
+
+    /** Donut cơ cấu ↔ danh sách bên cạnh: rê vào lát nào thì dòng tương ứng cũng sáng lên. */
+    syncCoCauList: function (item) {
+        const list = this.getView().down('#coCauList_IdView');
+        if (!list || !list.rendered) { return; }
+        list.clearHighlight();
+        const node = item ? list.getNode(item.index) : null;
+        if (node) { list.highlightItem(node); }
+    },
+
+    /** Item của donut theo vị trí dòng trong danh sách cơ cấu. */
+    getCoCauItem: function (index) {
+        const chart = this.getView().down('#coCauChart_IdView');
+        const series = chart && chart.getSeries()[0];
+        return series ? series.getItemByIndex(index, 'sprites') : null;
+    },
+
+    onCoCauItemEnter: function (list, record, node, index) {
+        const item = this.getCoCauItem(index);
+        if (item) { this.onBieuDoHover(item.series.getChart(), item); }
+    },
+
+    onCoCauItemLeave: function () {
+        const chart = this.getView().down('#coCauChart_IdView');
+        if (chart) { this.onBieuDoHover(chart, null); }
+    },
+
+    /** Click dòng trong danh sách cơ cấu: xử lý giống click lát donut (D3_C03). */
+    onCoCauItemClick: function (list, record, node, index) {
+        const item = this.getCoCauItem(index);
+        if (item) { this.onBieuDoClick(item.series.getChart(), item); }
+    },
+
+    /** Kiểu gốc (màu nền, viền) của phần tử theo loại series để highlight không làm đổi màu. */
+    getItemBaseStyle: function (chart, item) {
+        const series = item.series;
+        if (series.type === 'pie') {
+            const style = series.getStyleByIndex(item.index);
+            return { fillStyle: style.fillStyle, strokeStyle: style.strokeStyle, lineWidth: 1, margin: 0 };
+        }
+        if (series.type === 'line') {
+            const marker = series.getMarker() || {};
+            const color = marker.fillStyle || series.getStyleByIndex(0).strokeStyle;
+            return { fillStyle: color, strokeStyle: marker.strokeStyle || color, lineWidth: marker.lineWidth || 0, scalingX: 1, scalingY: 1 };
+        }
+        const renderer = series.getRenderer();
+        const rendered = renderer ? renderer.call(series, item.sprite, {}, { store: chart.getStore() }, item.index) : null;
+        if (rendered && rendered.fillStyle) {
+            return { fillStyle: rendered.fillStyle, strokeStyle: rendered.strokeStyle || rendered.fillStyle, lineWidth: rendered.lineWidth || 0 };
+        }
+        const yField = [].concat(series.getYField());
+        const style = series.getStyleByIndex(Math.max(yField.indexOf(item.field), 0));
+        return { fillStyle: style.fillStyle, strokeStyle: style.strokeStyle, lineWidth: style.lineWidth || 0 };
+    },
+
+    /** Xử lý item được bấm của các chart (cột, donut, đường): chart khai báo dataKey để tra mã D3_Cxx. */
+    onBieuDoClick: function (chart, item) {
+        const me = this;
+        const record = item && item.record;
+        if (!record) { return; }
+        me.xuLyClickBieuDo(me.taoThongTinClick(chart.dataKey, record.get('code'), record.get('raw') || record.getData(), item.field));
+    },
+
+    /** Thẻ KPI tổng quan (D3_C01) là HTML: gắn tooltip và click theo thuộc tính data-code của thẻ. */
+    onKpiReady: function (component) {
+        const me = this;
+        me.onTooltipReady(component);
+        component.getEl().on('click', function (event, target) {
+            const code = target.getAttribute('data-code');
+            const tongQuan = me.getViewModel().get('tongQuan') || [];
+            const raw = tongQuan.find(it => it.code === code);
+            if (raw) {
+                me.xuLyClickBieuDo(me.taoThongTinClick('tongQuan', code, raw, null));
+            }
+        }, me, { delegate: '.tcn3-metric' });
+    },
+
+    /** Gói thông tin click thống nhất cho mọi biểu đồ. */
+    taoThongTinClick: function (dataKey, code, record, truong) {
+        const cfg = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig;
+        return {
+            maBieuDo: cfg.maBieuDo[dataKey] || null,
+            dataKey: dataKey,
+            code: code,
+            record: record,
+            truong: truong || null
+        };
+    },
+
+    /**
+     * Điểm xử lý duy nhất sau khi click: tạo params và bắn sự kiện taiDanhSach sang grid DS_Hoso_GridView3,
+     * grid gọi store tự chọn mock (DEMO) hoặc API (NVCB).
+     */
+    xuLyClickBieuDo: function (thongTin) {
+        const me = this;
+        const params = {
+            maThongKe: thongTin.maBieuDo,
+            json: { code: thongTin.code }
+        };
+        window.console.log('[View3] Click biểu đồ', params, thongTin);
+        const grid = me.getView().down('DS_Hoso_GridView3');
+        if (grid) {
+            grid.fireEvent('taiDanhSach', params, thongTin);
+        }
     },
     //#endregion
 

@@ -1,6 +1,16 @@
 Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig', {
     singleton: true,
 
+    /** Mã biểu đồ View3 (D3) theo khóa dữ liệu, dùng khi click lấy dữ liệu biểu đồ. */
+    maBieuDo: {
+        tongQuan: 'D3_C01',
+        loaiHoSo: 'D3_C02',
+        coCauHoSoTheoDonVi: 'D3_C03',
+        bienDongHoSoTheoDonVi: 'D3_C04',
+        loaiDoiTuong: 'D3_C05',
+        dienBienMoMoiVaKetThuc: 'D3_C06'
+    },
+
     paletteColors: [
         '#2563eb', // blue
         '#22c55e', // green
@@ -20,13 +30,23 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Dis
         'Tổng': '#f97316'
     },
 
-    /** Bảng màu biểu đồ Cơ cấu theo loại đối tượng: tránh xanh lá thương hiệu (dành cho cấp đơn vị) và đỏ/vàng cam (cảnh báo) */
+    /**
+     * Bảng màu biểu đồ Cơ cấu theo hệ lực lượng: 12 màu khác hẳn nhau, lấy theo thứ tự nhóm trong dữ liệu
+     * (4 nhóm đầu trùng màu cố định trong loaiDoiTuongColorMap; "Khác" luôn xám).
+     */
     loaiDoiTuongColors: [
-        '#4f46e5', // 1. Hình sự (indigo)
-        '#0891b2', // 2. Kinh tế (cyan)
-        '#db2777', // 3. Ma túy (pink)
-        '#ca8a04', // 4. Môi trường (ochre)
-        '#94a3b8'  // 5. Khác (slate)
+        '#4f46e5', // 1. indigo (Hình sự)
+        '#0891b2', // 2. cyan (Kinh tế)
+        '#db2777', // 3. pink (Ma túy)
+        '#ca8a04', // 4. ochre (Môi trường)
+        '#059669', // 5. emerald
+        '#ea580c', // 6. orange
+        '#a855f7', // 7. purple
+        '#dc2626', // 8. red
+        '#84cc16', // 9. lime
+        '#92400e', // 10. brown
+        '#2563eb', // 11. blue
+        '#1e293b'  // 12. navy
     ],
 
     loaiDoiTuongColorMap: {

@@ -1,0 +1,224 @@
+/* Grid danh sách hồ sơ View3 (DS_Hoso_GridView3) */
+.trang-chu-new3 .ds-hoso-grid3 {
+    overflow: hidden;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 4px 12px -6px rgba(15, 23, 42, 0.12);
+
+    /* ---------- Tiêu đề (header card View3) ---------- */
+    .ds-hoso-grid3-header {
+        padding: 14px 18px !important;
+        border-bottom: 1px solid #e2e8f0 !important;
+        background: #ffffff !important;
+    }
+
+    .x-panel-body {
+        border: 0 !important;
+    }
+
+    /* ---------- Header bảng ---------- */
+    .x-grid-header-ct {
+        border: 0 !important;
+        border-bottom: 1px solid #e2e8f0 !important;
+        background: #f8fafc !important;
+        background-image: none !important;
+    }
+
+    .x-column-header {
+        border: 0 !important;
+        border-right: 1px solid #eef2f7 !important;
+        background: #f8fafc !important;
+        background-image: none !important;
+    }
+
+    .x-column-header-inner {
+        padding: 11px 12px !important;
+        line-height: 16px !important;
+        background: transparent !important;
+    }
+
+    .x-column-header-text,
+    .x-column-header-text-inner {
+        color: #475569 !important;
+        font-size: 11.5px !important;
+        font-weight: 700 !important;
+        text-transform: none;
+    }
+
+    .x-column-header-over {
+        background: #f1f5f9 !important;
+    }
+
+    .x-column-header-sort-ASC .x-column-header-text-inner,
+    .x-column-header-sort-DESC .x-column-header-text-inner {
+        color: #1d4ed8 !important;
+    }
+
+    /* ---------- Dòng dữ liệu ---------- */
+    .x-grid-item {
+        background: #ffffff !important;
+    }
+
+    .x-grid-item-alt {
+        background: #fbfcfe !important;
+    }
+
+    .x-grid-item-over {
+        background: #f0f6ff !important;
+    }
+
+    .x-grid-item-selected {
+        background: #e8f1ff !important;
+    }
+
+    .x-grid-cell {
+        border: 0 !important;
+        border-bottom: 1px solid #f1f5f9 !important;
+        background: transparent !important;
+    }
+
+    .x-grid-cell-inner {
+        padding: 11px 12px !important;
+        font-size: 13px;
+        line-height: 22px;
+        color: #334155;
+    }
+
+    .ds-hoso-grid3-date .x-grid-cell-inner {
+        color: #475569;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .ds-hoso-grid3-name {
+        color: #0f172a;
+        font-weight: 600;
+    }
+
+    /* Loại hồ sơ: chấm màu theo loại */
+    .ds-hoso-grid3-loai {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        color: #1e293b;
+
+        i {
+            flex: 0 0 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+    }
+
+    /* Nút xem chi tiết */
+    .ds-hoso-grid3-action {
+        width: 28px !important;
+        height: 28px !important;
+        margin-top: -3px;
+        border: 1px solid #dbeafe;
+        border-radius: 7px;
+        background: #eff6ff;
+        color: #2563eb !important;
+        font-size: 13px !important;
+        line-height: 26px !important;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.15s ease, color 0.15s ease;
+
+        &:hover {
+            background: #2563eb;
+            color: #ffffff !important;
+        }
+    }
+
+    /* Trạng thái dạng badge có chấm */
+    .ds-hoso-grid3-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 2px 10px;
+        border: 1px solid;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 18px;
+        white-space: nowrap;
+
+        &:before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+    }
+
+    .ds-hoso-grid3-status-blue {
+        color: #1d4ed8;
+        background: #eff6ff;
+        border-color: #bfdbfe;
+    }
+
+    .ds-hoso-grid3-status-amber {
+        color: #b45309;
+        background: #fffbeb;
+        border-color: #fde68a;
+    }
+
+    .ds-hoso-grid3-status-green {
+        color: #15803d;
+        background: #f0fdf4;
+        border-color: #bbf7d0;
+    }
+
+    .ds-hoso-grid3-status-red {
+        color: #b91c1c;
+        background: #fef2f2;
+        border-color: #fecaca;
+    }
+
+    .ds-hoso-grid3-status-muted {
+        color: #475569;
+        background: #f1f5f9;
+        border-color: #cbd5e1;
+    }
+
+    /* Trạng thái trống */
+    .x-grid-empty {
+        padding: 0 !important;
+    }
+
+    .ds-hoso-grid3-empty {
+        padding: 40px 16px;
+        color: #64748b;
+        font-size: 13px;
+        text-align: center;
+
+        i {
+            display: block;
+            margin-bottom: 10px;
+            color: #94a3b8;
+            font-size: 22px;
+        }
+    }
+
+    /* ---------- Phân trang ---------- */
+    .ds-hoso-grid3-paging {
+        padding: 8px 14px !important;
+        border: 0 !important;
+        border-top: 1px solid #e2e8f0 !important;
+        background: #f8fafc !important;
+        background-image: none !important;
+
+        .x-btn {
+            border-radius: 6px !important;
+        }
+
+        .x-toolbar-text,
+        .x-form-item-label-inner {
+            color: #475569 !important;
+            font-size: 12.5px !important;
+        }
+    }
+}

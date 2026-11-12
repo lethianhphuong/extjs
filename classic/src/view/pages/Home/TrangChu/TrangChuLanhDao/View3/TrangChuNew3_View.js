@@ -7,7 +7,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_ViewModel',
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_ViewThongKe',
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_ViewCharts',
-        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_ViewGrid'
+        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.DS_Hoso_GridView3.DS_Hoso_GridView3'
     ],
     controller: 'TrangChuNew3_ViewController',
     viewModel: 'TrangChuNew3_ViewModel',
@@ -34,9 +34,9 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
             xtype: 'TrangChuNew3_ViewCharts',
             margin: '12 0 0 0'
         },
-        // 4. Bảng dữ liệu chi tiết đa Tab (TabPanel & Grid)
+        // 4. Danh sách hồ sơ (nạp khi click biểu đồ) — grid tách riêng, dùng chung ViewModel
         {
-            xtype: 'TrangChuNew3_ViewGrid',
+            xtype: 'DS_Hoso_GridView3',
             margin: '12 0 16 0'
         }
     ]

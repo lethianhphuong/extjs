@@ -39,30 +39,18 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                             layout: { type: 'vbox', align: 'stretch' },
                             items: [
                                 {
-                                    xtype: 'container',
+                                    xtype: 'component',
                                     cls: 'tcn3-card-header',
-                                    layout: { type: 'hbox', align: 'middle' },
-                                    items: [
-                                        {
-                                            xtype: 'component',
-                                            flex: 1,
-                                            html: '<div class="tcn3-header-wrap">' +
-                                                '<span class="tcn3-header-icon tcn3-tone-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span>' +
-                                                '<h3>Loại hồ sơ</h3>' +
-                                                '</div>'
-                                        },
-                                        {
-                                            xtype: 'component',
-                                            cls: 'tcn3-total-chip',
-                                            margin: '0 0 0 8',
-                                            bind: { data: { tong: '{tongLoaiHoSoText}' } },
-                                            tpl: 'Tổng: <b>{tong}</b> hồ sơ'
-                                        }
-                                    ]
+                                    html: '<div class="tcn3-header-wrap">' +
+                                        '<span class="tcn3-header-icon tcn3-tone-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span>' +
+                                        '<h3>Loại hồ sơ</h3>' +
+                                        '</div>'
                                 },
                                 {
                                     xtype: 'cartesian',
                                     itemId: 'loaiHoSoChart_IdView',
+                                    // Mã biểu đồ tra theo dataKey trong DisplayConfig.maBieuDo; click xử lý ở bindBieuDoClick
+                                    dataKey: 'loaiHoSo',
                                     flex: 1,
                                     animation: false,
                                     insetPadding: { top: 24, right: 10, bottom: 6, left: 6 },
@@ -144,6 +132,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                 {
                                     xtype: 'cartesian',
                                     itemId: 'bienDongChart_IdView',
+                                    // Mã biểu đồ tra theo dataKey trong DisplayConfig.maBieuDo; click xử lý ở bindBieuDoClick
+                                    dataKey: 'bienDongHoSoTheoDonVi',
                                     flex: 1,
                                     animation: false,
                                     colors: ['#a78bfa', '#00a47e', '#3b82f6'],
@@ -247,7 +237,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                         {
                             xtype: 'container',
                             cls: 'tcn3-card',
-                            flex: 1,
+                            flex: 1.15,
                             margin: '0 12 0 0',
                             layout: { type: 'vbox', align: 'stretch' },
                             items: [
@@ -267,7 +257,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                     items: [
                                         {
                                             xtype: 'container',
-                                            flex: 1,
+                                            flex: 0.85,
                                             layout: 'fit',
                                             cls: 'tcn3-donut-body-wrap',
                                             minHeight: 185,
@@ -275,6 +265,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                                 {
                                                     xtype: 'polar',
                                                     itemId: 'coCauChart_IdView',
+                                                    // Mã biểu đồ tra theo dataKey trong DisplayConfig.maBieuDo; click xử lý ở bindBieuDoClick
+                                                    dataKey: 'coCauHoSoTheoDonVi',
                                                     animation: false,
                                                     insetPadding: 10,
                                                     bind: { store: '{coCauStore}' },
@@ -313,34 +305,33 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                                             }
                                                         }
                                                     }]
-                                                },
-                                                {
-                                                    xtype: 'component',
-                                                    cls: 'tcn3-donut-center-label',
-                                                    bind: {
-                                                        html: '<div class="tcn3-donut-center-inner">' +
-                                                            '<strong>{tongSoDonut}</strong>' +
-                                                            '<small>Hồ sơ</small>' +
-                                                            '</div>'
-                                                    }
                                                 }
                                             ]
                                         },
+                                        // Danh sách cấp đơn vị: màu + tên + số lượng + phần trăm; hover/click đồng bộ với donut
                                         {
-                                            xtype: 'container',
-                                            cls: 'tcn3-donut-legend-side',
-                                            width: 115,
-                                            layout: { type: 'vbox', pack: 'center', align: 'stretch' },
-                                            items: [
-                                                {
-                                                    xtype: 'component',
-                                                    html: '<div class="tcn3-legend-col">' +
-                                                        '<span class="tcn3-legend-item"><i style="background:#3b82f6"></i>Cấp Cục</span>' +
-                                                        '<span class="tcn3-legend-item"><i style="background:#00a47e"></i>Cấp tỉnh</span>' +
-                                                        '<span class="tcn3-legend-item"><i style="background:#a78bfa"></i>Cấp Xã</span>' +
-                                                        '</div>'
-                                                }
-                                            ]
+                                            xtype: 'dataview',
+                                            itemId: 'coCauList_IdView',
+                                            cls: 'tcn3-cocau-list',
+                                            flex: 1.3,
+                                            bind: { store: '{coCauStore}' },
+                                            itemSelector: '.tcn3-cocau-item',
+                                            overItemCls: 'is-hover',
+                                            tpl: [
+                                                '<tpl for=".">',
+                                                '<div class="tcn3-cocau-item" style="--cocau-color:{mau:htmlEncode}">',
+                                                '<i class="tcn3-cocau-dot"></i>',
+                                                '<span class="tcn3-cocau-name">{name:htmlEncode}</span>',
+                                                '<strong class="tcn3-cocau-val">{[Number(values.soLuong || 0).toLocaleString("vi-VN")]}</strong>',
+                                                '<span class="tcn3-cocau-pct">{[String(values.tyLe).replace(".", ",")]}%</span>',
+                                                '</div>',
+                                                '</tpl>'
+                                            ],
+                                            listeners: {
+                                                itemclick: 'onCoCauItemClick',
+                                                itemmouseenter: 'onCoCauItemEnter',
+                                                itemmouseleave: 'onCoCauItemLeave'
+                                            }
                                         }
                                     ]
                                 }
@@ -351,7 +342,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                         {
                             xtype: 'container',
                             cls: 'tcn3-card',
-                            flex: 1.4,
+                            flex: 1.25,
                             layout: { type: 'vbox', align: 'stretch' },
                             items: [
                                 {
@@ -393,6 +384,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                 {
                                     xtype: 'cartesian',
                                     itemId: 'dienBienChart_IdView',
+                                    // Mã biểu đồ tra theo dataKey trong DisplayConfig.maBieuDo; click xử lý ở bindBieuDoClick
+                                    dataKey: 'dienBienMoMoiVaKetThuc',
                                     flex: 1,
                                     minHeight: 210,
                                     animation: false,
@@ -468,88 +461,95 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
             ]
         },
 
-        // Biểu đồ 5: Cơ cấu theo hệ lực lượng (Horizontal Bar Chart), kéo dài hết 2 hàng
+        // Biểu đồ 5: Cơ cấu theo hệ lực lượng (Horizontal Bar Chart), cao bằng hàng 1 (340px)
         {
             xtype: 'container',
-            cls: 'tcn3-card',
             flex: 1,
             layout: { type: 'vbox', align: 'stretch' },
-            items: [
-                {
-                    xtype: 'component',
-                    cls: 'tcn3-card-header',
-                    html: '<div class="tcn3-header-wrap">' +
-                        '<span class="tcn3-header-icon tcn3-tone-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></span>' +
-                        '<h3>Cơ cấu theo hệ lực lượng</h3>' +
-                        '</div>'
-                },
-                {
-                    xtype: 'cartesian',
-                    itemId: 'loaiDoiTuongChart_IdView',
-                    flex: 1,
-                    flipXY: true,
-                    animation: false,
-                    insetPadding: { top: 15, right: 16, bottom: 18, left: 10 },
-                    bind: { store: '{loaiDoiTuongStore}' },
-                    listeners: { afterrender: 'onChartReady' },
-                    axes: [
-                        {
-                            type: 'numeric',
-                            position: 'bottom',
-                            fields: ['val'],
-                            minimum: 0,
-                            grid: true,
-                            renderer: function (axis, label) {
-                                return Number(label).toLocaleString('vi-VN');
+            items: [{
+                xtype: 'container',
+                cls: 'tcn3-card',
+                height: 340,
+                layout: { type: 'vbox', align: 'stretch' },
+                items: [
+                    {
+                        xtype: 'component',
+                        cls: 'tcn3-card-header',
+                        html: '<div class="tcn3-header-wrap">' +
+                            '<span class="tcn3-header-icon tcn3-tone-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></span>' +
+                            '<h3>Cơ cấu theo hệ lực lượng</h3>' +
+                            '</div>'
+                    },
+                    {
+                        xtype: 'cartesian',
+                        itemId: 'loaiDoiTuongChart_IdView',
+                        // Mã biểu đồ tra theo dataKey trong DisplayConfig.maBieuDo; click xử lý ở bindBieuDoClick
+                        dataKey: 'loaiDoiTuong',
+                        flex: 1,
+                        flipXY: true,
+                        animation: false,
+                        insetPadding: { top: 15, right: 16, bottom: 18, left: 10 },
+                        bind: { store: '{loaiDoiTuongStore}' },
+                        listeners: { afterrender: 'onChartReady' },
+                        axes: [
+                            {
+                                type: 'numeric',
+                                position: 'bottom',
+                                fields: ['val'],
+                                minimum: 0,
+                                grid: true,
+                                renderer: function (axis, label) {
+                                    return Number(label).toLocaleString('vi-VN');
+                                }
+                            },
+                            {
+                                type: 'category',
+                                position: 'left',
+                                fields: ['name']
                             }
-                        },
-                        {
-                            type: 'category',
-                            position: 'left',
-                            fields: ['name']
-                        }
-                    ],
-                    series: [
-                        {
-                            type: 'bar',
-                            xField: 'name',
-                            yField: 'val',
-                            style: { maxBarWidth: 16, radius: 4, lineWidth: 0 },
-                            renderer: function (sprite, config, rendererData, index) {
-                                const cfg = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig;
-                                const store = rendererData.store;
-                                const record = store ? store.getAt(index) : null;
-                                const key = record ? (record.get('code') || record.get('name')) : null;
-                                const originalIndex = record && record.get('originalIndex') !== undefined ? record.get('originalIndex') : index;
-                                const color = cfg.getLoaiDoiTuongColor(key, originalIndex);
+                        ],
+                        series: [
+                            {
+                                type: 'bar',
+                                xField: 'name',
+                                yField: 'val',
+                                style: { maxBarWidth: 16, radius: 4, lineWidth: 0 },
+                                renderer: function (sprite, config, rendererData, index) {
+                                    const cfg = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig;
+                                    const store = rendererData.store;
+                                    const record = store ? store.getAt(index) : null;
+                                    const key = record ? (record.get('code') || record.get('name')) : null;
+                                    const originalIndex = record && record.get('originalIndex') !== undefined ? record.get('originalIndex') : index;
+                                    const color = cfg.getLoaiDoiTuongColor(key, originalIndex);
 
-                                return {
-                                    fillStyle: color,
-                                    strokeStyle: color,
-                                    lineWidth: 0
-                                };
-                            },
-                            label: {
-                                field: 'val',
-                                display: 'outside',
-                                color: '#334155',
-                                fontSize: 11.5,
-                                fontWeight: '600',
-                                renderer: function (val) {
-                                    return Number(val).toLocaleString('vi-VN');
-                                }
-                            },
-                            tooltip: {
-                                trackMouse: true,
-                                renderer: function (tooltip, record) {
-                                    const val = Number(record.get('val')).toLocaleString('vi-VN');
-                                    tooltip.setHtml(record.get('name') + ': ' + val + ' đối tượng');
+                                    return {
+                                        fillStyle: color,
+                                        strokeStyle: color,
+                                        lineWidth: 0
+                                    };
+                                },
+                                label: {
+                                    field: 'val',
+                                    display: 'outside',
+                                    color: '#334155',
+                                    fontSize: 11.5,
+                                    fontWeight: '600',
+                                    renderer: function (val) {
+                                        return Number(val).toLocaleString('vi-VN');
+                                    }
+                                },
+                                tooltip: {
+                                    trackMouse: true,
+                                    renderer: function (tooltip, record) {
+                                        const val = Number(record.get('val')).toLocaleString('vi-VN');
+                                        tooltip.setHtml(record.get('name') + ': ' + val + ' đối tượng');
+                                    }
                                 }
                             }
-                        }
-                    ]
-                }
-            ]
+                        ]
+                    }
+                ]
+            }]
         }
     ]
 });
