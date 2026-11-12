@@ -21,20 +21,6 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                 '</div>' +
                 '</tpl>' +
                 '</div>'
-        },
-        // Hàng 2: Thẻ phân loại nghiệp vụ trực thuộc (6 loại nghiệp vụ chuẩn View 5)
-        {
-            xtype: 'component',
-            listeners: { afterrender: 'onTooltipReady' },
-            bind: { data: '{loaiHoSoCards}' },
-            tpl: '<div class="tcn3-summary">' +
-                '<tpl for=".">' +
-                '<div class="tcn3-tone-{mau}" data-tcn3-tip="{name:htmlEncode}: {[Number(values.val).toLocaleString("vi-VN")]} hồ sơ">' +
-                '  <span><i class="x-fa fa-{icon} tcn3-card-icon"></i>{name:htmlEncode}</span>' +
-                '  <b>{[Number(values.val).toLocaleString("vi-VN")]}</b>' +
-                '</div>' +
-                '</tpl>' +
-                '</div>'
         }
     ]
 });

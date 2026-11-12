@@ -11,6 +11,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Dis
             SAP_DEN_HAN: { icon: 'clock', mau: 'orange', thuTu: 7 },
             QUA_HAN: { icon: 'exclamation-triangle', mau: 'red', thuTu: 8 }
         },
+        // Biểu đồ "Số lượng hồ sơ theo 8 loại hồ sơ": name là nhãn trục ngắn, mau là màu cột
         loaiHoSo: {
             DTCB: { name: 'ĐTCB', icon: 'file-alt', mau: 'green', thuTu: 1 },
             SUUTRA: { name: 'Sưu tra', icon: 'clipboard', mau: 'amber', thuTu: 2 },
@@ -20,13 +21,6 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Dis
             HTBM: { name: 'HTBM', icon: 'envelope', mau: 'indigo', thuTu: 6 },
             VANV: { name: 'Vai ảo NV', icon: 'id-card', mau: 'violet', thuTu: 7 },
             NNV: { name: 'Nhà nghiệp vụ', icon: 'home', mau: 'pink', thuTu: 8 }
-        },
-        donVi: {
-            P1: { mau: 'blue', thuTu: 1 },
-            P2: { mau: 'indigo', thuTu: 2 },
-            P3: { mau: 'cyan', thuTu: 3 },
-            P4: { mau: 'purple', thuTu: 4 },
-            P5: { mau: 'muted', thuTu: 5 }
         },
         // Hệ lực lượng: tên hiển thị lấy từ data (trường name), cấu hình FE chỉ giữ màu và thứ tự
         lucLuong: {

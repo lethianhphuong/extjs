@@ -10,21 +10,17 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.Store.TrangChuNew3_BienDongStore',
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.Store.TrangChuNew3_LoaiDoiTuongStore',
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.Store.TrangChuNew3_DienBienStore',
-        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.Store.TrangChuNew3_TopDiaBanStore',
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.Store.TrangChuNew3_GridStore'
     ],
 
 
     data: {
-        bandoImgUrl: DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig.bandoImgUrl,
         tongQuan: [],
         kpiRaw: null,
-        loaiHoSoRaw: [],
-        canhBaoRaw: null,
+        tongLoaiHoSoText: '0',
         kyBaoCao: 'Q IV/2025',
         hienMoMoi: true,
         hienKetThuc: true,
-        loaiDiaBan: 'tinh',
         tongSoDonut: '256.842'
     },
 
@@ -155,66 +151,6 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                 return [];
             }
             return tongQuan.map((item, index) => me.createKpiCard(item, index));
-        },
-
-        loaiHoSoCards: function (get) {
-            const list = get('loaiHoSoRaw') || [];
-            const cfg = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig;
-
-            return list.map(function (item) {
-                const def = (cfg.tieuChi && cfg.tieuChi.loaiHoSo && cfg.tieuChi.loaiHoSo[item.code]) || {};
-                const mau = def.mau || 'muted';
-                const icon = def.icon || 'file-alt';
-                const name = item.ten || item.name || def.ten || item.code;
-                const val = typeof item.val === 'number' ? item.val : 0;
-                return {
-                    code: item.code,
-                    name: name,
-                    ten: name,
-                    val: val,
-                    icon: icon,
-                    mau: mau,
-                    soLuongText: cfg.formatNumber(val)
-                };
-            });
-        },
-
-        canhBaoCards: function (get) {
-            const raw = get('canhBaoRaw');
-            if (!raw) { return []; }
-
-            const cfg = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig;
-
-            return [
-                {
-                    ten: 'Hồ sơ quá hạn đánh giá',
-                    soLuong: cfg.formatNumber(raw.quaHan),
-                    icon: 'alert-triangle',
-                    iconSvg: cfg.getIconSvg('alert-triangle'),
-                    mau: 'red'
-                },
-                {
-                    ten: 'Hồ sơ sắp hết hạn đánh giá',
-                    soLuong: cfg.formatNumber(raw.sapHetHan),
-                    icon: 'clock',
-                    iconSvg: cfg.getIconSvg('clock'),
-                    mau: 'orange'
-                },
-                {
-                    ten: 'Hồ sơ tăng mức bất thường',
-                    soLuong: cfg.formatNumber(raw.tangBatThuong),
-                    icon: 'trending-up',
-                    iconSvg: cfg.getIconSvg('trending-up'),
-                    mau: 'amber'
-                },
-                {
-                    ten: 'Hồ sơ nhiều đơn vị liên quan',
-                    soLuong: cfg.formatNumber(raw.nhieuDonVi),
-                    icon: 'share-2',
-                    iconSvg: cfg.getIconSvg('share-2'),
-                    mau: 'purple'
-                }
-            ];
         }
     },
 
@@ -231,8 +167,10 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         dienBienStore: {
             type: 'trangchunew3dienbien'
         },
-        topDiaBanStore: {
-            type: 'trangchunew3topdiaban'
+        // Biểu đồ "Số lượng hồ sơ theo 8 loại hồ sơ"
+        loaiHoSoStore: {
+            fields: ['code', 'ten', 'tenDayDu', 'val', 'mauHex'],
+            data: []
         },
         gridStore: {
             type: 'trangchunew3grid'

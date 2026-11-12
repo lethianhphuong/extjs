@@ -3,13 +3,13 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
     alias: 'viewmodel.TrangChuNew5_ViewModel',
     requires: ['DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_DisplayConfig'],
     data: {
+        // Ẩn/hiện từng đường của biểu đồ diễn biến khối Đơn vị
         hienMoMoi: true,
         hienKetThuc: true,
-        chiSo: [],
-        loaiHoSo: [],
-        coCauDonViList: [],
-        topTinh: [],
-        topXa: []
+        // Ẩn/hiện từng đường của biểu đồ diễn biến khối Hệ lực lượng
+        hienMoMoiLucLuong: true,
+        hienKetThucLucLuong: true,
+        chiSo: []
     },
     /** Gắn cấu hình FE theo code, tính biến động từ số liệu thô. */
     prepareRows: function (rows, group) {
@@ -69,42 +69,6 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
             xuHuong: tone
         };
     },
-    /** Chuẩn hóa cơ cấu đơn vị cho Donut Chart (lấy Top đơn vị lớn nhất + nhóm Khác). */
-    prepareCoCauDonVi: function (rows) {
-        if (!rows || !rows.length) return [];
-        const sorted = rows.slice().sort((a, b) => (b.val || 0) - (a.val || 0));
-        const total = sorted.reduce((sum, it) => sum + (it.val || 0), 0);
-        const palette = ['blue', 'indigo', 'cyan', 'purple', 'green', 'amber', 'muted'];
-
-        const top = sorted.slice(0, 5);
-        const rest = sorted.slice(5);
-        const restVal = rest.reduce((sum, it) => sum + (it.val || 0), 0);
-
-        const result = top.map(function (it, idx) {
-            const rate = total ? (it.val || 0) * 100 / total : 0;
-            return {
-                code: it.maDonVi || ('CC_' + idx),
-                name: it.capDonVi || it.name || ('Đơn vị ' + (idx + 1)),
-                val: it.val || 0,
-                tyLe: rate,
-                tyLeText: rate.toLocaleString('vi-VN', { maximumFractionDigits: 1 }) + '%',
-                mau: palette[idx % palette.length]
-            };
-        });
-
-        if (restVal > 0) {
-            const restRate = total ? restVal * 100 / total : 0;
-            result.push({
-                code: 'KHAC',
-                name: 'Đơn vị khác',
-                val: restVal,
-                tyLe: restRate,
-                tyLeText: restRate.toLocaleString('vi-VN', { maximumFractionDigits: 1 }) + '%',
-                mau: 'muted'
-            });
-        }
-        return result;
-    },
     /** Chuẩn hóa biến động số lượng hồ sơ theo đơn vị cho Bar Chart. */
     prepareBienDongDonVi: function (rows) {
         if (!rows || !rows.length) return [];
@@ -120,11 +84,30 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
             };
         });
     },
+    /** Biến động theo cấp đơn vị (Cục / Tỉnh / Xã) theo tháng cho Stacked Bar + đường tổng. */
+    prepareBienDongCapDonVi: function (rows) {
+        return (rows || []).map(function (it, idx) {
+            const cuc = it.cuc || 0;
+            const tinh = it.tinh || 0;
+            const xa = it.xa || 0;
+            const name = it.name || it.nameHover || '';
+            return {
+                code: it.code || idx,
+                name: name,
+                nameHover: it.nameHover || name,
+                capCuc: cuc,
+                capTinh: tinh,
+                capXa: xa,
+                tongSo: cuc + tinh + xa
+            };
+        });
+    },
     stores: {
-        coCauDonViStore: { fields: ['code', 'name', 'val', 'tyLe', 'tyLeText', 'mau'] },
+        loaiHoSoStore: { fields: ['code', 'name', 'val', 'mau'] },
         bienDongDonViStore: { fields: ['code', 'name', 'val', 'mau'] },
         dienBienStore: { fields: ['code', 'name', 'nameHover', 'moMoi', 'ketThuc'] },
-        capTinhStore: { fields: ['code', 'name', 'val', 'mau'] },
+        bienDongCapDonViStore: { fields: ['code', 'name', 'nameHover', 'capCuc', 'capTinh', 'capXa', 'tongSo'] },
+        dienBienLucLuongStore: { fields: ['code', 'name', 'nameHover', 'moMoi', 'ketThuc'] },
         capXaStore: { fields: ['code', 'name', 'val', 'mau'] }
     }
 });

@@ -336,55 +336,6 @@
     /* ==========================================================================
        2. Hàng 2: Thẻ phân loại hồ sơ nghiệp vụ
        ========================================================================== */
-    .tcn5-summary {
-        display: grid;
-        grid-template-columns: unquote('repeat(8, minmax(0, 1fr))');
-        gap: 10px;
-        margin-top: 10px;
-        padding-top: 4px;
-        padding-bottom: 4px;
-        overflow: visible !important;
-
-        > div {
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            border-radius: 12px;
-            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
-            padding: 8px 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-sizing: border-box;
-            transition: box-shadow 0.15s ease, border-color 0.15s ease;
-            transform: none !important;
-            gap: 6px;
-
-            &:hover {
-                transform: none !important;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-                border-color: #94a3b8;
-            }
-
-            span {
-                display: inline-flex;
-                align-items: center;
-                color: #1e293b;
-                font-size: 12px;
-                font-weight: 600;
-                white-space: nowrap;
-                min-width: 0;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            b {
-                font-size: 16px;
-                font-weight: 800;
-                color: #0f172a;
-                flex-shrink: 0;
-            }
-        }
-    }
 
     .tcn5-card-icon {
         display: inline-flex;
@@ -469,20 +420,6 @@
         }
     }
 
-    .tcn5-donut-center {
-        text-align: center;
-        pointer-events: none;
-        line-height: 20px;
-        font-size: 16px;
-        font-weight: 700;
-        color: #0f172a;
-
-        small {
-            color: #64748b;
-            font-size: 10px;
-        }
-    }
-
     .tcn5-legend {
         display: flex;
         flex-wrap: wrap;
@@ -527,73 +464,6 @@
     /* ==========================================================================
        4. Bảng Top Đơn vị (Có vách ngăn rõ nét)
        ========================================================================== */
-    .tcn5-top-table {
-        margin-top: 12px;
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            font-size: 13px;
-            table-layout: fixed;
-        }
-
-        th {
-            background: #f1f5f9;
-            text-align: left;
-            color: #0f172a;
-            font-size: 11px;
-            line-height: 18px;
-            font-weight: 700;
-            padding: 10px 8px;
-            border-bottom: 2px solid #cbd5e1;
-            border-right: 1px solid #e2e8f0;
-
-            &:first-child {
-                width: 38px;
-                text-align: center;
-            }
-
-            &:last-child {
-                width: 130px;
-                text-align: right;
-                border-right: none;
-            }
-        }
-
-        td {
-            padding: 9px 8px;
-            height: 48px;
-            border-bottom: 1px solid #e2e8f0;
-            border-right: 1px solid #e2e8f0;
-            line-height: 20px;
-            overflow-wrap: break-word;
-            font-variant-numeric: tabular-nums;
-
-            &:first-child {
-                text-align: center;
-                color: #64748b;
-            }
-
-            &:last-child {
-                text-align: right;
-                font-weight: 600;
-                color: #0f172a;
-                border-right: none;
-            }
-        }
-
-        tr:nth-child(even) {
-            background-color: #f8fafc;
-        }
-
-        tr:nth-child(odd) {
-            background-color: #ffffff;
-        }
-
-        tr:hover {
-            background-color: #eff6ff;
-        }
-    }
 
     /* ==========================================================================
        5. Token màu cho View 5
@@ -645,7 +515,6 @@
         }
     }
 
-    .tcn5-top-table [data-tcn5-tip],
     .tcn5-legend [data-tcn5-tip] {
         cursor: help;
     }
@@ -659,49 +528,27 @@
 
     // Từng tone: KPI (nền 50, viền 200, vạch trái + số đậm), icon gradient + icon trắng; loại hồ sơ (nền 100, viền 300, chữ đậm)
     .tcn5-metric-label i.tcn5-tone-blue,
-    .tcn5-card-icon.tcn5-tone-blue,
-    .tcn5-summary .tcn5-tone-blue .tcn5-card-icon { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: #ffffff; }
-    .tcn5-summary > div.tcn5-tone-blue { background: #dbeafe; border-color: #93c5fd; span { color: #1d4ed8; } b { color: #1e40af; } }
+    .tcn5-card-icon.tcn5-tone-blue { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: #ffffff; }
     .tcn5-metric-label i.tcn5-tone-green,
-    .tcn5-card-icon.tcn5-tone-green,
-    .tcn5-summary .tcn5-tone-green .tcn5-card-icon { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); color: #ffffff; }
-    .tcn5-summary > div.tcn5-tone-green { background: #dcfce7; border-color: #86efac; span { color: #15803d; } b { color: #166534; } }
+    .tcn5-card-icon.tcn5-tone-green { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); color: #ffffff; }
     .tcn5-metric-label i.tcn5-tone-purple,
-    .tcn5-card-icon.tcn5-tone-purple,
-    .tcn5-summary .tcn5-tone-purple .tcn5-card-icon { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); color: #ffffff; }
-    .tcn5-summary > div.tcn5-tone-purple { background: #f3e8ff; border-color: #d8b4fe; span { color: #7e22ce; } b { color: #6b21a8; } }
+    .tcn5-card-icon.tcn5-tone-purple { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); color: #ffffff; }
     .tcn5-metric-label i.tcn5-tone-violet,
-    .tcn5-card-icon.tcn5-tone-violet,
-    .tcn5-summary .tcn5-tone-violet .tcn5-card-icon { background: linear-gradient(135deg, #a78bfa 0%, #6d28d9 100%); color: #ffffff; }
-    .tcn5-summary > div.tcn5-tone-violet { background: #ede9fe; border-color: #c4b5fd; span { color: #6d28d9; } b { color: #5b21b6; } }
+    .tcn5-card-icon.tcn5-tone-violet { background: linear-gradient(135deg, #a78bfa 0%, #6d28d9 100%); color: #ffffff; }
     .tcn5-metric-label i.tcn5-tone-orange,
-    .tcn5-card-icon.tcn5-tone-orange,
-    .tcn5-summary .tcn5-tone-orange .tcn5-card-icon { background: linear-gradient(135deg, #fb923c 0%, #c2410c 100%); color: #ffffff; }
-    .tcn5-summary > div.tcn5-tone-orange { background: #ffedd5; border-color: #fdba74; span { color: #c2410c; } b { color: #9a3412; } }
+    .tcn5-card-icon.tcn5-tone-orange { background: linear-gradient(135deg, #fb923c 0%, #c2410c 100%); color: #ffffff; }
     .tcn5-metric-label i.tcn5-tone-amber,
-    .tcn5-card-icon.tcn5-tone-amber,
-    .tcn5-summary .tcn5-tone-amber .tcn5-card-icon { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); color: #ffffff; }
-    .tcn5-summary > div.tcn5-tone-amber { background: #fef3c7; border-color: #fcd34d; span { color: #d97706; } b { color: #92400e; } }
+    .tcn5-card-icon.tcn5-tone-amber { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); color: #ffffff; }
     .tcn5-metric-label i.tcn5-tone-red,
-    .tcn5-card-icon.tcn5-tone-red,
-    .tcn5-summary .tcn5-tone-red .tcn5-card-icon { background: linear-gradient(135deg, #f87171 0%, #b91c1c 100%); color: #ffffff; }
-    .tcn5-summary > div.tcn5-tone-red { background: #fee2e2; border-color: #fca5a5; span { color: #b91c1c; } b { color: #991b1b; } }
+    .tcn5-card-icon.tcn5-tone-red { background: linear-gradient(135deg, #f87171 0%, #b91c1c 100%); color: #ffffff; }
     .tcn5-metric-label i.tcn5-tone-pink,
-    .tcn5-card-icon.tcn5-tone-pink,
-    .tcn5-summary .tcn5-tone-pink .tcn5-card-icon { background: linear-gradient(135deg, #f472b6 0%, #be185d 100%); color: #ffffff; }
-    .tcn5-summary > div.tcn5-tone-pink { background: #fce7f3; border-color: #f9a8d4; span { color: #be185d; } b { color: #9d174d; } }
+    .tcn5-card-icon.tcn5-tone-pink { background: linear-gradient(135deg, #f472b6 0%, #be185d 100%); color: #ffffff; }
     .tcn5-metric-label i.tcn5-tone-cyan,
-    .tcn5-card-icon.tcn5-tone-cyan,
-    .tcn5-summary .tcn5-tone-cyan .tcn5-card-icon { background: linear-gradient(135deg, #22d3ee 0%, #0e7490 100%); color: #ffffff; }
-    .tcn5-summary > div.tcn5-tone-cyan { background: #cffafe; border-color: #67e8f9; span { color: #0e7490; } b { color: #155e75; } }
+    .tcn5-card-icon.tcn5-tone-cyan { background: linear-gradient(135deg, #22d3ee 0%, #0e7490 100%); color: #ffffff; }
     .tcn5-metric-label i.tcn5-tone-indigo,
-    .tcn5-card-icon.tcn5-tone-indigo,
-    .tcn5-summary .tcn5-tone-indigo .tcn5-card-icon { background: linear-gradient(135deg, #818cf8 0%, #4338ca 100%); color: #ffffff; }
-    .tcn5-summary > div.tcn5-tone-indigo { background: #e0e7ff; border-color: #a5b4fc; span { color: #4338ca; } b { color: #3730a3; } }
+    .tcn5-card-icon.tcn5-tone-indigo { background: linear-gradient(135deg, #818cf8 0%, #4338ca 100%); color: #ffffff; }
     .tcn5-metric-label i.tcn5-tone-muted,
-    .tcn5-card-icon.tcn5-tone-muted,
-    .tcn5-summary .tcn5-tone-muted .tcn5-card-icon { background: linear-gradient(135deg, #94a3b8 0%, #475569 100%); color: #ffffff; }
-    .tcn5-summary > div.tcn5-tone-muted { background: #f1f5f9; border-color: #cbd5e1; span { color: #475569; } b { color: #334155; } }
+    .tcn5-card-icon.tcn5-tone-muted { background: linear-gradient(135deg, #94a3b8 0%, #475569 100%); color: #ffffff; }
 
     // Thẻ tổng: nền gradient xanh đậm, chữ trắng
 }
@@ -710,12 +557,6 @@
     .trang-chu-new5 {
         .tcn5-metric {
             transition: none;
-        }
-
-        .tcn5-summary {
-            > div {
-                transition: none;
-            }
         }
     }
 }
@@ -738,10 +579,6 @@
         .tcn5-metrics {
             grid-template-columns: unquote('repeat(3, minmax(0, 1fr))');
         }
-
-        .tcn5-summary {
-            grid-template-columns: unquote('repeat(4, minmax(0, 1fr))');
-        }
     }
 }
 
@@ -750,17 +587,12 @@
         .tcn5-metrics {
             grid-template-columns: unquote('repeat(2, minmax(0, 1fr))');
         }
-
-        .tcn5-summary {
-            grid-template-columns: unquote('repeat(2, minmax(0, 1fr))');
-        }
     }
 }
 
 @media (max-width: 480px) {
     .trang-chu-new5 {
-        .tcn5-metrics,
-        .tcn5-summary {
+        .tcn5-metrics {
             grid-template-columns: unquote('minmax(0, 1fr)');
         }
     }

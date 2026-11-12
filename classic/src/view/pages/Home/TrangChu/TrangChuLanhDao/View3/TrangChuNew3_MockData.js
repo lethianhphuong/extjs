@@ -47,8 +47,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Moc
                 { code: 'CHUYENAN', name: 'Chuyên án', val: 1647 },
                 { code: 'CTVBM', name: 'CT VBM', val: 511 },
                 { code: 'HTBM', name: 'HTBM', val: 342 },
-                { code: 'VANV', name: 'VANV', val: 289 },
-                { code: 'NNV', name: 'NNV', val: 77 }
+                { code: 'VANV', name: 'VANV', val: 400 },
+                { code: 'NNV', name: 'NNV', val: 600 }
             ],
 
             coCauHoSoTheoDonVi: [
@@ -79,6 +79,14 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Moc
                 { code: '030', name: 'Kinh tế', val: 154 },
                 { code: '031', name: 'Ma túy', val: 563 },
                 { code: '032', name: 'Môi trường', val: 58 },
+                { code: '033', name: 'Môi trường 1', val: 48 },
+                { code: '034', name: 'Môi trường 2', val: 25 },
+                { code: '035', name: 'Môi trường 3', val: 54 },
+                { code: '036', name: 'Môi trường 4', val: 45 },
+                { code: '037', name: 'Môi trường 5', val: 65 },
+                { code: '038', name: 'Môi trường 6', val: 65 },
+                { code: '039', name: 'Môi trường 7', val: 65 },
+                { code: '040', name: 'Môi trường 8', val: 46 },
                 { code: '-1', name: 'Khác', val: 477 }
             ],
 
@@ -95,26 +103,6 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Moc
                 { code: 202608, ketThuc: 86, moMoi: 217, name: 'T 8', nameHover: 'Tháng 8/2026' },
                 { code: 202609, ketThuc: 28, moMoi: 121, name: 'T 9', nameHover: 'Tháng 9/2026' },
                 { code: 202610, ketThuc: 40, moMoi: 141, name: 'T 10', nameHover: 'Tháng 10/2026' }
-            ],
-
-            topDiaBanCoNhieuHoSo: [
-                { code: '500101', kyHieu: 'CATP Hà Nội', name: 'CATP Hà Nội', val: 7719 },
-                { code: '500703', kyHieu: 'CAT Lâm Đồng', name: 'CAT Lâm Đồng', val: 1069 },
-                { code: '500815', kyHieu: 'CATP Cần Thơ', name: 'CATP Cần Thơ', val: 767 },
-                { code: '500211', kyHieu: 'CAT Tuyên Quang', name: 'CAT Tuyên Quang', val: 301 },
-                { code: '500215', kyHieu: 'CAT Thái Nguyên', name: 'CAT Thái Nguyên', val: 292 },
-                { code: '500117', kyHieu: 'CAT Ninh Bình', name: 'CAT Ninh Bình', val: 231 },
-                { code: '500409', kyHieu: 'CAT Quảng Trị', name: 'CAT Quảng Trị', val: 130 },
-                { code: '500603', kyHieu: 'CAT Gia Lai', name: 'CAT Gia Lai', val: 107 },
-                { code: '500701', kyHieu: 'CATP Hồ Chí Minh', name: 'CATP Hồ Chí Minh', val: 77 },
-                { code: '500713', kyHieu: 'CATP Đồng Nai', name: 'CATP Đồng Nai', val: 65 }
-            ],
-
-            canhBaoNoiBat: [
-                { code: 'QUA_HAN', name: 'Hồ sơ quá hạn đánh giá', val: 0 },
-                { code: 'HET_HAN', name: 'Hồ sơ sắp hết hạn đánh giá', val: 0 },
-                { code: 'BAT_THUONG', name: 'Hồ sơ tăng mức bất thường', val: 0 },
-                { code: 'LIEN_QUAN', name: 'Hồ sơ nhiều đơn vị liên quan', val: 0 }
             ],
 
             tabList: [

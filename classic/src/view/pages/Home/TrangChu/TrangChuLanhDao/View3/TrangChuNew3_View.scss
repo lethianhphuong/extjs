@@ -58,6 +58,25 @@
             font-size: 14px;
             font-weight: 800;
             color: #0f172a;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .tcn3-total-chip {
+        flex-shrink: 0;
+        padding: 3px 10px;
+        border: 1px solid #bfdbfe;
+        border-radius: 999px;
+        background: #eff6ff;
+        color: #1d4ed8;
+        font-size: 12px;
+        white-space: nowrap;
+
+        b {
+            font-weight: 800;
         }
     }
 
@@ -420,121 +439,6 @@
         }
     }
 
-    .tcn3-summary {
-        display: grid;
-        grid-template-columns: unquote('repeat(8, minmax(0, 1fr))');
-        gap: 10px;
-        margin-top: 10px;
-        padding-top: 2px;
-        padding-bottom: 2px;
-
-        > div {
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            border-radius: 10px;
-            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
-            padding: 9px 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-sizing: border-box;
-            transition: box-shadow 0.15s ease, border-color 0.15s ease;
-            border-width: 1px;
-            // Giữ 600 để tên loại hồ sơ không bị xuống dòng trong 8 cột
-        gap: 6px;
-
-            &:hover {
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-                border-color: #94a3b8;
-            }
-
-            &.tcn3-tone-green { border-color: #86efac; background: #dcfce7;
-
-                span { color: #15803d; }
-
-                b { color: #166534; } }
-            &.tcn3-tone-amber { border-color: #fcd34d; background: #fef3c7;
-
-                span { color: #d97706; }
-
-                b { color: #92400e; } }
-            &.tcn3-tone-red { border-color: #fca5a5; background: #fee2e2;
-
-                span { color: #b91c1c; }
-
-                b { color: #991b1b; } }
-            &.tcn3-tone-purple { border-color: #d8b4fe; background: #f3e8ff;
-
-                span { color: #7e22ce; }
-
-                b { color: #6b21a8; } }
-            &.tcn3-tone-cyan { border-color: #67e8f9; background: #cffafe;
-
-                span { color: #0e7490; }
-
-                b { color: #155e75; } }
-            &.tcn3-tone-indigo { border-color: #a5b4fc; background: #e0e7ff;
-
-                span { color: #4338ca; }
-
-                b { color: #3730a3; } }
-            &.tcn3-tone-muted { border-color: #cbd5e1; background: #f1f5f9;
-
-                span { color: #475569; }
-
-                b { color: #334155; } }
-            &.tcn3-tone-blue { border-color: #93c5fd; background: #dbeafe;
-
-                span { color: #1d4ed8; }
-
-                b { color: #1e40af; } }
-
-            span {
-                display: inline-flex;
-                align-items: center;
-                color: #1e293b;
-                font-size: 12.5px;
-                font-weight: 600;
-                white-space: nowrap;
-                min-width: 0;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            b {
-                font-size: 16px;
-                font-weight: 800;
-                color: #0f172a;
-                flex-shrink: 0;
-            }
-        }
-
-        .tcn3-card-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            border-radius: 8px;
-            background: #f1f5f9;
-            margin-right: 8px;
-            font-size: 13px;
-            vertical-align: middle;
-            flex-shrink: 0;
-            color: #ffffff !important;
-            box-shadow: 0 3px 8px -3px rgba(15, 23, 42, 0.4);
-        }
-
-        .tcn3-tone-green .tcn3-card-icon { background: #dcfce7; color: #15803d; }
-        .tcn3-tone-amber .tcn3-card-icon { background: #fef9c3; color: #a16207; }
-        .tcn3-tone-red .tcn3-card-icon { background: #fee2e2; color: #b91c1c; }
-        .tcn3-tone-purple .tcn3-card-icon { background: #f3e8ff; color: #7e22ce; }
-        .tcn3-tone-cyan .tcn3-card-icon { background: #cffafe; color: #0e7490; }
-        .tcn3-tone-indigo .tcn3-card-icon { background: #e0e7ff; color: #4338ca; }
-        .tcn3-tone-muted .tcn3-card-icon { background: #f1f5f9; color: #475569; }
-        .tcn3-tone-blue .tcn3-card-icon { background: #dbeafe; color: #1d4ed8; }
-    }
-
     [data-tcn3-tip] {
         cursor: help;
     }
@@ -600,6 +504,19 @@
         align-items: center;
         justify-content: center;
         gap: 16px;
+        font-size: 12px;
+        color: #334155;
+    }
+
+    .tcn3-donut-legend-side {
+        padding: 0 14px 0 4px;
+    }
+
+    .tcn3-legend-col {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 12px;
         font-size: 12px;
         color: #334155;
     }
@@ -745,30 +662,6 @@
     /* ==========================================================================
        3. Map & Alerts Row (Hàng 4)
        ========================================================================== */
-    .tcn3-map-alerts-row {
-        width: 100%;
-    }
-
-    .tcn3-period-pill {
-        display: flex;
-        align-items: center;
-    }
-
-    .tcn3-pill-btn {
-        font-size: 11.5px;
-        color: #475569;
-        background: #ffffff;
-        border: 1px solid #cbd5e1;
-        border-radius: 4px;
-        padding: 2px 8px;
-        cursor: pointer;
-    }
-
-    .tcn3-arrow-down {
-        font-size: 9px;
-        margin-left: 2px;
-        vertical-align: middle;
-    }
 
     .tcn3-dienbien-legend-bar {
         padding: 4px 14px 0;
@@ -802,302 +695,85 @@
         }
     }
 
-    /* Bản đồ Việt Nam tĩnh */
-    .tcn3-vietnam-map-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 6px;
+    .tcn3-series-button {
+        background: transparent !important;
+        background-color: transparent !important;
+        background-image: none !important;
+        border: 0 !important;
+        box-shadow: none !important;
+        padding: 4px 2px !important;
         cursor: pointer;
-        border-right: 1px solid #f1f5f9;
-        background: #ffffff;
 
-        &:hover {
-            background: #ffffff;
+        &.x-btn,
+        &.x-btn-default-small,
+        &.x-btn.x-btn-pressed.x-btn-default-small,
+        &.x-btn-pressed.x-btn-default-small,
+        &.x-btn-over.x-btn-default-small,
+        &.x-btn-focus.x-btn-default-small,
+        &.x-btn-focus.x-btn-over.x-btn-default-small,
+        &.x-btn-focus.x-btn-pressed.x-btn-default-small,
+        &.x-btn.x-btn-menu-active.x-btn-default-small {
+            background: transparent !important;
+            background-color: transparent !important;
+            background-image: none !important;
+            border: 0 !important;
+            border-color: transparent !important;
+            box-shadow: none !important;
         }
 
-        .tcn3-map-wrapper {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .x-btn-inner,
+        .x-btn-inner-default-small {
+            color: var(--tcn3-series-color, #2563eb) !important;
+            font-size: 14px !important;
+            font-weight: 500;
+            padding: 0 2px !important;
+
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 12px;
+                height: 3px;
+                border-radius: 2px;
+                background: currentColor;
+                margin-right: 5px;
+                vertical-align: middle;
+            }
         }
 
-        .tcn3-static-map-img {
-            width: 100%;
-            height: 100%;
-            max-height: 295px;
-            object-fit: contain;
-            display: block;
-            transition: transform 0.2s ease;
+        &:not(.x-btn-pressed) {
+            opacity: 0.45;
         }
 
-        &:hover .tcn3-static-map-img {
-            transform: scale(1.02);
+        &:focus-visible {
+            outline: 2px solid #0f172a;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        &.tcn3-series-new {
+            --tcn3-series-color: #2563eb;
+
+            .x-btn-inner,
+            .x-btn-inner-default-small {
+                color: #2563eb !important;
+            }
+        }
+
+        &.tcn3-series-end {
+            --tcn3-series-color: #059669;
+
+            .x-btn-inner,
+            .x-btn-inner-default-small {
+                color: #059669 !important;
+            }
         }
     }
+
+    /* Bản đồ Việt Nam tĩnh */
 
     /* Top địa bàn - Đồng bộ phong cách Phân tích / Sưu tra View 1 */
-    .tcn3-top-diaban-container {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        border: 1px solid #cbd5e1;
-        border-radius: 6px;
-        overflow: hidden;
-        background: #ffffff;
-    }
-
-    .tcn3-diaban-subhead {
-        background-color: #f8fafc;
-        padding: 8px 12px;
-        border-bottom: 1px solid #cbd5e1;
-
-        .tcn3-subhead-wrap {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .tcn3-subhead-title,
-        h4 {
-            margin: 0;
-            font-size: 12.5px;
-            font-weight: 600;
-            color: #0f172a;
-        }
-    }
-
-    .tcn3-top-diaban-grid {
-        border: none !important;
-
-        .x-grid-header-ct {
-            background-color: #f1f5f9 !important;
-            background-image: none !important;
-            border-top: none !important;
-            border-left: none !important;
-            border-right: none !important;
-            border-bottom: 1px solid #cbd5e1 !important;
-            box-shadow: none !important;
-        }
-
-        .x-column-header {
-            background: transparent !important;
-            background-image: none !important;
-            border-top: none !important;
-            border-bottom: none !important;
-            border-right: none !important;
-            border-left: none !important;
-            box-shadow: none !important;
-
-            &:nth-child(n+2) {
-                border-left: 1px solid #e2e8f0 !important;
-            }
-
-            .x-column-header-inner {
-                background: transparent !important;
-                background-image: none !important;
-                font-weight: 600;
-                color: #475569;
-                font-size: 12px;
-                padding: 6px 8px !important;
-            }
-
-            .x-column-header-text {
-                color: inherit !important;
-                font-size: inherit !important;
-                font-weight: inherit !important;
-            }
-        }
-
-        .x-grid-cell {
-            font-size: 12px;
-            padding: 5px 8px;
-            border-top: none !important;
-            border-bottom: 1px solid #f1f5f9 !important;
-            border-right: none !important;
-            border-left: none !important;
-
-            &:nth-child(n+2) {
-                border-left: 1px solid #f1f5f9 !important;
-            }
-        }
-
-        .x-grid-item-over {
-            background-color: #f8fafc;
-        }
-
-        .tcn3-num-cell {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 2px;
-            font-variant-numeric: tabular-nums;
-
-            strong {
-                color: #0f172a;
-                font-weight: 600;
-            }
-        }
-
-        .tcn3-analysis-meter {
-            display: block;
-            width: 100%;
-            height: 3px;
-            border-radius: 3px;
-            background: #e2e8f0;
-            overflow: hidden;
-
-            > span {
-                display: block;
-                height: 100%;
-                border-radius: inherit;
-                background: #d97706;
-            }
-        }
-    }
-
-    .tcn3-rank-badge {
-        display: inline-block;
-        width: 18px;
-        height: 18px;
-        line-height: 18px;
-        text-align: center;
-        border-radius: 50%;
-        font-size: 10.5px;
-        font-weight: 600;
-        background: #f1f5f9;
-        color: #475569;
-
-        &.rank-1 {
-            background: #fef3c7;
-            color: #b45309;
-            font-weight: 700;
-        }
-
-        &.rank-2 {
-            background: #f1f5f9;
-            color: #334155;
-            font-weight: 700;
-        }
-
-        &.rank-3 {
-            background: #ffedd5;
-            color: #c2410c;
-            font-weight: 700;
-        }
-    }
-
-    .tcn3-diaban-name {
-        font-weight: 500;
-        color: #0f172a;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .tcn3-diaban-footer {
-        text-align: right;
-        padding: 7px 12px 8px;
-        border-top: 1px solid #cbd5e1;
-        background: #f8fafc;
-    }
-
-    .tcn3-map-link {
-        font-size: 12px;
-        color: #2563eb;
-        text-decoration: none;
-        font-weight: 600;
-        cursor: pointer;
-
-        &:hover {
-            color: #1d4ed8;
-            text-decoration: underline;
-        }
-    }
 
     /* Alert list */
-    .tcn3-alert-body {
-        padding: 12px 14px;
-        box-sizing: border-box;
-    }
-
-    .tcn3-alert-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .tcn3-alert-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 13px 14px;
-        border-radius: 8px;
-        margin-bottom: 0;
-        background: #fafafa;
-        border: 1px solid #f1f5f9;
-        transition: background-color 0.15s ease, border-color 0.15s ease;
-
-        &:hover {
-            background: #f8fafc;
-            border-color: #cbd5e1;
-        }
-    }
-
-    .tcn3-alert-left {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .tcn3-alert-icon {
-        width: 22px;
-        height: 22px;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-
-        svg {
-            width: 14px;
-            height: 14px;
-        }
-    }
-
-    .tcn3-alert-tone-red .tcn3-alert-icon {
-        background: #fef2f2;
-        color: #dc2626;
-    }
-
-    .tcn3-alert-tone-orange .tcn3-alert-icon {
-        background: #fff7ed;
-        color: #ea580c;
-    }
-
-    .tcn3-alert-tone-amber .tcn3-alert-icon {
-        background: #fffbeb;
-        color: #d97706;
-    }
-
-    .tcn3-alert-tone-purple .tcn3-alert-icon {
-        background: #f5f3ff;
-        color: #7c3aed;
-    }
-
-    .tcn3-alert-title {
-        font-size: 12.5px;
-        color: #0f172a;
-        font-weight: 500;
-    }
-
-    .tcn3-alert-count {
-        font-size: 15px;
-        font-weight: 700;
-        color: #b91c1c;
-    }
 
     /* ==========================================================================
        4. Bảng tình hình theo đơn vị (Hàng 5): tiêu đề + tab segmented + grid
@@ -1437,32 +1113,22 @@
 
     // Từng tone: KPI (nền 50, viền 200, vạch trái + số đậm), icon gradient; loại hồ sơ (nền 100, viền 300, chữ đậm)
     .tcn3-metric-label i.tcn3-tone-blue,
-    .tcn3-summary .tcn3-tone-blue .tcn3-card-icon,
     .tcn3-header-icon.tcn3-tone-blue { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); }
     .tcn3-metric-label i.tcn3-tone-green,
-    .tcn3-summary .tcn3-tone-green .tcn3-card-icon,
     .tcn3-header-icon.tcn3-tone-green { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); }
     .tcn3-metric-label i.tcn3-tone-purple,
-    .tcn3-summary .tcn3-tone-purple .tcn3-card-icon,
     .tcn3-header-icon.tcn3-tone-purple { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); }
     .tcn3-metric-label i.tcn3-tone-orange,
-    .tcn3-summary .tcn3-tone-orange .tcn3-card-icon,
     .tcn3-header-icon.tcn3-tone-orange { background: linear-gradient(135deg, #fb923c 0%, #c2410c 100%); }
-    .tcn3-summary > div.tcn3-tone-orange { background: #ffedd5; border-color: #fdba74; span { color: #c2410c; } b { color: #9a3412; } }
     .tcn3-metric-label i.tcn3-tone-amber,
-    .tcn3-summary .tcn3-tone-amber .tcn3-card-icon,
     .tcn3-header-icon.tcn3-tone-amber { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); }
     .tcn3-metric-label i.tcn3-tone-red,
-    .tcn3-summary .tcn3-tone-red .tcn3-card-icon,
     .tcn3-header-icon.tcn3-tone-red { background: linear-gradient(135deg, #f87171 0%, #b91c1c 100%); }
     .tcn3-metric-label i.tcn3-tone-cyan,
-    .tcn3-summary .tcn3-tone-cyan .tcn3-card-icon,
     .tcn3-header-icon.tcn3-tone-cyan { background: linear-gradient(135deg, #22d3ee 0%, #0e7490 100%); }
     .tcn3-metric-label i.tcn3-tone-indigo,
-    .tcn3-summary .tcn3-tone-indigo .tcn3-card-icon,
     .tcn3-header-icon.tcn3-tone-indigo { background: linear-gradient(135deg, #818cf8 0%, #4338ca 100%); }
     .tcn3-metric-label i.tcn3-tone-muted,
-    .tcn3-summary .tcn3-tone-muted .tcn3-card-icon,
     .tcn3-header-icon.tcn3-tone-muted { background: linear-gradient(135deg, #94a3b8 0%, #475569 100%); }
 
     // Thẻ tổng: nền gradient xanh đậm, chữ trắng
@@ -1476,10 +1142,6 @@
         .tcn3-metrics {
             grid-template-columns: unquote('repeat(3, minmax(0, 1fr))');
         }
-
-        .tcn3-summary {
-            grid-template-columns: unquote('repeat(4, minmax(0, 1fr))');
-        }
     }
 }
 
@@ -1488,17 +1150,12 @@
         .tcn3-metrics {
             grid-template-columns: unquote('repeat(2, minmax(0, 1fr))');
         }
-
-        .tcn3-summary {
-            grid-template-columns: unquote('repeat(2, minmax(0, 1fr))');
-        }
     }
 }
 
 @media (max-width: 480px) {
     .trang-chu-new3 {
-        .tcn3-metrics,
-        .tcn3-summary {
+        .tcn3-metrics {
             grid-template-columns: unquote('minmax(0, 1fr)');
         }
     }

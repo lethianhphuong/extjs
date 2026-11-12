@@ -15,6 +15,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
         layout: { type: 'hbox', align: 'stretch' },
         margin: '18 0',
         items: [{
+            // Số lượng hồ sơ theo 8 loại hồ sơ (thay cho hàng thẻ loại hồ sơ và donut cơ cấu cũ)
             xtype: 'container',
             flex: 1,
             cls: 'tcn5-inner',
@@ -25,58 +26,26 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
                 {
                     xtype: 'component',
                     cls: 'tcn5-subheading',
-                    html: '<i class="x-fa fa-chart-pie tcn5-card-icon tcn5-tone-purple"></i>CƠ CẤU HỒ SƠ THEO ĐƠN VỊ'
+                    html: '<i class="x-fa fa-chart-bar tcn5-card-icon tcn5-tone-purple"></i>Loại hồ sơ'
                 },
                 {
-                    xtype: 'container',
-                    height: 180,
-                    layout: 'absolute',
-                    items: [{
-                        xtype: 'polar',
-                        itemId: 'coCauDonViChart_IdView',
-                        chartKind: 'donut',
-                        width: '100%',
-                        height: 180,
-                        animation: false,
-                        insetPadding: 6,
-                        bind: { store: '{coCauDonViStore}' },
-                        listeners: { afterrender: 'onChartReady' },
-                        series: [{
-                            type: 'pie',
-                            angleField: 'val',
-                            donut: 48,
-                            radiusFactor: 95,
-                            style: { lineWidth: 0 },
-                            highlight: false,
-                            labelOverflowPadding: 0,
-                            label: {
-                                field: 'tyLeText',
-                                display: 'inside',
-                                fontSize: 12,
-                                fontWeight: 'bold',
-                                fillStyle: '#ffffff',
-                                calloutLine: false,
-                                renderer: function (value) {
-                                    const percent = Number(String(value).replace('%', '').replace(',', '.'));
-                                    return {
-                                        text: percent >= 7 ? value : '',
-                                        rotationRads: 0
-                                    };
-                                }
-                            },
-                            tooltip: {
-                                trackMouse: true,
-                                renderer: function (tooltip, record) {
-                                    tooltip.setHtml(Ext.String.htmlEncode(record.get('name')) + ': ' + Number(record.get('val')).toLocaleString('vi-VN') + ' hồ sơ (' + Ext.String.htmlEncode(record.get('tyLeText')) + ')');
-                                }
+                    xtype: 'TrangChuNew5_ViewBarChart',
+                    itemId: 'loaiHoSoChart_IdView',
+                    flex: 1,
+                    bind: { store: '{loaiHoSoStore}' },
+                    // Card hẹp, 8 cột: xoay nhãn trục để hiện đủ tên loại hồ sơ, không bị chồng nhau
+                    axes: [
+                        { type: 'numeric', position: 'left', minimum: 0, hidden: true },
+                        {
+                            type: 'category', position: 'bottom', fields: ['code'],
+                            label: { fontSize: 10, color: '#475569', rotate: { degrees: -35 } },
+                            renderer: function (axis, value) {
+                                const store = axis.getChart().getStore();
+                                const record = store ? store.findRecord('code', value, 0, false, true, true) : null;
+                                return record ? (record.get('name') || value) : value;
                             }
-                        }]
-                    }]
-                }, {
-                    xtype: 'component',
-                    bind: { data: '{coCauDonViList}' },
-                    listeners: { afterrender: 'onTooltipReady' },
-                    tpl: '<div class="tcn5-legend"><tpl for="."><span data-tcn5-tip="{name:htmlEncode}: {tyLeText:htmlEncode}"><i class="tcn5-dot tcn5-tone-{mau}"></i>{name:htmlEncode}: <b>{[Number(values.val).toLocaleString("vi-VN")]}</b></span></tpl></div>'
+                        }
+                    ]
                 }
             ]
         }, {
@@ -89,7 +58,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
                 {
                     xtype: 'component',
                     cls: 'tcn5-subheading',
-                    html: '<i class="x-fa fa-chart-bar tcn5-card-icon tcn5-tone-cyan"></i>BIẾN ĐỘNG SỐ LƯỢNG HỒ SƠ THEO ĐƠN VỊ'
+                    html: '<i class="x-fa fa-chart-bar tcn5-card-icon tcn5-tone-cyan"></i>Cơ cấu hồ sơ theo đơn vị'
                 },
                 {
                     xtype: 'TrangChuNew5_ViewBarChart',
@@ -123,6 +92,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
                         enableToggle: true,
                         bind: { pressed: '{hienMoMoi}' },
                         stateKey: 'hienMoMoi',
+                        chartItemId: 'dienBienHoSoChart_IdView',
                         seriesIndex: 0,
                         toggleHandler: 'onToggleTrendSeries'
                     },
@@ -133,6 +103,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
                         enableToggle: true,
                         bind: { pressed: '{hienKetThuc}' },
                         stateKey: 'hienKetThuc',
+                        chartItemId: 'dienBienHoSoChart_IdView',
                         seriesIndex: 1,
                         toggleHandler: 'onToggleTrendSeries'
                     }

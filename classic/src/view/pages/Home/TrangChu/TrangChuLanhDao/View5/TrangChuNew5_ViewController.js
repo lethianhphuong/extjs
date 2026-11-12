@@ -11,20 +11,13 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
         const me = this;
         const vm = me.getViewModel();
         const data = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_MockData.getData();
-        const coCauDonVi = vm.prepareCoCauDonVi(data.coCauHoSoTheoDonVi);
-        const bienDongDonVi = vm.prepareBienDongDonVi(data.bienDongHoSoTheoDonVi);
 
-        vm.set({
-            chiSo: vm.prepareTongQuan(data.tongQuan),
-            loaiHoSo: vm.prepareRows(data.loaiHoSo, 'loaiHoSo'),
-            coCauDonViList: coCauDonVi,
-            topTinh: data.topDiaBanTinhCoNhieuHoSo,
-            topXa: data.topDiaBanXaCoNhieuHoSo
-        });
-        vm.getStore('coCauDonViStore').loadData(coCauDonVi);
-        vm.getStore('bienDongDonViStore').loadData(bienDongDonVi);
-        vm.getStore('dienBienStore').loadData(data.dienBienMoMoiVaKetThuc);
-        vm.getStore('capTinhStore').loadData(vm.prepareRows(data.capTinh, 'lucLuong'));
+        vm.set('chiSo', vm.prepareTongQuan(data.tongQuan));
+        vm.getStore('loaiHoSoStore').loadData(vm.prepareRows(data.loaiHoSo, 'loaiHoSo'));
+        vm.getStore('bienDongDonViStore').loadData(vm.prepareBienDongDonVi(data.bienDongHoSoTheoDonVi));
+        vm.getStore('dienBienStore').loadData(data.dienBienMoMoiVaKetThuc || []);
+        vm.getStore('bienDongCapDonViStore').loadData(vm.prepareBienDongCapDonVi(data.bienDongHoSoTheoCapDonVi));
+        vm.getStore('dienBienLucLuongStore').loadData(data.dienBienMoMoiVaKetThucLucLuong || []);
         vm.getStore('capXaStore').loadData(vm.prepareRows(data.capXa, 'lucLuong'));
         vm.notify();
         me.updateChartColors();
@@ -56,15 +49,15 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
         if (!view.rendered) { return; }
         const color = me.createThemeColorReader(view);
         const palette = me.getChartPalette(color);
-        view.query('cartesian, polar').forEach(function (chart) {
+        view.query('cartesian').forEach(function (chart) {
             if (!chart.rendered) { return; }
             chart.recordColors = palette;
             chart.setBackground(color('--theme-bg-card', '#ffffff'));
             me.applyAxisColors(chart, color);
-            if (chart.isXType('polar')) {
-                me.applyPolarColors(chart, palette);
-            } else if (chart.chartKind === 'trend') {
+            if (chart.chartKind === 'trend') {
                 me.applyTrendColors(chart, palette);
+            } else if (chart.chartKind === 'stacked') {
+                me.applyStackedColors(chart, palette);
             } else {
                 me.applyBarColors(chart, color);
             }
@@ -114,16 +107,17 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
         });
     },
 
-    /** Donut: màu theo trường 'mau' của từng bản ghi. */
-    applyPolarColors: function (chart, palette) {
-        const colors = chart.getStore().getRange().map(record => palette[record.get('mau')] || palette.muted);
-        const series = chart.getSeries()[0];
-        chart.setColors(colors);
-        series.setColors(colors);
-        series.setLabel({ color: '#ffffff' });
+    /** Biến động theo cấp đơn vị: cột chồng Xã / Tỉnh / Cục (thứ tự yField) và đường tổng màu cam. */
+    applyStackedColors: function (chart, palette) {
+        const series = chart.getSeries();
+        chart.setColors([palette.violet, palette.green, palette.blue]);
+        series[0].setColors([palette.violet, palette.green, palette.blue]);
+        series[1].setStyle({ strokeStyle: palette.orange });
+        series[1].setMarker({ fillStyle: palette.orange });
+        series[1].setLabel({ color: palette.orange });
     },
 
-    /** Biểu đồ diễn biến: 2 đường mở mới / kết thúc, giữ trạng thái ẩn hiện. */
+    /** Biểu đồ diễn biến: 2 đường mở mới / kết thúc, giữ trạng thái ẩn hiện theo khóa riêng của từng chart. */
     applyTrendColors: function (chart, palette) {
         const me = this;
         const colors = [palette.blue, palette.green];
@@ -139,7 +133,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
                     ]
                 }
             });
-            series.setHidden(!vm.get(index ? 'hienKetThuc' : 'hienMoMoi'));
+            series.setHidden(!vm.get(index ? chart.ketThucKey : chart.moMoiKey));
         });
     },
 
@@ -154,7 +148,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
     /** Bật/tắt riêng từng đường và giữ trạng thái khi cập nhật theme. */
     onToggleTrendSeries: function (button, pressed) {
         const me = this;
-        const chart = me.getView().down('#dienBienHoSoChart_IdView');
+        const chart = me.getView().down('#' + button.chartItemId);
         me.getViewModel().set(button.stateKey, pressed);
         if (chart && chart.rendered) {
             chart.getSeries()[button.seriesIndex].setHidden(!pressed);

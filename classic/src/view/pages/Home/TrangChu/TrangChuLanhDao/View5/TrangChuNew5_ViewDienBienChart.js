@@ -2,6 +2,9 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
     extend: 'Ext.chart.CartesianChart',
     xtype: 'TrangChuNew5_ViewDienBienChart',
     chartKind: 'trend',
+    // Khóa ViewModel giữ trạng thái ẩn/hiện 2 đường; instance khác (khối Hệ lực lượng) truyền khóa riêng
+    moMoiKey: 'hienMoMoi',
+    ketThucKey: 'hienKetThuc',
     height: 230,
     animation: false,
     insetPadding: 12,

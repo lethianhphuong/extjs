@@ -159,15 +159,16 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         const data = rawData || {};
         const tongQuanList = me.toList(data.tongQuan);
         const capData = me.mapCapData(data);
+        const loaiHoSoData = me.mapLoaiHoSo(data.loaiHoSo);
+        const tongLoaiHoSo = loaiHoSoData.reduce((sum, it) => sum + it.val, 0);
 
         return {
             tongQuan: tongQuanList,
-            loaiHoSoRaw: me.mapLoaiHoSo(data.loaiHoSo),
-            canhBaoRaw: me.mapCanhBao(data.canhBaoNoiBat),
+            loaiHoSoData: loaiHoSoData,
+            tongLoaiHoSoText: Number(tongLoaiHoSo).toLocaleString('vi-VN'),
             coCauData: me.mapCoCau(data.coCauHoSoTheoDonVi),
             bienDongData: me.toList(data.bienDongHoSoTheoDonVi).map(me.mapBienDongItem),
             dienBienData: me.toList(data.dienBienMoMoiVaKetThuc).slice(-12).map(me.mapDienBienItem),
-            topDiaBanData: me.mapTopDiaBan(data.topDiaBanCoNhieuHoSo),
             loaiDoiTuongData: me.mapLoaiDoiTuong(data.loaiDoiTuong),
             capDataMap: capData.capDataMap,
             capTotalMap: capData.capTotalMap,
@@ -194,32 +195,23 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         return tongQuanList[0].val || 0;
     },
 
-    /** 2. Loại hồ sơ. */
+    /** 2. Loại hồ sơ cho biểu đồ cột: tên ngắn theo dữ liệu, tên đầy đủ và màu cột theo DisplayConfig. */
     mapLoaiHoSo: function (list) {
-        return this.toList(list).map(it => ({
-            code: it.code,
-            ten: it.name || it.ten || it.code,
-            val: it.val || 0
-        }));
-    },
-
-    /** 3. Cảnh báo nổi bật: chuyển mảng {code, val} thành object theo khóa nghiệp vụ. */
-    mapCanhBao: function (list) {
-        const cbMap = {};
-        this.toList(list).forEach(function (it) {
-            if (it && it.code) {
-                cbMap[it.code] = it.val || 0;
-            }
+        const cfgLoai = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig.tieuChi.loaiHoSo;
+        return this.toList(list).map(function (it) {
+            const def = cfgLoai[it.code] || {};
+            const ten = it.name || it.ten || def.ten || it.code;
+            return {
+                code: it.code,
+                ten: ten,
+                tenDayDu: def.ten || ten,
+                val: typeof it.val === 'number' ? it.val : 0,
+                mauHex: def.hex || '#64748b'
+            };
         });
-        return {
-            quaHan: cbMap.QUA_HAN || 0,
-            sapHetHan: cbMap.HET_HAN || 0,
-            tangBatThuong: cbMap.BAT_THUONG || 0,
-            nhieuDonVi: cbMap.LIEN_QUAN || 0
-        };
     },
 
-    /** 4. Cơ cấu hồ sơ theo cấp đơn vị (tên, màu, tỷ lệ %). */
+    /** 3. Cơ cấu hồ sơ theo cấp đơn vị (tên, màu, tỷ lệ %). */
     mapCoCau: function (list) {
         const capColors = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig.coCauColors;
         const cfgDonVi = {
@@ -241,7 +233,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         });
     },
 
-    /** 5. Biến động theo quý / tháng (hiển thị toàn bộ dữ liệu, không cắt slice). */
+    /** 4. Biến động theo quý / tháng (hiển thị toàn bộ dữ liệu, không cắt slice). */
     mapBienDongItem: function (it, idx) {
         const cuc = it.cuc || 0;
         const tinh = it.tinh || 0;
@@ -259,7 +251,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         };
     },
 
-    /** 6. Diễn biến mở mới và kết thúc (12 tháng gần nhất). */
+    /** 5. Diễn biến mở mới và kết thúc (12 tháng gần nhất). */
     mapDienBienItem: function (it, idx) {
         const thangLabel = it.name ? it.name.replace(/\s+/g, '') : ('T' + (idx + 1));
         return {
@@ -272,26 +264,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         };
     },
 
-    /** 7. Top địa bàn (hiển thị toàn bộ); tỷ lệ % so với địa bàn đứng đầu. */
-    mapTopDiaBan: function (list) {
-        const topDiaBanList = this.toList(list);
-        const first = topDiaBanList[0];
-        const maxVal = (first && (first.val || first.soHoSo)) || 1;
-        return topDiaBanList.map(function (it, idx) {
-            const val = it.val || it.soHoSo || 0;
-            return {
-                stt: idx + 1,
-                diaBan: it.kyHieu || it.name || it.diaBan || '',
-                soHoSo: val,
-                soHoSoText: Number(val).toLocaleString('vi-VN'),
-                tyLe: Math.max(0, Math.min(100, Math.round((val / maxVal) * 100))),
-                loai: 'tinh'
-            };
-        });
-    },
-
     /**
-     * 8. Loại đối tượng. Đảo ngược thứ tự để khi vẽ trên Horizontal Bar Chart (flipXY: true)
+     * 6. Loại đối tượng. Đảo ngược thứ tự để khi vẽ trên Horizontal Bar Chart (flipXY: true)
      * danh mục thứ nhất trong API sẽ hiển thị ở trên cùng (ExtJS category axis vẽ từ dưới lên trên).
      */
     mapLoaiDoiTuong: function (list) {
@@ -304,7 +278,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         }));
     },
 
-    /** 9. Tình hình đơn vị theo cấp từ tabList (CUC / TINH / XA), thiếu thì lấy từ MockData. */
+    /** 7. Tình hình đơn vị theo cấp từ tabList (CUC / TINH / XA), thiếu thì lấy từ MockData. */
     mapCapData: function (data) {
         const me = this;
         let tabList = data.tabList;
@@ -371,12 +345,14 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         // Cập nhật ViewModel
         viewModel.set({
             tongQuan: mapped.tongQuan,
-            loaiHoSoRaw: mapped.loaiHoSoRaw,
-            canhBaoRaw: mapped.canhBaoRaw,
+            tongLoaiHoSoText: mapped.tongLoaiHoSoText,
             tongSoDonut: mapped.tongSoDonut
         });
 
         // Nạp các Store
+        const loaiHoSoStore = viewModel.getStore('loaiHoSoStore');
+        if (loaiHoSoStore) loaiHoSoStore.loadData(mapped.loaiHoSoData);
+
         const coCauStore = viewModel.getStore('coCauStore');
         if (coCauStore) coCauStore.loadData(mapped.coCauData);
 
@@ -388,9 +364,6 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
 
         const dienBienStore = viewModel.getStore('dienBienStore');
         if (dienBienStore) dienBienStore.loadData(mapped.dienBienData);
-
-        const topDiaBanStore = viewModel.getStore('topDiaBanStore');
-        if (topDiaBanStore) topDiaBanStore.loadData(mapped.topDiaBanData);
 
         // Nạp dữ liệu Grid theo cấp đơn vị đang chọn (mặc định CUC)
         me.capDataMap = mapped.capDataMap;
@@ -584,6 +557,28 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         }
     },
 
+    /** Làm tròn lên mốc chia đẹp (bước = 1/4 bậc độ lớn), VD: 10.513 -> 12.500; 14,4 -> 15. */
+    niceCeil: function (value) {
+        if (!(value > 0)) { return 1; }
+        const step = Math.pow(10, Math.floor(Math.log10(value))) / 4;
+        return Math.ceil(value / step) * step;
+    },
+
+    /** Biểu đồ cột 8 loại hồ sơ: chừa ~15% trục Y cho nhãn số trên đầu cột cao nhất, làm tròn mốc đẹp. */
+    updateLoaiHoSoChart: function (view, targetChart) {
+        const me = this;
+        const chart = view.down('#loaiHoSoChart_IdView');
+        if (!me.isTargetChart(chart, targetChart)) { return; }
+
+        const store = chart.getStore();
+        const maxVal = store ? store.getRange().reduce((max, rec) => Math.max(max, Number(rec.get('val')) || 0), 0) : 0;
+        const numericAxis = chart.getAxes().find(axis => axis.type === 'numeric');
+        if (numericAxis) {
+            numericAxis.setMaximum(me.niceCeil(maxVal * 1.15));
+        }
+        chart.redraw();
+    },
+
     /** Cập nhật biểu đồ biến động theo quý (Stacked Bar + Line). */
     updateBienDongChart: function (view, targetChart) {
         const me = this;
@@ -608,11 +603,41 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         chart.redraw();
     },
 
-    /** Cập nhật biểu đồ diễn biến mở mới và kết thúc (12 tháng). */
+    /** Tạo vùng tô gradient mờ từ màu đường biểu đồ xuống đáy (theo chuẩn View 1). */
+    buildGradientFill: function (color) {
+        return {
+            type: 'linear',
+            degrees: 90,
+            stops: [
+                { offset: 0, color: color },
+                { offset: 1, color: 'rgba(0,0,0,0)' }
+            ]
+        };
+    },
+
+    /** Cập nhật biểu đồ diễn biến mở mới và kết thúc (12 tháng), đồng bộ màu gradient và trạng thái ẩn/hiện như View 1. */
     updateDienBienChart: function (view, targetChart) {
         const me = this;
         const chart = view.down('#dienBienChart_IdView');
         if (!me.isTargetChart(chart, targetChart)) { return; }
+
+        const colors = ['#2563eb', '#059669'];
+        const vm = me.getViewModel();
+        const seriesList = chart.getSeries();
+        chart.setColors(colors);
+        if (Array.isArray(seriesList)) {
+            ['hienMoMoi', 'hienKetThuc'].forEach(function (key, index) {
+                const series = seriesList[index];
+                if (!series) { return; }
+                series.setStyle({
+                    strokeStyle: colors[index],
+                    fillStyle: me.buildGradientFill(colors[index])
+                });
+                if (vm) {
+                    series.setHidden(!vm.get(key));
+                }
+            });
+        }
         chart.redraw();
     },
 
@@ -622,6 +647,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         const view = me.getView();
         if (!view || !view.rendered) { return; }
 
+        me.updateLoaiHoSoChart(view, targetChart);
         me.updateCoCauChart(view, targetChart);
         me.updateBienDongChart(view, targetChart);
         me.updateLoaiDoiTuongChart(view, targetChart);
@@ -629,34 +655,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
     },
     //#endregion
 
-    /** Chuyển đổi tab xem Top địa bàn: Tỉnh/Thành hoặc Quận/Huyện */
-    onToggleDiaBan: function (btn) {
-        const me = this;
-        const viewModel = me.getViewModel();
-        if (!viewModel) return;
-
-        viewModel.set('loaiDiaBan', btn.value);
-    },
-
-    /** Xem chi tiết đơn vị trên Grid */
-    onViewDetailUnit: function (grid, rowIndex) {
-        const store = grid.getStore();
-        const record = store.getAt(rowIndex);
-        if (record) {
-            Ext.Msg.alert('Chi tiết đơn vị', 'Xem thông tin chi tiết: ' + record.get('tenDonVi'));
-        }
-    },
-
-    /** Mở URL bản đồ (URL cấu hình trong TrangChuNew3_DisplayConfig) */
-    onOpenMapUrl: function () {
-        const cfg = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig;
-        const targetHash = (cfg && cfg.bandoMapUrl) || '#ban-do';
-        const cleanHash = targetHash.startsWith('#') ? targetHash : '#' + targetHash;
-        const fakeMapUrl = window.location.origin + window.location.pathname + cleanHash;
-        window.open(fakeMapUrl, '_blank');
-    },
-
-    /** Khởi tạo tooltip cho các thẻ metric và thẻ tóm tắt nghiệp vụ */
+    /** Khởi tạo tooltip cho các thẻ KPI tổng quan */
     onTooltipReady: function (component) {
         if (!component || !component.getEl()) { return; }
         const tip = Ext.create('Ext.tip.ToolTip', {
