@@ -4,7 +4,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
     cls: 'tcn5-card', padding: 18,
     layout: { type: 'vbox', align: 'stretch' },
     items: [
-        { xtype: 'component', cls: 'tcn5-heading', height: 48, html: '<b><i class="x-fa fa-users tcn5-card-icon tcn5-tone-purple"></i>HỆ LỰC LƯỢNG</b>' },
+        { xtype: 'component', cls: 'tcn5-heading', height: 38, html: '<b><i class="x-fa fa-users tcn5-card-icon tcn5-tone-purple"></i>HỆ LỰC LƯỢNG</b>' },
         {
             xtype: 'container', height: 320, layout: { type: 'hbox', align: 'stretch' }, margin: '18 0',
             items: [{
@@ -16,6 +16,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
                     {
                         xtype: 'cartesian',
                         itemId: 'bienDongCapDonViChart_IdView',
+                        dataKey: 'bienDongHoSoTheoCapDonVi',
                         chartKind: 'stacked',
                         flex: 1,
                         animation: false,
@@ -106,7 +107,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
                 layout: { type: 'vbox', align: 'stretch' },
                 items: [
                     { xtype: 'component', cls: 'tcn5-subheading', html: '<span data-tcn5-tip="Cấp xã — thống kê số hồ sơ đang quản lý"><i class="x-fa fa-map-marker-alt tcn5-card-icon tcn5-tone-cyan"></i>Cấp xã</span>', listeners: { afterrender: 'onTooltipReady' } },
-                    { xtype: 'TrangChuNew5_ViewBarChart', itemId: 'capXaChart_IdView', flex: 1, bind: { store: '{capXaStore}' } }
+                    { xtype: 'TrangChuNew5_ViewBarChart', itemId: 'capXaChart_IdView', dataKey: 'capXa', flex: 1, bind: { store: '{capXaStore}' } }
                 ]
             }]
         }, {
@@ -151,6 +152,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
                 {
                     xtype: 'TrangChuNew5_ViewDienBienChart',
                     itemId: 'dienBienLucLuongChart_IdView',
+                    dataKey: 'dienBienMoMoiVaKetThucLucLuong',
                     moMoiKey: 'hienMoMoiLucLuong',
                     ketThucKey: 'hienKetThucLucLuong',
                     bind: { store: '{dienBienLucLuongStore}' }

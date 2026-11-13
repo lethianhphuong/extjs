@@ -1,7 +1,11 @@
 Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.TrangChuNew5_ViewModel',
-    requires: ['DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_DisplayConfig'],
+    requires: [
+        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_DisplayConfig',
+        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig',
+        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.DS_Hoso_GridView3.DS_Hoso_GridView3Store'
+    ],
     data: {
         // Ẩn/hiện từng đường của biểu đồ diễn biến khối Đơn vị
         hienMoMoi: true,
@@ -17,6 +21,9 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
         return (rows || []).map(function (row) {
             const display = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_DisplayConfig.get(group, row.code);
             const result = Object.assign({}, row, display);
+            if (group === 'loaiHoSo') {
+                result.hex = me.getMauLoaiHoSo(row.code);
+            }
             if (group === 'chiSo') {
                 Object.assign(result, me.formatTrend(row));
                 result.laTong = (row.code === 'DANG_QUAN_LY');
@@ -29,6 +36,11 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
             }
             return result;
         }).sort((a, b) => a.thuTu - b.thuTu);
+    },
+    /** Màu cột Loại hồ sơ lấy chung từ View3 (TrangChuNew3_DisplayConfig) để 2 view đồng bộ màu. */
+    getMauLoaiHoSo: function (code) {
+        const cfgLoai = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig.tieuChi.loaiHoSo;
+        return (cfgLoai[code] || {}).hex || '';
     },
     /** Chuẩn hóa tổng quan từ API: hiển thị đầy đủ 6 thẻ KPI. */
     prepareTongQuan: function (rows) {
@@ -103,11 +115,13 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
         });
     },
     stores: {
-        loaiHoSoStore: { fields: ['code', 'name', 'val', 'mau'] },
+        loaiHoSoStore: { fields: ['code', 'name', 'val', 'mau', 'hex'] },
         bienDongDonViStore: { fields: ['code', 'name', 'val', 'mau'] },
         dienBienStore: { fields: ['code', 'name', 'nameHover', 'moMoi', 'ketThuc'] },
         bienDongCapDonViStore: { fields: ['code', 'name', 'nameHover', 'capCuc', 'capTinh', 'capXa', 'tongSo'] },
         dienBienLucLuongStore: { fields: ['code', 'name', 'nameHover', 'moMoi', 'ketThuc'] },
-        capXaStore: { fields: ['code', 'name', 'val', 'mau'] }
+        capXaStore: { fields: ['code', 'name', 'val', 'mau'] },
+        // Danh sách hồ sơ của grid DS_Hoso_GridView3 (dùng chung với View3), nạp khi click biểu đồ
+        dsHoSoStore: { type: 'DS_Hoso_GridView3Store' }
     }
 });

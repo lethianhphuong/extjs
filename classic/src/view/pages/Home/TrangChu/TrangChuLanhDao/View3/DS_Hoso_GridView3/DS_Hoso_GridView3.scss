@@ -1,5 +1,5 @@
-/* Grid danh sách hồ sơ View3 (DS_Hoso_GridView3) */
-.trang-chu-new3 .ds-hoso-grid3 {
+/* Grid danh sách hồ sơ DS_Hoso_GridView3 — dùng chung View3, View5 nên không phụ thuộc class của view cha */
+.ds-hoso-grid3 {
     overflow: hidden;
     border: 1px solid #e2e8f0 !important;
     border-radius: 10px !important;
@@ -11,6 +11,41 @@
         padding: 14px 18px !important;
         border-bottom: 1px solid #e2e8f0 !important;
         background: #ffffff !important;
+    }
+
+    .ds-hoso-grid3-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        h3 {
+            margin: 0;
+            min-width: 0;
+            overflow: hidden;
+            color: #0f172a;
+            font-size: 14px;
+            font-weight: 800;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .ds-hoso-grid3-icon {
+        display: inline-flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 6px;
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        box-shadow: 0 3px 8px -2px rgba(15, 23, 42, 0.25);
+        color: #ffffff;
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
     }
 
     .x-panel-body {

@@ -34,7 +34,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                         {
                             xtype: 'container',
                             cls: 'tcn3-card',
-                            flex: 1,
+                            flex: 1.15,
                             margin: '0 12 0 0',
                             layout: { type: 'vbox', align: 'stretch' },
                             items: [
@@ -116,7 +116,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                         {
                             xtype: 'container',
                             cls: 'tcn3-card',
-                            flex: 1.4,
+                            flex: 1.25,
                             layout: { type: 'vbox', align: 'stretch' },
                             items: [
                                 {

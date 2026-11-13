@@ -41,11 +41,11 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Moc
             ],
 
             loaiHoSo: [
-                { code: 'DTCB', name: 'ĐTCB', val: 9142 },
+                { code: 'DTCB', name: 'ĐTCB', val: 3000 },
                 { code: 'SUUTRA', name: 'Sưu Tra', val: 4123 },
                 { code: 'HIEMNGHI', name: 'Hiềm nghi', val: 2861 },
                 { code: 'CHUYENAN', name: 'Chuyên án', val: 1647 },
-                { code: 'CTVBM', name: 'CT VBM', val: 511 },
+                { code: 'CTVBM', name: 'CT VBM', val: 6555 },
                 { code: 'HTBM', name: 'HTBM', val: 342 },
                 { code: 'VANV', name: 'VANV', val: 400 },
                 { code: 'NNV', name: 'NNV', val: 600 }
@@ -58,20 +58,254 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Moc
             ],
 
             bienDongHoSoTheoDonVi: [
-                { code: 202511, cuc: 0, name: 'T 9', nameHover: 'Tháng 9/2025', tinh: 27, xa: 0 },
-                { code: 202512, cuc: 0, name: 'T 10', nameHover: 'Tháng 10/2025', tinh: 26, xa: 0 },
-                { code: 202601, cuc: 2, name: 'T 11', nameHover: 'Tháng 11/2025', tinh: 141, xa: 5 },
-                { code: 202602, cuc: 62, name: 'T 12', nameHover: 'Tháng 12/2025', tinh: 244, xa: 17 },
-                { code: 202603, cuc: 32, name: 'T 1', nameHover: 'Tháng 1/2026', tinh: 633, xa: 378 },
-                { code: 202604, cuc: 238, name: 'T 2', nameHover: 'Tháng 2/2026', tinh: 1226, xa: 1328 },
-                { code: 202605, cuc: 44, name: 'T 3', nameHover: 'Tháng 3/2026', tinh: 125, xa: 29 },
-                { code: 202606, cuc: 50, name: 'T 4', nameHover: 'Tháng 4/2026', tinh: 336, xa: 78 },
-                { code: 202607, cuc: 22, name: 'T 5', nameHover: 'Tháng 5/2026', tinh: 414, xa: 70 },
-                { code: 202608, cuc: 43, name: 'T 6', nameHover: 'Tháng 6/2026', tinh: 259, xa: 31 },
-                { code: 202609, cuc: 23, name: 'T 7', nameHover: 'Tháng 7/2026', tinh: 147, xa: 22 },
-                { code: 202610, cuc: 6, name: 'T 8', nameHover: 'Tháng 8/2026', tinh: 99, xa: 26 },
-                { code: 202611, cuc: 11, name: 'T 9', nameHover: 'Tháng 9/2026', tinh: 62, xa: 20 },
-                { code: 202612, cuc: 4, name: 'T 10', nameHover: 'Tháng 10/2026', tinh: 88, xa: 9 }
+                {
+                    "code": 20251215,
+                    "cuc": 1,
+                    "name": "15",
+                    "nameHover": "15/12",
+                    "tinh": 11,
+                    "xa": 1
+                },
+                {
+                    "code": 20251216,
+                    "cuc": 0,
+                    "name": "16",
+                    "nameHover": "16/12",
+                    "tinh": 13,
+                    "xa": 0
+                },
+                {
+                    "code": 20251217,
+                    "cuc": 0,
+                    "name": "17",
+                    "nameHover": "17/12",
+                    "tinh": 12,
+                    "xa": 0
+                },
+                {
+                    "code": 20251218,
+                    "cuc": 2,
+                    "name": "18",
+                    "nameHover": "18/12",
+                    "tinh": 20,
+                    "xa": 0
+                },
+                {
+                    "code": 20251219,
+                    "cuc": 0,
+                    "name": "19",
+                    "nameHover": "19/12",
+                    "tinh": 18,
+                    "xa": 0
+                },
+                {
+                    "code": 20251220,
+                    "cuc": 0,
+                    "name": "20",
+                    "nameHover": "20/12",
+                    "tinh": 1,
+                    "xa": 0
+                },
+                {
+                    "code": 20251221,
+                    "cuc": 1,
+                    "name": "21",
+                    "nameHover": "21/12",
+                    "tinh": 0,
+                    "xa": 0
+                },
+                {
+                    "code": 20251222,
+                    "cuc": 0,
+                    "name": "22",
+                    "nameHover": "22/12",
+                    "tinh": 12,
+                    "xa": 0
+                },
+                {
+                    "code": 20251223,
+                    "cuc": 3,
+                    "name": "23",
+                    "nameHover": "23/12",
+                    "tinh": 32,
+                    "xa": 0
+                },
+                {
+                    "code": 20251224,
+                    "cuc": 9,
+                    "name": "24",
+                    "nameHover": "24/12",
+                    "tinh": 88,
+                    "xa": 1
+                },
+                {
+                    "code": 20251225,
+                    "cuc": 1,
+                    "name": "25",
+                    "nameHover": "25/12",
+                    "tinh": 19,
+                    "xa": 0
+                },
+                {
+                    "code": 20251226,
+                    "cuc": 1,
+                    "name": "26",
+                    "nameHover": "26/12",
+                    "tinh": 66,
+                    "xa": 0
+                },
+                {
+                    "code": 20251227,
+                    "cuc": 1,
+                    "name": "27",
+                    "nameHover": "27/12",
+                    "tinh": 10,
+                    "xa": 0
+                },
+                {
+                    "code": 20251228,
+                    "cuc": 0,
+                    "name": "28",
+                    "nameHover": "28/12",
+                    "tinh": 0,
+                    "xa": 0
+                },
+                {
+                    "code": 20251229,
+                    "cuc": 0,
+                    "name": "29",
+                    "nameHover": "29/12",
+                    "tinh": 13,
+                    "xa": 0
+                },
+                {
+                    "code": 20251230,
+                    "cuc": 0,
+                    "name": "30",
+                    "nameHover": "30/12",
+                    "tinh": 8,
+                    "xa": 2
+                },
+                {
+                    "code": 20251231,
+                    "cuc": 1,
+                    "name": "31",
+                    "nameHover": "31/12",
+                    "tinh": 7,
+                    "xa": 0
+                },
+                {
+                    "code": 20260101,
+                    "cuc": 0,
+                    "name": "01",
+                    "nameHover": "1/01",
+                    "tinh": 2,
+                    "xa": 2
+                },
+                {
+                    "code": 20260102,
+                    "cuc": 0,
+                    "name": "02",
+                    "nameHover": "2/01",
+                    "tinh": 2,
+                    "xa": 0
+                },
+                {
+                    "code": 20260103,
+                    "cuc": 0,
+                    "name": "03",
+                    "nameHover": "3/01",
+                    "tinh": 2,
+                    "xa": 1
+                },
+                {
+                    "code": 20260104,
+                    "cuc": 0,
+                    "name": "04",
+                    "nameHover": "4/01",
+                    "tinh": 1,
+                    "xa": 0
+                },
+                {
+                    "code": 20260105,
+                    "cuc": 0,
+                    "name": "05",
+                    "nameHover": "5/01",
+                    "tinh": 18,
+                    "xa": 0
+                },
+                {
+                    "code": 20260106,
+                    "cuc": 1,
+                    "name": "06",
+                    "nameHover": "6/01",
+                    "tinh": 18,
+                    "xa": 9
+                },
+                {
+                    "code": 20260107,
+                    "cuc": 5,
+                    "name": "07",
+                    "nameHover": "7/01",
+                    "tinh": 26,
+                    "xa": 9
+                },
+                {
+                    "code": 20260108,
+                    "cuc": 3,
+                    "name": "08",
+                    "nameHover": "8/01",
+                    "tinh": 14,
+                    "xa": 4
+                },
+                {
+                    "code": 20260109,
+                    "cuc": 0,
+                    "name": "09",
+                    "nameHover": "9/01",
+                    "tinh": 135,
+                    "xa": 1
+                },
+                {
+                    "code": 20260110,
+                    "cuc": 0,
+                    "name": "10",
+                    "nameHover": "10/01",
+                    "tinh": 15,
+                    "xa": 0
+                },
+                {
+                    "code": 20260111,
+                    "cuc": 0,
+                    "name": "11",
+                    "nameHover": "11/01",
+                    "tinh": 4,
+                    "xa": 0
+                },
+                {
+                    "code": 20260112,
+                    "cuc": 0,
+                    "name": "12",
+                    "nameHover": "12/01",
+                    "tinh": 21,
+                    "xa": 185
+                },
+                {
+                    "code": 20260113,
+                    "cuc": 1,
+                    "name": "13",
+                    "nameHover": "13/01",
+                    "tinh": 20,
+                    "xa": 163
+                },
+                {
+                    "code": 20260114,
+                    "cuc": 2,
+                    "name": "14",
+                    "nameHover": "14/01",
+                    "tinh": 25,
+                    "xa": 0
+                }
             ],
 
             loaiDoiTuong: [
@@ -91,18 +325,223 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Moc
             ],
 
             dienBienMoMoiVaKetThuc: [
-                { code: 202511, ketThuc: 18, moMoi: 120, name: 'T 11', nameHover: 'Tháng 11/2025' },
-                { code: 202512, ketThuc: 25, moMoi: 210, name: 'T 12', nameHover: 'Tháng 12/2025' },
-                { code: 202601, ketThuc: 64, moMoi: 1107, name: 'T 1', nameHover: 'Tháng 1/2026' },
-                { code: 202602, ketThuc: 164, moMoi: 2956, name: 'T 2', nameHover: 'Tháng 2/2026' },
-                { code: 202603, ketThuc: 63, moMoi: 261, name: 'T 3', nameHover: 'Tháng 3/2026' },
-                { code: 202604, ketThuc: 33, moMoi: 497, name: 'T 4', nameHover: 'Tháng 4/2026' },
-                { code: 202605, ketThuc: 25, moMoi: 531, name: 'T 5', nameHover: 'Tháng 5/2026' },
-                { code: 202606, ketThuc: 110, moMoi: 443, name: 'T 6', nameHover: 'Tháng 6/2026' },
-                { code: 202607, ketThuc: 94, moMoi: 286, name: 'T 7', nameHover: 'Tháng 7/2026' },
-                { code: 202608, ketThuc: 86, moMoi: 217, name: 'T 8', nameHover: 'Tháng 8/2026' },
-                { code: 202609, ketThuc: 28, moMoi: 121, name: 'T 9', nameHover: 'Tháng 9/2026' },
-                { code: 202610, ketThuc: 40, moMoi: 141, name: 'T 10', nameHover: 'Tháng 10/2026' }
+                {
+                    "code": 20251215,
+                    "ketThuc": 0,
+                    "moMoi": 13,
+                    "name": "15",
+                    "nameHover": "15/12"
+                },
+                {
+                    "code": 20251216,
+                    "ketThuc": 0,
+                    "moMoi": 13,
+                    "name": "16",
+                    "nameHover": "16/12"
+                },
+                {
+                    "code": 20251217,
+                    "ketThuc": 0,
+                    "moMoi": 12,
+                    "name": "17",
+                    "nameHover": "17/12"
+                },
+                {
+                    "code": 20251218,
+                    "ketThuc": 5,
+                    "moMoi": 27,
+                    "name": "18",
+                    "nameHover": "18/12"
+                },
+                {
+                    "code": 20251219,
+                    "ketThuc": 1,
+                    "moMoi": 19,
+                    "name": "19",
+                    "nameHover": "19/12"
+                },
+                {
+                    "code": 20251220,
+                    "ketThuc": 0,
+                    "moMoi": 1,
+                    "name": "20",
+                    "nameHover": "20/12"
+                },
+                {
+                    "code": 20251221,
+                    "ketThuc": 0,
+                    "moMoi": 1,
+                    "name": "21",
+                    "nameHover": "21/12"
+                },
+                {
+                    "code": 20251222,
+                    "ketThuc": 1,
+                    "moMoi": 13,
+                    "name": "22",
+                    "nameHover": "22/12"
+                },
+                {
+                    "code": 20251223,
+                    "ketThuc": 2,
+                    "moMoi": 37,
+                    "name": "23",
+                    "nameHover": "23/12"
+                },
+                {
+                    "code": 20251224,
+                    "ketThuc": 6,
+                    "moMoi": 104,
+                    "name": "24",
+                    "nameHover": "24/12"
+                },
+                {
+                    "code": 20251225,
+                    "ketThuc": 0,
+                    "moMoi": 20,
+                    "name": "25",
+                    "nameHover": "25/12"
+                },
+                {
+                    "code": 20251226,
+                    "ketThuc": 8,
+                    "moMoi": 75,
+                    "name": "26",
+                    "nameHover": "26/12"
+                },
+                {
+                    "code": 20251227,
+                    "ketThuc": 0,
+                    "moMoi": 11,
+                    "name": "27",
+                    "nameHover": "27/12"
+                },
+                {
+                    "code": 20251228,
+                    "ketThuc": 0,
+                    "moMoi": 0,
+                    "name": "28",
+                    "nameHover": "28/12"
+                },
+                {
+                    "code": 20251229,
+                    "ketThuc": 1,
+                    "moMoi": 14,
+                    "name": "29",
+                    "nameHover": "29/12"
+                },
+                {
+                    "code": 20251230,
+                    "ketThuc": 1,
+                    "moMoi": 11,
+                    "name": "30",
+                    "nameHover": "30/12"
+                },
+                {
+                    "code": 20251231,
+                    "ketThuc": 1,
+                    "moMoi": 9,
+                    "name": "31",
+                    "nameHover": "31/12"
+                },
+                {
+                    "code": 20260101,
+                    "ketThuc": 0,
+                    "moMoi": 4,
+                    "name": "01",
+                    "nameHover": "1/01"
+                },
+                {
+                    "code": 20260102,
+                    "ketThuc": 0,
+                    "moMoi": 2,
+                    "name": "02",
+                    "nameHover": "2/01"
+                },
+                {
+                    "code": 20260103,
+                    "ketThuc": 0,
+                    "moMoi": 3,
+                    "name": "03",
+                    "nameHover": "3/01"
+                },
+                {
+                    "code": 20260104,
+                    "ketThuc": 0,
+                    "moMoi": 1,
+                    "name": "04",
+                    "nameHover": "4/01"
+                },
+                {
+                    "code": 20260105,
+                    "ketThuc": 1,
+                    "moMoi": 19,
+                    "name": "05",
+                    "nameHover": "5/01"
+                },
+                {
+                    "code": 20260106,
+                    "ketThuc": 4,
+                    "moMoi": 32,
+                    "name": "06",
+                    "nameHover": "6/01"
+                },
+                {
+                    "code": 20260107,
+                    "ketThuc": 5,
+                    "moMoi": 45,
+                    "name": "07",
+                    "nameHover": "7/01"
+                },
+                {
+                    "code": 20260108,
+                    "ketThuc": 3,
+                    "moMoi": 24,
+                    "name": "08",
+                    "nameHover": "8/01"
+                },
+                {
+                    "code": 20260109,
+                    "ketThuc": 8,
+                    "moMoi": 144,
+                    "name": "09",
+                    "nameHover": "9/01"
+                },
+                {
+                    "code": 20260110,
+                    "ketThuc": 5,
+                    "moMoi": 20,
+                    "name": "10",
+                    "nameHover": "10/01"
+                },
+                {
+                    "code": 20260111,
+                    "ketThuc": 0,
+                    "moMoi": 4,
+                    "name": "11",
+                    "nameHover": "11/01"
+                },
+                {
+                    "code": 20260112,
+                    "ketThuc": 3,
+                    "moMoi": 209,
+                    "name": "12",
+                    "nameHover": "12/01"
+                },
+                {
+                    "code": 20260113,
+                    "ketThuc": 4,
+                    "moMoi": 188,
+                    "name": "13",
+                    "nameHover": "13/01"
+                },
+                {
+                    "code": 20260114,
+                    "ketThuc": 5,
+                    "moMoi": 32,
+                    "name": "14",
+                    "nameHover": "14/01"
+                }
             ],
 
             // Danh sách hồ sơ hiển thị ở grid DS_Hoso_GridView3 khi click biểu đồ (mock 1 danh sách dùng chung)

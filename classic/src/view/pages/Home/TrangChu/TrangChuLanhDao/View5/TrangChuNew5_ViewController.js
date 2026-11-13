@@ -1,6 +1,11 @@
 Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_ViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.TrangChuNew5_ViewController',
+    requires: ['DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_DisplayConfig'],
+    // Hover/click chart → grid DS_Hoso_GridView3 (dùng chung với View3)
+    mixins: {
+        bieuDoClick: 'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.DS_Hoso_GridView3.DS_Hoso_BieuDoClickMixin'
+    },
     /** Nạp mock khi khởi tạo trang. */
     init: function () {
         const me = this;
@@ -22,10 +27,13 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
         vm.notify();
         me.updateChartColors();
     },
-    /** Áp dụng màu CSS cho canvas và theo dõi theme trong vòng đời View. */
-    onChartReady: function () {
+    /** Áp dụng màu CSS cho canvas và theo dõi theme trong vòng đời View; chart có dataKey thì gắn hover/click. */
+    onChartReady: function (component) {
         const me = this;
         me.updateChartColors();
+        if (component && component.dataKey) {
+            me.bindBieuDoClick(component);
+        }
         if (!me.themeObserver) {
             me.themeObserver = new MutationObserver(function () { me.updateChartColors(); });
             me.themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
@@ -155,6 +163,25 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
             chart.redraw();
         }
     },
+    /** Mã biểu đồ D5_Cxx theo dataKey của chart (DisplayConfig.maBieuDo). */
+    getMaBieuDoMap: function () {
+        return DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_DisplayConfig.maBieuDo;
+    },
+
+    /** Mã biểu đồ có code là kỳ báo cáo (DisplayConfig.maBieuDoTheoKy). */
+    getMaBieuDoTheoKy: function () {
+        return DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_DisplayConfig.maBieuDoTheoKy;
+    },
+
+    /** Thẻ KPI tổng quan (D5_C01): tooltip + click theo data-code. */
+    onKpiReady: function (component) {
+        const me = this;
+        me.onTooltipReady(component);
+        me.bindKpiClick(component, '.tcn5-metric', 'tongQuan', function () {
+            return me.getViewModel().get('chiSo');
+        });
+    },
+
     /** Tooltip theo phần tử HTML, hủy cùng component để không lưu target cũ. */
     onTooltipReady: function (component) {
         const tip = Ext.create('Ext.tip.ToolTip', {

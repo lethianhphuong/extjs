@@ -6,6 +6,10 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_MockData',
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig'
     ],
+    // Hover/click chart → grid DS_Hoso_GridView3 (dùng chung với View5)
+    mixins: {
+        bieuDoClick: 'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.DS_Hoso_GridView3.DS_Hoso_BieuDoClickMixin'
+    },
 
     /** Khởi tạo và liên kết sự kiện */
     init: function () {
@@ -167,7 +171,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
             tongLoaiHoSoText: Number(tongLoaiHoSo).toLocaleString('vi-VN'),
             coCauData: me.mapCoCau(data.coCauHoSoTheoDonVi),
             bienDongData: me.toList(data.bienDongHoSoTheoDonVi).map(me.mapBienDongItem),
-            dienBienData: me.toList(data.dienBienMoMoiVaKetThuc).slice(-12).map(me.mapDienBienItem),
+            dienBienData: me.toList(data.dienBienMoMoiVaKetThuc).map(me.mapDienBienItem),
             loaiDoiTuongData: me.mapLoaiDoiTuong(data.loaiDoiTuong)
         };
     },
@@ -381,25 +385,13 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         }
     },
 
-    /** Làm tròn lên mốc chia đẹp (bước = 1/4 bậc độ lớn), VD: 10.513 -> 12.500; 14,4 -> 15. */
-    niceCeil: function (value) {
-        if (!(value > 0)) { return 1; }
-        const step = Math.pow(10, Math.floor(Math.log10(value))) / 4;
-        return Math.ceil(value / step) * step;
-    },
-
-    /** Biểu đồ cột 8 loại hồ sơ: chừa ~15% trục Y cho nhãn số trên đầu cột cao nhất, làm tròn mốc đẹp. */
+    /** Biểu đồ cột 8 loại hồ sơ: vẽ lại (trục Y tự tính trong listener redraw của chart). */
     updateLoaiHoSoChart: function (view, targetChart) {
         const me = this;
         const chart = view.down('#loaiHoSoChart_IdView');
         if (!me.isTargetChart(chart, targetChart)) { return; }
 
-        const store = chart.getStore();
-        const maxVal = store ? store.getRange().reduce((max, rec) => Math.max(max, Number(rec.get('val')) || 0), 0) : 0;
-        const numericAxis = chart.getAxes().find(axis => axis.type === 'numeric');
-        if (numericAxis) {
-            numericAxis.setMaximum(me.niceCeil(maxVal * 1.15));
-        }
+        // Trục Y (chừa chỗ cho nhãn số trên đầu cột) tự tính trong listener redraw của chart (TrangChuNew3_ViewCharts)
         chart.redraw();
     },
 
@@ -479,57 +471,21 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
     },
     //#endregion
 
-    //#region NOTE: Click biểu đồ — lấy mã biểu đồ D3_Cxx, code và record gốc
-    /**
-     * Gắn click cho chart có dataKey: đổi tọa độ chuột sang tọa độ surface của series
-     * rồi dùng chart.getItemForPoint để lấy đúng cột / lát / điểm được bấm.
-     */
-    bindBieuDoClick: function (chart) {
-        const me = this;
-        if (!chart || !chart.dataKey || chart.bieuDoClickBound) { return; }
-        chart.bieuDoClickBound = true;
-        chart.getEl().on('click', function (event) {
-            const item = me.getItemAtPoint(chart, event.getX(), event.getY());
-            if (item) {
-                me.onBieuDoClick(chart, item);
-            }
-        });
-        // Interaction itemhighlight của chart chặn mousemove của Ext nên dùng sự kiện DOM gốc
-        const dom = chart.getEl().dom;
-        dom.addEventListener('mousemove', function (event) {
-            me.onBieuDoHover(chart, me.getItemAtPoint(chart, event.pageX, event.pageY));
-        });
-        dom.addEventListener('mouseleave', function () {
-            me.onBieuDoHover(chart, null);
-        });
+    //#region NOTE: Click biểu đồ — phần chung nằm ở DS_Hoso_BieuDoClickMixin
+    /** Mã biểu đồ D3_Cxx theo dataKey của chart (DisplayConfig.maBieuDo). */
+    getMaBieuDoMap: function () {
+        return DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig.maBieuDo;
     },
 
-    /** Item (cột / lát / điểm) nằm tại tọa độ trang (pageX, pageY), đổi sang tọa độ surface của series. */
-    getItemAtPoint: function (chart, pageX, pageY) {
-        const surfaceXY = chart.getSurface('series').el.getXY();
-        return chart.getItemForPoint(pageX - surfaceXY[0], pageY - surfaceXY[1]);
+    /** Mã biểu đồ có code là kỳ báo cáo (DisplayConfig.maBieuDoTheoKy). */
+    getMaBieuDoTheoKy: function () {
+        return DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig.maBieuDoTheoKy;
     },
 
-    /** Độ mờ của phần tử đang rê chuột (giữ nguyên màu, chỉ làm mờ) và con trỏ báo hiệu bấm được. */
-    hoverOpacity: 0.6,
-    hoverCursor: 'zoom-in',
-
-    /** Rê chuột vào phần tử bấm được: đổi con trỏ và làm mờ phần tử đó. */
-    onBieuDoHover: function (chart, item) {
-        const me = this;
-        const current = chart.hoverItem;
-        const same = item && current && item.record === current.record && item.field === current.field;
-        if (same || (!item && !current)) { return; }
-        chart.hoverItem = item;
-        chart.getEl().dom.style.cursor = item ? me.hoverCursor : '';
-        if (item) {
-            // Highlight mặc định của Ext đổi màu (vàng/đỏ, tách lát, phóng to điểm) nên ghi đè bằng màu gốc + opacity
-            item.series.setHighlight(Ext.apply(me.getItemBaseStyle(chart, item), { globalAlpha: me.hoverOpacity }));
-            chart.setHighlightItem(null);
-        }
-        chart.setHighlightItem(item || null);
+    /** Sau khi hover chart (mixin gọi): donut cơ cấu đồng bộ với danh sách bên cạnh. */
+    onAfterBieuDoHover: function (chart, item) {
         if (chart.itemId === 'coCauChart_IdView') {
-            me.syncCoCauList(item);
+            this.syncCoCauList(item);
         }
     },
 
@@ -565,77 +521,13 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         if (item) { this.onBieuDoClick(item.series.getChart(), item); }
     },
 
-    /** Kiểu gốc (màu nền, viền) của phần tử theo loại series để highlight không làm đổi màu. */
-    getItemBaseStyle: function (chart, item) {
-        const series = item.series;
-        if (series.type === 'pie') {
-            const style = series.getStyleByIndex(item.index);
-            return { fillStyle: style.fillStyle, strokeStyle: style.strokeStyle, lineWidth: 1, margin: 0 };
-        }
-        if (series.type === 'line') {
-            const marker = series.getMarker() || {};
-            const color = marker.fillStyle || series.getStyleByIndex(0).strokeStyle;
-            return { fillStyle: color, strokeStyle: marker.strokeStyle || color, lineWidth: marker.lineWidth || 0, scalingX: 1, scalingY: 1 };
-        }
-        const renderer = series.getRenderer();
-        const rendered = renderer ? renderer.call(series, item.sprite, {}, { store: chart.getStore() }, item.index) : null;
-        if (rendered && rendered.fillStyle) {
-            return { fillStyle: rendered.fillStyle, strokeStyle: rendered.strokeStyle || rendered.fillStyle, lineWidth: rendered.lineWidth || 0 };
-        }
-        const yField = [].concat(series.getYField());
-        const style = series.getStyleByIndex(Math.max(yField.indexOf(item.field), 0));
-        return { fillStyle: style.fillStyle, strokeStyle: style.strokeStyle, lineWidth: style.lineWidth || 0 };
-    },
-
-    /** Xử lý item được bấm của các chart (cột, donut, đường): chart khai báo dataKey để tra mã D3_Cxx. */
-    onBieuDoClick: function (chart, item) {
-        const me = this;
-        const record = item && item.record;
-        if (!record) { return; }
-        me.xuLyClickBieuDo(me.taoThongTinClick(chart.dataKey, record.get('code'), record.get('raw') || record.getData(), item.field));
-    },
-
-    /** Thẻ KPI tổng quan (D3_C01) là HTML: gắn tooltip và click theo thuộc tính data-code của thẻ. */
+    /** Thẻ KPI tổng quan (D3_C01): tooltip + click theo data-code. */
     onKpiReady: function (component) {
         const me = this;
         me.onTooltipReady(component);
-        component.getEl().on('click', function (event, target) {
-            const code = target.getAttribute('data-code');
-            const tongQuan = me.getViewModel().get('tongQuan') || [];
-            const raw = tongQuan.find(it => it.code === code);
-            if (raw) {
-                me.xuLyClickBieuDo(me.taoThongTinClick('tongQuan', code, raw, null));
-            }
-        }, me, { delegate: '.tcn3-metric' });
-    },
-
-    /** Gói thông tin click thống nhất cho mọi biểu đồ. */
-    taoThongTinClick: function (dataKey, code, record, truong) {
-        const cfg = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig;
-        return {
-            maBieuDo: cfg.maBieuDo[dataKey] || null,
-            dataKey: dataKey,
-            code: code,
-            record: record,
-            truong: truong || null
-        };
-    },
-
-    /**
-     * Điểm xử lý duy nhất sau khi click: tạo params và bắn sự kiện taiDanhSach sang grid DS_Hoso_GridView3,
-     * grid gọi store tự chọn mock (DEMO) hoặc API (NVCB).
-     */
-    xuLyClickBieuDo: function (thongTin) {
-        const me = this;
-        const params = {
-            maThongKe: thongTin.maBieuDo,
-            json: { code: thongTin.code }
-        };
-        window.console.log('[View3] Click biểu đồ', params, thongTin);
-        const grid = me.getView().down('DS_Hoso_GridView3');
-        if (grid) {
-            grid.fireEvent('taiDanhSach', params, thongTin);
-        }
+        me.bindKpiClick(component, '.tcn3-metric', 'tongQuan', function () {
+            return me.getViewModel().get('tongQuan');
+        });
     },
     //#endregion
 

@@ -27,7 +27,10 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
             const me = this;
             const palette = me.getChart().recordColors;
             const record = data.store.getAt(index);
-            return palette && record ? { fillStyle: palette[record.get('mau')], strokeStyle: palette[record.get('mau')] } : {};
+            if (!record) { return {}; }
+            // Ưu tiên màu hex cố định của record (Loại hồ sơ dùng chung màu với View3), không có thì lấy theo tone
+            const color = record.get('hex') || (palette && palette[record.get('mau')]);
+            return color ? { fillStyle: color, strokeStyle: color } : {};
         },
         tooltip: {
             trackMouse: true,

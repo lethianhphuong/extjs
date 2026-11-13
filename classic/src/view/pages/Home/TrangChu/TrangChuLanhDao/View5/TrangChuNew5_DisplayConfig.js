@@ -1,5 +1,17 @@
 Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_DisplayConfig', {
     singleton: true,
+    // Mã biểu đồ View5 theo dataKey của chart — gửi lên API danh sách hồ sơ (maThongKe) khi click
+    maBieuDo: {
+        tongQuan: 'D5_C01',
+        loaiHoSo: 'D5_C02',
+        bienDongHoSoTheoDonVi: 'D5_C04',
+        dienBienMoMoiVaKetThuc: 'D5_C07',
+        bienDongHoSoTheoCapDonVi: 'D5_C05',
+        capXa: 'D5_C06',
+        dienBienMoMoiVaKetThucLucLuong: 'D5_C08'
+    },
+    // Biểu đồ có code là kỳ báo cáo (YYYYKK): khi click gửi thêm fromDate / toDate của kỳ
+    maBieuDoTheoKy: ['D5_C05', 'D5_C07', 'D5_C08'],
     groups: {
         chiSo: {
             DANG_QUAN_LY: { icon: 'folder', mau: 'blue', thuTu: 1 },

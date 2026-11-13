@@ -43,8 +43,15 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.DS_Hoso_GridView
         const store = this.getView().getStore();
         window.console.log('[DS_Hoso_GridView3] Tải danh sách', params, thongTin);
         if (store && typeof store.loadDataDanhSach === 'function') {
+            // Mock nạp đồng bộ, API nạp bất đồng bộ: đăng ký trước khi gọi để bắt đúng lần load này
+            store.on('load', this.capNhatHienThi, this, { single: true });
             store.loadDataDanhSach(params);
         }
+    },
+
+    /** Có dữ liệu thì hiện card danh sách, không có thì ẩn cả card. */
+    capNhatHienThi: function (store) {
+        this.getView().setHidden(!store.getTotalCount());
     },
 
     /** Đổi số dòng/trang: cập nhật pageSize và quay về trang 1. */

@@ -11,8 +11,10 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.DS_Hoso_GridView
     controller: 'DS_Hoso_GridView3Controller',
     // Sự kiện từ TrangChuNew3_ViewController khi click biểu đồ: (params, thongTin)
     listeners: { taiDanhSach: 'onTaiDanhSach' },
-    // Không khai báo viewModel: dùng chung ViewModel của TrangChuNew3_View (store dsHoSoStore)
-    cls: 'tcn3-card ds-hoso-grid3',
+    // Không khai báo viewModel: dùng chung ViewModel của view cha (View3, View5) — store dsHoSoStore
+    cls: 'ds-hoso-grid3',
+    // Ẩn cả card cho tới khi click biểu đồ và store có dữ liệu (xem controller.capNhatHienThi)
+    hidden: true,
     minHeight: 260,
     maxHeight: 620,
     bind: { store: '{dsHoSoStore}' },
@@ -45,13 +47,13 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.DS_Hoso_GridView
         ]
     },
     dockedItems: [{
-        // Tiêu đề dùng chung mẫu header card của View3 (không dùng title/iconCls của panel
-        // vì Ext đo layout header theo icon 16px, đổi kích thước bằng CSS sẽ làm chữ đè lên icon)
+        // Tiêu đề tự dựng (không dùng title/iconCls của panel vì Ext đo layout header theo icon 16px,
+        // đổi kích thước bằng CSS sẽ làm chữ đè lên icon); style riêng trong DS_Hoso_GridView3.scss để dùng được ở mọi view
         xtype: 'component',
         dock: 'top',
-        cls: 'tcn3-card-header ds-hoso-grid3-header',
-        html: '<div class="tcn3-header-wrap">' +
-            '<span class="tcn3-header-icon tcn3-tone-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span>' +
+        cls: 'ds-hoso-grid3-header',
+        html: '<div class="ds-hoso-grid3-title">' +
+            '<span class="ds-hoso-grid3-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span>' +
             '<h3>Danh sách hồ sơ</h3>' +
             '</div>'
     }, {

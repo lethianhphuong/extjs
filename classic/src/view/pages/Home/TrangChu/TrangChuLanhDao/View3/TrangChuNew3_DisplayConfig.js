@@ -10,6 +10,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Dis
         loaiDoiTuong: 'D3_C05',
         dienBienMoMoiVaKetThuc: 'D3_C06'
     },
+    // Biểu đồ có code là kỳ báo cáo (YYYYKK): khi click gửi thêm fromDate / toDate của kỳ
+    maBieuDoTheoKy: ['D3_C04', 'D3_C06'],
 
     paletteColors: [
         '#2563eb', // blue
@@ -46,7 +48,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Dis
         '#84cc16', // 9. lime
         '#92400e', // 10. brown
         '#2563eb', // 11. blue
-        '#1e293b'  // 12. navy
+        '#70de0a'  // 12. navy
     ],
 
     loaiDoiTuongColorMap: {

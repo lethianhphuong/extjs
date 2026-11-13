@@ -7,7 +7,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
     items: [{
         xtype: 'component',
         cls: 'tcn5-heading',
-        height: 48,
+        height: 38,
         html: '<b><i class="x-fa fa-building tcn5-card-icon tcn5-tone-blue"></i>ĐƠN VỊ</b>'
     }, {
         xtype: 'container',
@@ -31,6 +31,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
                 {
                     xtype: 'TrangChuNew5_ViewBarChart',
                     itemId: 'loaiHoSoChart_IdView',
+                    dataKey: 'loaiHoSo',
                     flex: 1,
                     bind: { store: '{loaiHoSoStore}' },
                     // Card hẹp, 8 cột: xoay nhãn trục để hiện đủ tên loại hồ sơ, không bị chồng nhau
@@ -63,6 +64,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
                 {
                     xtype: 'TrangChuNew5_ViewBarChart',
                     itemId: 'bienDongDonViChart_IdView',
+                    dataKey: 'bienDongHoSoTheoDonVi',
                     height: 220,
                     bind: { store: '{bienDongDonViStore}' }
                 }
@@ -111,7 +113,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
             },
             {
                 xtype: 'TrangChuNew5_ViewDienBienChart',
-                itemId: 'dienBienHoSoChart_IdView'
+                itemId: 'dienBienHoSoChart_IdView',
+                dataKey: 'dienBienMoMoiVaKetThuc'
             }
         ]
     }]
