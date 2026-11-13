@@ -409,13 +409,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         const chart = view.down('#loaiDoiTuongChart_IdView');
         if (!me.isTargetChart(chart, targetChart)) { return; }
 
-        // Chừa khoảng trục cho nhãn số bên ngoài thanh dài nhất (nếu không nhãn bị ẩn)
-        const loaiStore = chart.getStore();
-        const maxVal = loaiStore ? loaiStore.getRange().reduce((max, rec) => Math.max(max, Number(rec.get('val')) || 0), 0) : 0;
-        const numericAxis = chart.getAxes().find(axis => axis.type === 'numeric');
-        if (numericAxis && maxVal > 0) {
-            numericAxis.setMaximum(Math.ceil(maxVal * 1.2));
-        }
+        // Trục số (chừa chỗ cho nhãn bên phải thanh dài nhất) tự tính trong listener redraw của chart (TrangChuNew3_ViewCharts)
         chart.redraw();
     },
 

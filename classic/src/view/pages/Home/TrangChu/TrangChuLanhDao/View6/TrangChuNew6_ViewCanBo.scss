@@ -1,0 +1,158 @@
+/* Bản gọn khối cán bộ + KPI của View6 (TrangChuNew6_ViewCanBo); ghi đè style gốc trong TrangChuNew6_View.scss */
+.trang-chu-new6 .tcn6-canbo-compact {
+    /* ---------- Thẻ cán bộ ---------- */
+    .tcn6-officer {
+        padding: 14px 16px;
+    }
+
+    .tcn6-officer-top {
+        gap: 12px;
+    }
+
+    .tcn6-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        font-size: 16px;
+        box-shadow: 0 4px 10px -4px rgba(37, 99, 235, 0.5);
+    }
+
+    .tcn6-officer-info {
+        min-width: 0;
+    }
+
+    .tcn6-officer-label {
+        font-size: 10.5px;
+    }
+
+    .tcn6-officer-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px 8px;
+    }
+
+    .tcn6-officer-name {
+        margin: 0;
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    .tcn6-officer-row .tcn6-chip {
+        padding: 1px 8px;
+        font-size: 11px;
+    }
+
+    .tcn6-officer-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin: 10px 0 0;
+        padding-top: 8px;
+        border-top: 1px dashed #cbd5e1;
+    }
+
+    .tcn6-officer-line {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+        color: #0f172a;
+        font-size: 12.5px;
+        font-weight: 600;
+        line-height: 18px;
+
+        i {
+            flex: none;
+            width: 14px;
+            color: #64748b;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    /* ---------- 4 thẻ KPI trên 1 hàng ---------- */
+    .tcn6-kpi-grid {
+        grid-template-columns: unquote('repeat(4, minmax(0, 1fr))');
+        gap: 12px;
+        padding: 0;
+    }
+
+    .tcn6-kpi.tcn6-kpi {
+        cursor: zoom-in; // Thẻ KPI bấm được (D5_C02) → log dữ liệu
+        justify-content: space-between;
+        padding: 12px 14px 12px 16px;
+        border-radius: 10px;
+    }
+
+    .tcn6-kpi.tcn6-kpi:hover {
+        opacity: 0.85;
+    }
+
+    .tcn6-kpi-head {
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .tcn6-kpi .tcn6-kpi-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        box-shadow: none;
+
+        svg {
+            width: 15px;
+            height: 15px;
+        }
+    }
+
+    .tcn6-kpi-title {
+        min-width: 0;
+        overflow: hidden;
+        font-size: 12.5px;
+        line-height: 16px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .tcn6-kpi-body {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 2px 6px;
+        margin-top: 10px;
+    }
+
+    .tcn6-kpi .tcn6-kpi-val,
+    .tcn6-kpi.tcn6-kpi-total .tcn6-kpi-val {
+        margin: 0;
+        font-size: 24px;
+        line-height: 28px;
+    }
+
+    .tcn6-kpi-lech {
+        margin-left: 0;
+        padding: 0 6px;
+        font-size: 10.5px;
+        line-height: 16px;
+    }
+
+    // Thẻ tổng: badge chênh lệch trên nền xanh
+    .tcn6-kpi.tcn6-kpi-total .tcn6-kpi-lech {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.2);
+    }
+}
+
+/* Màn hẹp: KPI 2 x 2 */
+@media (max-width: 1399px) {
+    .trang-chu-new6 .tcn6-canbo-compact .tcn6-kpi-grid {
+        grid-template-columns: unquote('repeat(2, minmax(0, 1fr))');
+    }
+}

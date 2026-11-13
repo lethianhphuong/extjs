@@ -5,6 +5,10 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig',
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_MockData'
     ],
+    // Hover / click chart dùng chung với View3, View5; riêng View6 chỉ log (xem xuLyClickBieuDo bên dưới)
+    mixins: {
+        bieuDoClick: 'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.DS_Hoso_GridView3.DS_Hoso_BieuDoClickMixin'
+    },
 
     //#region NOTE: Nạp dữ liệu
     /** Nạp dữ liệu khi khởi tạo trang. */
@@ -30,18 +34,22 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         const me = this;
         const vm = me.getViewModel();
         const config = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig;
-        const trangThai = me.prepareTyLe(data.trangThaiCongViecTrucTiep, config.trangThaiTone);
+        const palette = me.getCurrentPalette();
         const dsHoSo = data.danhSachHoSoDuocGiao || [];
 
         vm.set({
             canBoInfo: Ext.apply({ chuCaiDau: me.getChuCaiDau(data.canBo && data.canBo.hoTen) }, data.canBo),
             kpiCards: me.prepareKpi(data.tongQuan),
-            loaiHoSo: me.prepareLoaiHoSo(data.loaiHoSo),
-            trangThai: trangThai,
             soHoSo: dsHoSo.length
         });
-        vm.getStore('trangThaiCongViecStore').loadData(trangThai.items);
-        vm.getStore('tienDoThangStore').loadData(data.tienDoXuLyTheoThang || []);
+        // Cột Loại hồ sơ + 2 donut: Trạng thái CV trực tiếp thực hiện / Trạng thái CV cần phê duyệt
+        vm.getStore('loaiHoSoStore').loadData(me.prepareTyLe(data.loaiHoSo, config.loaiHoSoTone, palette).items.map(function (item) {
+            return Ext.apply(item, { ten: config.loaiHoSoTen[item.code] || item.name });
+        }));
+        vm.getStore('trangThaiCongViecStore').loadData(me.prepareTyLe(data.trangThaiCongViecCanBo, config.trangThaiTone, palette).items);
+        // trangThaiCongViecCanPheDuyet chưa có trong API (DataView6): đang dùng mock, cần bổ sung API
+        vm.getStore('pheDuyetStore').loadData(me.prepareTyLe(data.trangThaiCongViecCanPheDuyet, config.pheDuyetTone, palette).items);
+        vm.getStore('tienDoThangStore').loadData((data.tienDoXuLyTheoThang || []).map(row => Ext.apply({ code: row.thang }, row)));
         vm.getStore('dsHoSoStore').loadData(dsHoSo.map(function (row, idx) {
             return Ext.apply({
                 stt: idx + 1,
@@ -88,34 +96,50 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         }).sort((a, b) => a.thuTu - b.thuTu);
     },
 
-    /** Thẻ loại hồ sơ: tỷ lệ + tone + icon theo code. */
-    prepareLoaiHoSo: function (rows) {
+    /**
+     * Dữ liệu donut từ danh sách { code, name, val }: tổng, % (làm tròn 1 chữ số), tone + mã màu theo code.
+     * Mục = 0 vẫn giữ để legend hiện "0 | 0,0%" (lát 0 không được vẽ).
+     */
+    prepareTyLe: function (rows, toneMap, palette) {
         const me = this;
         const config = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig;
-        const result = me.prepareTyLe(rows, config.loaiHoSoTone);
-        result.items.forEach(function (item) {
-            item.icon = config.loaiHoSoIcon[item.code] || 'folder';
-        });
-        return result;
-    },
-
-    /** Tính tổng, tỷ lệ % và tone màu cho danh sách dạng { code, name, val }. */
-    prepareTyLe: function (rows, toneMap) {
-        const config = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig;
         const tong = (rows || []).reduce((sum, row) => sum + (row.val || 0), 0);
+        const layMauDuPhong = me.taoBoMauDuPhong(rows, toneMap, palette);
         return {
             tong: tong,
             tongText: config.formatNumber(tong),
             items: (rows || []).map(function (row) {
-                const tyLe = tong ? (row.val || 0) * 100 / tong : 0;
+                const tyLe = tong ? Math.round((row.val || 0) * 1000 / tong) / 10 : 0;
+                // Có cấu hình tone thì theo tone (đổi theme được); chưa có thì lấy màu dự phòng (mau rỗng)
+                const mau = toneMap[row.code] || '';
+                const color = mau ? (palette[mau] || palette.muted) : layMauDuPhong();
                 return Ext.apply({}, row, {
                     name: String(row.name || row.code || '').trim(),
+                    val: row.val || 0,
                     tyLe: tyLe,
                     tyLeText: config.formatPercent(tyLe),
                     soLuongText: config.formatNumber(row.val),
-                    mau: toneMap[row.code] || 'muted'
+                    mau: mau,
+                    color: color
                 });
             })
+        };
+    },
+
+    /**
+     * Hàm lấy lần lượt màu dự phòng (DisplayConfig.mauDuPhong) cho các mã chưa có tone,
+     * bỏ qua màu mà các mã đã cấu hình trong cùng chart đang dùng; hết màu thì quay vòng.
+     */
+    taoBoMauDuPhong: function (rows, toneMap, palette) {
+        const duPhong = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig.mauDuPhong;
+        const daDung = (rows || []).filter(row => toneMap[row.code]).map(row => String(palette[toneMap[row.code]] || '').toLowerCase());
+        const conLai = duPhong.filter(mau => daDung.indexOf(mau.toLowerCase()) < 0);
+        const danhSach = conLai.length ? conLai : duPhong;
+        let index = 0;
+        return function () {
+            const mau = danhSach[index % danhSach.length];
+            index += 1;
+            return mau;
         };
     },
 
@@ -131,10 +155,52 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
     },
     //#endregion
 
-    //#region NOTE: Màu biểu đồ theo theme
-    /** Chart sẵn sàng hoặc tab được kích hoạt: tô màu và theo dõi đổi theme. */
-    onChartReady: function () {
+    //#region NOTE: Click biểu đồ — View6 chỉ log dữ liệu, không nạp grid
+    /** Mã biểu đồ D5_Cxx theo dataKey (DisplayConfig.maBieuDo), mixin dùng khi tạo thông tin click. */
+    getMaBieuDoMap: function () {
+        return DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig.maBieuDo;
+    },
+
+    /** Thẻ KPI tổng quan (D5_C02): click theo data-code. */
+    onKpiReady: function (component) {
         const me = this;
+        me.bindKpiClick(component, '.tcn6-kpi', 'tongQuan', function () {
+            return me.getViewModel().get('kpiCards');
+        });
+    },
+
+    /** Click donut "Trạng thái công việc trực tiếp thực hiện" (D5_C05). */
+    onTrangThaiClick: function (card, record) {
+        const me = this;
+        me.xuLyClickBieuDo(me.taoThongTinClick('trangThaiCongViecCanBo', record.get('code'), record.getData(), null));
+    },
+
+    /** Click donut "Trạng thái công việc cần phê duyệt" (D5_C06). */
+    onPheDuyetClick: function (card, record) {
+        const me = this;
+        me.xuLyClickBieuDo(me.taoThongTinClick('trangThaiCongViecCanPheDuyet', record.get('code'), record.getData(), null));
+    },
+
+    /**
+     * Ghi đè xuLyClickBieuDo của mixin: View6 chỉ log params + thông tin click, không bắn sự kiện sang grid.
+     * @param {Object} thongTin { maBieuDo, dataKey, code, record, truong }
+     */
+    xuLyClickBieuDo: function (thongTin) {
+        const params = {
+            maThongKe: thongTin.maBieuDo + '_LIST',
+            json: { code: thongTin.code }
+        };
+        window.console.log('[TrangChuNew6_View] Click biểu đồ', params, thongTin);
+    },
+    //#endregion
+
+    //#region NOTE: Màu biểu đồ theo theme
+    /** Chart sẵn sàng hoặc tab được kích hoạt: tô màu, theo dõi đổi theme; chart có dataKey thì gắn hover/click (mixin). */
+    onChartReady: function (component) {
+        const me = this;
+        if (component && component.dataKey) {
+            me.bindBieuDoClick(component);
+        }
         // Chờ layout của tab vừa kích hoạt xong mới vẽ lại, tránh chart rỗng ở lần mở đầu.
         Ext.defer(me.updateChartColors, 50, me);
         if (!me.themeObserver) {
@@ -157,24 +223,22 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
 
     /** Bảng màu tone dùng cho chart (đọc từ DisplayConfig và CSS variable --tcn6-*). */
     getChartPalette: function (color) {
-        const defaultPalette = {
-            blue: '#2563eb',
-            green: '#059669',
-            amber: '#d97706',
-            orange: '#ea580c',
-            red: '#dc2626',
-            purple: '#7c3aed',
-            indigo: '#4f46e5',
-            pink: '#db2777',
-            slate: '#475569',
-            muted: '#64748b'
-        };
+        const config = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig;
         const palette = {};
-        const tones = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig.tones;
-        tones.forEach(function (tone) {
-            palette[tone] = color('--tcn6-' + tone, defaultPalette[tone]);
+        config.tones.forEach(function (tone) {
+            palette[tone] = color('--tcn6-' + tone, config.defaultPalette[tone]);
         });
         return palette;
+    },
+
+    /** Bảng màu hiện tại: view đã render thì đọc CSS variable (theo theme), chưa thì dùng màu mặc định. */
+    getCurrentPalette: function () {
+        const me = this;
+        const view = me.getView();
+        if (view && view.rendered) {
+            return me.getChartPalette(me.createThemeColorReader(view));
+        }
+        return Ext.apply({}, DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig.defaultPalette);
     },
 
     /** Tập hợp màu giao diện nền/chữ/viền dùng chung cho các chart. */
@@ -187,22 +251,21 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         };
     },
 
-    /** Cấu hình màu sắc, trục numeric chừa lề, font nhãn và vẽ lại biểu đồ cột trạng thái công việc. */
-    applyTrangThaiBarColors: function (bar, palette, tokens) {
-        if (!bar || !bar.rendered || !bar.getStore()) { return; }
-        const maxBar = bar.getStore().getRange().reduce((m, record) => Math.max(m, Number(record.get('val')) || 0), 0);
-        bar.recordColors = palette;
-        bar.setBackground(tokens.bgCard);
-        bar.getAxes().forEach(function (axis) {
-            axis.setLabel({ color: tokens.textSecondary, fontSize: 12 });
-            axis.setStyle({ strokeStyle: tokens.border });
-            if (axis.type === 'numeric') {
-                // Chừa khoảng cho nhãn số trên đầu cột
-                axis.setMaximum(Math.max(5, Math.ceil(maxBar * 1.2)));
-            }
+    /** Đổi theme: cập nhật mã màu từng mục của 3 store donut (lát + legend vẽ theo field color). */
+    applyDonutColors: function (palette) {
+        const vm = this.getViewModel();
+        ['loaiHoSoStore', 'trangThaiCongViecStore', 'pheDuyetStore'].forEach(function (key) {
+            const store = vm.getStore(key);
+            if (!store) { return; }
+            store.each(function (record) {
+                // Mục dùng màu dự phòng (mau rỗng) giữ nguyên màu đã gán
+                const color = palette[record.get('mau')];
+                if (color) {
+                    record.set('color', color, { commit: true, silent: true });
+                }
+            });
+            store.fireEvent('refresh', store);
         });
-        bar.getSeries()[0].setLabel({ color: tokens.textPrimary, fontSize: 13, fontWeight: 'bold' });
-        bar.redraw();
     },
 
     /** Cấu hình màu line, gradient fill, marker và vẽ lại biểu đồ đường tiến độ. */
@@ -241,7 +304,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         const palette = me.getChartPalette(color);
         const tokens = me.getThemeTokens(color);
 
-        me.applyTrangThaiBarColors(view.down('#trangThaiCongViecChart_IdView'), palette, tokens);
+        me.applyDonutColors(palette);
         me.applyTienDoLineColors(view.down('#tienDoLineChart_IdView'), palette.blue, tokens);
     },
     //#endregion

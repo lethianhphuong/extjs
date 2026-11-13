@@ -523,6 +523,8 @@
         .tcn3-cocau-name {
             flex: 1;
             min-width: 0;
+            color: #0f172a;
+            font-weight: 600;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -550,6 +552,8 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
+        color: #0f172a;
+        font-weight: 600;
 
         i {
             width: 9px;

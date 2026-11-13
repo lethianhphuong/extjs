@@ -87,7 +87,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.DataView6', {
             "val": 0
         }
     ],
-    trangThaiCongViecTrucTiep: [
+    trangThaiCongViecCanBo: [
         {
             "code": "VIEC",
             "name": "Việc",

@@ -110,7 +110,13 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
     applyAxisColors: function (chart, color) {
         if (!chart.getAxes) { return; }
         chart.getAxes().forEach(function (axis) {
-            axis.setLabel({ color: color('--theme-text-secondary', '#475569'), fontSize: 10 });
+            // Nhãn trục đậm: trục danh mục màu chữ chính, trục số màu chữ phụ
+            const laDanhMuc = axis.type === 'category';
+            axis.setLabel({
+                color: laDanhMuc ? color('--theme-text-primary', '#0f172a') : color('--theme-text-secondary', '#475569'),
+                fontSize: 10,
+                fontWeight: '600'
+            });
             axis.setStyle({ strokeStyle: color('--theme-border', '#cbd5e1') });
         });
     },

@@ -1,6 +1,15 @@
 Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig', {
     singleton: true,
 
+    /** Mã biểu đồ View6 theo dataKey của chart / thẻ — log khi click (View3: D3_, View5: D4_, View6: D5_). */
+    maBieuDo: {
+        tongQuan: 'D5_C02',
+        loaiHoSo: 'D5_C03',
+        tienDoXuLyTheoThang: 'D5_C04',
+        trangThaiCongViecCanBo: 'D5_C05',
+        trangThaiCongViecCanPheDuyet: 'D5_C06'
+    },
+
     /** Tone màu theo mã ổn định; giá trị màu thật nằm ở CSS variable --tcn6-{tone}. */
     loaiHoSoTone: {
         DTCB: 'green',
@@ -12,22 +21,33 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Dis
         VANV: 'blue',
         NNV: 'amber'
     },
-    /** Icon Font Awesome cho thẻ loại hồ sơ (cùng bộ icon với View3/View5). */
-    loaiHoSoIcon: {
-        DTCB: 'file-alt',
-        SUUTRA: 'clipboard',
-        HIEMNGHI: 'exclamation-triangle',
-        CHUYENAN: 'briefcase',
-        CTVBM: 'users',
-        HTBM: 'envelope',
-        VANV: 'id-card',
-        NNV: 'home'
+    /** Tên ngắn hiển thị trên trục biểu đồ cột "Loại hồ sơ" (tooltip vẫn hiện tên đầy đủ). */
+    loaiHoSoTen: {
+        DTCB: 'ĐTCB',
+        SUUTRA: 'Sưu tra',
+        HIEMNGHI: 'Hiềm nghi',
+        CHUYENAN: 'Chuyên án',
+        CTVBM: 'CT VBM',
+        HTBM: 'HTBM',
+        VANV: 'VANV',
+        NNV: 'NNV'
     },
-    /** Tone cột biểu đồ "Trạng thái công việc trực tiếp thực hiện" theo code (trangThaiCongViecTrucTiep). */
+    /** Tone lát donut "Trạng thái công việc trực tiếp thực hiện" theo code (trangThaiCongViecCanBo). */
     trangThaiTone: {
-        VIEC: 'blue',
-        VAT: 'purple',
-        CONNGUOI: 'green'
+        '030001': 'blue',   // Lưu mới
+        '030002': 'amber',  // Đợi ký
+        '030003': 'red',    // Từ chối ký
+        '030020': 'purple'  // Yêu cầu bổ sung
+    },
+    /**
+     * Tone lát donut "Trạng thái công việc cần phê duyệt" theo code (trangThaiCongViecCanPheDuyet).
+     * Danh sách trạng thái dự kiến — cần xác nhận lại theo nghiệp vụ / API.
+     */
+    pheDuyetTone: {
+        CHO_DUYET: 'amber',
+        DA_DUYET: 'green',
+        TU_CHOI: 'red',
+        TRA_LAI: 'orange'
     },
     /** Thẻ KPI theo code của tongQuan; PER_* được gộp làm badge chênh lệch cho thẻ gốc. */
     kpi: {
@@ -49,8 +69,38 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Dis
         '036005': 'red',
         '036006': 'indigo'
     },
+    /**
+     * Màu dự phòng: mã chưa khai báo trong bảng tone (loaiHoSoTone / trangThaiTone / pheDuyetTone) sẽ tự lấy lần lượt
+     * màu ở đây, bỏ qua màu đã dùng trong cùng chart → lát/cột và dòng chú thích bên cạnh luôn cùng một màu.
+     * Các màu khác hẳn bộ tone chính để không lẫn với mục đã cấu hình.
+     */
+    mauDuPhong: [
+        '#0891b2', // xanh lơ
+        '#65a30d', // xanh nõn chuối
+        '#c026d3', // tím hồng
+        '#0d9488', // xanh ngọc
+        '#e11d48', // hồng đỏ
+        '#a16207', // vàng đất
+        '#0284c7', // xanh da trời
+        '#92400e', // nâu
+        '#1e3a8a', // xanh than
+        '#ca8a04'  // vàng đậm
+    ],
     /** Danh sách tone mà Controller đọc từ CSS để tô màu biểu đồ canvas. */
     tones: ['blue', 'green', 'amber', 'orange', 'red', 'purple', 'indigo', 'pink', 'slate', 'muted'],
+    /** Màu mặc định của từng tone (khi chưa đọc được CSS variable --tcn6-*). */
+    defaultPalette: {
+        blue: '#2563eb',
+        green: '#059669',
+        amber: '#d97706',
+        orange: '#ea580c',
+        red: '#dc2626',
+        purple: '#7c3aed',
+        indigo: '#4f46e5',
+        pink: '#db2777',
+        slate: '#475569',
+        muted: '#64748b'
+    },
 
     svgIcons: {
         folder: '<path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>',

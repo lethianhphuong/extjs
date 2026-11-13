@@ -13,7 +13,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         // Thanh tìm kiếm dùng chung từ View1; phát sự kiện 'timkiem' khi điều kiện hợp lệ
         { xtype: 'TT_TimKiem_View', listeners: { timkiem: 'onSearch' } },
         { xtype: 'TrangChuNew6_ViewCanBo' },
-        { xtype: 'TrangChuNew6_ViewKetQua', height: 340 },
+        // 2 hàng: [Cơ cấu hồ sơ theo loại | Tiến độ theo tháng], [CV trực tiếp thực hiện | CV cần phê duyệt]
+        { xtype: 'TrangChuNew6_ViewKetQua' },
         {
             xtype: 'container',
             cls: 'tcn6-card',

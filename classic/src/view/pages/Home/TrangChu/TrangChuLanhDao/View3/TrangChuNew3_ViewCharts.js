@@ -55,11 +55,34 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                     animation: false,
                                     insetPadding: { top: 24, right: 10, bottom: 6, left: 6 },
                                     bind: { store: '{loaiHoSoStore}' },
-                                    listeners: { afterrender: 'onChartReady' },
+                                    listeners: {
+                                        afterrender: 'onChartReady',
+                                        // Nhãn số đặt ngoài đầu cột: không đủ chỗ phía trên thì Ext tự ẩn (cột hẹp không chứa nổi số).
+                                        // Nâng trục Y đủ chỗ cho nhãn rồi làm tròn mốc trục; tự chứa trong chart để copy đi đâu cũng chạy.
+                                        redraw: function (chart) {
+                                            const store = chart.getStore();
+                                            const axis = chart.getAxes()[0];
+                                            const rect = chart.getSurface('series').getRect();
+                                            const maxVal = store ? (store.max('val') || 0) : 0;
+                                            // Cột dọc: chừa theo chiều cao; cột ngang (flipXY): chừa theo chiều rộng
+                                            const length = rect ? rect[chart.getFlipXY() ? 2 : 3] : 0;
+                                            if (!maxVal || length <= 80) { return; }
+                                            // Ext ẩn nhãn "outside" khi cột chiếm gần hết trục (đo thực tế: cột dọc phải ≤ ~75%, cột ngang ≤ ~60%), tối thiểu chừa 50px
+                                            const ratio = chart.getFlipXY() ? 0.6 : 0.75;
+                                            const raw = Math.max(maxVal / ratio, maxVal * length / (length - 50));
+                                            const step = Math.pow(10, Math.floor(Math.log10(raw))) / 4;
+                                            const target = Math.ceil(raw / step) * step;
+                                            if (axis.getMaximum() !== target) {
+                                                axis.setMaximum(target);
+                                                chart.redraw();
+                                            }
+                                        }
+                                    },
                                     axes: [
                                         {
                                             type: 'numeric',
                                             position: 'left',
+                                            label: { fontWeight: '600', color: '#475569' },
                                             fields: ['val'],
                                             minimum: 0,
                                             grid: true,
@@ -72,7 +95,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                             position: 'bottom',
                                             fields: ['ten'],
                                             // Card hẹp: xoay nhãn để hiện đủ 8 tên loại hồ sơ, không bị ẩn do chồng nhau
-                                            label: { fontSize: 10.5, rotate: { degrees: -30 } }
+                                            label: { fontSize: 10.5, fontWeight: '600', color: '#0f172a', rotate: { degrees: -30 } }
                                         }
                                     ],
                                     series: [
@@ -93,8 +116,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                                 display: 'outside',
                                                 orientation: 'horizontal',
                                                 color: '#0f172a',
-                                                fontSize: 11,
-                                                fontWeight: '700',
+                                                fontSize: 12,
+                                                fontWeight: 'bold',
                                                 renderer: function (val) {
                                                     return Number(val).toLocaleString('vi-VN');
                                                 }
@@ -144,6 +167,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                         {
                                             type: 'numeric',
                                             position: 'left',
+                                            label: { fontWeight: '600', color: '#475569' },
                                             fields: ['capXa', 'capTinh', 'capCuc', 'tongSo'],
                                             minimum: 0,
                                             grid: true,
@@ -155,6 +179,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                             type: 'category',
                                             position: 'bottom',
                                             fields: ['code'],
+                                            label: { fontWeight: '600', color: '#0f172a' },
                                             renderer: function (axis, value) {
                                                 const record = axis.getChart().getStore().findRecord('code', value, 0, false, true, true);
                                                 return record ? record.get('name') : value;
@@ -190,8 +215,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                                 field: 'tongSo',
                                                 display: 'over',
                                                 color: '#c2410c',
-                                                fontSize: 11,
-                                                fontWeight: '700',
+                                                fontSize: 12,
+                                                fontWeight: 'bold',
                                                 renderer: function (val, sprite, config, data, index) {
                                                     const store = data && data.store;
                                                     const count = store ? store.getCount() : 5;
@@ -398,6 +423,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                         {
                                             type: 'numeric',
                                             position: 'left',
+                                            label: { fontWeight: '600', color: '#475569' },
                                             fields: ['moMoi', 'ketThuc'],
                                             minimum: 0,
                                             grid: true,
@@ -409,6 +435,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                             type: 'category',
                                             position: 'bottom',
                                             fields: ['code'],
+                                            label: { fontWeight: '600', color: '#0f172a' },
                                             renderer: function (axis, value) {
                                                 const record = axis.getChart().getStore().findRecord('code', value, 0, false, true, true);
                                                 return record ? record.get('name') : value;
@@ -490,11 +517,33 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                         animation: false,
                         insetPadding: { top: 15, right: 16, bottom: 18, left: 10 },
                         bind: { store: '{loaiDoiTuongStore}' },
-                        listeners: { afterrender: 'onChartReady' },
+                        listeners: {
+                            afterrender: 'onChartReady',
+                            // Chừa chỗ bên phải thanh dài nhất cho nhãn số (giống chart Loại hồ sơ)
+                            redraw: function (chart) {
+                                const store = chart.getStore();
+                                const axis = chart.getAxes()[0];
+                                const rect = chart.getSurface('series').getRect();
+                                const maxVal = store ? (store.max('val') || 0) : 0;
+                                // Cột dọc: chừa theo chiều cao; cột ngang (flipXY): chừa theo chiều rộng
+                                const length = rect ? rect[chart.getFlipXY() ? 2 : 3] : 0;
+                                if (!maxVal || length <= 80) { return; }
+                                // Ext ẩn nhãn "outside" khi cột chiếm gần hết trục (đo thực tế: cột dọc phải ≤ ~75%, cột ngang ≤ ~60%), tối thiểu chừa 50px
+                                const ratio = chart.getFlipXY() ? 0.6 : 0.75;
+                                const raw = Math.max(maxVal / ratio, maxVal * length / (length - 50));
+                                const step = Math.pow(10, Math.floor(Math.log10(raw))) / 4;
+                                const target = Math.ceil(raw / step) * step;
+                                if (axis.getMaximum() !== target) {
+                                    axis.setMaximum(target);
+                                    chart.redraw();
+                                }
+                            }
+                        },
                         axes: [
                             {
                                 type: 'numeric',
                                 position: 'bottom',
+                                label: { fontWeight: '600', color: '#475569' },
                                 fields: ['val'],
                                 minimum: 0,
                                 grid: true,
@@ -505,7 +554,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                             {
                                 type: 'category',
                                 position: 'left',
-                                fields: ['name']
+                                fields: ['name'],
+                                label: { fontWeight: '600', color: '#0f172a' }
                             }
                         ],
                         series: [
@@ -531,9 +581,9 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                 label: {
                                     field: 'val',
                                     display: 'outside',
-                                    color: '#334155',
-                                    fontSize: 11.5,
-                                    fontWeight: '600',
+                                    color: '#0f172a',
+                                    fontSize: 12,
+                                    fontWeight: 'bold',
                                     renderer: function (val) {
                                         return Number(val).toLocaleString('vi-VN');
                                     }
