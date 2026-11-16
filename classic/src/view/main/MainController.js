@@ -35,7 +35,8 @@ Ext.define('DEMO.view.main.MainController', {
         'DEMO.app.Common',
         'DEMO.view.pages.YeuCauTraCuu.DanhSach.YeuCauTraCuu_View',
         'DEMO.view.pages.DeXuatCTVBM.DeXuatCTVBM_View',
-        'DEMO.view.pages.BanDo.BanDo_View'
+        'DEMO.view.pages.BanDo.BanDo_View',
+        'DEMO.view.pages.BanDoTinhThanh.BanDoTinhThanh_View'
     ],
 
     standaloneRoutes: {

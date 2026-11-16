@@ -1,0 +1,94 @@
+/* VnMap – kiểu dáng bản đồ.
+   Đổi giao diện từ bên ngoài bằng các biến --vnmap-host-* đặt trên phần tử chứa bản đồ. */
+.vnmap{
+  --vnmap-land:var(--vnmap-host-land,#d3dce0);
+  --vnmap-stroke:var(--vnmap-host-stroke,#ffffff);
+  --vnmap-ink:var(--vnmap-host-ink,#1d2b33);
+  --vnmap-muted:var(--vnmap-host-muted,#5d717d);
+  --vnmap-halo:var(--vnmap-host-halo,#ffffff);
+  --vnmap-hover:var(--vnmap-host-hover,var(--vnmap-ink));
+  --vnmap-radar:var(--vnmap-host-radar,#10b981);
+  --vnmap-active:var(--vnmap-host-active,#f59e0b);
+  --vnmap-active-fill:var(--vnmap-host-active-fill,rgba(245,158,11,.28));
+  --vnmap-tip-bg:var(--vnmap-host-tip-bg,var(--vnmap-ink));
+  --vnmap-tip-fg:var(--vnmap-host-tip-fg,#ffffff);
+  --vnmap-btn-bg:var(--vnmap-host-btn-bg,var(--theme-bg-card,#ffffff));
+  --vnmap-btn-bg-hover:var(--vnmap-host-btn-bg-hover,var(--theme-bg-card-hover,#f0f4f6));
+  --vnmap-btn-fg:var(--vnmap-host-btn-fg,var(--theme-text-primary,#1d2b33));
+  --vnmap-btn-border:var(--vnmap-host-btn-border,var(--theme-border,#d9e2e6));
+  --vnmap-capital:var(--vnmap-host-capital,#dc2626);
+  --vnmap-city:var(--vnmap-host-city,#dc2626);
+  --vnmap-marker-edge:var(--vnmap-host-marker-edge,#ffffff);
+  --vnmap-legend-bg:var(--vnmap-host-legend-bg,rgba(255,255,255,.88));
+  --vnmap-legend-fg:var(--vnmap-host-legend-fg,var(--vnmap-ink));
+  --vnmap-focus:#0b6e8a;
+  position:relative; width:100%; height:100%; font-family:inherit;
+}
+.vnmap > svg{display:block;width:100%;height:100%}
+
+/* Tỉnh */
+.vnmap-prov{fill:var(--vnmap-land);stroke:var(--vnmap-stroke);stroke-width:.9;stroke-linejoin:round;cursor:pointer;
+  transition:fill .15s ease;vector-effect:non-scaling-stroke}
+.vnmap-prov:hover{stroke:var(--vnmap-hover);stroke-width:1.6}
+.vnmap-prov:focus{outline:none}
+.vnmap-prov:focus-visible{stroke:var(--vnmap-focus);stroke-width:2.4}
+.vnmap-prov.is-active{fill:var(--vnmap-active-fill);stroke:var(--vnmap-active);stroke-width:2.4;
+  filter:drop-shadow(0 0 4px var(--vnmap-active))}
+.vnmap-dot{fill:var(--vnmap-muted);cursor:pointer}
+.vnmap-dot.is-active{fill:var(--vnmap-active)}
+
+/* Nhãn: cỡ chữ đặt bằng JS theo pixel màn hình; --vnmap-unit = 1px màn hình tính theo đơn vị bản đồ */
+.vnmap-lbl{font-weight:600;fill:var(--vnmap-ink);text-anchor:middle;dominant-baseline:central;pointer-events:none;
+  paint-order:stroke;stroke:var(--vnmap-halo);stroke-width:calc(2.6px * var(--vnmap-unit,1));stroke-linejoin:round}
+.vnmap-lbl.is-active{fill:var(--vnmap-active);font-weight:700}
+.vnmap-isl{font-size:calc(11px * var(--vnmap-unit,1));font-weight:600;fill:var(--vnmap-muted);text-anchor:middle;pointer-events:none}
+.vnmap-isl-sub{font-size:calc(10px * var(--vnmap-unit,1));font-weight:400}
+.vnmap-inset{fill:none;stroke:var(--vnmap-muted);stroke-width:.8;stroke-dasharray:4 3;vector-effect:non-scaling-stroke}
+.vnmap-tip{position:absolute;pointer-events:none;background:var(--vnmap-tip-bg);color:var(--vnmap-tip-fg);font-size:12px;font-weight:500;
+  padding:3px 8px;border-radius:4px;white-space:nowrap;transform:translate(-50%,-130%);opacity:0;transition:opacity .1s;z-index:10}
+
+/* Vòng ping ở tỉnh đang chọn */
+.vnmap-ping{pointer-events:none}
+.vnmap-ping-dot{r:calc(3.5px * var(--vnmap-unit,1));fill:var(--vnmap-active)}
+.vnmap-ping-ring{r:calc(6px * var(--vnmap-unit,1));fill:none;stroke:var(--vnmap-active);stroke-width:2;vector-effect:non-scaling-stroke;
+  transform-box:fill-box;transform-origin:center;animation:vnmap-ping 1.8s ease-out infinite}
+.vnmap-ping-ring2{animation-delay:.9s}
+@keyframes vnmap-ping{0%{transform:scale(1);opacity:.95}100%{transform:scale(4.2);opacity:0}}
+
+/* Nút điều khiển (zoom, radar) */
+.vnmap-zoomable > svg{touch-action:none}
+.vnmap-zoomed > svg{cursor:grab}
+.vnmap-dragging > svg,.vnmap-dragging .vnmap-prov{cursor:grabbing}
+.vnmap-zoom{position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:4px;z-index:5}
+.vnmap-zoom button{width:30px;height:30px;padding:0;border-radius:6px;cursor:pointer;font-size:16px;line-height:1;
+  border:1px solid var(--vnmap-btn-border);background:var(--vnmap-btn-bg);color:var(--vnmap-btn-fg);
+  box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.vnmap-zoom button:hover{background:var(--vnmap-btn-bg-hover)}
+.vnmap-zoom button:focus-visible{outline:2px solid var(--vnmap-focus);outline-offset:1px}
+.vnmap-zoom .vnmap-radar-btn{margin-top:6px}
+.vnmap-zoom .vnmap-radar-btn.is-on{color:var(--vnmap-radar);border-color:var(--vnmap-radar)}
+
+/* Radar quét vòng tròn */
+.vnmap-radar{pointer-events:none}
+.vnmap-radar-ring,.vnmap-radar-axis{fill:none;stroke:var(--vnmap-radar);stroke-opacity:.45;stroke-width:1;vector-effect:non-scaling-stroke}
+.vnmap-radar-axis{stroke-opacity:.3;stroke-dasharray:4 4}
+.vnmap-radar-wedge{fill:var(--vnmap-radar);stroke:none;shape-rendering:crispEdges}
+.vnmap-radar-beam{stroke:var(--vnmap-radar);stroke-width:2;stroke-opacity:.9;vector-effect:non-scaling-stroke}
+.vnmap-radar-core{fill:var(--vnmap-radar)}
+.vnmap-radar-sweep{animation:vnmap-radar-spin 4s linear infinite}
+@keyframes vnmap-radar-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.vnmap-radar-sweep,.vnmap-ping-ring{animation:none}}
+
+/* Ký hiệu đô thị: ★ Thủ đô, ◉ thành phố trực thuộc trung ương (kích thước theo pixel màn hình) */
+.vnmap-cities{pointer-events:none}
+.vnmap-mk-inner{transform:scale(var(--vnmap-unit,1))}
+.vnmap-mk-star{fill:var(--vnmap-capital);stroke:var(--vnmap-marker-edge);stroke-width:1.2;stroke-linejoin:round}
+.vnmap-mk-ring{fill:none;stroke:var(--vnmap-city);stroke-width:1.6}
+.vnmap-mk-dot{fill:var(--vnmap-city);stroke:var(--vnmap-marker-edge);stroke-width:1}
+.vnmap-lbl-city{text-anchor:start;font-weight:700}
+.vnmap-lbl-capital{font-weight:800}
+.vnmap-legend{position:absolute;left:8px;bottom:8px;display:flex;flex-direction:column;gap:4px;padding:6px 9px;border-radius:6px;
+  font-size:11.5px;line-height:1.2;background:var(--vnmap-legend-bg);color:var(--vnmap-legend-fg);
+  border:1px solid var(--vnmap-btn-border);pointer-events:none;z-index:4}
+.vnmap-legend span{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.vnmap-legend svg{flex:none;width:14px;height:14px;overflow:visible}

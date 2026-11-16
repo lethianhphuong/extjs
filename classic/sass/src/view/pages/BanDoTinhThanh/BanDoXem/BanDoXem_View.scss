@@ -1,0 +1,103 @@
+.bdx-page {
+    .bdx-hint {
+        font-size: 13px;
+        color: var(--theme-text-secondary);
+    }
+
+    .bdx-map-card {
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #16394a;
+        background-color: #0a1d25;
+        // unquote: Fashion (trình biên dịch SCSS của Sencha) bỏ qua cú pháp 'circle at ...' nếu không bọc
+        background-image: unquote('radial-gradient(circle at 50% 45%, #0f2b36 0%, #0a1d25 55%, #06141a 100%)');
+        box-shadow: 0 6px 18px rgba(6, 20, 26, 0.28);
+    }
+
+    .bdx-map-header {
+        padding: 0 12px;
+        background: rgba(6, 20, 26, 0.85);
+        border-bottom: 1px solid #16394a;
+    }
+
+    .bdx-sel {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+
+        .bdx-sel-dot {
+            flex: none;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #4b6b78;
+        }
+
+        &.is-active .bdx-sel-dot {
+            background: #fbbf24;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25);
+        }
+
+        .bdx-sel-text {
+            min-width: 0;
+        }
+
+        .bdx-sel-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #e6f1f5;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .bdx-sel-meta {
+            font-size: 11.5px;
+            color: #8fb1bf;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .bdx-btn-bo-chon {
+        background: transparent;
+        border: 1px solid #2c5466;
+        border-radius: 6px;
+
+        .x-btn-inner,
+        .x-btn-icon-el {
+            color: #cfe3ea;
+        }
+
+        &.x-btn-over {
+            background: #123241;
+        }
+    }
+
+    .bdx-map-host {
+        --vnmap-host-land: #1b3947;
+        --vnmap-host-stroke: #3f6c80;
+        --vnmap-host-ink: #dcebf1;
+        --vnmap-host-muted: #7fa3b3;
+        --vnmap-host-halo: #0a1d25;
+        --vnmap-host-hover: #9fd8ea;
+        --vnmap-host-radar: #34d399;
+        --vnmap-host-active: #fbbf24;
+        --vnmap-host-active-fill: rgba(251, 191, 36, 0.3);
+        --vnmap-host-tip-bg: #e6f1f5;
+        --vnmap-host-tip-fg: #0a1d25;
+        --vnmap-host-btn-bg: rgba(10, 29, 37, 0.85);
+        --vnmap-host-btn-bg-hover: #123241;
+        --vnmap-host-btn-fg: #dcebf1;
+        --vnmap-host-btn-border: #2c5466;
+        --vnmap-host-capital: #ef4444;
+        --vnmap-host-city: #f87171;
+        --vnmap-host-marker-edge: #fef2f2;
+        --vnmap-host-legend-bg: rgba(6, 20, 26, 0.85);
+        --vnmap-host-legend-fg: #cfe3ea;
+    }
+}

@@ -42,7 +42,8 @@ Ext.define('DEMO.view.main.MainModel', {
                 'test-noti': 'Test NotiCommon',
                 'upload-file-demo': 'Upload File Demo',
                 'de-xuat-ctvbm': 'Đề xuất CTVBM',
-                'ban-do': 'Bản đồ phân bổ hồ sơ'
+                'ban-do': 'Bản đồ phân bổ hồ sơ',
+                'ban-do-34-tinh': 'Bản đồ 34 tỉnh'
             };
             return map[get('currentView')] || 'Dashboard';
         }
@@ -63,6 +64,7 @@ Ext.define('DEMO.view.main.MainModel', {
                             { text: 'Dashboard', iconCls: 'x-fa fa-home', route: 'app', component: 'Dashboard_View', leaf: true },
                             { text: 'Trang chủ NEW', iconCls: 'x-fa fa-home', route: 'trang-chu-new', component: 'TrangChuNew_View', leaf: true },
                             { text: 'Trực ban Tin báo', iconCls: 'x-fa fa-shield', route: 'truc-ban-tin-bao', component: 'TrucBanTinBao_View', leaf: true },
+                            { text: 'Bản đồ 34 tỉnh', iconCls: 'x-fa fa-map', route: 'ban-do-34-tinh', component: 'BanDoTinhThanh_View', leaf: true },
                             { text: 'Ecommerce', iconCls: 'x-fa fa-shopping-cart', route: 'ecommerce', component: 'Ecommerce_View', leaf: true },
                             { text: 'Analytics', iconCls: 'x-fa fa-bar-chart', route: 'analytics', component: 'Analytics_View', leaf: true },
                             { text: 'Banking', iconCls: 'x-fa fa-university', route: 'banking', component: 'Banking_View', leaf: true },
