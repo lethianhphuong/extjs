@@ -104,7 +104,26 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Dis
             HTBM: { ten: 'HTBM', icon: 'envelope', mau: 'indigo', hex: '#6366f1', thuTu: 6 },
             VANV: { ten: 'Vai ảo NV', icon: 'id-card', mau: 'muted', hex: '#64748b', thuTu: 7 },
             NNV: { ten: 'Người nước ngoài', icon: 'home', mau: 'muted', hex: '#94a3b8', thuTu: 8 }
+        },
+        // Cảnh báo nổi bật: tên mặc định, icon (khóa trong svgIcons) và tone màu theo mã nghiệp vụ
+        canhBao: {
+            QUA_HAN: { ten: 'Hồ sơ quá hạn đánh giá', icon: 'alert-triangle', mau: 'red', thuTu: 1 },
+            HET_HAN: { ten: 'Hồ sơ sắp hết hạn đánh giá', icon: 'clock', mau: 'orange', thuTu: 2 },
+            BAT_THUONG: { ten: 'Hồ sơ tăng mức bất thường', icon: 'trending-up', mau: 'amber', thuTu: 3 },
+            LIEN_QUAN: { ten: 'Hồ sơ nhiều đơn vị liên quan', icon: 'share-2', mau: 'purple', thuTu: 4 }
         }
+    },
+
+    /** Nội dung SVG (viewBox 24x24, stroke) của icon dùng trong card Cảnh báo nổi bật. */
+    svgIcons: {
+        clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+        'alert-triangle': '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+        'trending-up': '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>',
+        'share-2': '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>'
+    },
+
+    getIconSvg: function (name) {
+        return this.svgIcons[name] || '';
     },
 
     /** Bản đồ màu sắc chuẩn đồng bộ theo View 1 (bảo đảm 100% không mất màu) */

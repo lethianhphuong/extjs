@@ -30,17 +30,17 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Moc
                 { code: 'NNV', name: 'Nhà nghiệp vụ', val: 0 }
             ],
             trangThaiCongViecCanBo: [
-                { code: '030001', name: 'Lưu mới', val: 44 },
-                { code: '030002', name: 'Đợi ký', val: 24 },
-                { code: '030003', name: 'Từ chối ký', val: 74 },
-                { code: '030020', name: 'Yêu cầu bổ sung', val: 42 },
+                { code: 'TAOMOI', name: 'Lưu mới', val: 44 },
+                { code: 'DOIKY', name: 'Đợi ký', val: 24 },
+                { code: 'TUCHOI', name: 'Từ chối ký', val: 74 },
+                { code: 'BOSUNG', name: 'Yêu cầu bổ sung', val: 42 },
             ],
             // CHƯA CÓ TRONG API (DataView6): dữ liệu mẫu cho donut "Trạng thái công việc cần phê duyệt" — cần bổ sung API
             trangThaiCongViecCanPheDuyet: [
-                { code: 'CHO_DUYET', name: 'Chờ duyệt', val: 6 },
-                { code: 'DA_DUYET', name: 'Đã duyệt', val: 12 },
-                { code: 'TU_CHOI', name: 'Từ chối', val: 2 },
-                { code: 'TRA_LAI', name: 'Trả lại', val: 3 }
+                { code: 'DOIKY', name: 'Chờ duyệt', val: 6 },
+                { code: 'DADUYET', name: 'Đã duyệt', val: 12 },
+                { code: 'TUCHOI', name: 'Từ chối', val: 2 },
+                { code: 'DAKY', name: 'Trả lại', val: 3 }
             ],
             tienDoXuLyTheoThang: [
                 { sl: 5, thang: 'T6/2026' },

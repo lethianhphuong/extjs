@@ -1,6 +1,7 @@
 Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_View', {
     extend: 'Ext.container.Container',
     xtype: 'TrangChuNew6_View',
+    requires: ['DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.DS_Hoso_GridView3.DS_Hoso_GridView3'],
     controller: 'TrangChuNew6_ViewController',
     viewModel: 'TrangChuNew6_ViewModel',
     cls: 'trang-chu-new6 dash-page',
@@ -13,10 +14,14 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         // Thanh tìm kiếm dùng chung từ View1; phát sự kiện 'timkiem' khi điều kiện hợp lệ
         { xtype: 'TT_TimKiem_View', listeners: { timkiem: 'onSearch' } },
         { xtype: 'TrangChuNew6_ViewCanBo' },
-        // 2 hàng: [Cơ cấu hồ sơ theo loại | Tiến độ theo tháng], [CV trực tiếp thực hiện | CV cần phê duyệt]
+        // 1 hàng 4 card: Loại hồ sơ | Tiến độ theo tháng | CV trực tiếp thực hiện | CV cần phê duyệt (màn hẹp: 2x2 / dọc)
         { xtype: 'TrangChuNew6_ViewKetQua' },
+        // Danh sách hồ sơ dùng chung với View3, View5: ẩn cho tới khi click biểu đồ / thẻ KPI và có dữ liệu
+        { xtype: 'DS_Hoso_GridView3' },
+        // Ẩn khi grid DS hồ sơ ở trên có dữ liệu (controller.onDsHoSoLoad)
         {
             xtype: 'container',
+            reference: 'hoSoDuocGiaoCard',
             cls: 'tcn6-card',
             height: 620,
             padding: 16,

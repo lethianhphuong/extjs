@@ -1,7 +1,7 @@
 Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig', {
     singleton: true,
 
-    /** Mã biểu đồ View6 theo dataKey của chart / thẻ — log khi click (View3: D3_, View5: D4_, View6: D5_). */
+    /** Mã biểu đồ View6 theo dataKey của chart / thẻ — gửi kèm khi click để tải DS hồ sơ (View3: D3_, View5: D4_, View6: D5_). */
     maBieuDo: {
         tongQuan: 'D5_C02',
         loaiHoSo: 'D5_C03',
@@ -34,20 +34,20 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Dis
     },
     /** Tone lát donut "Trạng thái công việc trực tiếp thực hiện" theo code (trangThaiCongViecCanBo). */
     trangThaiTone: {
-        '030001': 'blue',   // Lưu mới
-        '030002': 'amber',  // Đợi ký
-        '030003': 'red',    // Từ chối ký
-        '030020': 'purple'  // Yêu cầu bổ sung
+        'TAOMOI': 'blue',   // Lưu mới
+        'DOIKY': 'amber',  // Đợi ký
+        'TUCHOI': 'red',    // Từ chối ký
+        'BOSUNG': 'purple'  // Yêu cầu bổ sung
     },
     /**
      * Tone lát donut "Trạng thái công việc cần phê duyệt" theo code (trangThaiCongViecCanPheDuyet).
      * Danh sách trạng thái dự kiến — cần xác nhận lại theo nghiệp vụ / API.
      */
     pheDuyetTone: {
-        CHO_DUYET: 'amber',
-        DA_DUYET: 'green',
-        TU_CHOI: 'red',
-        TRA_LAI: 'orange'
+        DOIKY: 'amber',
+        DADUYET: 'green',
+        TUCHOI: 'red',
+        DAKY: 'orange'
     },
     /** Thẻ KPI theo code của tongQuan; PER_* được gộp làm badge chênh lệch cho thẻ gốc. */
     kpi: {

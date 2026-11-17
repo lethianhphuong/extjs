@@ -172,7 +172,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
             coCauData: me.mapCoCau(data.coCauHoSoTheoDonVi),
             bienDongData: me.toList(data.bienDongHoSoTheoDonVi).map(me.mapBienDongItem),
             dienBienData: me.toList(data.dienBienMoMoiVaKetThuc).map(me.mapDienBienItem),
-            loaiDoiTuongData: me.mapLoaiDoiTuong(data.loaiDoiTuong)
+            loaiDoiTuongData: me.mapLoaiDoiTuong(data.loaiDoiTuong),
+            canhBaoCards: me.mapCanhBao(data.canhBaoNoiBat)
         };
     },
 
@@ -242,6 +243,22 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         };
     },
 
+    /** 4b. Cảnh báo nổi bật: tên, số lượng, icon SVG và tone màu theo DisplayConfig.tieuChi.canhBao. */
+    mapCanhBao: function (list) {
+        const cfg = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig;
+        const cfgCanhBao = cfg.tieuChi.canhBao;
+        return this.toList(list).map(function (it) {
+            const def = cfgCanhBao[it.code] || {};
+            return {
+                code: it.code,
+                ten: it.name || it.ten || def.ten || it.code,
+                soLuong: cfg.formatNumber(it.val),
+                mau: def.mau || 'muted',
+                iconSvg: cfg.getIconSvg(def.icon || 'alert-triangle')
+            };
+        });
+    },
+
     /** 5. Diễn biến mở mới và kết thúc (12 tháng gần nhất). */
     mapDienBienItem: function (it, idx) {
         const thangLabel = it.name ? it.name.replace(/\s+/g, '') : ('T' + (idx + 1));
@@ -296,7 +313,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         // Cập nhật ViewModel
         viewModel.set({
             tongQuan: mapped.tongQuan,
-            tongLoaiHoSoText: mapped.tongLoaiHoSoText
+            tongLoaiHoSoText: mapped.tongLoaiHoSoText,
+            canhBaoCards: mapped.canhBaoCards
         });
 
         // Nạp các Store

@@ -324,6 +324,13 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Moc
                 { code: '-1', name: 'Khác', val: 477 }
             ],
 
+            canhBaoNoiBat: [
+                { code: 'QUA_HAN', name: 'Hồ sơ quá hạn đánh giá', val: 0 },
+                { code: 'HET_HAN', name: 'Hồ sơ sắp hết hạn đánh giá', val: 0 },
+                { code: 'BAT_THUONG', name: 'Hồ sơ tăng mức bất thường', val: 0 },
+                { code: 'LIEN_QUAN', name: 'Hồ sơ nhiều đơn vị liên quan', val: 0 }
+            ],
+
             dienBienMoMoiVaKetThuc: [
                 {
                     "code": 20251215,

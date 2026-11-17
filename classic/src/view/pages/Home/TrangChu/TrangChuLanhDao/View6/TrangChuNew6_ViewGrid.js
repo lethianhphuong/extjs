@@ -5,7 +5,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
     cls: 'tcn6-grid',
     border: false,
     columnLines: true,
-    bind: { store: '{dsHoSoStore}' },
+    bind: { store: '{dsHoSoDuocGiaoStore}' },
     columns: [
         { text: 'STT', dataIndex: 'stt', width: 56, align: 'center' },
         {

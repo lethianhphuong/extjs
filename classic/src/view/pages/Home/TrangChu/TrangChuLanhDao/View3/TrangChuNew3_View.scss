@@ -97,6 +97,101 @@
         }
     }
 
+    /* Card Cảnh báo nổi bật (cột phải, hàng 2) */
+    .tcn3-alert-header h3 {
+        color: #b91c1c;
+    }
+
+    .tcn3-alert-body {
+        padding: 12px 14px;
+        box-sizing: border-box;
+    }
+
+    .tcn3-alert-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .tcn3-alert-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 13px 14px;
+        border-radius: 8px;
+        background: var(--tcn3-theme-bg-card-hover);
+        border: 1px solid var(--tcn3-theme-border-light);
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+
+        &:hover {
+            border-color: var(--tcn3-theme-border);
+        }
+    }
+
+    .tcn3-alert-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+    }
+
+    .tcn3-alert-icon {
+        width: 22px;
+        height: 22px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        svg {
+            width: 14px;
+            height: 14px;
+        }
+    }
+
+    .tcn3-alert-tone-red .tcn3-alert-icon {
+        background: #fef2f2;
+        color: #dc2626;
+    }
+
+    .tcn3-alert-tone-orange .tcn3-alert-icon {
+        background: #fff7ed;
+        color: #ea580c;
+    }
+
+    .tcn3-alert-tone-amber .tcn3-alert-icon {
+        background: #fffbeb;
+        color: #d97706;
+    }
+
+    .tcn3-alert-tone-purple .tcn3-alert-icon {
+        background: #f5f3ff;
+        color: #7c3aed;
+    }
+
+    .tcn3-alert-tone-muted .tcn3-alert-icon {
+        background: #f1f5f9;
+        color: #64748b;
+    }
+
+    .tcn3-alert-title {
+        font-size: 12.5px;
+        font-weight: 500;
+        color: var(--tcn3-theme-text-primary);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .tcn3-alert-count {
+        flex-shrink: 0;
+        font-size: 15px;
+        font-weight: 700;
+        color: #b91c1c;
+    }
+
     /* ==========================================================================
        1. KPI Metrics (Hàng 1 & Hàng 2) — Độ tương phản cao, đậm đà, sắc nét
        ========================================================================== */

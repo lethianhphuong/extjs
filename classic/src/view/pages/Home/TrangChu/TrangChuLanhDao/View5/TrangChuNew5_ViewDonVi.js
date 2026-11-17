@@ -1,6 +1,7 @@
 Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_ViewDonVi', {
     extend: 'Ext.container.Container',
     xtype: 'TrangChuNew5_ViewDonVi',
+    requires: ['Ext.Responsive'],
     cls: 'tcn5-card',
     padding: 18,
     layout: { type: 'vbox', align: 'stretch' },
@@ -10,17 +11,24 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
         height: 38,
         html: '<b><i class="x-fa fa-building tcn5-card-icon tcn5-tone-blue"></i>ĐƠN VỊ</b>'
     }, {
+        // 2 biểu đồ nhỏ: cạnh nhau, màn < 900px xếp dọc (mỗi biểu đồ vẫn cao 320)
         xtype: 'container',
-        height: 320,
-        layout: { type: 'hbox', align: 'stretch' },
+        layout: { type: 'box', align: 'stretch' },
         margin: '18 0',
+        responsiveConfig: {
+            'width >= 900': { layout: { vertical: false }, height: 320 },
+            'width < 900': { layout: { vertical: true }, height: 654 }
+        },
         items: [{
             // Số lượng hồ sơ theo 8 loại hồ sơ (thay cho hàng thẻ loại hồ sơ và donut cơ cấu cũ)
             xtype: 'container',
             flex: 1,
             cls: 'tcn5-inner',
             padding: 14,
-            margin: '0 14 0 0',
+            responsiveConfig: {
+                'width >= 900': { margin: '0 14 0 0' },
+                'width < 900': { margin: '0 0 14 0' }
+            },
             layout: { type: 'vbox', align: 'stretch' },
             items: [
                 {

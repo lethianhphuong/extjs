@@ -1,15 +1,25 @@
 Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_ViewLucLuong', {
     extend: 'Ext.container.Container',
     xtype: 'TrangChuNew5_ViewLucLuong',
+    requires: ['Ext.Responsive'],
     cls: 'tcn5-card', padding: 18,
     layout: { type: 'vbox', align: 'stretch' },
     items: [
         { xtype: 'component', cls: 'tcn5-heading', height: 38, html: '<b><i class="x-fa fa-users tcn5-card-icon tcn5-tone-purple"></i>HỆ LỰC LƯỢNG</b>' },
         {
-            xtype: 'container', height: 320, layout: { type: 'hbox', align: 'stretch' }, margin: '18 0',
+            // 2 biểu đồ nhỏ: cạnh nhau, màn < 900px xếp dọc (mỗi biểu đồ vẫn cao 320)
+            xtype: 'container', layout: { type: 'box', align: 'stretch' }, margin: '18 0',
+            responsiveConfig: {
+                'width >= 900': { layout: { vertical: false }, height: 320 },
+                'width < 900': { layout: { vertical: true }, height: 654 }
+            },
             items: [{
                 // Biến động số lượng hồ sơ theo cấp đơn vị: cột chồng Cục / Tỉnh / Xã + đường tổng (như View3)
-                xtype: 'container', flex: 1, cls: 'tcn5-inner', padding: 12, margin: '0 14 0 0',
+                xtype: 'container', flex: 1, cls: 'tcn5-inner', padding: 12,
+                responsiveConfig: {
+                    'width >= 900': { margin: '0 14 0 0' },
+                    'width < 900': { margin: '0 0 14 0' }
+                },
                 layout: { type: 'vbox', align: 'stretch' },
                 items: [
                     { xtype: 'component', cls: 'tcn5-subheading', html: '<i class="x-fa fa-chart-bar tcn5-card-icon tcn5-tone-indigo"></i>Biến động hồ sơ theo đơn vị' },

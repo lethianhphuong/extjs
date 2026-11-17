@@ -23,7 +23,7 @@ Ext.define('DEMO.view.pages.BanDoTinhThanh.BanDoXem.BanDoXem_View', {
                     xtype: 'container',
                     cls: 'bdx-map-card',
                     flex: 1,
-                    height: 340,
+                    height: 800,
                     margin: '8 0 0 0',
                     layout: { type: 'vbox', align: 'stretch' },
                     items: [
@@ -63,7 +63,7 @@ Ext.define('DEMO.view.pages.BanDoTinhThanh.BanDoXem.BanDoXem_View', {
                         }
                     ]
                 },
-                { flex: 2 }
+                // { flex: 2 }
             ]
         }
 

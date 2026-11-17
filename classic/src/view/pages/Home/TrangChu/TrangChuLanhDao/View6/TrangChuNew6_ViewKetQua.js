@@ -2,7 +2,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
     extend: 'Ext.container.Container',
     xtype: 'TrangChuNew6_ViewKetQua',
     requires: [
-        'Ext.plugin.Responsive',
+        // Bật responsiveConfig cho mọi Component (thay plugin 'responsive' đã deprecated)
+        'Ext.Responsive',
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DonutCard'
     ],
     layout: { type: 'vbox', align: 'stretch' },
@@ -12,72 +13,69 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
     iconTask: '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
     iconApprove: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
 
+    /** Chiều cao 1 card. */
+    cardHeight: 320,
+    /** Khoảng cách giữa các card (px). */
+    gap: 16,
+
     initComponent: function () {
         const me = this;
-        me.items = [me.buildRow1(), me.buildRow2()];
+        me.items = [me.buildRow([me.buildPair(me.buildHoSoCards(), true), me.buildPair(me.buildTrangThaiCards(), false)])];
         me.callParent(arguments);
-        Ext.on('resize', me.onViewportResize, me);
     },
 
     /**
-     * Một hàng 2 card: màn rộng xếp ngang theo flex của từng card (cao bằng nhau),
-     * màn hẹp (< 1200px) xếp dọc, mỗi card cao bằng nhau.
-     * @param {Number} height chiều cao 1 card
-     * @param {Array} items 2 card
-     * @param {String} [margin] margin của cả hàng
+     * Hàng 4 card (2 cặp), xếp theo 3 mức màn hình:
+     *   >= 1600px: 1 hàng 4 card;  1200–1600px: lưới 2x2;  < 1200px: xếp dọc từng card.
+     *   (layout 'box' + responsive chỉ đổi `vertical`: đổi type hbox↔vbox sẽ tạo layout mới, card con còn trỏ layout cũ
+     *   đã bị gỡ owner → lỗi "Cannot read properties of null (reading 'getSizeModel')" khi resize)
+     * @param {Array} pairs 2 cặp card từ buildPair
      */
-    buildRow: function (height, items, margin) {
-        items.forEach(function (item, index) {
-            const last = index === items.length - 1;
-            // flex không có setter nên responsiveConfig không đổi được; lưu lại để onViewportResize tự đổi
-            item.wideFlex = item.flex || 1;
-            item.plugins = 'responsive';
-            item.responsiveConfig = {
-                'width >= 1200': { margin: last ? 0 : '0 16 0 0' },
-                'width < 1200': { margin: last ? 0 : '0 0 16 0' }
-            };
-        });
+    buildRow: function (pairs) {
+        const h = this.cardHeight;
+        const gap = this.gap;
         return {
             xtype: 'container',
-            isTcn6Row: true,
-            margin: margin || 0,
-            plugins: 'responsive',
+            layout: { type: 'box', align: 'stretch' },
             responsiveConfig: {
-                'width >= 1200': { layout: { type: 'hbox', align: 'stretch' }, height: height },
-                'width < 1200': { layout: { type: 'vbox', align: 'stretch' }, height: height * items.length + 16 * (items.length - 1) }
+                'width >= 1600': { layout: { vertical: false }, height: h },
+                'width >= 1200 && width < 1600': { layout: { vertical: true }, height: h * 2 + gap },
+                'width < 1200': { layout: { vertical: true }, height: h * 4 + gap * 3 }
             },
-            items: items
+            items: pairs
         };
     },
 
-    /** Màn hẹp (xếp dọc): các card cao bằng nhau (flex 1); màn rộng: trả lại tỉ lệ flex ban đầu. */
-    onViewportResize: function () {
-        const me = this;
-        if (!me.rendered) { return; }
-        const narrow = Ext.Element.getViewportWidth() < 1200;
-        me.query('container[isTcn6Row]').forEach(function (row) {
-            row.items.each(function (item) {
-                item.flex = narrow ? 1 : item.wideFlex;
-            });
-            row.updateLayout();
-        });
+    /**
+     * Cặp 2 card (flex 1 mỗi card): >= 1200px xếp ngang, < 1200px xếp dọc.
+     * @param {Array} cards 2 card
+     * @param {Boolean} isFirst cặp đầu tiên — có khoảng cách với cặp sau (phải khi 1 hàng, dưới khi 2x2 / dọc)
+     */
+    buildPair: function (cards, isFirst) {
+        const gap = this.gap;
+        const gapRight = '0 ' + gap + ' 0 0';
+        const gapBottom = '0 0 ' + gap + ' 0';
+        cards[0].responsiveConfig = {
+            'width >= 1200': { margin: gapRight },
+            'width < 1200': { margin: gapBottom }
+        };
+        return {
+            xtype: 'container',
+            flex: 1,
+            layout: { type: 'box', align: 'stretch' },
+            responsiveConfig: {
+                'width >= 1600': { layout: { vertical: false }, margin: isFirst ? gapRight : 0 },
+                'width >= 1200 && width < 1600': { layout: { vertical: false }, margin: isFirst ? gapBottom : 0 },
+                'width < 1200': { layout: { vertical: true }, margin: isFirst ? gapBottom : 0 }
+            },
+            items: cards
+        };
     },
 
-    afterRender: function () {
+    /** Cặp 1: Loại hồ sơ | Tiến độ xử lý theo tháng. */
+    buildHoSoCards: function () {
         const me = this;
-        me.callParent(arguments);
-        me.onViewportResize();
-    },
-
-    onDestroy: function () {
-        Ext.un('resize', this.onViewportResize, this);
-        this.callParent(arguments);
-    },
-
-    /** Hàng 1: cột Loại hồ sơ | Tiến độ xử lý theo tháng — chia đôi như hàng 2. */
-    buildRow1: function () {
-        const me = this;
-        return me.buildRow(320, [{
+        return [{
             //#region NOTE: Loại hồ sơ (biểu đồ cột, cùng kiểu chart "Loại hồ sơ" ở View3)
             xtype: 'container',
             cls: 'tcn6-card',
@@ -210,13 +208,13 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
                 }]
             }]
             //#endregion
-        }]);
+        }];
     },
 
-    /** Hàng 2: donut Trạng thái công việc trực tiếp thực hiện | donut Trạng thái công việc cần phê duyệt. */
-    buildRow2: function () {
+    /** Cặp 2: donut Trạng thái công việc trực tiếp thực hiện | donut Trạng thái công việc cần phê duyệt. */
+    buildTrangThaiCards: function () {
         const me = this;
-        return me.buildRow(320, [{
+        return [{
             xtype: 'TrangChuNew6_DonutCard',
             itemId: 'trangThaiDonut_IdView',
             flex: 1,
@@ -234,6 +232,6 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
             tone: 'purple',
             bind: { store: '{pheDuyetStore}' },
             listeners: { donutitemclick: 'onPheDuyetClick' }
-        }], '16 0 0');
+        }];
     }
 });

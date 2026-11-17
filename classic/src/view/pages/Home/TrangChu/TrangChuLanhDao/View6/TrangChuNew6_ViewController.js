@@ -5,7 +5,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig',
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_MockData'
     ],
-    // Hover / click chart dùng chung với View3, View5; riêng View6 chỉ log (xem xuLyClickBieuDo bên dưới)
+    // Hover / click chart → grid DS_Hoso_GridView3 (dùng chung với View3, View5)
     mixins: {
         bieuDoClick: 'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.DS_Hoso_GridView3.DS_Hoso_BieuDoClickMixin'
     },
@@ -14,6 +14,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
     /** Nạp dữ liệu khi khởi tạo trang. */
     init: function () {
         const me = this;
+        // Grid DS hồ sơ có dữ liệu thì ẩn card "Danh sách hồ sơ được giao", rỗng thì hiện lại
+        me.getViewModel().getStore('dsHoSoStore').on('load', me.onDsHoSoLoad, me);
         me.loadData();
     },
 
@@ -50,7 +52,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         // trangThaiCongViecCanPheDuyet chưa có trong API (DataView6): đang dùng mock, cần bổ sung API
         vm.getStore('pheDuyetStore').loadData(me.prepareTyLe(data.trangThaiCongViecCanPheDuyet, config.pheDuyetTone, palette).items);
         vm.getStore('tienDoThangStore').loadData((data.tienDoXuLyTheoThang || []).map(row => Ext.apply({ code: row.thang }, row)));
-        vm.getStore('dsHoSoStore').loadData(dsHoSo.map(function (row, idx) {
+        vm.getStore('dsHoSoDuocGiaoStore').loadData(dsHoSo.map(function (row, idx) {
             return Ext.apply({
                 stt: idx + 1,
                 loaiTone: config.loaiDoiTuongMoiTone[String(row.loaiDoituongMoi || '').slice(0, 6)] || 'muted',
@@ -155,7 +157,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
     },
     //#endregion
 
-    //#region NOTE: Click biểu đồ — View6 chỉ log dữ liệu, không nạp grid
+    //#region NOTE: Click biểu đồ — phần chung (bắn taiDanhSach sang DS_Hoso_GridView3) nằm ở DS_Hoso_BieuDoClickMixin
     /** Mã biểu đồ D5_Cxx theo dataKey (DisplayConfig.maBieuDo), mixin dùng khi tạo thông tin click. */
     getMaBieuDoMap: function () {
         return DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig.maBieuDo;
@@ -181,16 +183,12 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         me.xuLyClickBieuDo(me.taoThongTinClick('trangThaiCongViecCanPheDuyet', record.get('code'), record.getData(), null));
     },
 
-    /**
-     * Ghi đè xuLyClickBieuDo của mixin: View6 chỉ log params + thông tin click, không bắn sự kiện sang grid.
-     * @param {Object} thongTin { maBieuDo, dataKey, code, record, truong }
-     */
-    xuLyClickBieuDo: function (thongTin) {
-        const params = {
-            maThongKe: thongTin.maBieuDo + '_LIST',
-            json: { code: thongTin.code }
-        };
-        window.console.log('[TrangChuNew6_View] Click biểu đồ', params, thongTin);
+    /** Store của grid DS_Hoso_GridView3 tải xong: có hồ sơ thì ẩn card "Danh sách hồ sơ được giao", rỗng thì hiện. */
+    onDsHoSoLoad: function (store) {
+        const card = this.lookupReference('hoSoDuocGiaoCard');
+        if (card) {
+            card.setHidden(store.getTotalCount() > 0);
+        }
     },
     //#endregion
 

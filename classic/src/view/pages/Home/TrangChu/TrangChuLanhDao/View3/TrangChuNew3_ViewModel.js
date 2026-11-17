@@ -18,6 +18,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         tongQuan: [],
         kpiRaw: null,
         tongLoaiHoSoText: '0',
+        canhBaoCards: [],
         kyBaoCao: 'Q IV/2025',
         hienMoMoi: true,
         hienKetThuc: true,
