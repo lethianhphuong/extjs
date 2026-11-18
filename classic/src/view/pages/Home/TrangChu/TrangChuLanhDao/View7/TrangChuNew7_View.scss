@@ -1,0 +1,498 @@
+/* ==========================================================================
+   TrangChuNew7 Stylesheet - Danh sách cán bộ theo chức vụ
+   Đóng gói trong scope .trang-chu-new7, không phụ thuộc app.css, KHÔNG dùng :root
+   ========================================================================== */
+
+.trang-chu-new7 {
+    /* ==========================================================================
+       Hệ thống biến theme nội bộ View 7 (Tự chứa, độc lập với app.css)
+       ========================================================================== */
+    --tcn7-theme-text-primary: #0f172a;
+    --tcn7-theme-text-secondary: #475569;
+    --tcn7-theme-text-muted: #94a3b8;
+    --tcn7-theme-bg-card: #ffffff;
+    --tcn7-theme-bg-card-hover: #f8fafc;
+    --tcn7-theme-border: #cbd5e1;
+    --tcn7-theme-border-light: #e2e8f0;
+    --tcn7-theme-shadow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 4px 12px -6px rgba(15, 23, 42, 0.1);
+
+    --tcn7-blue: #2563eb;
+    --tcn7-sky: #0284c7;
+    --tcn7-green: #059669;
+    --tcn7-purple: #7c3aed;
+    --tcn7-orange: #ea580c;
+    --tcn7-amber: #d97706;
+    --tcn7-indigo: #4f46e5;
+    --tcn7-teal: #0d9488;
+    --tcn7-rose: #e11d48;
+    --tcn7-pink: #c026d3;
+
+    background-color: #f8fafc;
+    color: var(--tcn7-theme-text-primary);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    // Chữ đậm hiển thị nét, không bị nhòe; KHÔNG dùng font-weight 800/900: font hệ thống không có nét này
+    // nên trình duyệt tự làm đậm giả (faux bold) → chữ dày, mờ
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Tone dùng chung: --tcn7-tone (màu đậm) + --tcn7-tone-soft (nền nhạt) cho thẻ KPI, badge, avatar, chip.
+       Không khai báo lại --tcn7-tone trong .tcn7-kpi: cùng độ ưu tiên mà đứng sau sẽ đè hết tone thành xanh. */
+    .tcn7-tone-blue { --tcn7-tone: var(--tcn7-blue); --tcn7-tone-soft: #eff6ff; }
+    .tcn7-tone-sky { --tcn7-tone: var(--tcn7-sky); --tcn7-tone-soft: #e0f2fe; }
+    .tcn7-tone-green { --tcn7-tone: var(--tcn7-green); --tcn7-tone-soft: #ecfdf5; }
+    .tcn7-tone-purple { --tcn7-tone: var(--tcn7-purple); --tcn7-tone-soft: #f5f3ff; }
+    .tcn7-tone-orange { --tcn7-tone: var(--tcn7-orange); --tcn7-tone-soft: #fff7ed; }
+    .tcn7-tone-amber { --tcn7-tone: var(--tcn7-amber); --tcn7-tone-soft: #fffbeb; }
+    .tcn7-tone-indigo { --tcn7-tone: var(--tcn7-indigo); --tcn7-tone-soft: #eef2ff; }
+    .tcn7-tone-teal { --tcn7-tone: var(--tcn7-teal); --tcn7-tone-soft: #f0fdfa; }
+    .tcn7-tone-rose { --tcn7-tone: var(--tcn7-rose); --tcn7-tone-soft: #fff1f2; }
+    .tcn7-tone-pink { --tcn7-tone: var(--tcn7-pink); --tcn7-tone-soft: #fdf4ff; }
+
+    //#region NOTE: Card
+    .tcn7-card {
+        background: var(--tcn7-theme-bg-card);
+        border: 1px solid var(--tcn7-theme-border-light);
+        border-radius: 12px;
+        box-shadow: var(--tcn7-theme-shadow);
+        overflow: hidden;
+    }
+
+    .tcn7-card-header {
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--tcn7-theme-border-light);
+    }
+
+    .tcn7-card-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        h3 {
+            margin: 0;
+            color: var(--tcn7-theme-text-primary);
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 20px;
+            white-space: nowrap;
+        }
+    }
+
+    .tcn7-title-sep {
+        width: 1px;
+        height: 18px;
+        background: var(--tcn7-theme-border);
+    }
+
+    // Chip chức vụ đang lọc: nền nhạt + chữ đậm cùng tone, chấm màu đầu chip
+    .tcn7-card-title .tcn7-chip {
+        gap: 6px;
+        padding: 3px 12px 3px 10px;
+        border-color: transparent;
+        background: var(--tcn7-tone-soft);
+        font-size: 12.5px;
+
+        &::before {
+            display: none;
+        }
+    }
+
+    .tcn7-chip-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--tcn7-tone);
+    }
+
+    .tcn7-title-count {
+        color: var(--tcn7-theme-text-secondary);
+        font-size: 13px;
+        white-space: nowrap;
+
+        b {
+            color: var(--tcn7-theme-text-primary);
+            font-size: 15px;
+            font-weight: 700;
+        }
+    }
+
+    .tcn7-title-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        color: #ffffff;
+        font-size: 14px;
+        box-shadow: 0 3px 8px -2px rgba(37, 99, 235, 0.45);
+    }
+
+    /* Chip / badge nền nhạt theo tone (lớp phủ ::before mờ, chạy được trên trình duyệt cũ) */
+    .tcn7-chip,
+    .tcn7-badge {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        padding: 2px 10px;
+        border: 1px solid var(--tcn7-tone);
+        border-radius: 999px;
+        color: var(--tcn7-tone);
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: var(--tcn7-tone);
+            opacity: 0.08;
+            pointer-events: none;
+        }
+    }
+
+    .tcn7-badge {
+        border-color: transparent;
+        font-weight: 600;
+
+        &::before {
+            opacity: 0.12;
+        }
+    }
+    //#endregion
+
+    //#region NOTE: Thẻ KPI theo chức vụ (10 thẻ: >= 1600px 1 hàng, nhỏ hơn 2 hàng x 5 — xem @media cuối file)
+    .tcn7-kpi-grid {
+        display: grid;
+        grid-template-columns: unquote('repeat(5, minmax(0, 1fr))');
+        gap: 12px;
+    }
+
+    .tcn7-kpi {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+        min-height: 84px;
+        padding: 14px;
+        border: 1px solid var(--tcn7-theme-border-light);
+        border-radius: 12px;
+        background: var(--tcn7-tone-soft, var(--tcn7-theme-bg-card));
+        box-shadow: var(--tcn7-theme-shadow);
+        box-sizing: border-box;
+        cursor: pointer;
+        overflow: hidden;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+
+        // Vạch màu phía trên theo tone
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 3px;
+            background: var(--tcn7-tone);
+            opacity: 0.85;
+        }
+
+        &:hover {
+            border-color: var(--tcn7-tone);
+            transform: translateY(-1px);
+        }
+
+        &.is-active {
+            border-color: var(--tcn7-tone);
+            box-shadow: 0 0 0 1px var(--tcn7-tone), 0 6px 16px -8px var(--tcn7-tone);
+
+            .tcn7-kpi-icon {
+                background: var(--tcn7-tone);
+                color: #ffffff;
+            }
+        }
+    }
+
+    .tcn7-kpi-icon {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--tcn7-theme-bg-card);
+        color: var(--tcn7-tone);
+        font-size: 17px;
+        box-shadow: 0 2px 6px -2px rgba(15, 23, 42, 0.15);
+        overflow: hidden;
+        transition: background-color 0.15s ease, color 0.15s ease;
+
+        // Nền icon nhạt theo tone
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: var(--tcn7-tone);
+            opacity: 0.12;
+        }
+
+        i {
+            position: relative;
+        }
+    }
+
+    .tcn7-kpi-text {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+    }
+
+    .tcn7-kpi-title {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        color: var(--tcn7-theme-text-secondary);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.3;
+        overflow: hidden;
+    }
+
+    .tcn7-kpi-val {
+        color: var(--tcn7-tone);
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+
+    // Thẻ tổng: nền gradient xanh, chữ trắng
+    .tcn7-kpi-total {
+        border-color: transparent;
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+
+        &::after {
+            display: none;
+        }
+
+        .tcn7-kpi-icon {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+
+            &::before {
+                display: none;
+            }
+        }
+
+        .tcn7-kpi-title {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .tcn7-kpi-val {
+            color: #ffffff;
+            font-size: 26px;
+        }
+
+        &.is-active {
+            box-shadow: 0 0 0 2px #93c5fd, 0 8px 18px -8px #1d4ed8;
+
+            .tcn7-kpi-icon {
+                background: #ffffff;
+                color: #1d4ed8;
+            }
+        }
+    }
+    //#endregion
+
+    //#region NOTE: Grid danh sách cán bộ (ghi đè header xanh lá + border mặc định của Main.scss)
+    .tcn7-grid {
+        .x-grid-header-ct {
+            border: 0 !important;
+            border-bottom: 1px solid var(--tcn7-theme-border-light) !important;
+        }
+
+        .x-column-header {
+            border: 0 !important;
+            background: var(--tcn7-theme-bg-card-hover) !important;
+            background-image: none !important;
+        }
+
+        .x-column-header-inner {
+            padding: 11px 12px !important;
+            line-height: 16px !important;
+            background: transparent !important;
+        }
+
+        .x-column-header-text,
+        .x-column-header-text-inner {
+            color: var(--tcn7-theme-text-secondary) !important;
+            font-size: 12px !important;
+            font-weight: 700 !important;
+        }
+
+        .x-column-header-over {
+            background: #f1f5f9 !important;
+        }
+
+        .x-grid-item {
+            background: var(--tcn7-theme-bg-card) !important;
+        }
+
+        .x-grid-item-over {
+            background: #f0f6ff !important;
+        }
+
+        .x-grid-cell {
+            border: 0 !important;
+            border-bottom: 1px solid #f1f5f9 !important;
+            background: transparent !important;
+            vertical-align: middle;
+        }
+
+        .x-grid-cell-inner {
+            padding: 9px 12px !important;
+            color: #334155;
+            font-size: 13px;
+            line-height: 24px;
+        }
+
+        .tcn7-cell-stt .x-grid-cell-inner {
+            color: var(--tcn7-theme-text-muted);
+            font-weight: 600;
+        }
+
+        .tcn7-cell-code .x-grid-cell-inner {
+            color: var(--tcn7-theme-text-secondary);
+            font-family: Consolas, "SFMono-Regular", Menlo, monospace;
+            font-size: 12.5px;
+        }
+    }
+
+    .tcn7-person {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        max-width: 100%;
+    }
+
+    .tcn7-avatar {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--tcn7-tone);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    .tcn7-link {
+        color: var(--tcn7-theme-text-primary);
+        font-weight: 600;
+        text-decoration: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+
+        &:hover {
+            color: var(--tcn7-blue);
+            text-decoration: underline;
+        }
+    }
+
+    .tcn7-num {
+        color: var(--tcn7-theme-text-primary);
+        font-weight: 700;
+    }
+
+    .tcn7-num-active {
+        color: var(--tcn7-blue);
+        font-weight: 700;
+    }
+
+    .tcn7-paging {
+        padding: 10px 14px !important;
+        border: 0 !important;
+        border-top: 1px solid var(--tcn7-theme-border-light) !important;
+        background: var(--tcn7-theme-bg-card) !important;
+
+        .x-tbar-page-number {
+            border-radius: 6px;
+        }
+    }
+    //#endregion
+}
+
+// Màn rộng (>= 1600px): 10 thẻ trên 1 hàng. Thẻ hẹp nên xếp dọc: icon, tên chức vụ, số lượng
+@media (min-width: 1600px) {
+    .trang-chu-new7 {
+        .tcn7-kpi-grid {
+            grid-template-columns: unquote('repeat(10, minmax(0, 1fr))');
+            gap: 10px;
+        }
+
+        .tcn7-kpi {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            min-height: 0;
+            padding: 12px;
+        }
+
+        .tcn7-kpi-icon,
+        .tcn7-kpi-total .tcn7-kpi-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .tcn7-kpi-text {
+            flex: 1;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        // Tên dài (Phó Trưởng Công an Xã/Phường/Đặc khu) tối đa 2 dòng, giữ chiều cao đều giữa các thẻ
+        .tcn7-kpi-title {
+            min-height: 30px;
+            font-size: 11.5px;
+        }
+
+        .tcn7-kpi-val,
+        .tcn7-kpi-total .tcn7-kpi-val {
+            font-size: 20px;
+        }
+    }
+}
+
+// Màn hẹp: thẻ KPI xuống dòng
+@media (max-width: 1199px) {
+    .trang-chu-new7 .tcn7-kpi-grid {
+        grid-template-columns: unquote('repeat(3, minmax(0, 1fr))');
+    }
+}
+
+@media (max-width: 768px) {
+    .trang-chu-new7 .tcn7-kpi-grid {
+        grid-template-columns: unquote('repeat(2, minmax(0, 1fr))');
+    }
+}

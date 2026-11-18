@@ -4,7 +4,11 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
     requires: [
         // Bật responsiveConfig cho mọi Component (thay plugin 'responsive' đã deprecated)
         'Ext.Responsive',
-        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DonutCard'
+        'Ext.chart.CartesianChart',
+        'Ext.chart.series.Bar',
+        'Ext.chart.series.Line',
+        'Ext.chart.axis.Numeric',
+        'Ext.chart.axis.Category'
     ],
     layout: { type: 'vbox', align: 'stretch' },
 
@@ -72,11 +76,14 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         };
     },
 
-    /** Cặp 1: Loại hồ sơ | Tiến độ xử lý theo tháng. */
-    buildHoSoCards: function () {
+    /**
+     * Card biểu đồ cột dùng chung (Loại hồ sơ, Kết quả công việc...): màu từng cột theo field color,
+     * nhãn số trên đầu cột, tooltip "Tên: số đơn vị (x%)". Click / hover do mixin gắn qua dataKey (onChartReady).
+     * @param {Object} cfg { title, iconSvg, tone, itemId, dataKey, store, xField, unit, rotateLabel }
+     */
+    buildBarCard: function (cfg) {
         const me = this;
-        return [{
-            //#region NOTE: Loại hồ sơ (biểu đồ cột, cùng kiểu chart "Loại hồ sơ" ở View3)
+        return {
             xtype: 'container',
             cls: 'tcn6-card',
             flex: 1,
@@ -85,36 +92,21 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
             items: [{
                 xtype: 'component',
                 cls: 'tcn6-card-header',
-                html: '<div class="tcn6-card-title"><span class="tcn6-title-icon tcn6-tone-blue">' +
-                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + me.iconBar + '</svg></span>Loại hồ sơ</div>'
+                html: '<div class="tcn6-card-title"><span class="tcn6-title-icon tcn6-tone-' + cfg.tone + '">' +
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + cfg.iconSvg + '</svg></span>' +
+                    Ext.String.htmlEncode(cfg.title) + '</div>'
             }, {
                 xtype: 'cartesian',
-                itemId: 'loaiHoSoChart_IdView',
+                itemId: cfg.itemId,
                 // Mã biểu đồ tra theo dataKey trong DisplayConfig.maBieuDo; click / hover gắn ở onChartReady (mixin)
-                dataKey: 'loaiHoSo',
+                dataKey: cfg.dataKey,
                 flex: 1,
                 animation: false,
                 insetPadding: { top: 24, right: 10, bottom: 6, left: 6 },
-                bind: { store: '{loaiHoSoStore}' },
+                bind: { store: cfg.store },
                 listeners: {
                     afterrender: 'onChartReady',
-                    // Nhãn số đặt ngoài đầu cột: không đủ chỗ phía trên thì Ext tự ẩn → nâng trục đủ chỗ rồi làm tròn mốc (giống View3)
-                    redraw: function (chart) {
-                        const store = chart.getStore();
-                        const axis = chart.getAxes()[0];
-                        const rect = chart.getSurface('series').getRect();
-                        const maxVal = store ? (store.max('val') || 0) : 0;
-                        const length = rect ? rect[chart.getFlipXY() ? 2 : 3] : 0;
-                        if (!maxVal || length <= 80) { return; }
-                        const ratio = chart.getFlipXY() ? 0.6 : 0.75;
-                        const raw = Math.max(maxVal / ratio, maxVal * length / (length - 50));
-                        const step = Math.pow(10, Math.floor(Math.log10(raw))) / 4;
-                        const target = Math.max(1, Math.ceil(raw / step) * step);
-                        if (axis.getMaximum() !== target) {
-                            axis.setMaximum(target);
-                            chart.redraw();
-                        }
-                    }
+                    redraw: me.fitBarAxis
                 },
                 axes: [{
                     type: 'numeric',
@@ -122,23 +114,23 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
                     fields: ['val'],
                     minimum: 0,
                     grid: true,
-                    // Số hồ sơ là số nguyên: ẩn mốc lẻ (0,5; 1,5…) khi giá trị nhỏ
+                    // Số lượng là số nguyên: ẩn mốc lẻ (0,5; 1,5…) khi giá trị nhỏ
                     renderer: function (axis, label) {
                         return Number.isInteger(Number(label)) ? Number(label).toLocaleString('vi-VN') : '';
                     }
                 }, {
                     type: 'category',
                     position: 'bottom',
-                    fields: ['ten'],
-                    // Card hẹp: xoay nhãn để hiện đủ 8 tên loại hồ sơ
-                    label: { fontSize: 10.5, rotate: { degrees: -30 } }
+                    fields: [cfg.xField],
+                    // Nhiều cột trong card hẹp: xoay nhãn để hiện đủ tên
+                    label: cfg.rotateLabel ? { fontSize: 10.5, rotate: { degrees: -30 } } : { fontSize: 11 }
                 }],
                 series: [{
                     type: 'bar',
-                    xField: 'ten',
+                    xField: cfg.xField,
                     yField: 'val',
                     style: { maxBarWidth: 26, radius: 4, lineWidth: 0 },
-                    // Màu từng cột theo loại hồ sơ (field color do controller tính từ tone)
+                    // Màu từng cột theo field color (controller tính từ tone, đổi theo theme)
                     renderer: function (sprite, config, rendererData, index) {
                         const record = rendererData.store ? rendererData.store.getAt(index) : null;
                         const color = record ? record.get('color') : '#64748b';
@@ -159,13 +151,52 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
                         trackMouse: true,
                         renderer: function (tooltip, record) {
                             tooltip.setHtml(Ext.String.htmlEncode(record.get('name')) + ': <b>' + Ext.String.htmlEncode(record.get('soLuongText')) +
-                                '</b> hồ sơ (' + Ext.String.htmlEncode(record.get('tyLeText')) + ')');
+                                '</b> ' + cfg.unit + ' (' + Ext.String.htmlEncode(record.get('tyLeText')) + ')');
                         }
                     }
                 }]
             }]
-            //#endregion
-        }, {
+        };
+    },
+
+    /**
+     * Nhãn số đặt ngoài đầu cột: không đủ chỗ phía trên thì Ext chuyển nhãn xuống chân cột (insideStart) và nhãn
+     * bị cắt mất → nâng trục để đầu cột cao nhất còn chừa khoảng trống rồi làm tròn mốc.
+     * Ext cần khoảng: nhãn (~16px) + labelOverflowPadding 10px x 2 + chiều cao nhãn lần nữa ≈ 55px → chừa 70px.
+     * @param {Ext.chart.CartesianChart} chart
+     */
+    fitBarAxis: function (chart) {
+        const store = chart.getStore();
+        const axis = chart.getAxes()[0];
+        const rect = chart.getSurface('series').getRect();
+        const maxVal = store ? (store.max('val') || 0) : 0;
+        const length = rect ? rect[chart.getFlipXY() ? 2 : 3] : 0;
+        if (!maxVal || length <= 80) { return; }
+        const ratio = chart.getFlipXY() ? 0.6 : 0.75;
+        const raw = Math.max(maxVal / ratio, maxVal * length / (length - 70));
+        const step = Math.pow(10, Math.floor(Math.log10(raw))) / 4;
+        const target = Math.max(1, Math.ceil(raw / step) * step);
+        if (axis.getMaximum() !== target) {
+            axis.setMaximum(target);
+            chart.redraw();
+        }
+    },
+
+    /** Cặp 1: Loại hồ sơ | Tiến độ xử lý theo tháng. */
+    buildHoSoCards: function () {
+        const me = this;
+        return [me.buildBarCard({
+            title: 'Loại hồ sơ',
+            iconSvg: me.iconBar,
+            tone: 'blue',
+            itemId: 'loaiHoSoChart_IdView',
+            dataKey: 'loaiHoSo',
+            store: '{loaiHoSoStore}',
+            // Trục hiện tên ngắn (ĐTCB, CT VBM...), tooltip hiện tên đầy đủ
+            xField: 'ten',
+            unit: 'hồ sơ',
+            rotateLabel: true
+        }), {
             //#region NOTE: Tiến độ xử lý theo tháng (Area chart)
             xtype: 'container',
             cls: 'tcn6-card',
@@ -211,27 +242,27 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         }];
     },
 
-    /** Cặp 2: donut Trạng thái công việc trực tiếp thực hiện | donut Trạng thái công việc cần phê duyệt. */
+    /** Cặp 2: cột Kết quả công việc trực tiếp thực hiện | cột Kết quả phạm vi quản lý. */
     buildTrangThaiCards: function () {
         const me = this;
-        return [{
-            xtype: 'TrangChuNew6_DonutCard',
-            itemId: 'trangThaiDonut_IdView',
-            flex: 1,
-            title: 'Trạng thái công việc trực tiếp thực hiện',
+        return [me.buildBarCard({
+            title: 'Kết quả công việc trực tiếp thực hiện',
             iconSvg: me.iconTask,
             tone: 'green',
-            bind: { store: '{trangThaiCongViecStore}' },
-            listeners: { donutitemclick: 'onTrangThaiClick' }
-        }, {
-            xtype: 'TrangChuNew6_DonutCard',
-            itemId: 'pheDuyetDonut_IdView',
-            flex: 1,
-            title: 'Trạng thái công việc cần phê duyệt',
+            itemId: 'trangThaiChart_IdView',
+            dataKey: 'trangThaiCongViecCanBo',
+            store: '{trangThaiCongViecStore}',
+            xField: 'name',
+            unit: 'công việc'
+        }), me.buildBarCard({
+            title: 'Kết quả phạm vi quản lý',
             iconSvg: me.iconApprove,
             tone: 'purple',
-            bind: { store: '{pheDuyetStore}' },
-            listeners: { donutitemclick: 'onPheDuyetClick' }
-        }];
+            itemId: 'pheDuyetChart_IdView',
+            dataKey: 'trangThaiCongViecCanPheDuyet',
+            store: '{pheDuyetStore}',
+            xField: 'name',
+            unit: 'công việc'
+        })];
     }
 });

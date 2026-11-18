@@ -37,10 +37,10 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Moc
             ],
             // CHƯA CÓ TRONG API (DataView6): dữ liệu mẫu cho donut "Trạng thái công việc cần phê duyệt" — cần bổ sung API
             trangThaiCongViecCanPheDuyet: [
-                { code: 'DOIKY', name: 'Chờ duyệt', val: 6 },
-                { code: 'DADUYET', name: 'Đã duyệt', val: 12 },
-                { code: 'TUCHOI', name: 'Từ chối', val: 2 },
-                { code: 'DAKY', name: 'Trả lại', val: 3 }
+                { code: 'DOIKY', name: 'Đợi ký', val: 9 },
+                { code: 'DADUYET', name: 'Đã duyệt', val: 3 },
+                { code: 'TUCHOI', name: 'Từ chối ký', val: 1 },
+                { code: 'DAKY', name: 'Đã ký', val: 66 },
             ],
             tienDoXuLyTheoThang: [
                 { sl: 5, thang: 'T6/2026' },

@@ -32,7 +32,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Dis
         VANV: 'VANV',
         NNV: 'NNV'
     },
-    /** Tone lát donut "Trạng thái công việc trực tiếp thực hiện" theo code (trangThaiCongViecCanBo). */
+    /** Màu cột "Kết quả công việc trực tiếp thực hiện" theo code (trangThaiCongViecCanBo). */
     trangThaiTone: {
         'TAOMOI': 'blue',   // Lưu mới
         'DOIKY': 'amber',  // Đợi ký
@@ -40,7 +40,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Dis
         'BOSUNG': 'purple'  // Yêu cầu bổ sung
     },
     /**
-     * Tone lát donut "Trạng thái công việc cần phê duyệt" theo code (trangThaiCongViecCanPheDuyet).
+     * Màu cột "Kết quả phạm vi quản lý" theo code (trangThaiCongViecCanPheDuyet).
      * Danh sách trạng thái dự kiến — cần xác nhận lại theo nghiệp vụ / API.
      */
     pheDuyetTone: {

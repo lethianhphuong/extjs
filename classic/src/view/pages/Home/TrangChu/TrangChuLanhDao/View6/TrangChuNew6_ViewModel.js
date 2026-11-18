@@ -14,7 +14,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
 
     stores: {
         // Key theo DataView6: loaiHoSo / trangThaiCongViecCanBo / trangThaiCongViecCanPheDuyet / tienDoXuLyTheoThang / danhSachHoSoDuocGiao
-        // 3 store donut dùng chung bộ field của TrangChuNew6_DonutCard
+        // 3 store biểu đồ cột dùng chung bộ field (TrangChuNew6_ViewKetQua.buildBarCard)
         // Biểu đồ cột Loại hồ sơ: thêm 'ten' (tên ngắn trên trục)
         loaiHoSoStore: { fields: ['code', 'name', 'ten', 'val', 'mau', 'color', 'tyLe', 'tyLeText', 'soLuongText'] },
         trangThaiCongViecStore: { fields: ['code', 'name', 'val', 'mau', 'color', 'tyLe', 'tyLeText', 'soLuongText'] },

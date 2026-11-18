@@ -44,7 +44,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
             kpiCards: me.prepareKpi(data.tongQuan),
             soHoSo: dsHoSo.length
         });
-        // Cột Loại hồ sơ + 2 donut: Trạng thái CV trực tiếp thực hiện / Trạng thái CV cần phê duyệt
+        // 3 biểu đồ cột: Loại hồ sơ / Kết quả công việc trực tiếp thực hiện / Kết quả phạm vi quản lý
         vm.getStore('loaiHoSoStore').loadData(me.prepareTyLe(data.loaiHoSo, config.loaiHoSoTone, palette).items.map(function (item) {
             return Ext.apply(item, { ten: config.loaiHoSoTen[item.code] || item.name });
         }));
@@ -99,8 +99,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
     },
 
     /**
-     * Dữ liệu donut từ danh sách { code, name, val }: tổng, % (làm tròn 1 chữ số), tone + mã màu theo code.
-     * Mục = 0 vẫn giữ để legend hiện "0 | 0,0%" (lát 0 không được vẽ).
+     * Dữ liệu biểu đồ cột từ danh sách { code, name, val }: tổng, % (làm tròn 1 chữ số), tone + mã màu theo code.
+     * Mục = 0 vẫn giữ để trục vẫn hiện tên mục với cột 0.
      */
     prepareTyLe: function (rows, toneMap, palette) {
         const me = this;
@@ -171,17 +171,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         });
     },
 
-    /** Click donut "Trạng thái công việc trực tiếp thực hiện" (D5_C05). */
-    onTrangThaiClick: function (card, record) {
-        const me = this;
-        me.xuLyClickBieuDo(me.taoThongTinClick('trangThaiCongViecCanBo', record.get('code'), record.getData(), null));
-    },
-
-    /** Click donut "Trạng thái công việc cần phê duyệt" (D5_C06). */
-    onPheDuyetClick: function (card, record) {
-        const me = this;
-        me.xuLyClickBieuDo(me.taoThongTinClick('trangThaiCongViecCanPheDuyet', record.get('code'), record.getData(), null));
-    },
+    // Cột "Kết quả công việc trực tiếp thực hiện" (D5_C05) / "Kết quả phạm vi quản lý" (D5_C06):
+    // click do mixin xử lý theo dataKey của chart (gắn ở onChartReady), không cần handler riêng
 
     /** Store của grid DS_Hoso_GridView3 tải xong: có hồ sơ thì ẩn card "Danh sách hồ sơ được giao", rỗng thì hiện. */
     onDsHoSoLoad: function (store) {
@@ -249,8 +240,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         };
     },
 
-    /** Đổi theme: cập nhật mã màu từng mục của 3 store donut (lát + legend vẽ theo field color). */
-    applyDonutColors: function (palette) {
+    /** Đổi theme: cập nhật mã màu từng mục của 3 store biểu đồ cột (cột vẽ theo field color). */
+    applyBarColors: function (palette) {
         const vm = this.getViewModel();
         ['loaiHoSoStore', 'trangThaiCongViecStore', 'pheDuyetStore'].forEach(function (key) {
             const store = vm.getStore(key);
@@ -302,7 +293,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         const palette = me.getChartPalette(color);
         const tokens = me.getThemeTokens(color);
 
-        me.applyDonutColors(palette);
+        me.applyBarColors(palette);
         me.applyTienDoLineColors(view.down('#tienDoLineChart_IdView'), palette.blue, tokens);
     },
     //#endregion
