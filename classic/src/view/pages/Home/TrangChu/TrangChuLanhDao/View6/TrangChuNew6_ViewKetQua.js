@@ -16,6 +16,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
     iconBar: '<path d="M3 3v18h18"/><path d="M8 17V9M13 17V5M18 17v-6"/>',
     iconTask: '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
     iconApprove: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+    iconTrend: '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>',
 
     /** Chiều cao 1 card. */
     cardHeight: 320,
@@ -79,7 +80,9 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
     /**
      * Card biểu đồ cột dùng chung (Loại hồ sơ, Kết quả công việc...): màu từng cột theo field color,
      * nhãn số trên đầu cột, tooltip "Tên: số đơn vị (x%)". Click / hover do mixin gắn qua dataKey (onChartReady).
-     * @param {Object} cfg { title, iconSvg, tone, itemId, dataKey, store, xField, unit, rotateLabel }
+     * @param {Object} cfg { title, iconSvg, tone, itemId, dataKey, store, xField, unit, rotateLabel, horizontal }
+     *   horizontal: thanh ngang (flipXY) — tên mục ở trục trái, số ở cuối thanh; store cần nạp đảo thứ tự
+     *   vì Ext vẽ mục đầu tiên ở dưới cùng (controller.applyData).
      */
     buildBarCard: function (cfg) {
         const me = this;
@@ -102,7 +105,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
                 dataKey: cfg.dataKey,
                 flex: 1,
                 animation: false,
-                insetPadding: { top: 24, right: 10, bottom: 6, left: 6 },
+                flipXY: !!cfg.horizontal,
+                insetPadding: cfg.horizontal ? { top: 10, right: 16, bottom: 6, left: 6 } : { top: 24, right: 10, bottom: 6, left: 6 },
                 bind: { store: cfg.store },
                 listeners: {
                     afterrender: 'onChartReady',
@@ -110,7 +114,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
                 },
                 axes: [{
                     type: 'numeric',
-                    position: 'left',
+                    position: cfg.horizontal ? 'bottom' : 'left',
                     fields: ['val'],
                     minimum: 0,
                     grid: true,
@@ -120,7 +124,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
                     }
                 }, {
                     type: 'category',
-                    position: 'bottom',
+                    position: cfg.horizontal ? 'left' : 'bottom',
                     fields: [cfg.xField],
                     // Nhiều cột trong card hẹp: xoay nhãn để hiện đủ tên
                     label: cfg.rotateLabel ? { fontSize: 10.5, rotate: { degrees: -30 } } : { fontSize: 11 }
@@ -129,7 +133,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
                     type: 'bar',
                     xField: cfg.xField,
                     yField: 'val',
-                    style: { maxBarWidth: 26, radius: 4, lineWidth: 0 },
+                    style: { maxBarWidth: cfg.horizontal ? 22 : 26, radius: 4, lineWidth: 0 },
                     // Màu từng cột theo field color (controller tính từ tone, đổi theo theme)
                     renderer: function (sprite, config, rendererData, index) {
                         const record = rendererData.store ? rendererData.store.getAt(index) : null;
@@ -206,7 +210,9 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
             items: [{
                 xtype: 'component',
                 cls: 'tcn6-card-header',
-                html: '<div class="tcn6-card-title">Tiến độ xử lý hồ sơ theo tháng</div><span class="tcn6-muted">Số hồ sơ lũy kế</span>'
+                html: '<div class="tcn6-card-title"><span class="tcn6-title-icon tcn6-tone-orange">' +
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + me.iconTrend + '</svg></span>' +
+                    'Tiến độ xử lý hồ sơ theo tháng</div>'
             }, {
                 xtype: 'cartesian',
                 itemId: 'tienDoLineChart_IdView',
@@ -242,7 +248,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         }];
     },
 
-    /** Cặp 2: cột Kết quả công việc trực tiếp thực hiện | cột Kết quả phạm vi quản lý. */
+    /** Cặp 2: thanh ngang Kết quả công việc trực tiếp thực hiện | thanh ngang Kết quả phạm vi quản lý. */
     buildTrangThaiCards: function () {
         const me = this;
         return [me.buildBarCard({
@@ -253,7 +259,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
             dataKey: 'trangThaiCongViecCanBo',
             store: '{trangThaiCongViecStore}',
             xField: 'name',
-            unit: 'công việc'
+            unit: 'công việc',
+            horizontal: true
         }), me.buildBarCard({
             title: 'Kết quả phạm vi quản lý',
             iconSvg: me.iconApprove,
@@ -262,7 +269,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
             dataKey: 'trangThaiCongViecCanPheDuyet',
             store: '{pheDuyetStore}',
             xField: 'name',
-            unit: 'công việc'
+            unit: 'công việc',
+            horizontal: true
         })];
     }
 });

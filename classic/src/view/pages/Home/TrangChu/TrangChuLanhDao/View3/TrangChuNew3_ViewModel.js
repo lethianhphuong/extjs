@@ -9,8 +9,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.Store.TrangChuNew3_CoCauStore',
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.Store.TrangChuNew3_BienDongStore',
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.Store.TrangChuNew3_LoaiDoiTuongStore',
-        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.Store.TrangChuNew3_DienBienStore',
-        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.DS_Hoso_GridView3.DS_Hoso_GridView3Store'
+        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.Store.TrangChuNew3_DienBienStore'
     ],
 
 
@@ -172,10 +171,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         loaiHoSoStore: {
             fields: ['code', 'ten', 'tenDayDu', 'val', 'mauHex'],
             data: []
-        },
-        // Danh sách hồ sơ của grid DS_Hoso_GridView3 (trống cho tới khi click biểu đồ)
-        dsHoSoStore: {
-            type: 'DS_Hoso_GridView3Store'
         }
+        // Danh sách hồ sơ (dsHoSoStore) nằm trong ViewModel riêng của grid DS_Hoso_GridView3
     }
 });

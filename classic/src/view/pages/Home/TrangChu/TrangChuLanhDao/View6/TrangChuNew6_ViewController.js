@@ -14,8 +14,6 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
     /** Nạp dữ liệu khi khởi tạo trang. */
     init: function () {
         const me = this;
-        // Grid DS hồ sơ có dữ liệu thì ẩn card "Danh sách hồ sơ được giao", rỗng thì hiện lại
-        me.getViewModel().getStore('dsHoSoStore').on('load', me.onDsHoSoLoad, me);
         me.loadData();
     },
 
@@ -28,6 +26,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
     /** Nguồn dữ liệu: mock (chưa kết nối API). */
     loadData: function () {
         const me = this;
+        // Dữ liệu mới: xóa tìm kiếm và ẩn grid danh sách hồ sơ của lần click trước (mixin)
+        me.resetDsHoSo();
         me.applyData(DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_MockData.getData());
     },
 
@@ -48,9 +48,10 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         vm.getStore('loaiHoSoStore').loadData(me.prepareTyLe(data.loaiHoSo, config.loaiHoSoTone, palette).items.map(function (item) {
             return Ext.apply(item, { ten: config.loaiHoSoTen[item.code] || item.name });
         }));
-        vm.getStore('trangThaiCongViecStore').loadData(me.prepareTyLe(data.trangThaiCongViecCanBo, config.trangThaiTone, palette).items);
+        // 2 biểu đồ thanh ngang (flipXY) vẽ mục đầu tiên ở dưới cùng → đảo thứ tự để đọc từ trên xuống đúng như dữ liệu
+        vm.getStore('trangThaiCongViecStore').loadData(me.prepareTyLe(data.trangThaiCongViecCanBo, config.trangThaiTone, palette).items.reverse());
         // trangThaiCongViecCanPheDuyet chưa có trong API (DataView6): đang dùng mock, cần bổ sung API
-        vm.getStore('pheDuyetStore').loadData(me.prepareTyLe(data.trangThaiCongViecCanPheDuyet, config.pheDuyetTone, palette).items);
+        vm.getStore('pheDuyetStore').loadData(me.prepareTyLe(data.trangThaiCongViecCanPheDuyet, config.pheDuyetTone, palette).items.reverse());
         vm.getStore('tienDoThangStore').loadData((data.tienDoXuLyTheoThang || []).map(row => Ext.apply({ code: row.thang }, row)));
         vm.getStore('dsHoSoDuocGiaoStore').loadData(dsHoSo.map(function (row, idx) {
             return Ext.apply({
@@ -171,14 +172,14 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         });
     },
 
-    // Cột "Kết quả công việc trực tiếp thực hiện" (D5_C05) / "Kết quả phạm vi quản lý" (D5_C06):
+    // Cột "Kết quả công việc trực tiếp thực hiện" (D5_C05) / "Kết quả phạm vi quản lý" (D5_C07):
     // click do mixin xử lý theo dataKey của chart (gắn ở onChartReady), không cần handler riêng
 
-    /** Store của grid DS_Hoso_GridView3 tải xong: có hồ sơ thì ẩn card "Danh sách hồ sơ được giao", rỗng thì hiện. */
-    onDsHoSoLoad: function (store) {
+    /** Sự kiện 'dshosoload' của grid DS_Hoso_GridView3: có hồ sơ thì ẩn card "Danh sách hồ sơ được giao", rỗng thì hiện. */
+    onDsHoSoLoad: function (grid, tong) {
         const card = this.lookupReference('hoSoDuocGiaoCard');
         if (card) {
-            card.setHidden(store.getTotalCount() > 0);
+            card.setHidden(tong > 0);
         }
     },
     //#endregion

@@ -577,6 +577,21 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Moc
                 { id: 22, maHoSo: 'HS-2026-0022', loaiHoSoCode: 'HTBM', tenLoaiHoSo: 'HTBM', ngayDuaVaoQuanLy: '2026-08-20', trangThaiCode: 'DANG_QUAN_LY', trangThai: 'Đang quản lý', tenDoiTuong: 'Lê Hoàng Cường' },
                 { id: 23, maHoSo: 'HS-2026-0023', loaiHoSoCode: 'VANV', tenLoaiHoSo: 'Vai ảo NV', ngayDuaVaoQuanLy: '2026-08-27', trangThaiCode: 'QUA_HAN', trangThai: 'Quá hạn', tenDoiTuong: 'Bùi Thu Uyên' },
                 { id: 24, maHoSo: 'HS-2026-0024', loaiHoSoCode: 'NNV', tenLoaiHoSo: 'Nhà nghiệp vụ', ngayDuaVaoQuanLy: '2026-08-07', trangThaiCode: 'CHUYEN_MUC', trangThai: 'Chuyển mức', tenDoiTuong: 'Nguyễn Văn Nam' }
+            ],
+
+            // Grid DS_Hoso_GridView3 khi click View6 "Kết quả công việc trực tiếp thực hiện" (D5_C05_LIST)
+            danhSachDeXuat: [
+                { ID: 1, LOAI_DE_XUAT: 'Đề xuất lập hồ sơ', TRANG_THAI: 'Lưu mới', GHI_CHU: 'Bổ sung tài liệu xác minh', TEN_NGUOI_KY_DUYET: 'Trần Văn Bình' },
+                { ID: 2, LOAI_DE_XUAT: 'Đề xuất chuyển mức', TRANG_THAI: 'Đợi ký', GHI_CHU: '', TEN_NGUOI_KY_DUYET: 'Nguyễn Thị Hoa' },
+                { ID: 3, LOAI_DE_XUAT: 'Đề xuất kết thúc hồ sơ', TRANG_THAI: 'Từ chối ký', GHI_CHU: 'Chưa đủ căn cứ kết thúc', TEN_NGUOI_KY_DUYET: 'Lê Quốc Tuấn' },
+                { ID: 4, LOAI_DE_XUAT: 'Đề xuất gia hạn', TRANG_THAI: 'Yêu cầu bổ sung', GHI_CHU: 'Làm rõ thời hạn gia hạn', TEN_NGUOI_KY_DUYET: 'Phạm Minh Hải' }
+            ],
+
+            // Grid DS_Hoso_GridView3 khi click View6 "Kết quả phạm vi quản lý" (D5_C07_LIST)
+            danhSachPhamViQuanLy: [
+                { ID: 1, HO_TEN: 'Vũ Thị Lan' },
+                { ID: 2, HO_TEN: 'Đặng Văn Sơn' },
+                { ID: 3, HO_TEN: 'Hoàng Trung Kiên' }
             ]
         };
     }

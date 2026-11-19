@@ -193,5 +193,14 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.DS_Hoso_GridView
 
             grid.fireEvent('taiDanhSach', params, thongTin);
         }
+    },
+
+    /** Gọi ở đầu loadData của view: xóa điều kiện tìm kiếm, làm rỗng và ẩn grid DS_Hoso_GridView3 (dữ liệu cũ không còn đúng). */
+    resetDsHoSo: function () {
+        const view = this.getView();
+        const grid = view && view.down('DS_Hoso_GridView3');
+        if (grid) {
+            grid.fireEvent('resetDanhSach');
+        }
     }
 });

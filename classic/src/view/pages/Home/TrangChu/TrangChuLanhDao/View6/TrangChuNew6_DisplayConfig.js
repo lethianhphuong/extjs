@@ -7,7 +7,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Dis
         loaiHoSo: 'D5_C03',
         tienDoXuLyTheoThang: 'D5_C04',
         trangThaiCongViecCanBo: 'D5_C05',
-        trangThaiCongViecCanPheDuyet: 'D5_C06'
+        trangThaiCongViecCanPheDuyet: 'D5_C07'
     },
 
     /** Tone màu theo mã ổn định; giá trị màu thật nằm ở CSS variable --tcn6-{tone}. */

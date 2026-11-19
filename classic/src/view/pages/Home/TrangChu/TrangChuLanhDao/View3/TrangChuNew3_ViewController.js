@@ -300,6 +300,9 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
         const viewModel = me.getViewModel();
         if (!viewModel) return;
 
+        // Dữ liệu mới: xóa tìm kiếm và ẩn grid danh sách hồ sơ của lần click trước (mixin)
+        me.resetDsHoSo();
+
         // 1. Mặc định lấy từ MockData (trùng 100% key với DataView2)
         const rawData = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_MockData.getData();
 

@@ -17,6 +17,8 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
         const vm = me.getViewModel();
         const data = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_MockData.getData();
 
+        // Dữ liệu mới: xóa tìm kiếm và ẩn grid danh sách hồ sơ của lần click trước (mixin)
+        me.resetDsHoSo();
         vm.set('chiSo', vm.prepareTongQuan(data.tongQuan));
         vm.getStore('loaiHoSoStore').loadData(vm.prepareRows(data.loaiHoSo, 'loaiHoSo'));
         vm.getStore('bienDongDonViStore').loadData(vm.prepareBienDongDonVi(data.bienDongHoSoTheoDonVi));

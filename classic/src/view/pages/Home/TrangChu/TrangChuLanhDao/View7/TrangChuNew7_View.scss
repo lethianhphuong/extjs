@@ -26,6 +26,8 @@
     --tcn7-teal: #0d9488;
     --tcn7-rose: #e11d48;
     --tcn7-pink: #c026d3;
+    --tcn7-cyan: #0891b2;
+    --tcn7-lime: #65a30d;
 
     background-color: #f8fafc;
     color: var(--tcn7-theme-text-primary);
@@ -49,6 +51,8 @@
     .tcn7-tone-teal { --tcn7-tone: var(--tcn7-teal); --tcn7-tone-soft: #f0fdfa; }
     .tcn7-tone-rose { --tcn7-tone: var(--tcn7-rose); --tcn7-tone-soft: #fff1f2; }
     .tcn7-tone-pink { --tcn7-tone: var(--tcn7-pink); --tcn7-tone-soft: #fdf4ff; }
+    .tcn7-tone-cyan { --tcn7-tone: var(--tcn7-cyan); --tcn7-tone-soft: #ecfeff; }
+    .tcn7-tone-lime { --tcn7-tone: var(--tcn7-lime); --tcn7-tone-soft: #f7fee7; }
 
     //#region NOTE: Card
     .tcn7-card {
@@ -169,10 +173,10 @@
     }
     //#endregion
 
-    //#region NOTE: Thẻ KPI theo chức vụ (10 thẻ: >= 1600px 1 hàng, nhỏ hơn 2 hàng x 5 — xem @media cuối file)
+    //#region NOTE: Thẻ KPI theo chức vụ (12 thẻ: >= 1600px 1 hàng, nhỏ hơn 2 hàng x 6 — xem @media cuối file)
     .tcn7-kpi-grid {
         display: grid;
-        grid-template-columns: unquote('repeat(5, minmax(0, 1fr))');
+        grid-template-columns: unquote('repeat(6, minmax(0, 1fr))');
         gap: 12px;
     }
 
@@ -375,9 +379,15 @@
         }
 
         .tcn7-cell-code .x-grid-cell-inner {
-            color: var(--tcn7-theme-text-secondary);
+            color: var(--tcn7-theme-text-primary);
             font-family: Consolas, "SFMono-Regular", Menlo, monospace;
             font-size: 12.5px;
+            font-weight: 700;
+        }
+
+        .tcn7-cell-donvi .x-grid-cell-inner {
+            color: var(--tcn7-theme-text-primary);
+            font-weight: 600;
         }
     }
 
@@ -441,11 +451,11 @@
     //#endregion
 }
 
-// Màn rộng (>= 1600px): 10 thẻ trên 1 hàng. Thẻ hẹp nên xếp dọc: icon, tên chức vụ, số lượng
+// Màn rộng (>= 1600px): 12 thẻ trên 1 hàng. Thẻ hẹp nên xếp dọc: icon, tên chức vụ, số lượng
 @media (min-width: 1600px) {
     .trang-chu-new7 {
         .tcn7-kpi-grid {
-            grid-template-columns: unquote('repeat(10, minmax(0, 1fr))');
+            grid-template-columns: unquote('repeat(12, minmax(0, 1fr))');
             gap: 10px;
         }
 

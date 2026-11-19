@@ -2,8 +2,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.TrangChuNew6_ViewModel',
     requires: [
-        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig',
-        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.DS_Hoso_GridView3.DS_Hoso_GridView3Store'
+        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_DisplayConfig'
     ],
 
     data: {
@@ -22,8 +21,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         // code = thang: dùng làm mã điểm khi click biểu đồ tiến độ
         tienDoThangStore: { fields: ['code', 'thang', 'sl'] },
         // Grid "Danh sách hồ sơ được giao" (TrangChuNew6_ViewGrid)
-        dsHoSoDuocGiaoStore: { fields: ['stt', 'id', 'maDoiTuong', 'loaiDoituongMoi', 'tenLoaiDoituongMoi', 'loaiTone', 'ngayKyDuyet', 'ngayKyDuyetText', 'soDangKy'] },
-        // Danh sách hồ sơ của grid DS_Hoso_GridView3 (dùng chung với View3, View5), nạp khi click biểu đồ
-        dsHoSoStore: { type: 'DS_Hoso_GridView3Store' }
+        dsHoSoDuocGiaoStore: { fields: ['stt', 'id', 'maDoiTuong', 'loaiDoituongMoi', 'tenLoaiDoituongMoi', 'loaiTone', 'ngayKyDuyet', 'ngayKyDuyetText', 'soDangKy'] }
+        // Danh sách hồ sơ (dsHoSoStore) nằm trong ViewModel riêng của grid DS_Hoso_GridView3
     }
 });

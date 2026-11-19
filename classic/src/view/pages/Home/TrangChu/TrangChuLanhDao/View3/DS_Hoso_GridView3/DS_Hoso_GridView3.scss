@@ -6,6 +6,13 @@
     background: #ffffff;
     box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 4px 12px -6px rgba(15, 23, 42, 0.12);
 
+    /* ---------- Thanh tìm kiếm trong danh sách ---------- */
+    .ds-hoso-grid3-filter {
+        padding: 4px 12px 8px !important;
+        border-bottom: 1px solid #e2e8f0 !important;
+        background: #f8fafc !important;
+    }
+
     /* ---------- Tiêu đề (header card View3) ---------- */
     .ds-hoso-grid3-header {
         padding: 14px 18px !important;
@@ -121,7 +128,8 @@
     }
 
     .ds-hoso-grid3-date .x-grid-cell-inner {
-        color: #475569;
+        color: #0f172a;
+        font-weight: 700;
         font-variant-numeric: tabular-nums;
     }
 

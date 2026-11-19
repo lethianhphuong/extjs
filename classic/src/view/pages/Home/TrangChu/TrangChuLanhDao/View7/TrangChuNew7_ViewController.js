@@ -1,7 +1,10 @@
 Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View7.TrangChuNew7_ViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.TrangChuNew7_ViewController',
-    requires: ['DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View7.TrangChuNew7_MockData'],
+    requires: [
+        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View7.TrangChuNew7_MockData',
+        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View7.TrangChuNew7_DisplayConfig'
+    ],
 
     init: function () {
         this.loadData();
@@ -24,14 +27,16 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View7.TrangChuNew7_Vie
     },
 
     /**
-     * Lọc danh sách theo mã chức vụ (TONG = tất cả), nạp vào store rồi về trang 1.
-     * @param {String} code mã chức vụ của thẻ KPI
+     * Lọc danh sách theo groupCode của thẻ KPI (TONG_SO_CAN_BO = tất cả): CODE của cán bộ (mã enum, VD '6201')
+     * đổi sang groupCode qua DisplayConfig.chucVu[].nhom rồi so với thẻ; nạp store rồi về trang 1.
+     * @param {String} code groupCode của thẻ KPI
      */
     locTheoChucVu: function (code) {
         const me = this;
         const vm = me.getViewModel();
-        const list = code === 'TONG' ? me.dsCanBo : me.dsCanBo.filter(row => row.chucVuCode === code);
-        const kpi = (vm.get('kpiRaw') || []).find(row => row.code === code);
+        const cfg = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View7.TrangChuNew7_DisplayConfig;
+        const list = code === vm.maTong ? me.dsCanBo : me.dsCanBo.filter(row => cfg.getNhom(row.CODE) === code);
+        const kpi = (vm.get('kpiRaw') || []).find(row => row.groupCode === code);
         const store = vm.getStore('dsCanBoStore');
         store.getProxy().setData(list);
         store.loadPage(1);
@@ -66,9 +71,11 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View7.TrangChuNew7_Vie
             '<a href="javascript:void(0)" class="tcn7-link">' + Ext.String.htmlEncode(val || '') + '</a></span>';
     },
 
-    /** Chức vụ: badge màu theo tone của thẻ KPI tương ứng. */
+    /** Chức vụ: tên theo danh mục mã chức vụ (DisplayConfig.chucVu), badge màu theo thẻ KPI chứa mã đó. */
     renderChucVu: function (val, meta, record) {
-        return '<span class="tcn7-badge tcn7-tone-' + this.getTone(record) + '">' + Ext.String.htmlEncode(val || '') + '</span>';
+        const ten = DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View7.TrangChuNew7_DisplayConfig.getTenChucVu(record.get('CODE'), val);
+        meta.tdAttr = 'data-qtip="' + Ext.String.htmlEncode(Ext.String.htmlEncode(ten)) + '"';
+        return '<span class="tcn7-badge tcn7-tone-' + this.getTone(record) + '">' + Ext.String.htmlEncode(ten) + '</span>';
     },
 
     renderTongHoSo: function (val) {
@@ -79,10 +86,9 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View7.TrangChuNew7_Vie
         return '<span class="tcn7-num-active">' + Number(val || 0).toLocaleString('vi-VN') + '</span>';
     },
 
-    /** Tone màu theo mã chức vụ của bản ghi (ViewModel.kpiDisplay). */
+    /** Tone màu theo thẻ KPI chứa mã chức vụ của bản ghi. */
     getTone: function (record) {
-        const def = this.getViewModel().kpiDisplay[record.get('chucVuCode')];
-        return def ? def.mau : 'blue';
+        return DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View7.TrangChuNew7_DisplayConfig.getHienThiCanBo(record.get('CODE')).mau;
     },
 
     renderDonVi: function (val, meta) {

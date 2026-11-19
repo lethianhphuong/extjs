@@ -3,8 +3,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
     alias: 'viewmodel.TrangChuNew5_ViewModel',
     requires: [
         'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_DisplayConfig',
-        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig',
-        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.DS_Hoso_GridView3.DS_Hoso_GridView3Store'
+        'DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_DisplayConfig'
     ],
     data: {
         // Ẩn/hiện từng đường của biểu đồ diễn biến khối Đơn vị
@@ -120,8 +119,7 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View5.TrangChuNew5_Vie
         dienBienStore: { fields: ['code', 'name', 'nameHover', 'moMoi', 'ketThuc'] },
         bienDongCapDonViStore: { fields: ['code', 'name', 'nameHover', 'capCuc', 'capTinh', 'capXa', 'tongSo'] },
         dienBienLucLuongStore: { fields: ['code', 'name', 'nameHover', 'moMoi', 'ketThuc'] },
-        capXaStore: { fields: ['code', 'name', 'val', 'mau'] },
-        // Danh sách hồ sơ của grid DS_Hoso_GridView3 (dùng chung với View3), nạp khi click biểu đồ
-        dsHoSoStore: { type: 'DS_Hoso_GridView3Store' }
+        capXaStore: { fields: ['code', 'name', 'val', 'mau'] }
+        // Danh sách hồ sơ (dsHoSoStore) nằm trong ViewModel riêng của grid DS_Hoso_GridView3
     }
 });
