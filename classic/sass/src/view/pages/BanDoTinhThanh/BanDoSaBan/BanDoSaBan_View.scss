@@ -1,0 +1,104 @@
+.bdsb-page {
+    .bdsb-hint {
+        font-size: 13px;
+        color: var(--theme-text-secondary);
+    }
+
+    .bdsb-map-card {
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #16394a;
+        background-color: #0a1d25;
+        box-shadow: 0 6px 18px rgba(6, 20, 26, 0.28);
+    }
+
+    .bdsb-map-header {
+        padding: 0 12px;
+        background: rgba(6, 20, 26, 0.92);
+        border-bottom: 1px solid #16394a;
+    }
+
+    .bdsb-sel {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+
+        .bdsb-sel-dot {
+            flex: none;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #4b6b78;
+        }
+
+        &.is-active .bdsb-sel-dot {
+            background: #fbbf24;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25);
+        }
+
+        .bdsb-sel-text {
+            min-width: 0;
+        }
+
+        .bdsb-sel-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #e6f1f5;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .bdsb-sel-meta {
+            font-size: 11.5px;
+            color: #8fb1bf;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .bdsb-legend {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        .bdsb-legend-label {
+            font-size: 11px;
+            color: #8fb1bf;
+        }
+
+        .bdsb-legend-bar {
+            display: inline-block;
+            width: 90px;
+            height: 8px;
+            border-radius: 4px;
+            background-color: #14b8a6;
+            background-image: linear-gradient(90deg, #164e63, #0e7490, #14b8a6, #5eead4, #ccfbf1);
+        }
+    }
+
+    .bdsb-btn {
+        background: transparent;
+        border: 1px solid #2c5466;
+        border-radius: 6px;
+
+        .x-btn-inner,
+        .x-btn-icon-el {
+            color: #cfe3ea;
+        }
+
+        &.x-btn-over {
+            background: #123241;
+        }
+    }
+
+    .bdsb-map-host {
+        --vnmap3d-ink: #dcebf1;
+        --vnmap3d-halo: #0a1d25;
+        --vnmap3d-muted: #7fa3b3;
+    }
+}

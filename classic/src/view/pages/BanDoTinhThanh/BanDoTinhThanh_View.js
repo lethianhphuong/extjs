@@ -10,7 +10,7 @@ Ext.define('DEMO.view.pages.BanDoTinhThanh.BanDoTinhThanh_View', {
 
     items: [
 
-        // 2. Hai tab: tô màu + danh sách | chỉ bản đồ
+        // Các tab: tô màu + danh sách | bản đồ | bản đồ 3D (MapLibre) | sa bàn 3D (SVG)
         {
             xtype: 'tabpanel',
             cls: 'bdtt-tabs dash-card',
@@ -25,6 +25,11 @@ Ext.define('DEMO.view.pages.BanDoTinhThanh.BanDoTinhThanh_View', {
                     xtype: 'BanDoXem_View',
                     title: 'Bản đồ',
                     iconCls: 'x-fa fa-map'
+                },
+                {
+                    xtype: 'BanDoSaBan_View',
+                    title: 'Sa bàn 3D',
+                    iconCls: 'x-fa fa-cubes'
                 }
             ]
         }

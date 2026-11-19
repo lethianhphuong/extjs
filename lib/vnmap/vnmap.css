@@ -92,3 +92,19 @@
   border:1px solid var(--vnmap-btn-border);pointer-events:none;z-index:4}
 .vnmap-legend span{display:flex;align-items:center;gap:6px;white-space:nowrap}
 .vnmap-legend svg{flex:none;width:14px;height:14px;overflow:visible}
+
+/* ---- VnMap3D: sa bàn 3D ---- */
+.vnmap3d{position:relative;width:100%;height:100%}
+.vnmap3d > svg{display:block;width:100%;height:100%}
+.vnmap3d-prov{cursor:pointer}
+.vnmap3d-prov:focus{outline:none}
+.vnmap3d-top{stroke:rgba(255,255,255,.28);stroke-width:.6;stroke-linejoin:round;vector-effect:non-scaling-stroke;transition:filter .15s}
+.vnmap3d-side{stroke-width:.8;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.vnmap3d-prov:hover .vnmap3d-top,.vnmap3d-prov:focus-visible .vnmap3d-top{filter:brightness(1.25);stroke:#ffffff;stroke-width:1.4}
+.vnmap3d-inset{fill:none;stroke:var(--vnmap3d-muted,#7fa3b3);stroke-width:.8;stroke-dasharray:4 3;vector-effect:non-scaling-stroke}
+.vnmap3d-lbl{font-weight:600;fill:var(--vnmap3d-ink,#dcebf1);text-anchor:middle;pointer-events:none;
+  paint-order:stroke;stroke:var(--vnmap3d-halo,#0a1d25);stroke-width:calc(2.6px * var(--vnmap3d-unit,1));stroke-linejoin:round}
+.vnmap3d-lbl.is-active{fill:#fbbf24;font-weight:800}
+.vnmap3d-qd{font-size:calc(10.5px * var(--vnmap3d-unit,1));fill:var(--vnmap3d-muted,#7fa3b3);text-anchor:middle;pointer-events:none}
+.vnmap3d-tip{position:absolute;pointer-events:none;background:#e6f1f5;color:#0a1d25;font-size:12px;font-weight:500;padding:3px 8px;
+  border-radius:4px;white-space:nowrap;transform:translate(-50%,-130%);opacity:0;transition:opacity .1s;z-index:10}
