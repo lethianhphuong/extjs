@@ -62,13 +62,26 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View7.TrangChuNew7_Vie
     //#endregion
 
     //#region NOTE: Grid
-    /** Họ tên: avatar chữ cái đầu (màu theo chức vụ) + tên dạng link. */
+    /** Họ tên: avatar chữ cái đầu (màu theo chức vụ) + tên dạng link (click ở onGridCellClick). */
     renderHoTen: function (val, meta, record) {
-        const words = String(val || '').trim().split(/\s+/).filter(Boolean);
-        const chuCai = words.length ? (words[0].charAt(0) + (words.length > 1 ? words[words.length - 1].charAt(0) : '')).toUpperCase() : '';
         return '<span class="tcn7-person tcn7-tone-' + this.getTone(record) + '">' +
-            '<span class="tcn7-avatar">' + Ext.String.htmlEncode(chuCai) + '</span>' +
-            '<a href="javascript:void(0)" class="tcn7-link">' + Ext.String.htmlEncode(val || '') + '</a></span>';
+            '<span class="tcn7-avatar">' + Ext.String.htmlEncode(this.getChuCaiDau(val)) + '</span>' +
+            '<span class="tcn7-link" role="link" tabindex="0">' + Ext.String.htmlEncode(val || '') + '</span></span>';
+    },
+
+    /**
+     * Chữ cái đầu của từ đầu và từ cuối trong họ tên (VD 'Đỗ Đức Huy' → 'ĐH'; 1 từ → 1 chữ; rỗng → '').
+     * @param {String} hoTen
+     * @return {String}
+     */
+    getChuCaiDau: function (hoTen) {
+        const words = String(hoTen || '').trim().split(/\s+/).filter(Boolean);
+        if (!words.length) {
+            return '';
+        }
+        const dau = words[0].charAt(0);
+        const cuoi = words.length > 1 ? words[words.length - 1].charAt(0) : '';
+        return (dau + cuoi).toUpperCase();
     },
 
     /** Chức vụ: tên theo danh mục mã chức vụ (DisplayConfig.chucVu), badge màu theo thẻ KPI chứa mã đó. */

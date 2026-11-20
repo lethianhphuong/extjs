@@ -23,7 +23,15 @@
 			"warn",
 			"always"
 		],
-		"no-nested-ternary": "error"
+		"no-nested-ternary": "error",
+		"no-script-url": "error",
+		"no-restricted-syntax": [
+			"error",
+			{
+				"selector": "ConditionalExpression ConditionalExpression",
+				"message": "Không lồng toán tử 3 ngôi (kể cả trong phép +, [] hay lời gọi hàm): tách biến hoặc dùng if (Sonar S3358)."
+			}
+		]
 	},
 	"globals": {
 		"Ext": "readonly",

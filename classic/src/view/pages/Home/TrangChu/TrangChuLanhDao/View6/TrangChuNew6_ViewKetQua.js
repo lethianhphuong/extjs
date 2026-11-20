@@ -173,10 +173,13 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View6.TrangChuNew6_Vie
         const store = chart.getStore();
         const axis = chart.getAxes()[0];
         const rect = chart.getSurface('series').getRect();
-        const maxVal = store ? (store.max('val') || 0) : 0;
-        const length = rect ? rect[chart.getFlipXY() ? 2 : 3] : 0;
+        if (!store || !rect) { return; }
+        // Thanh ngang (flipXY): đo theo chiều rộng vùng vẽ; cột dọc: theo chiều cao
+        const flipXY = chart.getFlipXY();
+        const maxVal = store.max('val') || 0;
+        const length = flipXY ? rect[2] : rect[3];
         if (!maxVal || length <= 80) { return; }
-        const ratio = chart.getFlipXY() ? 0.6 : 0.75;
+        const ratio = flipXY ? 0.6 : 0.75;
         const raw = Math.max(maxVal / ratio, maxVal * length / (length - 70));
         const step = Math.pow(10, Math.floor(Math.log10(raw))) / 4;
         const target = Math.max(1, Math.ceil(raw / step) * step);

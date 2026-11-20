@@ -93,12 +93,14 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                                 const store = chart.getStore();
                                                 const axis = chart.getAxes()[0];
                                                 const rect = chart.getSurface('series').getRect();
-                                                const maxVal = store ? (store.max('val') || 0) : 0;
+                                                if (!store || !rect) { return; }
                                                 // Cột dọc: chừa theo chiều cao; cột ngang (flipXY): chừa theo chiều rộng
-                                                const length = rect ? rect[chart.getFlipXY() ? 2 : 3] : 0;
+                                                const flipXY = chart.getFlipXY();
+                                                const maxVal = store.max('val') || 0;
+                                                const length = flipXY ? rect[2] : rect[3];
                                                 if (!maxVal || length <= 80) { return; }
                                                 // Ext ẩn nhãn "outside" khi cột chiếm gần hết trục (đo thực tế: cột dọc phải ≤ ~75%, cột ngang ≤ ~60%), tối thiểu chừa 50px
-                                                const ratio = chart.getFlipXY() ? 0.6 : 0.75;
+                                                const ratio = flipXY ? 0.6 : 0.75;
                                                 const raw = Math.max(maxVal / ratio, maxVal * length / (length - 50));
                                                 const step = Math.pow(10, Math.floor(Math.log10(raw))) / 4;
                                                 const target = Math.ceil(raw / step) * step;
@@ -570,12 +572,14 @@ Ext.define('DEMO.view.pages.Home.TrangChu.TrangChuLanhDao.View3.TrangChuNew3_Vie
                                     const store = chart.getStore();
                                     const axis = chart.getAxes()[0];
                                     const rect = chart.getSurface('series').getRect();
-                                    const maxVal = store ? (store.max('val') || 0) : 0;
+                                    if (!store || !rect) { return; }
                                     // Cột dọc: chừa theo chiều cao; cột ngang (flipXY): chừa theo chiều rộng
-                                    const length = rect ? rect[chart.getFlipXY() ? 2 : 3] : 0;
+                                    const flipXY = chart.getFlipXY();
+                                    const maxVal = store.max('val') || 0;
+                                    const length = flipXY ? rect[2] : rect[3];
                                     if (!maxVal || length <= 80) { return; }
                                     // Ext ẩn nhãn "outside" khi cột chiếm gần hết trục (đo thực tế: cột dọc phải ≤ ~75%, cột ngang ≤ ~60%), tối thiểu chừa 50px
-                                    const ratio = chart.getFlipXY() ? 0.6 : 0.75;
+                                    const ratio = flipXY ? 0.6 : 0.75;
                                     const raw = Math.max(maxVal / ratio, maxVal * length / (length - 50));
                                     const step = Math.pow(10, Math.floor(Math.log10(raw))) / 4;
                                     const target = Math.ceil(raw / step) * step;
